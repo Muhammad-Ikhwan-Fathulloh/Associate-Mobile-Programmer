@@ -66,6 +66,7 @@ Buka `index.html` atau `slides/index.html` di peramban. Tidak perlu server atau 
 - Tombol **Simulasi** atau tombol `S`: membuka simulasi interaktif pada slide yang memilikinya (17 simulasi, misalnya Haversine, validasi URL, TLS, dan counter). `Esc` menutup panel.
 - Tombol panah atas dan bawah mengganti tampilan slide (isi, gambar, tata cara). Tombol `F` membuka layar penuh. Ukuran huruf besar dan menyesuaikan layar proyektor.
 - **Slide praktik** (`slides/praktik-hari-1.html` dan `slides/praktik-hari-2.html`): satu slide per file kode, lengkap dengan nama file dan tombol **Salin**. Peserta cukup menyalin kode berurutan sampai aplikasi jadi. Slide dibuat otomatis dari `docs/hands-on/` dengan `python3 scripts/build_praktik.py`.
+- Setiap deck modul berakhir dengan bagian **Praktik Step by Step**: tujuan dan persiapan, langkah bernomor dengan kode siap salin dan hasil yang benar, Coba Sendiri, Kriteria Selesai, dan tabel Jika Terjadi Error. Bagian ini dibuat dengan `python3 scripts/build_modul_praktik.py` dari data di `scripts/modul_praktik_data.py`.
 - Setiap blok kode berwarna dan memiliki tombol **Salin**. Blok kode Flutter yang dapat berdiri sendiri memiliki tombol **DartPad** yang menyalin kode lalu membuka dartpad.dev. Kode yang memakai plugin (sqflite, geolocator, sensors_plus, dan sejenisnya) tidak dapat dijalankan di DartPad dan harus dijalankan di proyek `app/`.
 
 ## Struktur Repository

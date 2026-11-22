@@ -129,6 +129,148 @@ print(info.version.sdkInt);  // API level</code></pre>
     <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">Bagian 5. Dampak pada Desain Aplikasi</a></p>
   </section>
 
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Membaca akselerometer secara langsung</li><li>Mendeteksi guncangan</li><li>Menampilkan spesifikasi perangkat</li></ul><p><strong>Hasil akhir:</strong> Halaman sensor dengan penghitung guncangan dan halaman info perangkat. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>flutter create latihan_sensor
+cd latihan_sensor
+flutter pub add sensors_plus device_info_plus</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Langkah 1 dari 3</p>
+    <h2>Baca Akselerometer</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan di ponsel, atau emulator (Extended controls, Virtual sensors).</li><li>Gerakkan perangkat dan amati x, y, z.</li></ol><pre><code>import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+
+void main() =&gt; runApp(const MaterialApp(home: SensorPage()));
+
+class SensorPage extends StatefulWidget {
+  const SensorPage({super.key});
+
+  @override
+  State&lt;SensorPage&gt; createState() =&gt; _SensorPageState();
+}
+
+class _SensorPageState extends State&lt;SensorPage&gt; {
+  AccelerometerEvent? _e;
+  StreamSubscription&lt;AccelerometerEvent&gt;? _sub;
+
+  @override
+  void initState() {
+    super.initState();
+    _sub = accelerometerEventStream().listen((e) {
+      setState(() =&gt; _e = e);
+    });
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final e = _e;
+    return Scaffold(
+      appBar: AppBar(title: const Text('Akselerometer')),
+      body: Center(
+        child: Text(
+          e == null
+              ? 'Menunggu data'
+              : 'x: ${e.x.toStringAsFixed(2)}\n'
+                  'y: ${e.y.toStringAsFixed(2)}\n'
+                  'z: ${e.z.toStringAsFixed(2)}',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Saat diam di meja, z mendekati 9,8 (gravitasi). Nilai berubah saat digerakkan.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Langkah 2 dari 3</p>
+    <h2>Deteksi Guncangan</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>lib/main.dart (ubah listener dan tampilan)</span></div><ol class="mini"><li>Tambahkan <code>import 'dart:math';</code> dan variabel <code>int _goyang = 0;</code>.</li><li>Ganti isi <code>listen</code> dengan kode di bawah.</li><li>Tampilkan <code>$_goyang</code> pada <code>Text</code>.</li></ol><pre><code>    _sub = accelerometerEventStream().listen((e) {
+      final total = sqrt(e.x * e.x + e.y * e.y + e.z * e.z);
+      setState(() {
+        _e = e;
+        if (total &gt; 15) _goyang++;
+      });
+    });</code></pre><div class="hasil"><b>Hasil yang benar</b> Guncangan keras menaikkan penghitung. Ambang 15 m/s² di atas gravitasi (9,8).</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Langkah 3 dari 3</p>
+    <h2>Info Perangkat</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/info.dart (halaman baru)</span></div><ol class="mini"><li>Buat <code>lib/info.dart</code>, tempel kode.</li><li>Di <code>main.dart</code> ubah <code>home</code> menjadi <code>const InfoPage()</code> dan tambahkan <code>import 'info.dart';</code>.</li><li>Jalankan di perangkat Android.</li></ol><pre><code>import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/material.dart';
+
+class InfoPage extends StatelessWidget {
+  const InfoPage({super.key});
+
+  Future&lt;String&gt; _ambil() async {
+    final info = await DeviceInfoPlugin().androidInfo;
+    return '${info.brand} ${info.model}\n'
+        'Android ${info.version.release} (API ${info.version.sdkInt})';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Info Perangkat')),
+      body: Center(
+        child: FutureBuilder&lt;String&gt;(
+          future: _ambil(),
+          builder: (context, snap) {
+            if (!snap.hasData) return const CircularProgressIndicator();
+            return Text(snap.data!, textAlign: TextAlign.center);
+          },
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Merek, model, dan versi Android perangkat tampil. Kode ini khusus Android.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tambahkan debounce agar satu guncangan hanya dihitung sekali (simpan waktu terakhir dan beri jeda 500 ms).</li><li>Tampilkan bar indikator <code>LinearProgressIndicator</code> sesuai besar percepatan.</li><li>Tambahkan <code>Platform.isIOS</code> agar halaman info tidak gagal di iOS.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Nilai x, y, z berubah saat digerakkan</li><li>Langganan sensor dibatalkan di <code>dispose</code></li><li>Penghitung guncangan bekerja</li><li>Info perangkat tampil di Android</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Nilai tidak berubah di emulator</td><td>Gunakan Extended controls, Virtual sensors, lalu gerakkan perangkat virtual.</td></tr><tr><td>Baterai cepat habis</td><td>Pastikan <code>cancel()</code> dipanggil di <code>dispose</code>.</td></tr><tr><td><code>androidInfo</code> gagal di iOS</td><td>Gunakan <code>iosInfo</code> pada iOS atau periksa <code>Platform.isAndroid</code>.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Praktik</p>

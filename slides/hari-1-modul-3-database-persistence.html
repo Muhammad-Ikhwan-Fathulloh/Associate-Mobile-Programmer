@@ -193,6 +193,186 @@ Future&lt;int&gt; hapus(int id) async {
     <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">Bagian 9. Konsep Offline-First dan Sinkronisasi</a></p>
   </section>
 
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 3</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Membuat database SQLite dengan sqflite</li><li>Melakukan tambah, baca, dan hapus data</li><li>Membuktikan data bertahan setelah aplikasi ditutup</li></ul><p><strong>Hasil akhir:</strong> Aplikasi catatan sederhana yang menyimpan data di SQLite. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>flutter create latihan_db
+cd latihan_db
+flutter pub add sqflite path</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 3 · Langkah 1 dari 3</p>
+    <h2>Lapisan Database</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>lib/db.dart</span></div><ol class="mini"><li>Buat file baru <code>lib/db.dart</code>.</li><li>Tempel kode, simpan.</li><li>Perhatikan <code>onCreate</code> hanya berjalan saat database pertama dibuat.</li></ol><pre><code>import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
+
+class Db {
+  static Database? _db;
+
+  static Future&lt;Database&gt; get instance async {
+    if (_db != null) return _db!;
+    final lokasi = join(await getDatabasesPath(), 'latihan.db');
+    _db = await openDatabase(
+      lokasi,
+      version: 1,
+      onCreate: (db, versi) =&gt; db.execute(
+        'CREATE TABLE catatan ('
+        'id INTEGER PRIMARY KEY AUTOINCREMENT, '
+        'judul TEXT NOT NULL)',
+      ),
+    );
+    return _db!;
+  }
+
+  static Future&lt;List&lt;Map&lt;String, Object?&gt;&gt;&gt; semua() async {
+    final db = await instance;
+    return db.query('catatan', orderBy: 'id DESC');
+  }
+
+  static Future&lt;int&gt; tambah(String judul) async {
+    final db = await instance;
+    return db.insert('catatan', {'judul': judul});
+  }
+
+  static Future&lt;int&gt; hapus(int id) async {
+    final db = await instance;
+    return db.delete('catatan', where: 'id = ?', whereArgs: [id]);
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> File tersimpan tanpa error merah. Belum ada tampilan, ini hanya lapisan data.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 3 · Langkah 2 dari 3</p>
+    <h2>Tampilan Catatan</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan di emulator atau ponsel (bukan web).</li><li>Tambahkan beberapa catatan lewat kolom teks.</li></ol><pre><code>import 'package:flutter/material.dart';
+
+import 'db.dart';
+
+void main() =&gt; runApp(const MaterialApp(home: CatatanPage()));
+
+class CatatanPage extends StatefulWidget {
+  const CatatanPage({super.key});
+
+  @override
+  State&lt;CatatanPage&gt; createState() =&gt; _CatatanPageState();
+}
+
+class _CatatanPageState extends State&lt;CatatanPage&gt; {
+  final _input = TextEditingController();
+  List&lt;Map&lt;String, Object?&gt;&gt; _data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _muat();
+  }
+
+  @override
+  void dispose() {
+    _input.dispose();
+    super.dispose();
+  }
+
+  Future&lt;void&gt; _muat() async {
+    final hasil = await Db.semua();
+    if (!mounted) return;
+    setState(() =&gt; _data = hasil);
+  }
+
+  Future&lt;void&gt; _tambah() async {
+    final teks = _input.text.trim();
+    if (teks.isEmpty) return;
+    await Db.tambah(teks);
+    _input.clear();
+    await _muat();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Catatan SQLite')),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _input,
+                    decoration: const InputDecoration(hintText: 'Tulis catatan'),
+                  ),
+                ),
+                IconButton(onPressed: _tambah, icon: const Icon(Icons.add)),
+              ],
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _data.length,
+              itemBuilder: (context, i) {
+                final baris = _data[i];
+                return ListTile(
+                  title: Text('${baris['judul']}'),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () async {
+                      await Db.hapus(baris['id'] as int);
+                      await _muat();
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Catatan baru muncul di daftar paling atas. Ikon sampah menghapus catatan.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 3 · Langkah 3 dari 3</p>
+    <h2>Buktikan Data Tersimpan</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>Perangkat</span></div><ol class="mini"><li>Tambahkan tiga catatan.</li><li>Tutup aplikasi sepenuhnya (geser dari daftar aplikasi terbaru).</li><li>Buka lagi aplikasi atau jalankan <code>flutter run</code> ulang.</li></ol><pre><code>flutter run</code></pre><div class="hasil"><b>Hasil yang benar</b> Tiga catatan masih ada. Itulah data persistence: data hidup di file database, bukan di memori.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 3 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tambahkan kolom <code>isi</code> (TEXT). Naikkan <code>version</code> menjadi 2 dan tulis <code>onUpgrade</code> dengan <code>ALTER TABLE</code>.</li><li>Tambahkan pencarian dengan <code>where: 'judul LIKE ?'</code> dan <code>whereArgs: ['%kata%']</code>.</li><li>Tambahkan fitur ubah catatan memakai <code>db.update</code>.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 3 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Tabel dibuat otomatis saat pertama dijalankan</li><li>Tambah dan hapus berfungsi</li><li>Data tetap ada setelah aplikasi ditutup</li><li>Database dibuka lewat satu <code>instance</code> (singleton)</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 3 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td><code>MissingPluginException</code></td><td>Hentikan aplikasi, jalankan <code>flutter clean</code>, lalu <code>flutter run</code> ulang (jangan hot reload setelah menambah plugin).</td></tr><tr><td>Berjalan di web gagal</td><td>sqflite tidak mendukung web. Jalankan di Android atau iOS.</td></tr><tr><td>Kolom baru tidak muncul</td><td>Naikkan <code>version</code> dan tulis <code>onUpgrade</code>, atau hapus data aplikasi saat latihan.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan</p>

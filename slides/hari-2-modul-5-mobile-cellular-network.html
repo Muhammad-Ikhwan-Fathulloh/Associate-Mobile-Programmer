@@ -135,6 +135,142 @@ Connectivity().onConnectivityChanged.listen((hasil) {
     <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">Bagian 5. Pengaruh Jenis Jaringan terhadap Aplikasi</a></p>
   </section>
 
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Membaca jenis koneksi aktif</li><li>Memantau perubahan koneksi secara langsung</li><li>Menampilkan peringatan saat offline atau seluler</li></ul><p><strong>Hasil akhir:</strong> Halaman yang berubah otomatis saat Wi-Fi atau data seluler dimatikan. <strong>Waktu:</strong> 30 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>flutter create latihan_jaringan
+cd latihan_jaringan
+flutter pub add connectivity_plus</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Langkah 1 dari 3</p>
+    <h2>Izin Status Jaringan</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>android/app/src/main/AndroidManifest.xml</span></div><ol class="mini"><li>Buka <code>AndroidManifest.xml</code>.</li><li>Tambahkan dua izin sebelum <code>&lt;application&gt;</code>.</li><li>Simpan.</li></ol><pre><code>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;</code></pre><div class="hasil"><b>Hasil yang benar</b> Aplikasi diizinkan membaca status jaringan.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Langkah 2 dari 3</p>
+    <h2>Cek Koneksi Sekali</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan aplikasi.</li><li>Tekan tombol Periksa.</li></ol><pre><code>import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+
+String label(List&lt;ConnectivityResult&gt; hasil) {
+  if (hasil.isEmpty || hasil.contains(ConnectivityResult.none)) {
+    return 'Tidak ada koneksi';
+  }
+  if (hasil.contains(ConnectivityResult.wifi)) return 'Wi-Fi';
+  if (hasil.contains(ConnectivityResult.mobile)) return 'Seluler';
+  return 'Lainnya';
+}
+
+void main() =&gt; runApp(const MaterialApp(home: JaringanPage()));
+
+class JaringanPage extends StatefulWidget {
+  const JaringanPage({super.key});
+
+  @override
+  State&lt;JaringanPage&gt; createState() =&gt; _JaringanPageState();
+}
+
+class _JaringanPageState extends State&lt;JaringanPage&gt; {
+  String _teks = 'Tekan Periksa';
+
+  Future&lt;void&gt; _periksa() async {
+    final hasil = await Connectivity().checkConnectivity();
+    setState(() =&gt; _teks = label(hasil));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Jaringan')),
+      body: Center(
+        child: Text(_teks, style: Theme.of(context).textTheme.headlineMedium),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _periksa,
+        label: const Text('Periksa'),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Teks menampilkan Wi-Fi, Seluler, atau Tidak ada koneksi sesuai kondisi saat ditekan.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Langkah 3 dari 3</p>
+    <h2>Pantau Perubahan (Stream)</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/main.dart (ganti kelas _JaringanPageState)</span></div><ol class="mini"><li>Tambahkan <code>import 'dart:async';</code> di baris paling atas.</li><li>Ganti <code>_JaringanPageState</code> dengan kode di bawah.</li><li>Matikan lalu nyalakan Wi-Fi atau mode pesawat, amati teks.</li></ol><pre><code>class _JaringanPageState extends State&lt;JaringanPage&gt; {
+  List&lt;ConnectivityResult&gt; _hasil = [];
+  StreamSubscription&lt;List&lt;ConnectivityResult&gt;&gt;? _langganan;
+
+  @override
+  void initState() {
+    super.initState();
+    Connectivity().checkConnectivity().then((h) {
+      if (mounted) setState(() =&gt; _hasil = h);
+    });
+    _langganan = Connectivity().onConnectivityChanged.listen((h) {
+      setState(() =&gt; _hasil = h);
+    });
+  }
+
+  @override
+  void dispose() {
+    _langganan?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Jaringan')),
+      body: Center(
+        child: Text(
+          label(_hasil),
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Teks berubah sendiri tanpa tombol. <code>dispose</code> membatalkan langganan agar tidak bocor.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tampilkan kartu peringatan bila koneksi seluler: unduhan besar sebaiknya menunggu Wi-Fi.</li><li>Tampilkan kartu informasi bila tidak ada koneksi: data tersimpan tetap dapat dibuka.</li><li>Tambahkan label Ethernet dan VPN pada fungsi <code>label</code>.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Label berubah saat Wi-Fi dimatikan</li><li>Langganan stream dibatalkan di <code>dispose</code></li><li>Kondisi offline ditangani dengan pesan ramah</li><li>Peserta tahu bahwa 2G sampai 5G tidak dapat dibaca lewat paket ini</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Label tidak berubah di emulator</td><td>Ubah koneksi lewat Quick Settings emulator, bukan lewat PC.</td></tr><tr><td><code>setState() called after dispose()</code></td><td>Batalkan langganan di <code>dispose</code> dan periksa <code>mounted</code>.</td></tr><tr><td>Hasil berupa daftar, bukan satu nilai</td><td>connectivity_plus versi 6 mengembalikan <code>List&lt;ConnectivityResult&gt;</code>.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Praktik</p>

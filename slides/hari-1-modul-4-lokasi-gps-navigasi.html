@@ -198,6 +198,140 @@ Stream&lt;Position&gt; pantauPosisi({int jarakMinimalMeter = 5}) {
     <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">Bagian 8. Akurasi dan Konsumsi Baterai</a></p>
   </section>
 
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Meminta izin lokasi dengan benar</li><li>Mengambil posisi pengguna</li><li>Menghitung jarak dengan Haversine</li></ul><p><strong>Hasil akhir:</strong> Halaman yang menampilkan koordinat dan jarak ke titik acuan. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>flutter create latihan_lokasi
+cd latihan_lokasi
+flutter pub add geolocator</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Langkah 1 dari 4</p>
+    <h2>Izin Android</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>android/app/src/main/AndroidManifest.xml</span></div><ol class="mini"><li>Buka <code>AndroidManifest.xml</code>.</li><li>Tambahkan dua izin di dalam <code>&lt;manifest&gt;</code>, sebelum <code>&lt;application&gt;</code>.</li><li>Simpan.</li></ol><pre><code>&lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;</code></pre><div class="hasil"><b>Hasil yang benar</b> File XML tersimpan tanpa kesalahan format. Tanpa izin ini aplikasi tidak dapat meminta lokasi.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Langkah 2 dari 4</p>
+    <h2>Haversine Murni (Tanpa Perangkat)</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>haversine.dart (di folder latihan_lokasi)</span></div><ol class="mini"><li>Buat file <code>haversine.dart</code>.</li><li>Salin kode, simpan.</li><li>Jalankan <code>dart run haversine.dart</code>.</li></ol><pre><code>import 'dart:math';
+
+double _rad(double d) =&gt; d * pi / 180;
+
+double jarakMeter(double lat1, double lon1, double lat2, double lon2) {
+  const r = 6371000.0;
+  final dLat = _rad(lat2 - lat1);
+  final dLon = _rad(lon2 - lon1);
+  final a = pow(sin(dLat / 2), 2) +
+      cos(_rad(lat1)) * cos(_rad(lat2)) * pow(sin(dLon / 2), 2);
+  return 2 * r * asin(sqrt(a));
+}
+
+void main() {
+  // Monas (Jakarta) ke Gedung Sate (Bandung), koordinat perkiraan
+  final m = jarakMeter(-6.1754, 106.8272, -6.9025, 107.6186);
+  print('${(m / 1000).toStringAsFixed(1)} km');
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Keluaran sekitar 119.1 km.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Langkah 3 dari 4</p>
+    <h2>Ambil Posisi Pengguna</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan di emulator atau ponsel.</li><li>Tekan tombol dan setujui dialog izin.</li></ol><pre><code>import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
+void main() =&gt; runApp(const MaterialApp(home: LokasiPage()));
+
+class LokasiPage extends StatefulWidget {
+  const LokasiPage({super.key});
+
+  @override
+  State&lt;LokasiPage&gt; createState() =&gt; _LokasiPageState();
+}
+
+class _LokasiPageState extends State&lt;LokasiPage&gt; {
+  String _teks = 'Belum ada posisi';
+
+  Future&lt;void&gt; _ambil() async {
+    if (!await Geolocator.isLocationServiceEnabled()) {
+      setState(() =&gt; _teks = 'GPS tidak aktif');
+      return;
+    }
+    var izin = await Geolocator.checkPermission();
+    if (izin == LocationPermission.denied) {
+      izin = await Geolocator.requestPermission();
+    }
+    if (izin == LocationPermission.denied ||
+        izin == LocationPermission.deniedForever) {
+      setState(() =&gt; _teks = 'Izin lokasi ditolak');
+      return;
+    }
+    final p = await Geolocator.getCurrentPosition();
+    setState(() =&gt; _teks = '${p.latitude}, ${p.longitude}');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Lokasi')),
+      body: Center(child: Text(_teks, textAlign: TextAlign.center)),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _ambil,
+        icon: const Icon(Icons.my_location),
+        label: const Text('Ambil lokasi'),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Koordinat tampil. Di emulator, atur lokasi lewat Extended controls, menu Location.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Langkah 4 dari 4</p>
+    <h2>Jarak ke Titik Acuan</h2>
+<div class="filebar"><b>LANGKAH 4</b><span>lib/jarak.dart dan lib/main.dart</span></div><ol class="mini"><li>Salin fungsi <code>jarakMeter</code> (tanpa <code>main</code>) ke file baru <code>lib/jarak.dart</code>.</li><li>Di <code>main.dart</code> tambahkan <code>import 'jarak.dart';</code>.</li><li>Ganti dua baris terakhir <code>_ambil</code> dengan kode di bawah.</li></ol><pre><code>    final p = await Geolocator.getCurrentPosition();
+    // Titik acuan: Gedung Sate, Bandung (perkiraan)
+    final m = jarakMeter(p.latitude, p.longitude, -6.9025, 107.6186);
+    setState(() =&gt; _teks = 'Jarak ke Gedung Sate: ${(m / 1000).toStringAsFixed(2)} km');</code></pre><div class="hasil"><b>Hasil yang benar</b> Jarak tampil dalam km. Bandingkan dengan <code>Geolocator.distanceBetween(...)</code>, hasilnya hampir sama.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tampilkan jarak dalam meter bila kurang dari 1 km.</li><li>Ganti titik acuan dengan lokasi Graha Pos Bandung.</li><li>Gunakan <code>Geolocator.getPositionStream</code> untuk memperbarui jarak saat bergerak.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Dialog izin muncul saat pertama kali</li><li>Penolakan izin ditangani dengan pesan jelas</li><li>Jarak Haversine mendekati <code>distanceBetween</code></li><li>Fungsi jarak berada di file terpisah</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Izin tidak pernah muncul</td><td>Periksa izin di <code>AndroidManifest.xml</code>, lalu pasang ulang aplikasi.</td></tr><tr><td><code>getCurrentPosition</code> menggantung</td><td>Aktifkan GPS dan atur lokasi emulator.</td></tr><tr><td><code>deniedForever</code></td><td>Pengguna harus mengizinkan lewat Pengaturan aplikasi. Buka dengan <code>Geolocator.openAppSettings()</code>.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan</p>

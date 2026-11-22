@@ -105,6 +105,103 @@
     <p class="ref">Materi: <a href="../docs/hari-2/08-latihan-uji-kompetensi.md">Bagian C. Pembahasan</a></p>
   </section>
 
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 8</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Mengerjakan tugas praktik pada proyek <code>app/</code></li><li>Menulis unit test tambahan</li><li>Menjawab soal teori dengan pola jawaban yang jelas</li></ul><p><strong>Hasil akhir:</strong> Tiga tugas praktik selesai dan semua tes lulus. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>cd app
+flutter pub get
+flutter test</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 8 · Langkah 1 dari 3</p>
+    <h2>Tugas 1: Format Versi Android</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>lib/pages/device_page.dart</span></div><ol class="mini"><li>Cari baris <code>'Versi Android'</code>.</li><li>Ubah menjadi format <code>Android 14 (API 34)</code>.</li><li>Jalankan halaman perangkat dan baca hasilnya.</li></ol><pre><code>        'Versi Android':
+            'Android ${info.version.release} (API ${info.version.sdkInt})',</code></pre><div class="hasil"><b>Hasil yang benar</b> Tampil misalnya Android 14 (API 34), sesuai versi perangkat.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 8 · Langkah 2 dari 3</p>
+    <h2>Tugas 2: Unit Test Tambahan</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>test/https_service_test.dart</span></div><ol class="mini"><li>Buka berkas tes.</li><li>Tambahkan dua tes di dalam <code>main()</code>.</li><li>Jalankan <code>flutter test test/https_service_test.dart</code>.</li></ol><pre><code>  test('URL dengan skema ftp ditolak', () {
+    expect(periksaUrlAman('ftp://contoh.test/data'), 'Gunakan HTTPS (https://).');
+  });
+
+  test('URL https dengan spasi di tepi tetap diterima', () {
+    expect(periksaUrlAman('  https://contoh.test/data  '), isNull);
+  });</code></pre><div class="hasil"><b>Hasil yang benar</b> Semua tes lulus (All tests passed).</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 8 · Langkah 3 dari 3</p>
+    <h2>Tugas 3: Konfirmasi Hapus Token</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/pages/keamanan_page.dart</span></div><ol class="mini"><li>Ganti method <code>_hapus</code> dengan kode di bawah.</li><li>Jalankan halaman keamanan.</li><li>Tekan Hapus: dialog konfirmasi harus muncul.</li></ol><pre><code>  Future&lt;void&gt; _hapus() async {
+    final yakin = await showDialog&lt;bool&gt;(
+      context: context,
+      builder: (context) =&gt; AlertDialog(
+        title: const Text('Hapus token?'),
+        content: const Text('Token akan dihapus dari secure storage.'),
+        actions: [
+          TextButton(
+            onPressed: () =&gt; Navigator.pop(context, false),
+            child: const Text('Batal'),
+          ),
+          FilledButton(
+            onPressed: () =&gt; Navigator.pop(context, true),
+            child: const Text('Hapus'),
+          ),
+        ],
+      ),
+    );
+    if (yakin != true || !mounted) return;
+    await _storage.hapusToken();
+    await _muatToken();
+    _pesan('Token dihapus.');
+  }</code></pre><div class="hasil"><b>Hasil yang benar</b> Dialog muncul. Batal tidak menghapus, Hapus menghapus token dan menampilkan pesan.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 8 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tampilkan peringatan di halaman jaringan bila koneksi seluler (periksa dulu, kodenya sudah ada di <code>network_page.dart</code>).</li><li>Tambahkan tes untuk <code>labelJaringan</code> dengan <code>ConnectivityResult.ethernet</code>.</li><li>Validasi judul catatan agar tidak boleh hanya spasi (periksa <code>trim()</code> pada <code>note_form_page.dart</code>).</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 8 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Tiga tugas praktik berjalan</li><li><code>flutter test</code> lulus seluruhnya</li><li><code>flutter analyze</code> tanpa peringatan baru</li><li>Rencana belajar mandiri terisi</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 8 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Tes gagal: <code>Expected ... Actual ...</code></td><td>Baca kedua nilai, samakan teks pesan persis, termasuk titik di akhir.</td></tr><tr><td><code>use_build_context_synchronously</code></td><td>Periksa <code>mounted</code> sebelum memakai <code>context</code> setelah <code>await</code>.</td></tr><tr><td>Berkas tes tidak ditemukan</td><td>Pastikan menjalankan perintah dari folder <code>app/</code>.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 8 · Teori</p>
+    <h2>Contoh Jawaban Soal Teori</h2>
+<table><tr><th>Soal</th><th>Jawaban singkat</th></tr><tr><td>Perbedaan 4G dan 5G</td><td>5G lebih cepat, latensinya jauh lebih rendah, dan kapasitas perangkat per area lebih besar.</td></tr><tr><td>Fungsi handover</td><td>Memindahkan sesi pengguna ke menara lain saat bergerak, tanpa memutus koneksi.</td></tr><tr><td>Autentikasi vs otorisasi</td><td>Autentikasi memastikan siapa pengguna. Otorisasi menentukan apa yang boleh ia lakukan.</td></tr><tr><td>Peran TLS</td><td>Mengenkripsi data, memverifikasi identitas server, dan menjaga data tidak diubah di jalan.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Mandiri</p>

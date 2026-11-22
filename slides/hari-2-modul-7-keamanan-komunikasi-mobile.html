@@ -154,6 +154,204 @@ await penyimpanan.delete(key: 'token');</code></pre>
     <p class="ref">Materi: <a href="../docs/hari-2/07-keamanan-komunikasi-mobile.md">Bagian 5. Praktik Keamanan Dasar</a> · Implementasi: <a href="../app/lib/services/https_service.dart">app/lib/services/https_service.dart</a></p>
   </section>
 
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 7</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Memvalidasi URL agar hanya HTTPS</li><li>Menyimpan token di secure storage</li><li>Memanggil API publik dengan timeout</li></ul><p><strong>Hasil akhir:</strong> Halaman keamanan: simpan token dan ambil data dari API lewat HTTPS. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>flutter create latihan_aman
+cd latihan_aman
+flutter pub add http flutter_secure_storage</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 7 · Langkah 1 dari 3</p>
+    <h2>Validasi URL (Tanpa Perangkat)</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>url_check.dart (di folder latihan_aman)</span></div><ol class="mini"><li>Buat file <code>url_check.dart</code>.</li><li>Salin kode, simpan.</li><li>Jalankan <code>dart run url_check.dart</code>.</li></ol><pre><code>/// Mengembalikan pesan error jika URL tidak aman, atau null jika aman.
+String? periksaUrlAman(String url) {
+  final uri = Uri.tryParse(url.trim());
+  if (uri == null || !uri.hasAuthority) {
+    return 'URL tidak valid.';
+  }
+  if (uri.scheme != 'https') {
+    return 'Gunakan HTTPS (https://).';
+  }
+  return null;
+}
+
+void main() {
+  for (final u in ['https://contoh.test/a', 'http://contoh.test/a', 'bukan url']) {
+    print('$u -&gt; ${periksaUrlAman(u) ?? 'aman'}');
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> https diterima (aman), http ditolak dengan pesan HTTPS, teks bebas dianggap tidak valid.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 7 · Langkah 2 dari 3</p>
+    <h2>Simpan Token di Secure Storage</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan di emulator atau ponsel.</li><li>Isi token, tekan Simpan, lalu tutup dan buka aplikasi.</li></ol><pre><code>import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+void main() =&gt; runApp(const MaterialApp(home: TokenPage()));
+
+class TokenPage extends StatefulWidget {
+  const TokenPage({super.key});
+
+  @override
+  State&lt;TokenPage&gt; createState() =&gt; _TokenPageState();
+}
+
+class _TokenPageState extends State&lt;TokenPage&gt; {
+  static const _storage = FlutterSecureStorage();
+  final _input = TextEditingController();
+  String _tersimpan = '(belum ada)';
+
+  @override
+  void initState() {
+    super.initState();
+    _muat();
+  }
+
+  @override
+  void dispose() {
+    _input.dispose();
+    super.dispose();
+  }
+
+  String _samarkan(String t) =&gt;
+      t.length &lt;= 4 ? '****' : '${t.substring(0, 2)}****${t.substring(t.length - 2)}';
+
+  Future&lt;void&gt; _muat() async {
+    final t = await _storage.read(key: 'token');
+    if (!mounted) return;
+    setState(() =&gt; _tersimpan = t == null ? '(belum ada)' : _samarkan(t));
+  }
+
+  Future&lt;void&gt; _simpan() async {
+    await _storage.write(key: 'token', value: _input.text.trim());
+    _input.clear();
+    await _muat();
+  }
+
+  Future&lt;void&gt; _hapus() async {
+    await _storage.delete(key: 'token');
+    await _muat();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Token Aman')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            TextField(
+              controller: _input,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Token',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                FilledButton(onPressed: _simpan, child: const Text('Simpan')),
+                const SizedBox(width: 12),
+                OutlinedButton(onPressed: _hapus, child: const Text('Hapus')),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Text('Tersimpan: $_tersimpan'),
+          ],
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Token tampil tersamar (misalnya ab****yz) dan tetap ada setelah aplikasi dibuka ulang.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 7 · Langkah 3 dari 3</p>
+    <h2>Panggil API Lewat HTTPS</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/api.dart (halaman baru)</span></div><ol class="mini"><li>Buat <code>lib/api.dart</code>, tempel kode.</li><li>Ubah <code>home</code> di <code>main.dart</code> menjadi <code>const ApiPage()</code> dan tambahkan <code>import 'api.dart';</code>.</li><li>Jalankan, tekan Ambil data. Matikan internet untuk melihat pesan galat.</li></ol><pre><code>import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+class ApiPage extends StatefulWidget {
+  const ApiPage({super.key});
+
+  @override
+  State&lt;ApiPage&gt; createState() =&gt; _ApiPageState();
+}
+
+class _ApiPageState extends State&lt;ApiPage&gt; {
+  String _hasil = 'Tekan Ambil data';
+
+  Future&lt;void&gt; _ambil() async {
+    setState(() =&gt; _hasil = 'Memuat...');
+    try {
+      final res = await http
+          .get(Uri.parse('https://jsonplaceholder.typicode.com/posts/1'))
+          .timeout(const Duration(seconds: 10));
+      if (res.statusCode != 200) {
+        throw Exception('Status ${res.statusCode}');
+      }
+      final data = jsonDecode(res.body) as Map&lt;String, dynamic&gt;;
+      setState(() =&gt; _hasil = '${data['title']}');
+    } catch (e) {
+      setState(() =&gt; _hasil = 'Gagal: $e');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('API HTTPS')),
+      body: Center(child: Padding(padding: const EdgeInsets.all(16), child: Text(_hasil))),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _ambil,
+        label: const Text('Ambil data'),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Judul post dari JSONPlaceholder tampil. Tanpa internet muncul pesan Gagal, bukan aplikasi menggantung.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 7 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Panggil <code>periksaUrlAman</code> sebelum <code>http.get</code> dan tolak URL non-HTTPS.</li><li>Tambahkan tombol konfirmasi sebelum menghapus token.</li><li>Tampilkan pesan khusus bila terjadi <code>TimeoutException</code>.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 7 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>URL http ditolak sebelum dikirim</li><li>Token tersimpan dan tersamar di layar</li><li>Permintaan memakai timeout</li><li>Kegagalan jaringan ditangani tanpa crash</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 7 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Gagal di rilis, normal di debug</td><td>Pastikan izin <code>INTERNET</code> ada di <code>AndroidManifest.xml</code>.</td></tr><tr><td><code>PlatformException</code> saat membaca storage</td><td>Hapus data aplikasi lalu jalankan ulang, atau gunakan perangkat Android 6 ke atas.</td></tr><tr><td>Timeout terus-menerus</td><td>Periksa koneksi dan pastikan alamat API benar.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Praktik</p>

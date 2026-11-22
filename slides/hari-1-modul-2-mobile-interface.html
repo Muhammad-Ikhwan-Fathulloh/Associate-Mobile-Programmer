@@ -200,6 +200,197 @@ context.pop();</code></pre>
     <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">Bagian 6. Navigasi</a></p>
   </section>
 
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Menerapkan tema Material 3</li><li>Membuat daftar dan berpindah halaman</li><li>Membuat form dengan validasi</li><li>Membuat tata letak responsif</li></ul><p><strong>Hasil akhir:</strong> Tiga halaman latihan: daftar menu, form validasi, dan grid responsif. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>Pakai proyek `latihan` dari Modul 1.
+Setiap langkah mengganti isi lib/main.dart.</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Langkah 1 dari 3</p>
+    <h2>Tema, Daftar, dan Navigasi</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan aplikasi.</li><li>Ketuk salah satu menu untuk membuka halaman detail.</li></ol><pre><code>import 'package:flutter/material.dart';
+
+void main() =&gt; runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Latihan UI',
+      theme: ThemeData(colorSchemeSeed: Colors.teal, useMaterial3: true),
+      home: const DaftarPage(),
+    );
+  }
+}
+
+class DaftarPage extends StatelessWidget {
+  const DaftarPage({super.key});
+
+  static const _menu = ['Catatan', 'Lokasi', 'Jaringan', 'Sensor'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Beranda')),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: _menu.length,
+        itemBuilder: (context, i) =&gt; Card(
+          child: ListTile(
+            leading: const Icon(Icons.apps),
+            title: Text(_menu[i]),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () =&gt; Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) =&gt; DetailPage(judul: _menu[i])),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DetailPage extends StatelessWidget {
+  const DetailPage({super.key, required this.judul});
+  final String judul;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(judul)),
+      body: Center(child: Text('Halaman $judul')),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Daftar empat menu. Mengetuk menu membuka halaman, tombol kembali berfungsi.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Langkah 2 dari 3</p>
+    <h2>Form dengan Validasi</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>lib/main.dart (tambahkan kelas di bagian bawah)</span></div><ol class="mini"><li>Tempel kelas <code>FormPage</code> di akhir file.</li><li>Ubah <code>home: const DaftarPage()</code> menjadi <code>home: const FormPage()</code>.</li><li>Coba simpan dengan judul kosong, lalu dengan judul valid.</li></ol><pre><code>class FormPage extends StatefulWidget {
+  const FormPage({super.key});
+
+  @override
+  State&lt;FormPage&gt; createState() =&gt; _FormPageState();
+}
+
+class _FormPageState extends State&lt;FormPage&gt; {
+  final _kunci = GlobalKey&lt;FormState&gt;();
+  final _judul = TextEditingController();
+
+  @override
+  void dispose() {
+    _judul.dispose();
+    super.dispose();
+  }
+
+  void _simpan() {
+    if (!_kunci.currentState!.validate()) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Tersimpan: ${_judul.text.trim()}')),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Form Catatan')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _kunci,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _judul,
+                decoration: const InputDecoration(
+                  labelText: 'Judul',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) =&gt; (v == null || v.trim().length &lt; 3)
+                    ? 'Judul minimal 3 karakter'
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              FilledButton(onPressed: _simpan, child: const Text('Simpan')),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Judul kurang dari 3 karakter menampilkan pesan merah. Judul valid menampilkan SnackBar.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Langkah 3 dari 3</p>
+    <h2>Tata Letak Responsif</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/main.dart (tambahkan kelas di bagian bawah)</span></div><ol class="mini"><li>Tempel kelas <code>ResponsivePage</code> di akhir file.</li><li>Ubah <code>home</code> menjadi <code>const ResponsivePage()</code>.</li><li>Putar emulator ke landscape atau ubah ukuran jendela.</li></ol><pre><code>class ResponsivePage extends StatelessWidget {
+  const ResponsivePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Responsif')),
+      body: LayoutBuilder(
+        builder: (context, box) {
+          final kolom = box.maxWidth &gt;= 600 ? 3 : 1;
+          return GridView.count(
+            crossAxisCount: kolom,
+            childAspectRatio: 3,
+            padding: const EdgeInsets.all(16),
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            children: List.generate(
+              6,
+              (i) =&gt; Card(child: Center(child: Text('Item ${i + 1}'))),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Layar sempit menampilkan 1 kolom. Layar lebar dari 600 dp menampilkan 3 kolom.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tambahkan validasi kolom isi catatan (tidak boleh kosong) pada form.</li><li>Ubah ambang responsif menjadi 480 dan amati perbedaannya.</li><li>Ganti <code>Colors.teal</code> dengan warna lain dan lihat seluruh palet berubah.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Navigasi maju dan kembali berfungsi</li><li>Form menolak masukan kurang dari 3 karakter</li><li>Grid berubah jumlah kolom saat layar diputar</li><li>Controller dilepas di <code>dispose</code></li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Teks meluber (garis kuning hitam)</td><td>Bungkus widget dengan <code>Expanded</code> atau <code>SingleChildScrollView</code>.</td></tr><tr><td><code>Navigator operation requested with a context that does not include a Navigator</code></td><td>Pastikan <code>MaterialApp</code> berada di atas widget yang memanggil <code>Navigator</code>.</td></tr><tr><td><code>setState() called after dispose()</code></td><td>Periksa <code>mounted</code> sebelum <code>setState</code> setelah proses asynchronous.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan</p>
