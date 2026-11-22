@@ -13,7 +13,7 @@
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Associate Mobile Programmer · Flutter</p>
     <h1>Praktik Hari 2</h1>
-<h2>Jaringan, Sensor, Perangkat, dan Keamanan</h2><p>Ikuti langkah demi langkah. Pada setiap slide kode, tekan <strong>Salin</strong>, tempel ke file yang disebutkan, simpan, lalu lanjut ke slide berikutnya.</p><ul><li>Panah kiri dan kanan: pindah slide</li><li>Tombol F: layar penuh</li><li>Daftar langkah ada di slide 2</li></ul>
+<h2>Jaringan, Sensor, Perangkat, dan Keamanan</h2><p>Setiap step mengikuti alur yang sama:</p><ol><li><strong>Teori</strong>: konsep dan alasan di balik kode (slide dengan garis oranye)</li><li><strong>Praktik</strong>: salin kode ke file yang disebutkan (slide dengan tombol Salin)</li><li><strong>Penjelasan dan uji</strong>: pahami kode, jalankan, lalu cek hasilnya</li></ol><p>Panah kiri dan kanan memindah slide. Tombol F membuka layar penuh. Daftar langkah ada di slide 2.</p>
     </div></div><!--/split-->
   </section>
 
@@ -21,7 +21,7 @@
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2</p>
     <h2>Daftar Langkah</h2>
-<ul class="stepgrid"><li><a href="#3"><b>Jadwal Hari 2</b>Jadwal Hari 2</a></li><li><a href="#4"><b>S0</b>Persiapan</a></li><li><a href="#9"><b>S1</b>Jaringan Seluler</a></li><li><a href="#13"><b>S2</b>Sensor</a></li><li><a href="#16"><b>S3</b>Informasi Perangkat</a></li><li><a href="#19"><b>S4</b>Penyimpanan Aman</a></li><li><a href="#22"><b>S5</b>HTTPS dan Halaman Keamanan</a></li><li><a href="#26"><b>S6</b>Router dan Beranda</a></li><li><a href="#30"><b>S7</b>Pengujian</a></li><li><a href="#36"><b>S8</b>Latihan</a></li><li><a href="#37"><b>Ringkasan File Hari 2</b>Ringkasan File Hari 2</a></li></ul>
+<ul class="stepgrid"><li><a href="#3"><b>Jadwal Hari 2</b>Jadwal Hari 2</a></li><li><a href="#4"><b>S0</b>Persiapan</a></li><li><a href="#11"><b>S1</b>Jaringan Seluler</a></li><li><a href="#18"><b>S2</b>Sensor</a></li><li><a href="#23"><b>S3</b>Informasi Perangkat</a></li><li><a href="#28"><b>S4</b>Penyimpanan Aman</a></li><li><a href="#33"><b>S5</b>HTTPS dan Halaman Keamanan</a></li><li><a href="#39"><b>S6</b>Router dan Beranda</a></li><li><a href="#45"><b>S7</b>Pengujian</a></li><li><a href="#53"><b>S8</b>Latihan</a></li><li><a href="#54"><b>Ringkasan File Hari 2</b>Ringkasan File Hari 2</a></li></ul>
     </div></div><!--/split-->
   </section>
 
@@ -34,7 +34,7 @@
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 09.00</p>
     <h2>Step 0: Persiapan</h2>
@@ -46,9 +46,17 @@
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 0 · Persiapan</p>
+    <h2>Paket tambahan Hari 2</h2>
+<ul><li><code>connectivity_plus</code>: jenis koneksi yang sedang aktif.</li><li><code>sensors_plus</code>: akselerometer dan sensor gerak.</li><li><code>device_info_plus</code>: model dan versi perangkat.</li><li><code>flutter_secure_storage</code> dan <code>http</code>: penyimpanan aman dan permintaan jaringan.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 0 · Persiapan</p>
+    <p class="kicker">Praktik · Step 0 · Persiapan</p>
     <h2>pubspec.yaml<span class="part">1 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>pubspec.yaml</span></div>
 <div class="instr"><ol><li>Buka proyek <code>associate_mobile_app</code> dari Hari 1.</li><li>Ganti isi <code>pubspec.yaml</code> dengan kode berikut. Dependensi <code>flutter_bloc</code>, <code>equatable</code>, dan <code>bloc_test</code> dari versi sebelumnya dihapus karena Hari 2 tidak lagi memakai Cubit.</li></ol></div>
@@ -87,7 +95,7 @@ flutter:
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 0 · Persiapan</p>
+    <p class="kicker">Praktik · Step 0 · Persiapan</p>
     <h2>android/app/src/main/AndroidManifest.xml<span class="part">2 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>android/app/src/main/AndroidManifest.xml</span></div>
 <div class="instr"><ol><li>Tambahkan izin jaringan pada <code>android/app/src/main/AndroidManifest.xml</code>, di dalam tag <code>&lt;manifest&gt;</code> sebelum tag <code>&lt;application&gt;</code>:</li></ol></div>
@@ -98,11 +106,19 @@ flutter:
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 0 · Persiapan</p>
+    <p class="kicker">Praktik · Step 0 · Persiapan</p>
     <h2>Terminal<span class="part">3 dari 3</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><ol><li>Jalankan perintah berikut di terminal dalam folder proyek:</li></ol></div>
 <pre><code>flutter pub get</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 0 · Persiapan</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>pubspec.yaml</code></h3><ul><li>Memastikan paket Hari 2 sudah terdaftar.</li><li>Jalankan <code>flutter pub get</code> setelah mengubahnya.</li></ul></div><div class="card"><h3><code>android/app/src/main/AndroidManifest.xml</code></h3><ul><li>Izin tambahan untuk memeriksa status jaringan.</li><li>Letaknya sejajar dengan izin lokasi dari Hari 1.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 
@@ -116,7 +132,7 @@ flutter:
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 09.15</p>
     <h2>Step 1: Jaringan Seluler</h2>
@@ -128,9 +144,25 @@ flutter:
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 1 · Jaringan Seluler</p>
+    <h2>Jaringan seluler</h2>
+<ul><li>Ponsel berpindah antarmenara (<strong>handover</strong>) saat bergerak, tanpa memutus sesi.</li><li>Generasi jaringan: 2G untuk suara dan SMS, 3G dan 4G untuk data, 5G untuk latensi rendah.</li><li>Aplikasi hanya dapat mengetahui <strong>jenis koneksi</strong> (Wi-Fi, seluler, tidak ada), bukan 2G sampai 5G.</li><li>Aplikasi harus siap bekerja saat koneksi hilang (offline).</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 1 · Jaringan Seluler</p>
+    <h2>Memantau koneksi di Flutter</h2>
+<ul><li><code>checkConnectivity</code> memeriksa kondisi saat ini sekali.</li><li><code>onConnectivityChanged</code> adalah <strong>stream</strong> yang mengirim perubahan koneksi.</li><li>Langganan stream harus dibatalkan di <code>dispose</code>.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 1 · Jaringan Seluler</p>
+    <p class="kicker">Praktik · Step 1 · Jaringan Seluler</p>
     <h2>lib/services/network_service.dart<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/services/network_service.dart</span></div>
 <div class="instr"><ol><li>Buat file <code>lib/services/network_service.dart</code>.</li></ol></div>
@@ -167,7 +199,7 @@ class NetworkService {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 1 · Jaringan Seluler</p>
+    <p class="kicker">Praktik · Step 1 · Jaringan Seluler</p>
     <h2>lib/pages/network_page.dart<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/network_page.dart</span></div>
 <div class="instr"><ol><li>Buat file <code>lib/pages/network_page.dart</code>.</li></ol></div>
@@ -260,6 +292,14 @@ class _NetworkPageState extends State&lt;NetworkPage&gt; {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 1 · Jaringan Seluler</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/services/network_service.dart</code></h3><ul><li><code>periksa</code> memeriksa koneksi saat ini.</li><li><code>perubahan</code> adalah stream yang mengabarkan pergantian koneksi.</li><li><code>labelJaringan</code> mengubah hasil menjadi teks yang mudah dibaca.</li></ul></div><div class="card"><h3><code>lib/pages/network_page.dart</code></h3><ul><li>Berlangganan stream koneksi di <code>initState</code>.</li><li>Langganan dibatalkan di <code>dispose</code>.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 1 · cek hasil</p>
@@ -270,7 +310,7 @@ class _NetworkPageState extends State&lt;NetworkPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 10.00</p>
     <h2>Step 2: Sensor</h2>
@@ -282,9 +322,17 @@ class _NetworkPageState extends State&lt;NetworkPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 2 · Sensor</p>
+    <h2>Sensor perangkat</h2>
+<ul><li>Akselerometer mengukur percepatan pada tiga sumbu: x, y, z, dalam m/s².</li><li>Saat diam, total percepatan mendekati gravitasi, sekitar 9,8 m/s².</li><li>Data sensor datang sebagai <strong>stream</strong> dengan frekuensi tinggi.</li><li>Langganan sensor wajib dihentikan saat halaman ditutup agar baterai tidak terkuras.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 2 · Sensor</p>
+    <p class="kicker">Praktik · Step 2 · Sensor</p>
     <h2>lib/pages/sensor_page.dart</h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/sensor_page.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/pages/sensor_page.dart</code>.</p></div>
@@ -388,6 +436,14 @@ class _SensorPageState extends State&lt;SensorPage&gt; {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 2 · Sensor</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/pages/sensor_page.dart</code></h3><ul><li>Membaca akselerometer lewat stream.</li><li>Nilai x, y, z dan total percepatan ditampilkan bersama indikator.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 2 · cek hasil</p>
@@ -400,7 +456,7 @@ class _SensorPageState extends State&lt;SensorPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 10.40</p>
     <h2>Step 3: Informasi Perangkat</h2>
@@ -412,9 +468,17 @@ class _SensorPageState extends State&lt;SensorPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Informasi Perangkat</p>
+    <h2>Spesifikasi teknis perangkat</h2>
+<ul><li>Informasi perangkat: merek, model, versi OS, dan arsitektur.</li><li>Berguna untuk diagnosis masalah dan penyesuaian fitur per perangkat.</li><li>Data ini bersifat sensitif karena dapat dipakai untuk melacak. Kumpulkan seperlunya.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 3 · Informasi Perangkat</p>
+    <p class="kicker">Praktik · Step 3 · Informasi Perangkat</p>
     <h2>lib/pages/device_page.dart</h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/device_page.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/pages/device_page.dart</code>.</p></div>
@@ -490,6 +554,14 @@ class DevicePage extends StatelessWidget {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Informasi Perangkat</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/pages/device_page.dart</code></h3><ul><li>Mengambil info perangkat Android lewat <code>device_info_plus</code>.</li><li>Hasil ditampilkan dalam daftar kunci dan nilai.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 3 · cek hasil</p>
@@ -500,7 +572,7 @@ class DevicePage extends StatelessWidget {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 13.00</p>
     <h2>Step 4: Penyimpanan Aman</h2>
@@ -512,9 +584,17 @@ class DevicePage extends StatelessWidget {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Penyimpanan Aman</p>
+    <h2>Penyimpanan aman</h2>
+<ul><li>Data rahasia seperti token tidak boleh disimpan sebagai teks biasa.</li><li><code>flutter_secure_storage</code> memakai Keystore di Android dan Keychain di iOS.</li><li>Token hanya disimpan, dibaca, dan dihapus lewat satu kelas layanan.</li><li>Jangan menulis token ke log atau menampilkannya utuh di layar.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 4 · Penyimpanan Aman</p>
+    <p class="kicker">Praktik · Step 4 · Penyimpanan Aman</p>
     <h2>lib/services/secure_storage_service.dart</h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/services/secure_storage_service.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/services/secure_storage_service.dart</code>.</p></div>
@@ -543,6 +623,14 @@ class SecureStorageService {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Penyimpanan Aman</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/services/secure_storage_service.dart</code></h3><ul><li>Tiga operasi: <code>simpanToken</code>, <code>ambilToken</code>, <code>hapusToken</code>.</li><li>Data dienkripsi oleh Keystore atau Keychain.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 4 · cek hasil</p>
@@ -553,7 +641,7 @@ class SecureStorageService {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 13.10</p>
     <h2>Step 5: HTTPS dan Halaman Keamanan</h2>
@@ -565,9 +653,17 @@ class SecureStorageService {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 5 · HTTPS dan Halaman Keamanan</p>
+    <h2>Keamanan komunikasi</h2>
+<ul><li><strong>HTTPS</strong> memakai TLS: enkripsi, keaslian server, dan keutuhan data.</li><li>Alamat <code>http://</code> biasa dapat disadap atau diubah di tengah jalan.</li><li>Aplikasi menolak URL non-HTTPS sebelum permintaan dikirim.</li><li>Setiap permintaan diberi batas waktu (timeout) agar aplikasi tidak menggantung.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 5 · HTTPS dan Halaman Keamanan</p>
+    <p class="kicker">Praktik · Step 5 · HTTPS dan Halaman Keamanan</p>
     <h2>lib/services/https_service.dart<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/services/https_service.dart</span></div>
 <div class="instr"><ol><li>Buat file <code>lib/services/https_service.dart</code>.</li></ol></div>
@@ -613,7 +709,7 @@ class HttpsService {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 5 · HTTPS dan Halaman Keamanan</p>
+    <p class="kicker">Praktik · Step 5 · HTTPS dan Halaman Keamanan</p>
     <h2>lib/pages/keamanan_page.dart<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/keamanan_page.dart</span></div>
 <div class="instr"><ol><li>Buat file <code>lib/pages/keamanan_page.dart</code>.</li></ol></div>
@@ -768,6 +864,14 @@ class _KeamananPageState extends State&lt;KeamananPage&gt; {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 5 · HTTPS dan Halaman Keamanan</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/services/https_service.dart</code></h3><ul><li><code>periksaUrlAman</code> menolak URL selain HTTPS.</li><li><code>ambilJson</code> memakai timeout dan klien yang dapat diganti saat pengujian.</li></ul></div><div class="card"><h3><code>lib/pages/keamanan_page.dart</code></h3><ul><li>Menyimpan, menampilkan samar, dan menghapus token.</li><li>Mengambil data publik lewat HTTPS dan menampilkan hasilnya.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 5 · cek hasil</p>
@@ -778,7 +882,7 @@ class _KeamananPageState extends State&lt;KeamananPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 13.40</p>
     <h2>Step 6: Router dan Beranda</h2>
@@ -790,9 +894,17 @@ class _KeamananPageState extends State&lt;KeamananPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 6 · Router dan Beranda</p>
+    <h2>Menggabungkan semua fitur</h2>
+<ul><li>Route Hari 2 ditambahkan ke router yang sama dengan Hari 1.</li><li>Beranda kini memuat semua menu: catatan, lokasi, jaringan, sensor, perangkat, keamanan.</li><li>Satu aplikasi utuh dari dua hari pelatihan.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 6 · Router dan Beranda</p>
+    <p class="kicker">Praktik · Step 6 · Router dan Beranda</p>
     <h2>lib/router/app_router.dart<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/router/app_router.dart</span></div>
 <div class="instr"><ol><li>Ganti isi <code>lib/router/app_router.dart</code>. Rute Hari 1 tetap dipertahankan.</li></ol></div>
@@ -850,7 +962,7 @@ final GoRouter appRouter = GoRouter(
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 6 · Router dan Beranda</p>
+    <p class="kicker">Praktik · Step 6 · Router dan Beranda</p>
     <h2>lib/pages/home_page.dart<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/home_page.dart</span></div>
 <div class="instr"><ol><li>Ganti isi <code>lib/pages/home_page.dart</code>.</li></ol></div>
@@ -940,6 +1052,14 @@ class _MenuItem {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 6 · Router dan Beranda</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/router/app_router.dart</code></h3><ul><li>Menambahkan route jaringan, sensor, perangkat, dan keamanan.</li><li>Semua route berada di satu daftar.</li></ul></div><div class="card"><h3><code>lib/pages/home_page.dart</code></h3><ul><li>Menu beranda kini memuat semua fitur dua hari.</li><li>Struktur data menu tetap sama dengan Hari 1.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 6 · cek hasil</p>
@@ -950,7 +1070,7 @@ class _MenuItem {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 14.00</p>
     <h2>Step 7: Pengujian</h2>
@@ -962,9 +1082,17 @@ class _MenuItem {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 7 · Pengujian</p>
+    <h2>Pengujian layanan dan UI</h2>
+<ul><li>Layanan jaringan diuji dengan <strong>klien tiruan</strong> (<code>MockClient</code>), tanpa internet sungguhan.</li><li>Validasi URL diuji dengan masukan benar dan salah.</li><li>Tes widget memastikan halaman beranda menampilkan semua menu.</li><li>Kunci pengujian yang baik: cepat, mandiri, dan hasilnya dapat diulang.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 7 · Pengujian</p>
+    <p class="kicker">Praktik · Step 7 · Pengujian</p>
     <h2>test/network_service_test.dart<span class="part">1 dari 4</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>test/network_service_test.dart</span></div>
 <div class="instr"><ol><li>Buat file <code>test/network_service_test.dart</code>.</li></ol></div>
@@ -1002,7 +1130,7 @@ void main() {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 7 · Pengujian</p>
+    <p class="kicker">Praktik · Step 7 · Pengujian</p>
     <h2>test/https_service_test.dart<span class="part">2 dari 4</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>test/https_service_test.dart</span></div>
 <div class="instr"><ol><li>Buat file <code>test/https_service_test.dart</code>.</li></ol></div>
@@ -1066,7 +1194,7 @@ void main() {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 7 · Pengujian</p>
+    <p class="kicker">Praktik · Step 7 · Pengujian</p>
     <h2>test/home_page_test.dart<span class="part">3 dari 4</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>test/home_page_test.dart</span></div>
 <div class="instr"><ol><li>Buat file <code>test/home_page_test.dart</code>.</li></ol></div>
@@ -1092,12 +1220,20 @@ void main() {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 7 · Pengujian</p>
+    <p class="kicker">Praktik · Step 7 · Pengujian</p>
     <h2>Terminal<span class="part">4 dari 4</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><ol><li>Jalankan seluruh pengujian:</li></ol></div>
 <pre><code>flutter analyze
 flutter test</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 7 · Pengujian</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>test/network_service_test.dart</code></h3><ul><li>Menguji label untuk daftar kosong, tanpa koneksi, Wi-Fi, seluler, dan prioritas Wi-Fi.</li><li>Tidak memerlukan jaringan sungguhan.</li></ul></div><div class="card"><h3><code>test/https_service_test.dart</code></h3><ul><li>Menguji validasi URL dan pengambilan data dengan <code>MockClient</code>.</li><li>Kasus gagal dan berhasil sama-sama diuji.</li></ul></div><div class="card"><h3><code>test/home_page_test.dart</code></h3><ul><li>Tes widget: halaman beranda harus menampilkan semua menu.</li><li>Memakai <code>pumpWidget</code> dan <code>find.text</code>.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 

@@ -449,3 +449,21 @@ html, body {
 .steps li { display: block; position: relative; padding-left: 3.4em; min-height: 2.6em; }
 .steps li::before { position: absolute; left: 0.8em; top: 50%; transform: translateY(-50%); }
 .steps li { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.3em; }
+
+/* Slide teori */
+.slide.teori .shead::after { background: linear-gradient(90deg, #ffb74d, #ff7043, #ec407a); }
+.slide.teori .kicker { color: #ffcc80; }
+.slide.teori .panel { border-left: 1.2rem solid #ff9800; }
+.slide.teori .panel li::marker { color: #ef6c00; }
+.slide.teori .panel li { font-size: 2.3em; }
+.slide.teori pre { font-size: 1.6em; }
+.slide.code .kicker { color: #80deea; }
+.cards { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+.slide.teori .card { border-left-color: #ff9800; padding: 0.3em 1.2em; }
+.slide.teori .card h3 { color: #e65100; font-size: 1.8em; margin: 0; }
+.slide.teori .card li, .slide.teori .card p { font-size: 1.6em; margin: 0.1em 0; }
+.cards .card ul { margin: 0.1em 0; }
+.slide.opener .panel li { font-size: 2.9em; margin: 0.4em 0; }
+.slide.opener .panel h3 { font-size: 2.4em; color: #00838f; }
+.slide.teori .card li, .slide.teori .card p { font-size: 2.3em; }
+.slide.teori .card h3 { font-size: 2.4em; }

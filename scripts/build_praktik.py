@@ -6,7 +6,11 @@ Hasil:      slides/praktik-hari-1.html dan slides/praktik-hari-2.html
 """
 import html
 import re
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from teori import PENJELASAN, TEORI  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 FILE_RE = re.compile(r"`([\w./\-]+\.(?:dart|yaml|xml|plist|md|json|gradle|kts))`")
@@ -18,6 +22,7 @@ DECKS = [
         "title": "Praktik Hari 1",
         "sub": "Dasar Flutter, Database Lokal, dan Lokasi",
         "day": "Hari 1",
+        "n": 1,
     },
     {
         "src": "docs/hands-on/hari-2.md",
@@ -25,6 +30,7 @@ DECKS = [
         "title": "Praktik Hari 2",
         "sub": "Jaringan, Sensor, Perangkat, dan Keamanan",
         "day": "Hari 2",
+        "n": 2,
     },
 ]
 
@@ -165,6 +171,8 @@ def build(deck):
         kick = f"{deck['day']} · {time}" if time else deck["day"]
         m = re.match(r"(Step \d+)\s*:\s*(.*)", name)
         short = m.group(1) if m else name
+        step_no = int(re.search(r"\d+", short).group()) if m else None
+        topic = name.split(":", 1)[-1].strip()
 
         if not has_code:
             add(slide(render_text(blocks), kick, esc(name), "", f'Sumber: <a href="{md_link}">{deck["src"]}</a>'), (short, name))
@@ -190,7 +198,12 @@ def build(deck):
         intro = code_slides[0][3][:-1] if len(code_slides[0][3]) > 1 else []
         listing = "<h3>File pada step ini</h3><ol>" + "".join(f"<li><code>{esc(f)}</code></li>" for f in dict.fromkeys(files)) + "</ol>"
         opener = render_text(intro) + "\n" + listing if intro else listing
-        add(slide(opener, kick, esc(name), "", f'Sumber: <a href="{md_link}">{deck["src"]}</a>'), (short, name))
+        add(slide(opener, kick, esc(name), "opener", f'Sumber: <a href="{md_link}">{deck["src"]}</a>'), (short, name))
+        for t_title, t_points, t_code in TEORI.get((deck["n"], step_no), []):
+            body = "<ul>" + "".join(f"<li>{inline(p)}</li>" for p in t_points) + "</ul>"
+            if t_code:
+                body += f"<pre><code>{esc(t_code)}</code></pre>"
+            add(slide(body, f"Teori · {short} · {topic}", esc(t_title), "teori"))
         if intro:
             code_slides[0] = (code_slides[0][0], code_slides[0][1], code_slides[0][2], code_slides[0][3][-1:])
 
@@ -200,7 +213,15 @@ def build(deck):
             kind = "Jalankan di terminal" if lang == "bash" else "Salin ke file"
             filebar = f'<div class="filebar"><b>{kind.upper()}</b><span>{esc(label)}</span></div>'
             code_html = f'<pre><code>{esc(src)}</code></pre>'
-            add(slide(f"{filebar}\n{instr}\n{code_html}", f"{short} · {name.split(':', 1)[-1].strip()}", f"{esc(label)}{part}", "code"))
+            add(slide(f"{filebar}\n{instr}\n{code_html}", f"Praktik · {short} · {topic}", f"{esc(label)}{part}", "code"))
+
+        expl = [(f, PENJELASAN[(deck["n"], f)]) for f in dict.fromkeys(files) if (deck["n"], f) in PENJELASAN]
+        if expl:
+            rows = "".join(
+                f'<div class="card"><h3><code>{esc(f)}</code></h3><ul>' + "".join(f"<li>{inline(x)}</li>" for x in pts) + "</ul></div>"
+                for f, pts in expl
+            )
+            add(slide(f'<div class="cards">{rows}</div>', f"Teori · {short} · {topic}", "Penjelasan Kode", "teori"))
 
         if tail:
             add(slide(render_text(tail), f"{short} · cek hasil", "Uji dan Periksa", "", f'Sumber: <a href="{md_link}">{deck["src"]}</a>'))
@@ -208,8 +229,11 @@ def build(deck):
     # Isi HERO dan INDEX
     hero_inner = (
         f"<h2>{esc(deck['sub'])}</h2>"
-        "<p>Ikuti langkah demi langkah. Pada setiap slide kode, tekan <strong>Salin</strong>, tempel ke file yang disebutkan, simpan, lalu lanjut ke slide berikutnya.</p>"
-        "<ul><li>Panah kiri dan kanan: pindah slide</li><li>Tombol F: layar penuh</li><li>Daftar langkah ada di slide 2</li></ul>"
+        "<p>Setiap step mengikuti alur yang sama:</p>"
+        "<ol><li><strong>Teori</strong>: konsep dan alasan di balik kode (slide dengan garis oranye)</li>"
+        "<li><strong>Praktik</strong>: salin kode ke file yang disebutkan (slide dengan tombol Salin)</li>"
+        "<li><strong>Penjelasan dan uji</strong>: pahami kode, jalankan, lalu cek hasilnya</li></ol>"
+        "<p>Panah kiri dan kanan memindah slide. Tombol F membuka layar penuh. Daftar langkah ada di slide 2.</p>"
     )
     slides[0] = (
         '  <section class="slide">\n    <!--split--><div class="split"><div class="main">\n'

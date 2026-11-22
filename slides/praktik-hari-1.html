@@ -13,7 +13,7 @@
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Associate Mobile Programmer · Flutter</p>
     <h1>Praktik Hari 1</h1>
-<h2>Dasar Flutter, Database Lokal, dan Lokasi</h2><p>Ikuti langkah demi langkah. Pada setiap slide kode, tekan <strong>Salin</strong>, tempel ke file yang disebutkan, simpan, lalu lanjut ke slide berikutnya.</p><ul><li>Panah kiri dan kanan: pindah slide</li><li>Tombol F: layar penuh</li><li>Daftar langkah ada di slide 2</li></ul>
+<h2>Dasar Flutter, Database Lokal, dan Lokasi</h2><p>Setiap step mengikuti alur yang sama:</p><ol><li><strong>Teori</strong>: konsep dan alasan di balik kode (slide dengan garis oranye)</li><li><strong>Praktik</strong>: salin kode ke file yang disebutkan (slide dengan tombol Salin)</li><li><strong>Penjelasan dan uji</strong>: pahami kode, jalankan, lalu cek hasilnya</li></ol><p>Panah kiri dan kanan memindah slide. Tombol F membuka layar penuh. Daftar langkah ada di slide 2.</p>
     </div></div><!--/split-->
   </section>
 
@@ -21,11 +21,11 @@
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1</p>
     <h2>Daftar Langkah</h2>
-<ul class="stepgrid"><li><a href="#3"><b>S0</b>Instalasi dan Cek Lingkungan</a></li><li><a href="#6"><b>S1</b>Buat Proyek dan Konfigurasi Dependensi</a></li><li><a href="#12"><b>S2</b>Titik Masuk Aplikasi</a></li><li><a href="#16"><b>S3</b>Izin Lokasi</a></li><li><a href="#20"><b>S4</b>Router dan Halaman Beranda</a></li><li><a href="#25"><b>S5</b>Model Data Catatan</a></li><li><a href="#28"><b>S6</b>Database SQLite</a></li><li><a href="#31"><b>S7</b>Repository dan Controller</a></li><li><a href="#35"><b>S8</b>Halaman Catatan dan Form</a></li><li><a href="#39"><b>S9</b>Layanan Lokasi dan Jarak</a></li><li><a href="#43"><b>S10</b>Peta dan Alamat</a></li><li><a href="#46"><b>S11</b>Pengujian Hari 1</a></li><li><a href="#50"><b>Latihan Mandiri</b>Latihan Mandiri</a></li><li><a href="#51"><b>Ringkasan File</b>Ringkasan File</a></li></ul>
+<ul class="stepgrid"><li><a href="#3"><b>S0</b>Instalasi dan Cek Lingkungan</a></li><li><a href="#7"><b>S1</b>Buat Proyek dan Konfigurasi Dependensi</a></li><li><a href="#16"><b>S2</b>Titik Masuk Aplikasi</a></li><li><a href="#22"><b>S3</b>Izin Lokasi</a></li><li><a href="#28"><b>S4</b>Router dan Halaman Beranda</a></li><li><a href="#36"><b>S5</b>Model Data Catatan</a></li><li><a href="#41"><b>S6</b>Database SQLite</a></li><li><a href="#47"><b>S7</b>Repository dan Controller</a></li><li><a href="#53"><b>S8</b>Halaman Catatan dan Form</a></li><li><a href="#59"><b>S9</b>Layanan Lokasi dan Jarak</a></li><li><a href="#66"><b>S10</b>Peta dan Alamat</a></li><li><a href="#71"><b>S11</b>Pengujian Hari 1</a></li><li><a href="#77"><b>Latihan Mandiri</b>Latihan Mandiri</a></li><li><a href="#78"><b>Ringkasan File</b>Ringkasan File</a></li></ul>
     </div></div><!--/split-->
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 09.00</p>
     <h2>Step 0: Instalasi dan Cek Lingkungan</h2>
@@ -36,9 +36,17 @@
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 0 · Instalasi dan Cek Lingkungan</p>
+    <h2>Apa yang dipasang dan mengapa</h2>
+<ul><li><strong>Flutter SDK</strong>: kerangka kerja UI, sudah menyertakan bahasa <strong>Dart</strong>.</li><li><strong>Android SDK</strong>: alat resmi untuk membangun dan menjalankan aplikasi Android.</li><li><strong>Emulator atau ponsel</strong>: tempat aplikasi dijalankan saat praktik.</li><li><strong>flutter doctor</strong>: pemeriksa otomatis. Semua centang berarti siap.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 0 · Instalasi dan Cek Lingkungan</p>
+    <p class="kicker">Praktik · Step 0 · Instalasi dan Cek Lingkungan</p>
     <h2>Terminal</h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><p>Terima lisensi Android, lalu verifikasi:</p></div>
@@ -59,7 +67,7 @@ flutter devices</code></pre>
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 09.15</p>
     <h2>Step 1: Buat Proyek dan Konfigurasi Dependensi</h2>
@@ -68,9 +76,25 @@ flutter devices</code></pre>
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>Struktur proyek Flutter</h2>
+<ul><li><code>lib/</code> berisi kode Dart milik kita. Titik masuk ada di <code>lib/main.dart</code>.</li><li><code>pubspec.yaml</code> mendaftar <strong>dependensi</strong> (paket) dan pengaturan aset.</li><li><code>android/</code> dan <code>ios/</code> berisi proyek platform native yang dibungkus Flutter.</li><li><code>test/</code> berisi pengujian otomatis.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>Paket yang dipakai pada pelatihan</h2>
+<ul><li><code>go_router</code>: navigasi antarhalaman berbasis alamat (route).</li><li><code>sqflite</code> dan <code>path</code>: database SQLite lokal.</li><li><code>geolocator</code> dan <code>flutter_map</code>: GPS dan peta OpenStreetMap tanpa API key.</li><li><code>flutter pub get</code> mengunduh semua paket yang tertulis di <code>pubspec.yaml</code>.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <p class="kicker">Praktik · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
     <h2>Terminal<span class="part">1 dari 4</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><p>Buat proyek baru:</p></div>
@@ -82,7 +106,7 @@ rm test/widget_test.dart</code></pre>
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <p class="kicker">Praktik · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
     <h2>pubspec.yaml<span class="part">2 dari 4</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>pubspec.yaml</span></div>
 <div class="instr"><p>Ganti isi <code>pubspec.yaml</code> dengan kode berikut. Dependensi Hari 2 juga dimasukkan sekarang agar tidak perlu mengubah file ini lagi.</p></div>
@@ -116,7 +140,7 @@ flutter:
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <p class="kicker">Praktik · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
     <h2>analysis_options.yaml<span class="part">3 dari 4</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>analysis_options.yaml</span></div>
 <div class="instr"><p>Ganti isi <code>analysis_options.yaml</code> dengan kode berikut:</p></div>
@@ -126,11 +150,19 @@ flutter:
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <p class="kicker">Praktik · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
     <h2>Terminal<span class="part">4 dari 4</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><p>Unduh dependensi:</p></div>
 <pre><code>flutter pub get</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>pubspec.yaml</code></h3><ul><li>Daftar dependensi dan versinya. Dependensi Hari 2 sudah dimasukkan.</li><li>Jalankan <code>flutter pub get</code> setiap kali file ini diubah.</li></ul></div><div class="card"><h3><code>analysis_options.yaml</code></h3><ul><li>Mengaktifkan aturan lint dari <code>flutter_lints</code>.</li><li><code>flutter analyze</code> memakai aturan ini untuk menandai kode yang kurang baik.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 
@@ -143,7 +175,7 @@ flutter:
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 09.35</p>
     <h2>Step 2: Titik Masuk Aplikasi</h2>
@@ -152,9 +184,19 @@ flutter:
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 2 · Titik Masuk Aplikasi</p>
+    <h2>Titik masuk dan widget</h2>
+<ul><li>Semua aplikasi Flutter dimulai dari fungsi <code>main()</code> yang memanggil <code>runApp</code>.</li><li>Tampilan disusun dari <strong>widget</strong>: tombol, teks, tata letak, bahkan aplikasi itu sendiri.</li><li><code>MaterialApp.router</code> menjadi akar aplikasi dan menyerahkan navigasi ke <code>go_router</code>.</li><li><code>colorSchemeSeed</code> membuat seluruh palet warna Material 3 dari satu warna dasar.</li></ul><pre><code>void main() {
+  runApp(const AssociateMobileApp());
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 2 · Titik Masuk Aplikasi</p>
+    <p class="kicker">Praktik · Step 2 · Titik Masuk Aplikasi</p>
     <h2>lib/main.dart<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/main.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/main.dart</code> (ganti isi yang sudah ada):</p></div>
@@ -170,7 +212,7 @@ void main() {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 2 · Titik Masuk Aplikasi</p>
+    <p class="kicker">Praktik · Step 2 · Titik Masuk Aplikasi</p>
     <h2>lib/app.dart<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/app.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/app.dart</code>:</p></div>
@@ -199,6 +241,14 @@ class AssociateMobileApp extends StatelessWidget {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 2 · Titik Masuk Aplikasi</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/main.dart</code></h3><ul><li><code>main()</code> adalah titik awal aplikasi.</li><li><code>runApp</code> menaruh widget akar ke layar.</li></ul></div><div class="card"><h3><code>lib/app.dart</code></h3><ul><li><code>MaterialApp.router</code> menghubungkan tema dan router.</li><li><code>colorSchemeSeed</code> menghasilkan palet Material 3.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 2 · cek hasil</p>
@@ -208,7 +258,7 @@ class AssociateMobileApp extends StatelessWidget {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 09.50</p>
     <h2>Step 3: Izin Lokasi</h2>
@@ -218,9 +268,17 @@ class AssociateMobileApp extends StatelessWidget {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Izin Lokasi</p>
+    <h2>Izin (permission) aplikasi</h2>
+<ul><li>Akses sensitif seperti lokasi harus dideklarasikan di platform dan disetujui pengguna.</li><li>Android: izin ditulis di <code>AndroidManifest.xml</code>. <code>INTERNET</code> dipakai untuk peta dan API.</li><li>iOS: alasan penggunaan ditulis di <code>Info.plist</code> dan ditampilkan pada dialog izin.</li><li>Tanpa deklarasi ini, aplikasi akan ditolak sistem saat meminta lokasi.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 3 · Izin Lokasi</p>
+    <p class="kicker">Praktik · Step 3 · Izin Lokasi</p>
     <h2>android/app/src/main/AndroidManifest.xml<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>android/app/src/main/AndroidManifest.xml</span></div>
 <div class="instr"><p>Buka <code>android/app/src/main/AndroidManifest.xml</code>. Tambahkan tiga baris berikut di dalam tag <code>&lt;manifest&gt;</code>, tepat sebelum tag <code>&lt;application&gt;</code>:</p></div>
@@ -232,13 +290,21 @@ class AssociateMobileApp extends StatelessWidget {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 3 · Izin Lokasi</p>
+    <p class="kicker">Praktik · Step 3 · Izin Lokasi</p>
     <h2>ios/Runner/Info.plist<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>ios/Runner/Info.plist</span></div>
 <div class="instr"><h3>iOS (hanya pada Mac)</h3>
 <p>Buka <code>ios/Runner/Info.plist</code>. Tambahkan dua baris berikut di dalam tag <code>&lt;dict&gt;</code>:</p></div>
 <pre><code>&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;
 &lt;string&gt;Lokasi digunakan untuk menampilkan posisi Anda pada peta dan catatan.&lt;/string&gt;</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Izin Lokasi</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>android/app/src/main/AndroidManifest.xml</code></h3><ul><li>Tiga izin: internet, lokasi kasar, lokasi akurat.</li><li>Letaknya di dalam <code>&lt;manifest&gt;</code>, sebelum <code>&lt;application&gt;</code>.</li></ul></div><div class="card"><h3><code>ios/Runner/Info.plist</code></h3><ul><li>Kunci <code>NSLocationWhenInUseUsageDescription</code> berisi alasan yang dibaca pengguna.</li><li>Hanya perlu bila membangun untuk iOS di Mac.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 
@@ -251,7 +317,7 @@ class AssociateMobileApp extends StatelessWidget {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 10.05</p>
     <h2>Step 4: Router dan Halaman Beranda</h2>
@@ -260,9 +326,25 @@ class AssociateMobileApp extends StatelessWidget {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Router dan Halaman Beranda</p>
+    <h2>Navigasi dengan go_router</h2>
+<ul><li>Setiap halaman punya <strong>path</strong>, misalnya <code>/catatan</code> dan <code>/lokasi</code>.</li><li><code>context.go('/catatan')</code> berpindah halaman, dan tombol kembali tetap berfungsi.</li><li>Daftar route dikumpulkan di satu tempat sehingga mudah dipelihara.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Router dan Halaman Beranda</p>
+    <h2>Halaman beranda</h2>
+<ul><li>Beranda berisi daftar menu yang mengarah ke fitur lain.</li><li>Satu data menu (judul, ikon, path) dipakai berulang oleh <code>ListView</code> dan <code>Card</code>.</li><li>Pola ini menghindari penulisan kode yang sama berkali-kali.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 4 · Router dan Halaman Beranda</p>
+    <p class="kicker">Praktik · Step 4 · Router dan Halaman Beranda</p>
     <h2>lib/router/app_router.dart<span class="part">1 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/router/app_router.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/router/app_router.dart</code>. Pada Hari 1, router hanya memuat route untuk catatan dan lokasi. Route Hari 2 (jaringan, sensor, perangkat, keamanan) ditambahkan pada Hari 2 Step 6.</p></div>
@@ -298,7 +380,7 @@ final GoRouter appRouter = GoRouter(
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 4 · Router dan Halaman Beranda</p>
+    <p class="kicker">Praktik · Step 4 · Router dan Halaman Beranda</p>
     <h2>lib/pages/home_page.dart<span class="part">2 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/home_page.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/pages/home_page.dart</code>:</p></div>
@@ -366,12 +448,20 @@ class _MenuItem {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 4 · Router dan Halaman Beranda</p>
+    <p class="kicker">Praktik · Step 4 · Router dan Halaman Beranda</p>
     <h2>Terminal<span class="part">3 dari 3</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><p>Menu untuk jaringan, sensor, perangkat, dan keamanan ditambahkan pada Hari 2 Step 6.</p>
 <p>Jalankan aplikasi:</p></div>
 <pre><code>flutter run</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Router dan Halaman Beranda</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/router/app_router.dart</code></h3><ul><li>Satu objek <code>GoRouter</code> berisi semua route.</li><li>Tiap <code>GoRoute</code> memetakan path ke halaman.</li></ul></div><div class="card"><h3><code>lib/pages/home_page.dart</code></h3><ul><li>Daftar menu ditampilkan dengan <code>ListView</code> dan <code>Card</code>.</li><li>Ketukan pada menu memanggil <code>context.go(path)</code>.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 
@@ -384,7 +474,7 @@ class _MenuItem {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 10.30</p>
     <h2>Step 5: Model Data Catatan</h2>
@@ -393,9 +483,17 @@ class _MenuItem {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 5 · Model Data Catatan</p>
+    <h2>Model data</h2>
+<ul><li>Model adalah kelas Dart yang mewakili satu baris data, di sini satu <strong>Catatan</strong>.</li><li>Properti: id, judul, isi, latitude, longitude, waktu ubah, status sinkron.</li><li><code>toMap</code> mengubah objek menjadi pasangan kolom dan nilai untuk SQLite.</li><li><code>fromMap</code> membaca satu baris SQLite kembali menjadi objek.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 5 · Model Data Catatan</p>
+    <p class="kicker">Praktik · Step 5 · Model Data Catatan</p>
     <h2>lib/models/note.dart</h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/models/note.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/models/note.dart</code>:</p></div>
@@ -461,6 +559,14 @@ class _MenuItem {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 5 · Model Data Catatan</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/models/note.dart</code></h3><ul><li><code>Note.baru</code> membuat catatan baru dengan waktu sekarang.</li><li><code>toMap</code> dan <code>fromMap</code> menjadi jembatan ke SQLite.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 5 · cek hasil</p>
@@ -471,7 +577,7 @@ class _MenuItem {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 10.50</p>
     <h2>Step 6: Database SQLite</h2>
@@ -480,9 +586,28 @@ class _MenuItem {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 6 · Database SQLite</p>
+    <h2>SQLite dan data persistence</h2>
+<ul><li><strong>Persistence</strong> berarti data tetap ada setelah aplikasi ditutup.</li><li>SQLite adalah database relasional kecil yang tertanam di perangkat.</li><li>Tabel <code>notes</code> dibuat sekali saat database pertama kali dibuka (<code>onCreate</code>).</li><li><strong>Indeks</strong> pada <code>updated_at</code> mempercepat pengurutan catatan terbaru.</li></ul><pre><code>CREATE TABLE notes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL
+);</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 6 · Database SQLite</p>
+    <h2>Pola singleton</h2>
+<ul><li>Database dibuka satu kali lalu dipakai bersama oleh seluruh aplikasi.</li><li>Pola ini mencegah banyak koneksi terbuka sekaligus ke file yang sama.</li><li>Semua operasi database bersifat <strong>asynchronous</strong> (<code>Future</code>, <code>await</code>).</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 6 · Database SQLite</p>
+    <p class="kicker">Praktik · Step 6 · Database SQLite</p>
     <h2>lib/data/app_database.dart</h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/data/app_database.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/data/app_database.dart</code>:</p></div>
@@ -531,6 +656,14 @@ class AppDatabase {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 6 · Database SQLite</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/data/app_database.dart</code></h3><ul><li><code>instance</code> membuka database sekali dan menggunakannya ulang.</li><li><code>_buatTabel</code> membuat tabel dan indeks saat pertama kali.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 6 · cek hasil</p>
@@ -541,7 +674,7 @@ class AppDatabase {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 11.05</p>
     <h2>Step 7: Repository dan Controller</h2>
@@ -550,9 +683,17 @@ class AppDatabase {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 7 · Repository dan Controller</p>
+    <h2>Repository dan state</h2>
+<ul><li><strong>Repository</strong> menyembunyikan detail SQL. Halaman cukup memanggil <code>ambilSemua</code>, <code>simpan</code>, <code>ubah</code>, <code>hapus</code>.</li><li><strong>Controller</strong> menyimpan daftar catatan dan memberi tahu tampilan saat data berubah.</li><li><code>ChangeNotifier</code> memanggil <code>notifyListeners</code> sehingga widget yang mendengarkan ikut dibangun ulang.</li><li>Pemisahan lapisan: tampilan, state, dan data bisa diuji serta diubah sendiri-sendiri.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 7 · Repository dan Controller</p>
+    <p class="kicker">Praktik · Step 7 · Repository dan Controller</p>
     <h2>lib/data/note_repository.dart<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/data/note_repository.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/data/note_repository.dart</code>:</p></div>
@@ -595,7 +736,7 @@ class NoteRepository {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 7 · Repository dan Controller</p>
+    <p class="kicker">Praktik · Step 7 · Repository dan Controller</p>
     <h2>lib/blocs/note_controller.dart<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/blocs/note_controller.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/blocs/note_controller.dart</code>:</p></div>
@@ -645,6 +786,14 @@ class NoteController extends ChangeNotifier {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 7 · Repository dan Controller</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/data/note_repository.dart</code></h3><ul><li>Empat operasi: <code>ambilSemua</code>, <code>simpan</code>, <code>ubah</code>, <code>hapus</code>.</li><li>Halaman tidak perlu mengetahui SQL.</li></ul></div><div class="card"><h3><code>lib/blocs/note_controller.dart</code></h3><ul><li><code>load</code>, <code>tambah</code>, dan <code>hapus</code> mengubah daftar lalu memberi tahu tampilan.</li><li>Berbasis <code>ChangeNotifier</code> sehingga ringan dan mudah dipahami.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 7 · cek hasil</p>
@@ -654,7 +803,7 @@ class NoteController extends ChangeNotifier {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 11.30</p>
     <h2>Step 8: Halaman Catatan dan Form</h2>
@@ -663,9 +812,17 @@ class NoteController extends ChangeNotifier {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 8 · Halaman Catatan dan Form</p>
+    <h2>Daftar, form, dan state</h2>
+<ul><li><code>ListenableBuilder</code> membangun ulang daftar setiap kali controller berubah.</li><li><code>Form</code> dan <code>TextFormField</code> menyediakan validasi input sebelum data disimpan.</li><li><code>StatefulWidget</code> dipakai bila halaman punya state sendiri, misalnya teks yang sedang diketik.</li><li>Controller teks harus dilepas di <code>dispose</code> agar tidak terjadi kebocoran memori.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 8 · Halaman Catatan dan Form</p>
+    <p class="kicker">Praktik · Step 8 · Halaman Catatan dan Form</p>
     <h2>lib/pages/notes_page.dart<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/notes_page.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/pages/notes_page.dart</code>:</p></div>
@@ -808,7 +965,7 @@ class _NotesPageState extends State&lt;NotesPage&gt; {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 8 · Halaman Catatan dan Form</p>
+    <p class="kicker">Praktik · Step 8 · Halaman Catatan dan Form</p>
     <h2>lib/pages/note_form_page.dart<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/note_form_page.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/pages/note_form_page.dart</code>:</p></div>
@@ -945,6 +1102,14 @@ class _NoteFormPageState extends State&lt;NoteFormPage&gt; {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 8 · Halaman Catatan dan Form</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/pages/notes_page.dart</code></h3><ul><li>Menampilkan daftar catatan beserta jarak dari posisi pengguna.</li><li>Tombol tambah membuka form dan memuat ulang daftar.</li></ul></div><div class="card"><h3><code>lib/pages/note_form_page.dart</code></h3><ul><li>Form dengan validasi judul dan isi.</li><li>Tombol lokasi mengisi latitude dan longitude dari GPS.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 8 · cek hasil</p>
@@ -957,7 +1122,7 @@ class _NoteFormPageState extends State&lt;NoteFormPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 13.00</p>
     <h2>Step 9: Layanan Lokasi dan Jarak</h2>
@@ -966,9 +1131,25 @@ class _NoteFormPageState extends State&lt;NoteFormPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 9 · Layanan Lokasi dan Jarak</p>
+    <h2>Location based service</h2>
+<ul><li>Alurnya: cek layanan lokasi aktif, minta izin, lalu ambil posisi.</li><li><code>getCurrentPosition</code> mengambil satu posisi. Stream posisi mengirim pembaruan terus-menerus.</li><li>Semua kemungkinan gagal (izin ditolak, GPS mati) dibungkus pesan kesalahan yang jelas.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 9 · Layanan Lokasi dan Jarak</p>
+    <h2>Jarak dengan rumus Haversine</h2>
+<ul><li>Bumi berbentuk bola, jadi jarak tidak bisa dihitung dengan rumus garis lurus biasa.</li><li>Haversine menghitung jarak busur antara dua koordinat dengan jari-jari bumi 6.371.000 m.</li><li>Rumus ini murni matematika, sehingga mudah diuji tanpa perangkat.</li></ul><pre><code>jarakMeter(lat1, lon1, lat2, lon2) // hasil dalam meter</code></pre>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 9 · Layanan Lokasi dan Jarak</p>
+    <p class="kicker">Praktik · Step 9 · Layanan Lokasi dan Jarak</p>
     <h2>lib/services/location_service.dart<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/services/location_service.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/services/location_service.dart</code>:</p></div>
@@ -1053,7 +1234,7 @@ class LocationService {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 9 · Layanan Lokasi dan Jarak</p>
+    <p class="kicker">Praktik · Step 9 · Layanan Lokasi dan Jarak</p>
     <h2>lib/services/distance.dart<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/services/distance.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/services/distance.dart</code>:</p></div>
@@ -1079,6 +1260,14 @@ double jarakMeter(double lat1, double lon1, double lat2, double lon2) {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 9 · Layanan Lokasi dan Jarak</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/services/location_service.dart</code></h3><ul><li><code>pastikanIzin</code> memeriksa layanan dan izin.</li><li><code>ambilPosisi</code>, <code>pantauPosisi</code>, dan <code>alamatDari</code> menjadi pintu masuk fitur lokasi.</li></ul></div><div class="card"><h3><code>lib/services/distance.dart</code></h3><ul><li><code>jarakMeter</code> menghitung jarak Haversine dalam meter.</li><li>Fungsi murni tanpa ketergantungan perangkat, sehingga mudah diuji.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 9 · cek hasil</p>
@@ -1091,7 +1280,7 @@ double jarakMeter(double lat1, double lon1, double lat2, double lon2) {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 14.00</p>
     <h2>Step 10: Peta dan Alamat</h2>
@@ -1100,9 +1289,17 @@ double jarakMeter(double lat1, double lon1, double lat2, double lon2) {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 10 · Peta dan Alamat</p>
+    <h2>Peta dan geocoding</h2>
+<ul><li><code>flutter_map</code> menampilkan ubin peta OpenStreetMap, tanpa API key.</li><li><strong>Marker</strong> menandai koordinat pengguna pada peta.</li><li><strong>Reverse geocoding</strong> mengubah koordinat menjadi alamat, di sini lewat layanan Nominatim.</li><li>Atribusi OpenStreetMap wajib ditampilkan sesuai ketentuan penggunaannya.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 10 · Peta dan Alamat</p>
+    <p class="kicker">Praktik · Step 10 · Peta dan Alamat</p>
     <h2>lib/pages/location_page.dart</h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/location_page.dart</span></div>
 <div class="instr"><p>Buat file <code>lib/pages/location_page.dart</code>:</p></div>
@@ -1252,6 +1449,14 @@ class _LocationPageState extends State&lt;LocationPage&gt; {
     </div></div><!--/split-->
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 10 · Peta dan Alamat</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>lib/pages/location_page.dart</code></h3><ul><li>Peta OpenStreetMap dengan marker posisi pengguna.</li><li>Alamat didapat dari reverse geocoding lalu ditampilkan di kartu.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 10 · cek hasil</p>
@@ -1264,7 +1469,7 @@ class _LocationPageState extends State&lt;LocationPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
-  <section class="slide">
+  <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 14.30</p>
     <h2>Step 11: Pengujian Hari 1</h2>
@@ -1273,9 +1478,17 @@ class _LocationPageState extends State&lt;LocationPage&gt; {
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 11 · Pengujian Hari 1</p>
+    <h2>Pengujian otomatis</h2>
+<ul><li>Pengujian memastikan fungsi tetap benar setelah kode diubah.</li><li>Struktur sebuah tes: siapkan data, jalankan fungsi, bandingkan hasil dengan <code>expect</code>.</li><li>Tes jarak memakai kasus yang hasilnya dapat diperkirakan: titik yang sama bernilai 0, dan Jakarta ke Bandung sekitar 120 km.</li><li><code>flutter test</code> menjalankan semua berkas di folder <code>test/</code>.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 11 · Pengujian Hari 1</p>
+    <p class="kicker">Praktik · Step 11 · Pengujian Hari 1</p>
     <h2>test/distance_test.dart<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>test/distance_test.dart</span></div>
 <div class="instr"><p>Buat file <code>test/distance_test.dart</code>:</p></div>
@@ -1305,11 +1518,19 @@ void main() {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 11 · Pengujian Hari 1</p>
+    <p class="kicker">Praktik · Step 11 · Pengujian Hari 1</p>
     <h2>Terminal<span class="part">2 dari 2</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><p>Jalankan:</p></div>
 <pre><code>flutter test test/distance_test.dart</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 11 · Pengujian Hari 1</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>test/distance_test.dart</code></h3><ul><li>Menguji titik yang sama (nol), Jakarta ke Bandung (sekitar 120 km), dan jarak yang tidak bergantung urutan titik.</li><li>Dijalankan dengan <code>flutter test</code>.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 
