@@ -8,9 +8,22 @@ Panduan ini membangun aplikasi `associate_mobile_app` dari awal. Setiap step men
 
 ---
 
-## Step 0: Cek Lingkungan (09.00)
+## Step 0: Instalasi dan Cek Lingkungan (09.00)
+
+Dart sudah termasuk di dalam Flutter SDK, sehingga cukup memasang Flutter. Panduan lengkap per sistem operasi ada di [docs/instalasi-dart-flutter.md](../instalasi-dart-flutter.md). Ringkasannya:
+
+1. Pasang Git.
+2. Unduh Flutter SDK dari https://docs.flutter.dev/get-started/install, ekstrak ke folder tanpa spasi (misalnya `C:\src\flutter` di Windows atau `~/development/flutter` di macOS dan Linux), lalu tambahkan folder `flutter/bin` ke PATH.
+3. Pasang Android Studio, buka sekali sampai Android SDK terunduh, lalu centang *Android SDK Command-line Tools* di SDK Manager.
+4. Pasang plugin Flutter di Android Studio atau ekstensi Flutter di VS Code.
+5. Buat emulator di *Device Manager*, atau aktifkan USB debugging pada ponsel Android.
+
+Terima lisensi Android, lalu verifikasi:
 
 ```bash
+flutter doctor --android-licenses
+flutter --version
+dart --version
 flutter doctor
 flutter devices
 ```

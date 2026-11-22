@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praktik Hari 2: Jaringan, Sensor, Perangkat, dan Keamanan</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body class="praktik">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Associate Mobile Programmer · Flutter</p>
+    <h1>Praktik Hari 2</h1>
+<h2>Jaringan, Sensor, Perangkat, dan Keamanan</h2><p>Ikuti langkah demi langkah. Pada setiap slide kode, tekan <strong>Salin</strong>, tempel ke file yang disebutkan, simpan, lalu lanjut ke slide berikutnya.</p><ul><li>Panah kiri dan kanan: pindah slide</li><li>Tombol F: layar penuh</li><li>Daftar langkah ada di slide 2</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2</p>
+    <h2>Daftar Langkah</h2>
+<ul class="stepgrid"><li><a href="#3"><b>Jadwal Hari 2</b>Jadwal Hari 2</a></li><li><a href="#4"><b>S0</b>Persiapan</a></li><li><a href="#9"><b>S1</b>Jaringan Seluler</a></li><li><a href="#13"><b>S2</b>Sensor</a></li><li><a href="#16"><b>S3</b>Informasi Perangkat</a></li><li><a href="#19"><b>S4</b>Penyimpanan Aman</a></li><li><a href="#22"><b>S5</b>HTTPS dan Halaman Keamanan</a></li><li><a href="#26"><b>S6</b>Router dan Beranda</a></li><li><a href="#30"><b>S7</b>Pengujian</a></li><li><a href="#36"><b>S8</b>Latihan</a></li><li><a href="#37"><b>Ringkasan File Hari 2</b>Ringkasan File Hari 2</a></li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2</p>
+    <h2>Jadwal Hari 2</h2>
+<table><tr><th>Waktu</th><th>Step</th><th>Modul</th></tr><tr><td>09.00 to 09.15</td><td>Step 0: Persiapan</td><td>Persiapan</td></tr><tr><td>09.15 to 10.00</td><td>Step 1: Jaringan seluler</td><td>Modul 5</td></tr><tr><td>10.00 to 10.40</td><td>Step 2: Sensor</td><td>Modul 6</td></tr><tr><td>10.40 to 12.00</td><td>Step 3: Informasi perangkat</td><td>Modul 6</td></tr><tr><td>13.00 to 13.40</td><td>Step 4 dan Step 5: Keamanan</td><td>Modul 7</td></tr><tr><td>13.40 to 14.30</td><td>Step 6 dan Step 7: Beranda dan pengujian</td><td>Modul 7</td></tr><tr><td>15.00 to 17.00</td><td>Step 8: Latihan</td><td>Modul 8</td></tr></table>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 09.00</p>
+    <h2>Step 0: Persiapan</h2>
+<h3>Tujuan</h3>
+<p>Menyiapkan dependensi dan izin Android yang dibutuhkan untuk Hari 2.</p>
+<h3>Langkah</h3>
+<h3>File pada step ini</h3><ol><li><code>pubspec.yaml</code></li><li><code>android/app/src/main/AndroidManifest.xml</code></li><li><code>Terminal</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 0 · Persiapan</p>
+    <h2>pubspec.yaml<span class="part">1 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>pubspec.yaml</span></div>
+<div class="instr"><ol><li>Buka proyek <code>associate_mobile_app</code> dari Hari 1.</li><li>Ganti isi <code>pubspec.yaml</code> dengan kode berikut. Dependensi <code>flutter_bloc</code>, <code>equatable</code>, dan <code>bloc_test</code> dari versi sebelumnya dihapus karena Hari 2 tidak lagi memakai Cubit.</li></ol></div>
+<pre><code>name: associate_mobile_app
+description: Aplikasi contoh pelatihan Associate Mobile Programmer dengan Flutter.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.4.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router: ^14.2.0          # Hari 1: navigasi
+  sqflite: ^2.3.3             # Hari 1: database SQLite lokal
+  path: ^1.9.0
+  geolocator: ^13.0.1         # Hari 1: GPS dan izin lokasi
+  flutter_map: ^7.0.2         # Hari 1: peta OpenStreetMap (tanpa API key)
+  latlong2: ^0.9.1
+  connectivity_plus: ^6.0.5   # Hari 2 Modul 5: jenis jaringan
+  sensors_plus: ^6.0.0        # Hari 2 Modul 6: accelerometer
+  device_info_plus: ^11.0.0   # Hari 2 Modul 6: informasi perangkat
+  flutter_secure_storage: ^9.2.2  # Hari 2 Modul 7: penyimpanan aman
+  http: ^1.2.2                # Hari 2 Modul 7: request HTTPS
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 0 · Persiapan</p>
+    <h2>android/app/src/main/AndroidManifest.xml<span class="part">2 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>android/app/src/main/AndroidManifest.xml</span></div>
+<div class="instr"><ol><li>Tambahkan izin jaringan pada <code>android/app/src/main/AndroidManifest.xml</code>, di dalam tag <code>&lt;manifest&gt;</code> sebelum tag <code>&lt;application&gt;</code>:</li></ol></div>
+<pre><code>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 0 · Persiapan</p>
+    <h2>Terminal<span class="part">3 dari 3</span></h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><ol><li>Jalankan perintah berikut di terminal dalam folder proyek:</li></ol></div>
+<pre><code>flutter pub get</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 0 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<h3>Catatan</h3>
+<ul><li>Package <code>sensors_plus</code> dan <code>device_info_plus</code> tidak memerlukan izin tambahan untuk fitur di panduan ini.</li><li>Package <code>flutter_secure_storage</code> memerlukan Android minSdk 18 atau lebih tinggi. Konfigurasi default Flutter sudah memenuhi syarat ini.</li></ul>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 09.15</p>
+    <h2>Step 1: Jaringan Seluler</h2>
+<h3>Tujuan</h3>
+<p>Mendeteksi jenis koneksi perangkat dan memperbarui tampilan saat koneksi berubah. Materi: <a href="../hari-2/05-mobile-cellular-network.md">Modul 5</a>.</p>
+<h3>Langkah</h3>
+<h3>File pada step ini</h3><ol><li><code>lib/services/network_service.dart</code></li><li><code>lib/pages/network_page.dart</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 1 · Jaringan Seluler</p>
+    <h2>lib/services/network_service.dart<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/services/network_service.dart</span></div>
+<div class="instr"><ol><li>Buat file <code>lib/services/network_service.dart</code>.</li></ol></div>
+<pre><code>import 'package:connectivity_plus/connectivity_plus.dart';
+
+/// Mengubah hasil connectivity_plus menjadi label yang mudah dibaca.
+String labelJaringan(List&lt;ConnectivityResult&gt; hasil) {
+  if (hasil.isEmpty || hasil.contains(ConnectivityResult.none)) {
+    return 'Tidak ada koneksi';
+  }
+  if (hasil.contains(ConnectivityResult.wifi)) return 'Wi-Fi';
+  if (hasil.contains(ConnectivityResult.mobile)) return 'Seluler';
+  if (hasil.contains(ConnectivityResult.ethernet)) return 'Ethernet';
+  if (hasil.contains(ConnectivityResult.vpn)) return 'VPN';
+  return 'Lainnya';
+}
+
+class NetworkService {
+  NetworkService({Connectivity? connectivity})
+      : _connectivity = connectivity ?? Connectivity();
+
+  final Connectivity _connectivity;
+
+  Future&lt;List&lt;ConnectivityResult&gt;&gt; periksa() {
+    return _connectivity.checkConnectivity();
+  }
+
+  Stream&lt;List&lt;ConnectivityResult&gt;&gt; get perubahan {
+    return _connectivity.onConnectivityChanged;
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 1 · Jaringan Seluler</p>
+    <h2>lib/pages/network_page.dart<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/network_page.dart</span></div>
+<div class="instr"><ol><li>Buat file <code>lib/pages/network_page.dart</code>.</li></ol></div>
+<pre><code>import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+
+import '../services/network_service.dart';
+
+class NetworkPage extends StatefulWidget {
+  const NetworkPage({super.key});
+
+  @override
+  State&lt;NetworkPage&gt; createState() =&gt; _NetworkPageState();
+}
+
+class _NetworkPageState extends State&lt;NetworkPage&gt; {
+  final _service = NetworkService();
+  StreamSubscription&lt;List&lt;ConnectivityResult&gt;&gt;? _langganan;
+  List&lt;ConnectivityResult&gt; _hasil = const [];
+
+  @override
+  void initState() {
+    super.initState();
+    _service.periksa().then((hasil) {
+      if (mounted) setState(() =&gt; _hasil = hasil);
+    });
+    _langganan = _service.perubahan.listen((hasil) {
+      if (mounted) setState(() =&gt; _hasil = hasil);
+    });
+  }
+
+  @override
+  void dispose() {
+    _langganan?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final label = labelJaringan(_hasil);
+    final tanpaKoneksi = label == 'Tidak ada koneksi';
+    final seluler = label == 'Seluler';
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Jaringan Seluler')),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Card(
+            child: ListTile(
+              leading: const Icon(Icons.signal_cellular_alt),
+              title: const Text('Jenis koneksi'),
+              subtitle: Text(label),
+            ),
+          ),
+          const SizedBox(height: 8),
+          if (tanpaKoneksi)
+            const Card(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  'Tidak ada koneksi. Periksa Wi-Fi atau data seluler Anda. '
+                  'Aplikasi tetap dapat menampilkan data yang tersimpan di perangkat.',
+                ),
+              ),
+            ),
+          if (seluler)
+            const Card(
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  'Anda sedang memakai jaringan seluler. Unduhan besar sebaiknya '
+                  'ditunda sampai Wi-Fi tersedia.',
+                ),
+              ),
+            ),
+          const SizedBox(height: 16),
+          const Text(
+            'Package connectivity_plus hanya mengetahui jenis koneksi. '
+            'Generasi (2G, 3G, 4G, atau 5G) dan kecepatan tidak terdeteksi '
+            'oleh package ini.',
+          ),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 1 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<h3>Cara Menguji</h3>
+<p>Jalankan aplikasi, lalu matikan Wi-Fi dan aktifkan data seluler. Label pada halaman akan berubah tanpa perlu memuat ulang layar.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 10.00</p>
+    <h2>Step 2: Sensor</h2>
+<h3>Tujuan</h3>
+<p>Membaca data accelerometer dan membatalkan langganan saat layar ditutup. Materi: <a href="../hari-2/06-mobile-sensor-spesifikasi.md">Modul 6</a>.</p>
+<h3>Langkah</h3>
+<h3>File pada step ini</h3><ol><li><code>lib/pages/sensor_page.dart</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 2 · Sensor</p>
+    <h2>lib/pages/sensor_page.dart</h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/sensor_page.dart</span></div>
+<div class="instr"><p>Buat file <code>lib/pages/sensor_page.dart</code>.</p></div>
+<pre><code>import 'dart:async';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+
+class SensorPage extends StatefulWidget {
+  const SensorPage({super.key});
+
+  @override
+  State&lt;SensorPage&gt; createState() =&gt; _SensorPageState();
+}
+
+class _SensorPageState extends State&lt;SensorPage&gt; {
+  StreamSubscription&lt;AccelerometerEvent&gt;? _langganan;
+  AccelerometerEvent? _data;
+  bool _tidakTersedia = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _langganan = accelerometerEventStream().listen(
+      (event) {
+        if (mounted) setState(() =&gt; _data = event);
+      },
+      onError: (_) {
+        if (mounted) setState(() =&gt; _tidakTersedia = true);
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    // Wajib dibatalkan agar sensor berhenti saat layar ditutup
+    _langganan?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final data = _data;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Sensor Accelerometer')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: _tidakTersedia
+            ? const Center(
+                child: Text('Sensor accelerometer tidak tersedia di perangkat ini.'),
+              )
+            : data == null
+                ? const Center(child: CircularProgressIndicator())
+                : _buatTampilan(data),
+      ),
+    );
+  }
+
+  Widget _buatTampilan(AccelerometerEvent data) {
+    final besar = math.sqrt(
+      data.x * data.x + data.y * data.y + data.z * data.z,
+    );
+    // Gravitasi bumi sekitar 9.8 m/s2, dibatasi agar bar tetap dalam rentang 0 sampai 1
+    final nilaiBar = (besar / 20).clamp(0.0, 1.0).toDouble();
+
+    return ListView(
+      children: [
+        Card(
+          child: ListTile(
+            title: const Text('Sumbu X'),
+            trailing: Text(data.x.toStringAsFixed(2)),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            title: const Text('Sumbu Y'),
+            trailing: Text(data.y.toStringAsFixed(2)),
+          ),
+        ),
+        Card(
+          child: ListTile(
+            title: const Text('Sumbu Z'),
+            trailing: Text(data.z.toStringAsFixed(2)),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text('Besar percepatan: ${besar.toStringAsFixed(2)} m/s2'),
+        const SizedBox(height: 8),
+        LinearProgressIndicator(value: nilaiBar),
+        const SizedBox(height: 16),
+        const Text(
+          'Gerakkan perangkat untuk melihat perubahan nilai. '
+          'Saat diam, nilai besar percepatan mendekati 9.8 m/s2 karena gravitasi.',
+        ),
+      ],
+    );
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 2 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<h3>Cara Menguji</h3>
+<p>Buka halaman sensor, lalu putar perangkat. Nilai sumbu X, Y, dan Z berubah. Saat perangkat diletakkan diam di atas meja, besar percepatan mendekati 9.8.</p>
+<h3>Latihan Mandiri</h3>
+<p>Tambahkan teks "Perangkat bergerak" jika besar percepatan lebih dari 12 m/s2.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 10.40</p>
+    <h2>Step 3: Informasi Perangkat</h2>
+<h3>Tujuan</h3>
+<p>Menampilkan informasi perangkat dari sistem operasi. Materi: <a href="../hari-2/06-mobile-sensor-spesifikasi.md">Modul 6</a>.</p>
+<h3>Langkah</h3>
+<h3>File pada step ini</h3><ol><li><code>lib/pages/device_page.dart</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 3 · Informasi Perangkat</p>
+    <h2>lib/pages/device_page.dart</h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/device_page.dart</span></div>
+<div class="instr"><p>Buat file <code>lib/pages/device_page.dart</code>.</p></div>
+<pre><code>import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/material.dart';
+
+class DevicePage extends StatelessWidget {
+  const DevicePage({super.key});
+
+  Future&lt;Map&lt;String, String&gt;&gt; _ambilInfo() async {
+    final plugin = DeviceInfoPlugin();
+
+    if (Platform.isAndroid) {
+      final info = await plugin.androidInfo;
+      return {
+        'Merek': info.brand,
+        'Model': info.model,
+        'Versi Android': '${info.version.release} (API ${info.version.sdkInt})',
+        'Arsitektur CPU': info.supportedAbis.join(', '),
+        'Perangkat keras': info.hardware,
+      };
+    }
+
+    if (Platform.isIOS) {
+      final info = await plugin.iosInfo;
+      return {
+        'Nama': info.name,
+        'Model': info.utsname.machine,
+        'Versi iOS': info.systemVersion,
+      };
+    }
+
+    return {'Platform': Platform.operatingSystem};
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Informasi Perangkat')),
+      body: FutureBuilder&lt;Map&lt;String, String&gt;&gt;(
+        future: _ambilInfo(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('Gagal membaca informasi perangkat: ${snapshot.error}'),
+            );
+          }
+          final entries = snapshot.data!.entries.toList();
+          return ListView.separated(
+            padding: const EdgeInsets.all(16),
+            itemCount: entries.length,
+            separatorBuilder: (_, __) =&gt; const SizedBox(height: 8),
+            itemBuilder: (context, index) {
+              final item = entries[index];
+              return Card(
+                child: ListTile(
+                  title: Text(item.key),
+                  subtitle: Text(item.value),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 3 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<h3>Cara Menguji</h3>
+<p>Buka halaman informasi perangkat. Bandingkan nilainya dengan menu "Tentang ponsel" di pengaturan perangkat.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 13.00</p>
+    <h2>Step 4: Penyimpanan Aman</h2>
+<h3>Tujuan</h3>
+<p>Menyimpan token di tempat penyimpanan aman milik sistem operasi. Materi: <a href="../hari-2/07-keamanan-komunikasi-mobile.md">Modul 7</a>.</p>
+<h3>Langkah</h3>
+<h3>File pada step ini</h3><ol><li><code>lib/services/secure_storage_service.dart</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 4 · Penyimpanan Aman</p>
+    <h2>lib/services/secure_storage_service.dart</h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/services/secure_storage_service.dart</span></div>
+<div class="instr"><p>Buat file <code>lib/services/secure_storage_service.dart</code>.</p></div>
+<pre><code>import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+class SecureStorageService {
+  SecureStorageService({FlutterSecureStorage? storage})
+      : _storage = storage ?? const FlutterSecureStorage();
+
+  final FlutterSecureStorage _storage;
+
+  static const _kunciToken = 'token';
+
+  Future&lt;void&gt; simpanToken(String token) {
+    return _storage.write(key: _kunciToken, value: token);
+  }
+
+  Future&lt;String?&gt; ambilToken() {
+    return _storage.read(key: _kunciToken);
+  }
+
+  Future&lt;void&gt; hapusToken() {
+    return _storage.delete(key: _kunciToken);
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 4 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<h3>Catatan</h3>
+<p>Layanan ini belum memiliki layar sendiri. Layar yang memakainya dibuat pada Step 5.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 13.10</p>
+    <h2>Step 5: HTTPS dan Halaman Keamanan</h2>
+<h3>Tujuan</h3>
+<p>Menolak URL yang tidak memakai HTTPS, mengambil data dari API publik melalui HTTPS, dan menampilkan token yang disamarkan. Materi: <a href="../hari-2/07-keamanan-komunikasi-mobile.md">Modul 7</a>.</p>
+<h3>Langkah</h3>
+<h3>File pada step ini</h3><ol><li><code>lib/services/https_service.dart</code></li><li><code>lib/pages/keamanan_page.dart</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 5 · HTTPS dan Halaman Keamanan</p>
+    <h2>lib/services/https_service.dart<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/services/https_service.dart</span></div>
+<div class="instr"><ol><li>Buat file <code>lib/services/https_service.dart</code>.</li></ol></div>
+<pre><code>import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+/// Mengembalikan pesan error jika URL tidak aman, atau null jika URL aman.
+String? periksaUrlAman(String url) {
+  final uri = Uri.tryParse(url.trim());
+  if (uri == null || !uri.hasAuthority) {
+    return 'URL tidak valid.';
+  }
+  if (uri.scheme != 'https') {
+    return 'Gunakan HTTPS (https://).';
+  }
+  return null;
+}
+
+class HttpsService {
+  HttpsService({http.Client? client}) : _client = client ?? http.Client();
+
+  final http.Client _client;
+
+  Future&lt;dynamic&gt; ambilJson(String url) async {
+    final pesan = periksaUrlAman(url);
+    if (pesan != null) {
+      throw ArgumentError(pesan);
+    }
+
+    final response = await _client
+        .get(Uri.parse(url.trim()), headers: {'Accept': 'application/json'})
+        .timeout(const Duration(seconds: 10));
+
+    if (response.statusCode != 200) {
+      throw Exception('Server merespons status ${response.statusCode}');
+    }
+    return jsonDecode(response.body);
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 5 · HTTPS dan Halaman Keamanan</p>
+    <h2>lib/pages/keamanan_page.dart<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/keamanan_page.dart</span></div>
+<div class="instr"><ol><li>Buat file <code>lib/pages/keamanan_page.dart</code>.</li></ol></div>
+<pre><code>import 'package:flutter/material.dart';
+
+import '../services/https_service.dart';
+import '../services/secure_storage_service.dart';
+
+class KeamananPage extends StatefulWidget {
+  const KeamananPage({super.key});
+
+  @override
+  State&lt;KeamananPage&gt; createState() =&gt; _KeamananPageState();
+}
+
+class _KeamananPageState extends State&lt;KeamananPage&gt; {
+  final _storage = SecureStorageService();
+  final _https = HttpsService();
+
+  final _tokenController = TextEditingController();
+  final _urlController = TextEditingController(
+    text: 'https://jsonplaceholder.typicode.com/posts/1',
+  );
+
+  String _tokenTersimpan = '(belum ada)';
+  String _hasilAmbil = '';
+  bool _memuat = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _muatToken();
+  }
+
+  @override
+  void dispose() {
+    _tokenController.dispose();
+    _urlController.dispose();
+    super.dispose();
+  }
+
+  /// Hanya empat karakter terakhir yang ditampilkan agar token tidak terlihat utuh.
+  String _samarkan(String nilai) {
+    if (nilai.length &lt;= 4) return '****';
+    return '${'*' * (nilai.length - 4)}${nilai.substring(nilai.length - 4)}';
+  }
+
+  Future&lt;void&gt; _muatToken() async {
+    final token = await _storage.ambilToken();
+    if (!mounted) return;
+    setState(() {
+      _tokenTersimpan = token == null ? '(belum ada)' : _samarkan(token);
+    });
+  }
+
+  Future&lt;void&gt; _simpan() async {
+    final teks = _tokenController.text.trim();
+    if (teks.isEmpty) {
+      _pesan('Token tidak boleh kosong.');
+      return;
+    }
+    await _storage.simpanToken(teks);
+    _tokenController.clear();
+    await _muatToken();
+    _pesan('Token disimpan di secure storage.');
+  }
+
+  Future&lt;void&gt; _hapus() async {
+    await _storage.hapusToken();
+    await _muatToken();
+    _pesan('Token dihapus.');
+  }
+
+  Future&lt;void&gt; _ambilData() async {
+    setState(() {
+      _memuat = true;
+      _hasilAmbil = '';
+    });
+    try {
+      final data = await _https.ambilJson(_urlController.text);
+      final judul = data is Map ? data['title'] : null;
+      if (mounted) {
+        setState(() =&gt; _hasilAmbil = 'Judul: ${judul ?? '-'}');
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() =&gt; _hasilAmbil = 'Gagal: $e');
+      }
+    } finally {
+      if (mounted) {
+        setState(() =&gt; _memuat = false);
+      }
+    }
+  }
+
+  void _pesan(String teks) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(teks)));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Keamanan dan HTTPS')),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Text('Penyimpanan Token', style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          Text('Token tersimpan: $_tokenTersimpan'),
+          const SizedBox(height: 12),
+          TextField(
+            controller: _tokenController,
+            obscureText: true,
+            decoration: const InputDecoration(
+              labelText: 'Token (contoh: abc123xyz)',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              FilledButton(onPressed: _simpan, child: const Text('Simpan')),
+              const SizedBox(width: 12),
+              OutlinedButton(onPressed: _hapus, child: const Text('Hapus')),
+            ],
+          ),
+          const Divider(height: 40),
+          Text('Permintaan HTTPS', style: Theme.of(context).textTheme.titleMedium),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _urlController,
+            keyboardType: TextInputType.url,
+            decoration: const InputDecoration(
+              labelText: 'URL (harus https://)',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          FilledButton(
+            onPressed: _memuat ? null : _ambilData,
+            child: const Text('Ambil data'),
+          ),
+          const SizedBox(height: 12),
+          if (_memuat) const LinearProgressIndicator(),
+          if (_hasilAmbil.isNotEmpty) Text(_hasilAmbil),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 5 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<h3>Cara Menguji</h3>
+<ol><li>Masukkan token, tekan Simpan, lalu lihat bahwa hanya empat karakter terakhir yang tampil.</li><li>Tutup aplikasi dan buka kembali. Token tetap tersimpan.</li><li>Ubah URL menjadi <code>http://jsonplaceholder.typicode.com/posts/1</code>, lalu tekan Ambil data. Aplikasi menampilkan pesan "Gunakan HTTPS".</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 13.40</p>
+    <h2>Step 6: Router dan Beranda</h2>
+<h3>Tujuan</h3>
+<p>Mendaftarkan empat layar Hari 2 ke router dan menambahkannya ke menu beranda. Materi: <a href="../hari-2/05-mobile-cellular-network.md">Modul 5</a> sampai <a href="../hari-2/07-keamanan-komunikasi-mobile.md">Modul 7</a>.</p>
+<h3>Langkah</h3>
+<h3>File pada step ini</h3><ol><li><code>lib/router/app_router.dart</code></li><li><code>lib/pages/home_page.dart</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 6 · Router dan Beranda</p>
+    <h2>lib/router/app_router.dart<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/router/app_router.dart</span></div>
+<div class="instr"><ol><li>Ganti isi <code>lib/router/app_router.dart</code>. Rute Hari 1 tetap dipertahankan.</li></ol></div>
+<pre><code>import 'package:go_router/go_router.dart';
+
+import '../pages/device_page.dart';
+import '../pages/home_page.dart';
+import '../pages/keamanan_page.dart';
+import '../pages/location_page.dart';
+import '../pages/network_page.dart';
+import '../pages/note_form_page.dart';
+import '../pages/notes_page.dart';
+import '../pages/sensor_page.dart';
+
+final GoRouter appRouter = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) =&gt; const HomePage(),
+    ),
+    // Hari 1
+    GoRoute(
+      path: '/catatan',
+      builder: (context, state) =&gt; const NotesPage(),
+    ),
+    GoRoute(
+      path: '/catatan/baru',
+      builder: (context, state) =&gt; const NoteFormPage(),
+    ),
+    GoRoute(
+      path: '/lokasi',
+      builder: (context, state) =&gt; const LocationPage(),
+    ),
+    // Hari 2
+    GoRoute(
+      path: '/jaringan',
+      builder: (context, state) =&gt; const NetworkPage(),
+    ),
+    GoRoute(
+      path: '/sensor',
+      builder: (context, state) =&gt; const SensorPage(),
+    ),
+    GoRoute(
+      path: '/perangkat',
+      builder: (context, state) =&gt; const DevicePage(),
+    ),
+    GoRoute(
+      path: '/keamanan',
+      builder: (context, state) =&gt; const KeamananPage(),
+    ),
+  ],
+);</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 6 · Router dan Beranda</p>
+    <h2>lib/pages/home_page.dart<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>lib/pages/home_page.dart</span></div>
+<div class="instr"><ol><li>Ganti isi <code>lib/pages/home_page.dart</code>.</li></ol></div>
+<pre><code>import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  static const _menu = [
+    _MenuItem(
+      judul: 'Catatan Lokal',
+      deskripsi: 'CRUD dengan SQLite (sqflite) dan jarak dari lokasi saya',
+      ikon: Icons.note_alt_outlined,
+      rute: '/catatan',
+    ),
+    _MenuItem(
+      judul: 'Lokasi dan Peta',
+      deskripsi: 'GPS, peta OpenStreetMap, dan alamat dari koordinat',
+      ikon: Icons.map_outlined,
+      rute: '/lokasi',
+    ),
+    _MenuItem(
+      judul: 'Jaringan Seluler',
+      deskripsi: 'Jenis koneksi perangkat dan pemantauan perubahan jaringan',
+      ikon: Icons.signal_cellular_alt,
+      rute: '/jaringan',
+    ),
+    _MenuItem(
+      judul: 'Sensor',
+      deskripsi: 'Membaca data accelerometer secara langsung',
+      ikon: Icons.sensors,
+      rute: '/sensor',
+    ),
+    _MenuItem(
+      judul: 'Informasi Perangkat',
+      deskripsi: 'Merek, model, versi sistem operasi, dan arsitektur CPU',
+      ikon: Icons.phone_android,
+      rute: '/perangkat',
+    ),
+    _MenuItem(
+      judul: 'Keamanan dan HTTPS',
+      deskripsi: 'Penyimpanan token aman dan permintaan data melalui HTTPS',
+      ikon: Icons.lock_outline,
+      rute: '/keamanan',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Associate Mobile Programmer')),
+      body: ListView.separated(
+        padding: const EdgeInsets.all(16),
+        itemCount: _menu.length,
+        separatorBuilder: (_, __) =&gt; const SizedBox(height: 8),
+        itemBuilder: (context, index) {
+          final item = _menu[index];
+          return Card(
+            child: ListTile(
+              leading: Icon(item.ikon),
+              title: Text(item.judul),
+              subtitle: Text(item.deskripsi),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () =&gt; context.push(item.rute),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _MenuItem {
+  const _MenuItem({
+    required this.judul,
+    required this.deskripsi,
+    required this.ikon,
+    required this.rute,
+  });
+
+  final String judul;
+  final String deskripsi;
+  final IconData ikon;
+  final String rute;
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 6 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<h3>Catatan</h3>
+<p>Berkas <code>lib/services/post_service.dart</code>, <code>lib/blocs/post_cubit.dart</code>, dan berkas post lainnya dari versi Hari 2 sebelumnya tidak lagi dipakai. Hapus berkas tersebut jika masih ada di proyek.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 14.00</p>
+    <h2>Step 7: Pengujian</h2>
+<h3>Tujuan</h3>
+<p>Menulis unit test untuk fungsi murni dan widget test untuk beranda. Materi: <a href="../hari-2/08-latihan-uji-kompetensi.md">Modul 8</a>, Bagian B.</p>
+<h3>Langkah</h3>
+<h3>File pada step ini</h3><ol><li><code>test/network_service_test.dart</code></li><li><code>test/https_service_test.dart</code></li><li><code>test/home_page_test.dart</code></li><li><code>Terminal</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 7 · Pengujian</p>
+    <h2>test/network_service_test.dart<span class="part">1 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>test/network_service_test.dart</span></div>
+<div class="instr"><ol><li>Buat file <code>test/network_service_test.dart</code>.</li></ol></div>
+<pre><code>import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:associate_mobile_app/services/network_service.dart';
+
+void main() {
+  test('daftar kosong dianggap tidak ada koneksi', () {
+    expect(labelJaringan([]), 'Tidak ada koneksi');
+  });
+
+  test('ConnectivityResult.none menghasilkan tidak ada koneksi', () {
+    expect(labelJaringan([ConnectivityResult.none]), 'Tidak ada koneksi');
+  });
+
+  test('Wi-Fi terdeteksi dengan benar', () {
+    expect(labelJaringan([ConnectivityResult.wifi]), 'Wi-Fi');
+  });
+
+  test('seluler terdeteksi dengan benar', () {
+    expect(labelJaringan([ConnectivityResult.mobile]), 'Seluler');
+  });
+
+  test('Wi-Fi lebih diutamakan jika kedua jenis koneksi aktif', () {
+    expect(
+      labelJaringan([ConnectivityResult.mobile, ConnectivityResult.wifi]),
+      'Wi-Fi',
+    );
+  });
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 7 · Pengujian</p>
+    <h2>test/https_service_test.dart<span class="part">2 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>test/https_service_test.dart</span></div>
+<div class="instr"><ol><li>Buat file <code>test/https_service_test.dart</code>.</li></ol></div>
+<pre><code>import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+
+import 'package:associate_mobile_app/services/https_service.dart';
+
+void main() {
+  test('URL tanpa skema tidak valid', () {
+    expect(periksaUrlAman('bukan url'), 'URL tidak valid.');
+  });
+
+  test('URL http ditolak', () {
+    expect(periksaUrlAman('http://contoh.test/data'), 'Gunakan HTTPS (https://).');
+  });
+
+  test('URL https diterima', () {
+    expect(periksaUrlAman('https://contoh.test/data'), isNull);
+  });
+
+  test('ambilJson mengembalikan data saat status 200', () async {
+    final service = HttpsService(
+      client: MockClient(
+        (request) async =&gt; http.Response('{"title": "Contoh"}', 200),
+      ),
+    );
+
+    final data = await service.ambilJson('https://contoh.test/post');
+
+    expect((data as Map)['title'], 'Contoh');
+  });
+
+  test('ambilJson melempar error saat status bukan 200', () async {
+    final service = HttpsService(
+      client: MockClient((request) async =&gt; http.Response('gagal', 500)),
+    );
+
+    await expectLater(
+      service.ambilJson('https://contoh.test/post'),
+      throwsException,
+    );
+  });
+
+  test('ambilJson menolak URL http tanpa mengirim request', () async {
+    final service = HttpsService(
+      client: MockClient((request) async {
+        fail('Request tidak boleh dikirim untuk URL http');
+      }),
+    );
+
+    await expectLater(
+      service.ambilJson('http://contoh.test/post'),
+      throwsArgumentError,
+    );
+  });
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 7 · Pengujian</p>
+    <h2>test/home_page_test.dart<span class="part">3 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>test/home_page_test.dart</span></div>
+<div class="instr"><ol><li>Buat file <code>test/home_page_test.dart</code>.</li></ol></div>
+<pre><code>import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:associate_mobile_app/pages/home_page.dart';
+
+void main() {
+  testWidgets('HomePage menampilkan menu utama', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: HomePage()));
+
+    expect(find.text('Catatan Lokal'), findsOneWidget);
+    expect(find.text('Lokasi dan Peta'), findsOneWidget);
+    expect(find.text('Jaringan Seluler'), findsOneWidget);
+    expect(find.text('Sensor'), findsOneWidget);
+    expect(find.text('Informasi Perangkat'), findsOneWidget);
+    expect(find.text('Keamanan dan HTTPS'), findsOneWidget);
+  });
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 7 · Pengujian</p>
+    <h2>Terminal<span class="part">4 dari 4</span></h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><ol><li>Jalankan seluruh pengujian:</li></ol></div>
+<pre><code>flutter analyze
+flutter test</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 7 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<h3>Catatan</h3>
+<p>Pengujian <code>distance_test.dart</code> dari Hari 1 tetap dijalankan bersama pengujian di atas.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 15.00 to 17.00</p>
+    <h2>Step 8: Latihan</h2>
+<h3>Tujuan</h3>
+<p>Mengerjakan soal teori dan latihan praktik dari seluruh modul Hari 2, lalu menyusun rencana belajar mandiri. Materi: <a href="../hari-2/08-latihan-uji-kompetensi.md">Modul 8</a>.</p>
+<h3>Langkah</h3>
+<ol><li>Buka <a href="../hari-2/08-latihan-uji-kompetensi.md">docs/hari-2/08-latihan-uji-kompetensi.md</a>.</li><li>Kerjakan Bagian A (soal teori) tanpa membuka materi.</li><li>Kerjakan Bagian B (latihan praktik) di proyek <code>app/</code>.</li><li>Ikuti pembahasan pada Bagian C dan isi rencana belajar mandiri pada Bagian D.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2</p>
+    <h2>Ringkasan File Hari 2</h2>
+<table><tr><th>Berkas</th><th>Step</th><th>Fungsi</th></tr><tr><td><code>pubspec.yaml</code></td><td>0</td><td>Dependensi Hari 2</td></tr><tr><td><code>AndroidManifest.xml</code></td><td>0</td><td>Izin jaringan</td></tr><tr><td><code>lib/services/network_service.dart</code></td><td>1</td><td>Jenis koneksi dan label</td></tr><tr><td><code>lib/pages/network_page.dart</code></td><td>1</td><td>Layar jaringan seluler</td></tr><tr><td><code>lib/pages/sensor_page.dart</code></td><td>2</td><td>Layar accelerometer</td></tr><tr><td><code>lib/pages/device_page.dart</code></td><td>3</td><td>Layar informasi perangkat</td></tr><tr><td><code>lib/services/secure_storage_service.dart</code></td><td>4</td><td>Penyimpanan token aman</td></tr><tr><td><code>lib/services/https_service.dart</code></td><td>5</td><td>Validasi URL dan request HTTPS</td></tr><tr><td><code>lib/pages/keamanan_page.dart</code></td><td>5</td><td>Layar keamanan dan HTTPS</td></tr><tr><td><code>lib/router/app_router.dart</code></td><td>6</td><td>Rute Hari 1 dan Hari 2</td></tr><tr><td><code>lib/pages/home_page.dart</code></td><td>6</td><td>Menu beranda</td></tr><tr><td><code>test/network_service_test.dart</code></td><td>7</td><td>Unit test jaringan</td></tr><tr><td><code>test/https_service_test.dart</code></td><td>7</td><td>Unit test HTTPS</td></tr><tr><td><code>test/home_page_test.dart</code></td><td>7</td><td>Widget test beranda</td></tr></table>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Daftar</a>
+  <button id="prev" type="button">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next" type="button">Berikutnya</button>
+</div>
+
+<script src="assets/highlight.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/slides.js"></script>
+</body>
+</html>

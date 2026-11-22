@@ -89,7 +89,7 @@
   }
 
   function detect(src) {
-    var s = src.trim();
+    var s = src.replace(/^(\s*#[^\n]*\n)+/, '').trim();
     if (s.indexOf('├──') !== -1 || s.indexOf('└──') !== -1) return 'plain';
     if (/^</.test(s)) return 'xml';
     if (/^(flutter|cd|dart|git|npm|\$)\b/.test(s) && s.indexOf('{') === -1 && s.indexOf(';') === -1) return 'bash';

@@ -16,7 +16,7 @@ Setelah mengikuti pelatihan, peserta mampu:
 
 - Dasar pemrograman (variabel, fungsi, class).
 - Laptop dengan RAM minimal 8 GB.
-- Flutter SDK dan Android Studio atau VS Code terpasang. Jalankan `flutter doctor` untuk memastikan konfigurasi siap.
+- Flutter SDK dan Android Studio atau VS Code terpasang. Jalankan `flutter doctor` untuk memastikan konfigurasi siap. Panduan pemasangan Dart dan Flutter: [docs/instalasi-dart-flutter.md](docs/instalasi-dart-flutter.md).
 - Emulator Android atau perangkat Android fisik dengan mode pengembang aktif. Perangkat fisik diperlukan untuk menguji sensor dan jaringan seluler.
 
 ## Jadwal
@@ -64,6 +64,8 @@ Buka `index.html` atau `slides/index.html` di peramban. Tidak perlu server atau 
 
 - Panah kiri dan kanan atau spasi: pindah slide.
 - Tombol **Simulasi** atau tombol `S`: membuka simulasi interaktif pada slide yang memilikinya (17 simulasi, misalnya Haversine, validasi URL, TLS, dan counter). `Esc` menutup panel.
+- Tombol panah atas dan bawah mengganti tampilan slide (isi, gambar, tata cara). Tombol `F` membuka layar penuh. Ukuran huruf besar dan menyesuaikan layar proyektor.
+- **Slide praktik** (`slides/praktik-hari-1.html` dan `slides/praktik-hari-2.html`): satu slide per file kode, lengkap dengan nama file dan tombol **Salin**. Peserta cukup menyalin kode berurutan sampai aplikasi jadi. Slide dibuat otomatis dari `docs/hands-on/` dengan `python3 scripts/build_praktik.py`.
 - Setiap blok kode berwarna dan memiliki tombol **Salin**. Blok kode Flutter yang dapat berdiri sendiri memiliki tombol **DartPad** yang menyalin kode lalu membuka dartpad.dev. Kode yang memakai plugin (sqflite, geolocator, sensors_plus, dan sejenisnya) tidak dapat dijalankan di DartPad dan harus dijalankan di proyek `app/`.
 
 ## Struktur Repository

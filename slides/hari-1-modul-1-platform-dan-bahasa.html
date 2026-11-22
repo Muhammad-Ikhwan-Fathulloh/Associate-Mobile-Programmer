@@ -30,6 +30,62 @@
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
+    <p class="kicker">Instalasi</p>
+    <h2>Persiapan Dart dan Flutter</h2>
+    <p>Dart sudah termasuk di dalam Flutter SDK. Cukup pasang Flutter.</p>
+    <table>
+      <tr><th>Kebutuhan</th><th>Keterangan</th></tr>
+      <tr><td>Sistem operasi</td><td>Windows 10+, macOS, atau Linux 64-bit</td></tr>
+      <tr><td>Ruang disk</td><td>Sekitar 10 GB atau lebih</td></tr>
+      <tr><td>Git</td><td>Wajib terpasang</td></tr>
+      <tr><td>Editor</td><td>Android Studio atau VS Code</td></tr>
+      <tr><td>Perangkat uji</td><td>Emulator atau ponsel Android</td></tr>
+    </table>
+    </div></div><!--/split-->
+
+    <p class="ref">Panduan lengkap: <a href="../docs/instalasi-dart-flutter.md">docs/instalasi-dart-flutter.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Instalasi</p>
+    <h2>Pasang Flutter SDK</h2>
+    <ol>
+      <li>Unduh SDK dari <code>docs.flutter.dev/get-started/install</code>.</li>
+      <li>Ekstrak ke folder tanpa spasi, misalnya <code>C:\src\flutter</code>.</li>
+      <li>Tambahkan folder <code>flutter\bin</code> ke PATH, lalu buka ulang terminal.</li>
+    </ol>
+    <pre><code># macOS dan Linux
+mkdir -p ~/development
+tar -xf ~/Downloads/flutter_linux_*.tar.xz -C ~/development
+echo 'export PATH="$HOME/development/flutter/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc</code></pre>
+    </div></div><!--/split-->
+
+    <p class="ref">Panduan lengkap: <a href="../docs/instalasi-dart-flutter.md">docs/instalasi-dart-flutter.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Instalasi</p>
+    <h2>Android Studio dan Verifikasi</h2>
+    <ol>
+      <li>Pasang Android Studio, jalankan sekali sampai Android SDK terunduh.</li>
+      <li>Di SDK Tools, centang <strong>Command-line Tools</strong>. Pasang plugin <strong>Flutter</strong>.</li>
+      <li>Buat emulator, atau aktifkan USB debugging di ponsel.</li>
+    </ol>
+    <pre><code>flutter doctor --android-licenses
+flutter --version
+dart --version
+flutter doctor
+flutter devices</code></pre>
+    </div></div><!--/split-->
+
+    <p class="ref">Panduan lengkap: <a href="../docs/instalasi-dart-flutter.md">docs/instalasi-dart-flutter.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
     <p class="kicker">Konsep</p>
     <h2>Ekosistem Mobile</h2>
     <table>
