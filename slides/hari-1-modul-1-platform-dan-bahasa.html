@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 1: Platform OS dan Bahasa Pemrograman Mobile</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <p class="kicker">Hari 1 · 09.00 to 10.00</p>
+    <h1>Modul 1: Platform OS dan Bahasa Pemrograman Mobile</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Membandingkan ekosistem Android dan iOS.</li>
+      <li>Menjelaskan arsitektur Flutter dan peran Dart.</li>
+      <li>Membuat dan menjalankan aplikasi Flutter pertama.</li>
+    </ol>
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Konsep</p>
+    <h2>Ekosistem Mobile</h2>
+    <table>
+      <tr><th>Aspek</th><th>Android</th><th>iOS</th></tr>
+      <tr><td>Pengembang</td><td>Google</td><td>Apple</td></tr>
+      <tr><td>IDE resmi</td><td>Android Studio</td><td>Xcode (hanya di macOS)</td></tr>
+      <tr><td>Bahasa native</td><td>Kotlin, Java</td><td>Swift</td></tr>
+      <tr><td>Framework UI native</td><td>Jetpack Compose, XML Views</td><td>SwiftUI, UIKit</td></tr>
+      <tr><td>Distribusi</td><td>Google Play Store</td><td>App Store</td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">Bagian 1. Ekosistem Mobile</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Konsep</p>
+    <h2>Posisi Flutter</h2>
+    <ul>
+      <li>Flutter adalah framework UI open source dari Google dengan bahasa Dart.</li>
+      <li>Satu basis kode untuk Android, iOS, web, dan desktop.</li>
+      <li>Tampilan digambar oleh engine Flutter, sehingga relatif konsisten di kedua platform.</li>
+    </ul>
+    <table>
+      <tr><th>Aspek</th><th>Flutter</th><th>React Native</th></tr>
+      <tr><td>Bahasa</td><td>Dart</td><td>JavaScript atau TypeScript</td></tr>
+      <tr><td>Arsitektur UI</td><td>Widget, dirender engine Flutter (Impeller)</td><td>Komponen native melalui React</td></tr>
+      <tr><td>Hot reload</td><td>Ya</td><td>Ya (Fast Refresh)</td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">Bagian 2. Posisi Flutter</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Dart</p>
+    <h2>Dart Essentials</h2>
+    <pre><code>void main() {
+  String nama = 'Peserta';
+  final kota = 'Bandung';   // nilai tidak berubah setelah diberikan
+  const pi = 3.14159;       // nilai konstan saat kompilasi
+
+  String? catatan;          // boleh null (null safety)
+  print(catatan ?? 'Tidak ada catatan');
+
+  ambilData().then((hasil) =&gt; print(hasil));
+}
+
+Future&lt;String&gt; ambilData() async {
+  await Future.delayed(const Duration(seconds: 1));
+  return 'Data berhasil diambil';
+}</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">Bagian 3. Dart Essentials</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Widget</p>
+    <h2>Widget dan Widget Tree</h2>
+    <p>Segala sesuatu di layar adalah widget. Widget tersusun dalam pohon.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>StatelessWidget</h3>
+        <pre><code>class HaloFlutter extends StatelessWidget {
+  const HaloFlutter({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text('Halo Flutter!');
+  }
+}</code></pre>
+      </div>
+      <div class="card">
+        <h3>StatefulWidget</h3>
+        <pre><code>class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+
+  @override
+  State&lt;CounterWidget&gt; createState() =&gt;
+      _CounterWidgetState();
+}</code></pre>
+      </div>
+    </div>
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">Bagian 4. Widget dan Widget Tree</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Siklus hidup</p>
+    <h2>Siklus Hidup State</h2>
+    <table>
+      <tr><th>Method</th><th>Keterangan</th></tr>
+      <tr><td><code>initState()</code></td><td>Dipanggil sekali saat widget dibuat. Cocok untuk inisialisasi controller.</td></tr>
+      <tr><td><code>didChangeDependencies()</code></td><td>Dipanggil setelah <code>initState</code> dan saat dependensi berubah.</td></tr>
+      <tr><td><code>build()</code></td><td>Membangun tampilan. Sebaiknya tanpa efek samping.</td></tr>
+      <tr><td><code>dispose()</code></td><td>Dipanggil saat widget dihapus. Lepaskan controller dan stream di sini.</td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">Bagian 4. Siklus Hidup State</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Praktik</p>
+    <h2>Membuat Proyek Pertama</h2>
+    <pre><code>flutter create aplikasi_pertama
+cd aplikasi_pertama
+flutter run</code></pre>
+    <pre><code>MaterialApp(
+  debugShowCheckedModeBanner: false,
+  theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
+  home: const Scaffold(
+    body: Center(child: Text('Halo, Peserta Pelatihan')),
+  ),
+);</code></pre>
+    <ul>
+      <li>Tekan <code>r</code> untuk hot reload dan <code>R</code> untuk hot restart.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">Bagian 5. Membuat Proyek Pertama</a> · Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 0 to 3</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Latihan</p>
+    <h2>Latihan Modul 1</h2>
+    <ol>
+      <li>Jalankan aplikasi pada emulator atau perangkat fisik.</li>
+      <li>Ubah <code>colorSchemeSeed</code>, lalu tekan <code>r</code> untuk hot reload.</li>
+      <li>Ubah teks, lalu tekan <code>R</code>. Bandingkan dengan hot reload.</li>
+      <li>Buat <code>StatefulWidget</code> counter dan tampilkan di layar.</li>
+    </ol>
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="assets/slides.js"></script>
+</body>
+</html>

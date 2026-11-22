@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 3: Perancangan Database dan Data Persistence</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <p class="kicker">Hari 1 · 13.00 to 15.00</p>
+    <h1>Modul 3: Database dan Data Persistence</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Memilih metode penyimpanan lokal yang sesuai kebutuhan.</li>
+      <li>Merancang tabel untuk aplikasi mobile.</li>
+      <li>Mengimplementasikan CRUD dengan <code>sqflite</code>.</li>
+      <li>Memahami konsep offline-first dan sinkronisasi.</li>
+    </ol>
+    <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Konsep</p>
+    <h2>Pilihan Penyimpanan Lokal</h2>
+    <table>
+      <tr><th>Metode</th><th>Package</th><th>Contoh penggunaan</th></tr>
+      <tr><td>Key-value</td><td><code>shared_preferences</code></td><td>Tema, status onboarding</td></tr>
+      <tr><td>Penyimpanan aman</td><td><code>flutter_secure_storage</code></td><td>Token akses</td></tr>
+      <tr><td>SQLite</td><td><code>sqflite</code></td><td>Data terstruktur dengan relasi dan kueri</td></tr>
+      <tr><td>Berkas</td><td><code>path_provider</code></td><td>Gambar, cache, dokumen</td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">Bagian 1. Pilihan Penyimpanan Lokal</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Perancangan</p>
+    <h2>Perancangan Tabel</h2>
+    <ol>
+      <li>Identifikasi entitas, misalnya <code>notes</code>.</li>
+      <li>Tentukan atribut dan tipenya.</li>
+      <li>Tentukan <em>primary key</em> dan kolom wajib.</li>
+      <li>Tentukan relasi melalui <em>foreign key</em>.</li>
+      <li>Tambahkan indeks pada kolom yang sering dikueri.</li>
+    </ol>
+    <pre><code>notes
+├── id          INTEGER  PRIMARY KEY AUTOINCREMENT
+├── title       TEXT     NOT NULL
+├── content     TEXT     NOT NULL
+├── latitude    REAL
+├── longitude   REAL
+├── updated_at  INTEGER  NOT NULL
+└── sync_status TEXT     NOT NULL DEFAULT 'PENDING'</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">Bagian 2. Perancangan Tabel</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Database</p>
+    <h2>Database Helper</h2>
+    <pre><code>static Future&lt;Database&gt; get instance async {
+  final existing = _database;
+  if (existing != null) return existing;
+
+  final path = join(await getDatabasesPath(), 'associate_mobile.db');
+  final db = await openDatabase(
+    path,
+    version: 1,
+    onConfigure: (db) async {
+      await db.execute('PRAGMA foreign_keys = ON');
+    },
+    onCreate: _buatTabel,
+  );
+  _database = db;
+  return db;
+}</code></pre>
+    <ul>
+      <li>Koneksi disimpan agar database tidak dibuka berulang.</li>
+      <li><code>onCreate</code> hanya dipanggil saat database pertama kali dibuat.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">Bagian 5. Database Helper</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">CRUD</p>
+    <h2>Repository (CRUD)</h2>
+    <pre><code>Future&lt;List&lt;Note&gt;&gt; ambilSemua() async {
+  final db = await AppDatabase.instance;
+  final rows = await db.query('notes', orderBy: 'updated_at DESC');
+  return rows.map(Note.fromMap).toList();
+}
+
+Future&lt;int&gt; simpan(Note note) async {
+  final db = await AppDatabase.instance;
+  final values = note.toMap()..remove('id');
+  return db.insert('notes', values);
+}
+
+Future&lt;int&gt; hapus(int id) async {
+  final db = await AppDatabase.instance;
+  return db.delete('notes', where: 'id = ?', whereArgs: [id]);
+}</code></pre>
+    <ul>
+      <li><code>whereArgs</code> mencegah SQL injection. Jangan menggabungkan input pengguna ke string SQL.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">Bagian 6. Repository (CRUD)</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">State</p>
+    <h2>State dengan ChangeNotifier</h2>
+    <pre><code>class NoteController extends ChangeNotifier {
+  List&lt;Note&gt; _notes = const [];
+  bool _isLoading = false;
+
+  Future&lt;void&gt; load() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      _notes = await _repository.ambilSemua();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+}</code></pre>
+    <pre><code>ListenableBuilder(
+  listenable: controller,
+  builder: (context, _) =&gt; ListView(/* daftar catatan */),
+);</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">Bagian 7. State dengan ChangeNotifier</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Konsep</p>
+    <h2>Offline-First dan Sinkronisasi</h2>
+    <ul>
+      <li>Data ditulis ke database lokal terlebih dahulu, lalu disinkronkan ke server di latar belakang.</li>
+      <li><strong>Kolom <code>sync_status</code></strong> menandai data: <code>PENDING</code>, <code>SYNCED</code>, atau <code>FAILED</code>.</li>
+      <li><strong>Antrean unggahan</strong> dijalankan saat koneksi tersedia.</li>
+      <li><strong>Resolusi konflik</strong>, misalnya <em>last-write-wins</em> berdasarkan <code>updated_at</code>.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">Bagian 9. Konsep Offline-First dan Sinkronisasi</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Latihan</p>
+    <h2>Latihan Modul 3</h2>
+    <ol>
+      <li>Tambahkan fitur edit catatan dengan <code>NoteRepository.ubah</code>.</li>
+      <li>Buat tabel <code>categories</code> dan <code>category_id</code> sebagai <em>foreign key</em> pada <code>notes</code>.</li>
+      <li>Tampilkan jumlah catatan dengan <code>FutureBuilder</code>.</li>
+    </ol>
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 5 to 7</a> · Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="assets/slides.js"></script>
+</body>
+</html>

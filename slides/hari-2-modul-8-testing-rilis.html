@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 8: Testing dan Build Rilis</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <p class="kicker">Hari 2 · 15.00 to 16.00</p>
+    <h1>Modul 8: Testing dan Build Rilis</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Menulis unit test untuk logika dan Cubit.</li>
+      <li>Menulis widget test untuk tampilan.</li>
+      <li>Membangun APK dan App Bundle untuk rilis.</li>
+    </ol>
+    <p class="ref">Materi: <a href="../docs/hari-2/08-testing-rilis.md">docs/hari-2/08-testing-rilis.md</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Konsep</p>
+    <h2>Jenis Pengujian</h2>
+    <table>
+      <tr><th>Jenis</th><th>Cakupan</th><th>Alat</th></tr>
+      <tr><td>Unit test</td><td>Fungsi, class, dan Cubit</td><td><code>flutter_test</code>, <code>bloc_test</code></td></tr>
+      <tr><td>Widget test</td><td>Satu atau beberapa widget</td><td><code>flutter_test</code></td></tr>
+      <tr><td>Integration test</td><td>Alur aplikasi lengkap di perangkat</td><td><code>integration_test</code></td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-2/08-testing-rilis.md">Bagian 1. Jenis Pengujian</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Unit test</p>
+    <h2>Unit Test Fungsi</h2>
+    <pre><code>import 'package:flutter_test/flutter_test.dart';
+import 'package:associate_mobile_app/services/distance.dart';
+
+void main() {
+  test('jarak titik yang sama bernilai nol', () {
+    expect(jarakMeter(-6.2, 106.8, -6.2, 106.8), closeTo(0, 0.001));
+  });
+
+  test('jarak Jakarta ke Bandung sekitar 120 km', () {
+    final jarak = jarakMeter(-6.2088, 106.8456, -6.9175, 107.6191);
+    expect(jarak / 1000, closeTo(120, 10));
+  });
+}</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-2/08-testing-rilis.md">Bagian 2. Unit Test</a> · Implementasi: <a href="../app/test/distance_test.dart">app/test/distance_test.dart</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Cubit</p>
+    <h2>Unit Test Cubit dengan bloc_test</h2>
+    <pre><code>blocTest&lt;TodoCubit, TodoState&gt;(
+  'menambah tugas baru',
+  build: () =&gt; TodoCubit(),
+  act: (cubit) =&gt; cubit.tambah('Belajar Flutter'),
+  expect: () =&gt; [
+    isA&lt;TodoState&gt;().having((s) =&gt; s.daftar.length, 'jumlah', 1),
+  ],
+);</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-2/08-testing-rilis.md">Bagian 3. Unit Test Cubit</a> · Implementasi: <a href="../app/test/post_cubit_test.dart">app/test/post_cubit_test.dart</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Widget test</p>
+    <h2>Widget Test</h2>
+    <pre><code>testWidgets('menampilkan pesan saat daftar kosong', (tester) async {
+  await tester.pumpWidget(
+    BlocProvider(
+      create: (_) =&gt; TodoCubit(),
+      child: const MaterialApp(home: TodoPage()),
+    ),
+  );
+
+  expect(find.text('Belum ada tugas'), findsOneWidget);
+});</code></pre>
+    <pre><code>flutter test</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-2/08-testing-rilis.md">Bagian 4. Widget Test</a> · Implementasi: <a href="../app/test/home_and_card_widget_test.dart">app/test/home_and_card_widget_test.dart</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Rilis</p>
+    <h2>Build Rilis Android</h2>
+    <pre><code>flutter build apk --release         # untuk distribusi langsung
+flutter build appbundle --release  # untuk Google Play Store</code></pre>
+    <ul>
+      <li>Hasil APK berada di <code>build/app/outputs/</code>.</li>
+      <li>Format versi di <code>pubspec.yaml</code>: <code>version: 1.0.0+1</code> (versi-nama+build-number).</li>
+      <li>Build release memakai signing debug secara default. Untuk publikasi, buat keystore sendiri.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-2/08-testing-rilis.md">Bagian 5. Build Rilis Android</a> · Panduan resmi: <a href="https://docs.flutter.dev/deployment/android">docs.flutter.dev/deployment/android</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Publikasi</p>
+    <h2>Publikasi ke Google Play Store</h2>
+    <ol>
+      <li>Buat akun Google Play Console dan bayar biaya pendaftaran satu kali.</li>
+      <li>Buat aplikasi baru dan lengkapi data toko: deskripsi, ikon, tangkapan layar, dan kebijakan privasi.</li>
+      <li>Unggah file <code>.aab</code> ke jalur rilis internal testing.</li>
+      <li>Isi formulir konten, rating, dan keamanan data.</li>
+      <li>Kirim untuk ditinjau.</li>
+    </ol>
+    <p class="ref">Materi: <a href="../docs/hari-2/08-testing-rilis.md">Bagian 7. Publikasi ke Google Play Store</a> · Tautan: <a href="https://play.google.com/console">Google Play Console</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Latihan</p>
+    <h2>Latihan Modul 8</h2>
+    <ol>
+      <li>Tulis unit test untuk <code>jarakMeter</code> dengan minimal tiga kasus uji.</li>
+      <li>Tambahkan widget test untuk tombol tambah tugas.</li>
+      <li>Build APK release dan pasang di perangkat fisik.</li>
+    </ol>
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 9 (testing) dan Step 10 (build)</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="assets/slides.js"></script>
+</body>
+</html>

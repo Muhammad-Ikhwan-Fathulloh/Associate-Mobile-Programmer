@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 2: Perancangan Mobile Interface</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <p class="kicker">Hari 1 · 10.00 to 12.00</p>
+    <h1>Modul 2: Perancangan Mobile Interface</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Menerapkan prinsip UI dan UX pada aplikasi mobile.</li>
+      <li>Menggunakan widget dasar dan layout Flutter.</li>
+      <li>Membuat tema konsisten dengan Material 3.</li>
+      <li>Membuat layout responsif dan navigasi antarlayar.</li>
+    </ol>
+    <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">docs/hari-1/02-mobile-interface.md</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Prinsip</p>
+    <h2>Prinsip UI dan UX Mobile</h2>
+    <ul>
+      <li><strong>Keterbacaan:</strong> teks isi minimal 14, kontras minimal 4.5:1 untuk teks normal.</li>
+      <li><strong>Area sentuh:</strong> minimal 48 x 48 logical pixel.</li>
+      <li><strong>Thumb zone:</strong> aksi utama di area yang mudah dijangkau ibu jari.</li>
+      <li><strong>Hierarki visual:</strong> ukuran, warna, dan spasi menunjukkan prioritas.</li>
+      <li><strong>Konsistensi:</strong> pola navigasi dan komponen seragam.</li>
+      <li><strong>Umpan balik:</strong> setiap aksi memberi respons visual yang jelas.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">Bagian 1. Prinsip UI dan UX Mobile</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Tema</p>
+    <h2>Tema dengan Material 3</h2>
+    <pre><code>MaterialApp(
+  theme: ThemeData(
+    useMaterial3: true,
+    colorSchemeSeed: Colors.teal,
+    textTheme: const TextTheme(
+      headlineMedium: TextStyle(fontWeight: FontWeight.bold),
+    ),
+  ),
+  darkTheme: ThemeData(
+    useMaterial3: true,
+    colorSchemeSeed: Colors.teal,
+    brightness: Brightness.dark,
+  ),
+  themeMode: ThemeMode.system,
+  home: const BerandaPage(),
+);</code></pre>
+    <pre><code>final tema = Theme.of(context);
+final warnaUtama = tema.colorScheme.primary;
+final gayaJudul = tema.textTheme.headlineMedium;</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">Bagian 2. Tema dengan Material 3</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Widget</p>
+    <h2>Widget Dasar</h2>
+    <table>
+      <tr><th>Widget</th><th>Fungsi</th></tr>
+      <tr><td><code>Text</code></td><td>Menampilkan teks</td></tr>
+      <tr><td><code>Image.network</code> / <code>Image.asset</code></td><td>Gambar dari URL atau folder assets</td></tr>
+      <tr><td><code>Column</code> / <code>Row</code></td><td>Susunan vertikal atau horizontal</td></tr>
+      <tr><td><code>Container</code></td><td>Membungkus widget dengan padding, margin, warna, dan ukuran</td></tr>
+      <tr><td><code>ListTile</code></td><td>Baris daftar dengan judul, subjudul, dan ikon</td></tr>
+      <tr><td><code>Card</code></td><td>Kartu dengan elevasi</td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">Bagian 3. Widget Dasar</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Form</p>
+    <h2>Form Input</h2>
+    <pre><code>TextField(
+  controller: _namaController,
+  decoration: const InputDecoration(
+    labelText: 'Nama lengkap',
+    border: OutlineInputBorder(),
+  ),
+  onChanged: (_) =&gt; setState(() {}),
+),
+FilledButton(
+  onPressed: _namaController.text.trim().isEmpty
+      ? null
+      : () =&gt; setState(() =&gt; _pesan = 'Halo'),
+  child: const Text('Tampilkan Pesan'),
+),</code></pre>
+    <ul>
+      <li>Controller harus di-<code>dispose()</code> di method <code>dispose</code>.</li>
+      <li>Tombol dinonaktifkan dengan <code>onPressed: null</code>.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">Bagian 4. Form Input</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Responsif</p>
+    <h2>Layout Responsif</h2>
+    <table>
+      <tr><th>Lebar area</th><th>Tata letak</th></tr>
+      <tr><td>Di bawah 600</td><td>Satu atau dua kolom, navigasi bawah</td></tr>
+      <tr><td>600 hingga 840</td><td>Grid dua hingga tiga kolom</td></tr>
+      <tr><td>Di atas 840</td><td>Navigasi samping dan panel detail</td></tr>
+    </table>
+    <pre><code>LayoutBuilder(
+  builder: (context, constraints) {
+    final kolom = constraints.maxWidth &lt; 600 ? 2 : 4;
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: kolom,
+      ),
+      itemCount: produk.length,
+      itemBuilder: (context, index) =&gt; Card(
+        child: Center(child: Text(produk[index])),
+      ),
+    );
+  },
+);</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">Bagian 5. Layout Responsif</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Navigasi</p>
+    <h2>Navigasi dengan go_router</h2>
+    <pre><code>final appRouter = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) =&gt; const HomePage(),
+    ),
+    GoRoute(
+      path: '/detail/:id',
+      builder: (context, state) =&gt; Text(
+        'Detail: ${state.pathParameters['id']}',
+      ),
+    ),
+  ],
+);
+
+// Membuka layar baru dan menyimpannya di tumpukan
+context.push('/detail/42');
+// Kembali ke layar sebelumnya
+context.pop();</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">Bagian 6. Navigasi</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Latihan</p>
+    <h2>Latihan Modul 2</h2>
+    <ol>
+      <li>Buat form login dengan dua <code>TextField</code> dan satu <code>FilledButton</code>.</li>
+      <li>Tambahkan layar ketiga dan navigasi dari layar kedua.</li>
+      <li>Buat grid produk: dua kolom di layar kecil, empat kolom di layar besar.</li>
+    </ol>
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 4 (router dan beranda)</a> · Materi: <a href="../docs/hari-1/02-mobile-interface.md">docs/hari-1/02-mobile-interface.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="assets/slides.js"></script>
+</body>
+</html>

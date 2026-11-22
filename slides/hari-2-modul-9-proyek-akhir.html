@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 9: Proyek Akhir</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <p class="kicker">Hari 2 · 16.00 to 17.00</p>
+    <h1>Modul 9: Proyek Akhir</h1>
+    <h2>Tujuan</h2>
+    <p>Peserta membangun satu aplikasi utuh yang mengintegrasikan materi Hari 1 dan Hari 2, lalu mempresentasikannya.</p>
+    <ul>
+      <li>Dikerjakan secara individu atau berpasangan.</li>
+      <li>Menggunakan Flutter dan Dart.</li>
+      <li>Kode dikelola dengan Git dan diunggah ke repositori GitHub masing-masing.</li>
+      <li>Wajib memiliki minimal satu unit test dan satu widget test.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-2/09-proyek-akhir.md">docs/hari-2/09-proyek-akhir.md</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Pilihan</p>
+    <h2>Pilihan Tema</h2>
+    <table>
+      <tr><th>Tema</th><th>Contoh fitur</th></tr>
+      <tr><td>Catatan lokasi</td><td>CRUD catatan, koordinat, peta, jarak dari posisi pengguna</td></tr>
+      <tr><td>Daftar tugas harian</td><td>Cubit, filter status, animasi, penyimpanan lokal</td></tr>
+      <tr><td>Pencari berita atau produk</td><td>Pengambilan data API, daftar, detail, dan pencarian</td></tr>
+      <tr><td>Pelacak kunjungan</td><td>Lokasi, riwayat di SQLite, sinkronisasi ke API</td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-2/09-proyek-akhir.md">Pilihan Tema</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Penilaian</p>
+    <h2>Kriteria Penilaian</h2>
+    <table>
+      <tr><th>Aspek</th><th>Bobot</th><th>Indikator</th></tr>
+      <tr><td>Fungsionalitas</td><td>30%</td><td>Fitur utama berjalan sesuai ketentuan</td></tr>
+      <tr><td>Arsitektur</td><td>20%</td><td>Pemisahan <code>data</code>, <code>blocs</code>, <code>pages</code>, dan <code>widgets</code></td></tr>
+      <tr><td>Antarmuka</td><td>15%</td><td>Konsisten dengan Material 3, responsif, mudah digunakan</td></tr>
+      <tr><td>Penanganan error</td><td>15%</td><td>Izin, koneksi, data kosong, dan validasi input</td></tr>
+      <tr><td>Pengujian</td><td>10%</td><td>Unit test dan widget test lulus</td></tr>
+      <tr><td>Presentasi</td><td>10%</td><td>Penjelasan alur aplikasi dan keputusan teknis</td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-2/09-proyek-akhir.md">Kriteria Penilaian</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Tahapan</p>
+    <h2>Tahapan Pengerjaan</h2>
+    <ol>
+      <li>Rancang fitur dan gambarkan alur layar.</li>
+      <li>Buat struktur proyek dan konfigurasi dependensi.</li>
+      <li>Implementasikan data lokal atau API.</li>
+      <li>Implementasikan state dengan Cubit dan UI.</li>
+      <li>Tambahkan izin, penanganan error, dan validasi.</li>
+      <li>Tulis pengujian.</li>
+      <li>Siapkan presentasi 5 menit dengan demo langsung.</li>
+    </ol>
+    <p class="ref">Materi: <a href="../docs/hari-2/09-proyek-akhir.md">Tahapan</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Presentasi</p>
+    <h2>Format Presentasi dan Checklist</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Format (5 menit)</h3>
+        <ul>
+          <li>Demo aplikasi: 2 menit.</li>
+          <li>Arsitektur dan keputusan teknis: 2 menit.</li>
+          <li>Tanya jawab: 1 menit.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Checklist pengumpulan</h3>
+        <ul>
+          <li><code>flutter run</code> berjalan tanpa error.</li>
+          <li><code>flutter analyze</code> tanpa error.</li>
+          <li><code>flutter test</code> lulus.</li>
+          <li>README berisi nama, cara menjalankan, dan daftar fitur.</li>
+          <li>Kode diunggah ke GitHub.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="ref">Materi: <a href="../docs/hari-2/09-proyek-akhir.md">Format Presentasi</a> dan <a href="../docs/hari-2/09-proyek-akhir.md">Checklist Pengumpulan</a> · Panduan: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 11</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="assets/slides.js"></script>
+</body>
+</html>

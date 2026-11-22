@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Associate Mobile Programmer: Slide per Modul</title>
+  <link rel="stylesheet" href="assets/slides.css">
+  <style>
+    .index-list { list-style: none; padding: 0; }
+    .index-list li { margin: 10px 0; }
+    .index-list a {
+      display: block;
+      padding: 14px 18px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 20px;
+    }
+    .index-list a:hover { border-left: 5px solid var(--accent); }
+    .index-list small { display: block; color: var(--muted); font-size: 15px; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <div class="deck" style="overflow:auto;">
+    <section class="slide active">
+      <p class="kicker">Pelatihan Associate Mobile Programmer (Flutter)</p>
+      <h1>Slide per Modul</h1>
+      <p>Pilih modul di bawah ini. Setiap modul memiliki slide sendiri dan merujuk ke file materi di folder <code>docs/</code>.</p>
+
+      <div class="grid2">
+        <div>
+          <h2>Hari 1</h2>
+          <ul class="index-list">
+            <li><a href="hari-1-modul-1-platform-dan-bahasa.html">Modul 1: Platform OS dan Bahasa Pemrograman Mobile<small>09.00 to 10.00</small></a></li>
+            <li><a href="hari-1-modul-2-mobile-interface.html">Modul 2: Perancangan Mobile Interface<small>10.00 to 12.00</small></a></li>
+            <li><a href="hari-1-modul-3-database-persistence.html">Modul 3: Database dan Data Persistence<small>13.00 to 15.00</small></a></li>
+            <li><a href="hari-1-modul-4-lokasi-gps-navigasi.html">Modul 4: Location Based Service, GPS, dan Navigasi<small>15.00 to 17.00</small></a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Hari 2</h2>
+          <ul class="index-list">
+            <li><a href="hari-2-modul-5-state-management-cubit.html">Modul 5: State Management dengan Cubit<small>09.00 to 10.00</small></a></li>
+            <li><a href="hari-2-modul-6-advanced-widgets-animasi.html">Modul 6: Advanced Widgets dan Animasi<small>10.00 to 12.00</small></a></li>
+            <li><a href="hari-2-modul-7-networking-api.html">Modul 7: Networking, REST API, dan JSON<small>13.00 to 15.00</small></a></li>
+            <li><a href="hari-2-modul-8-testing-rilis.html">Modul 8: Testing dan Build Rilis<small>15.00 to 16.00</small></a></li>
+            <li><a href="hari-2-modul-9-proyek-akhir.html">Modul 9: Proyek Akhir<small>16.00 to 17.00</small></a></li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="ref">Navigasi: panah kiri dan kanan, atau spasi. Sumber materi: <a href="../docs/">docs/</a>, panduan praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1</a> dan <a href="../docs/hands-on/hari-2.md">hands-on Hari 2</a>.</p>
+    </section>
+  </div>
+  <div class="progress" id="progress"></div>
+  <div class="nav">
+    <button id="prev" disabled>Sebelumnya</button>
+    <span class="counter" id="counter">1 / 1</span>
+    <button id="next" disabled>Berikutnya</button>
+  </div>
+  <script src="assets/slides.js"></script>
+</body>
+</html>

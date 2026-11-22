@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 5: State Management dengan Cubit</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <p class="kicker">Hari 2 · 09.00 to 10.00</p>
+    <h1>Modul 5: State Management dengan Cubit</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Menjelaskan perbedaan <code>setState</code> dan state management terpusat.</li>
+      <li>Membuat Cubit dan state yang immutable.</li>
+      <li>Menghubungkan Cubit ke UI dengan <code>BlocProvider</code>, <code>BlocBuilder</code>, dan <code>BlocListener</code>.</li>
+    </ol>
+    <p class="ref">Materi: <a href="../docs/hari-2/05-state-management-cubit.md">docs/hari-2/05-state-management-cubit.md</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Konsep</p>
+    <h2>Mengapa State Management</h2>
+    <ul>
+      <li><code>setState</code> cukup untuk state lokal di satu widget.</li>
+      <li>Ketika state dipakai banyak layar, logika bisnis perlu dipisahkan dari UI.</li>
+      <li>Cubit memindahkan logika ke method di dalam kelas, sedangkan widget hanya menampilkan state.</li>
+    </ul>
+    <pre><code>dependencies:
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.5</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-2/05-state-management-cubit.md">Bagian 1 dan 2</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Model</p>
+    <h2>Model dengan Equatable</h2>
+    <pre><code>class Todo extends Equatable {
+  final String id;
+  final String judul;
+  final bool selesai;
+
+  const Todo({required this.id, required this.judul, this.selesai = false});
+
+  Todo copyWith({String? judul, bool? selesai}) {
+    return Todo(
+      id: id,
+      judul: judul ?? this.judul,
+      selesai: selesai ?? this.selesai,
+    );
+  }
+
+  @override
+  List&lt;Object?&gt; get props =&gt; [id, judul, selesai];
+}</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-2/05-state-management-cubit.md">Bagian 3. Model dengan Equatable</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Cubit</p>
+    <h2>Cubit</h2>
+    <pre><code>class TodoCubit extends Cubit&lt;TodoState&gt; {
+  TodoCubit() : super(const TodoState());
+
+  void tambah(String judul) {
+    final todo = Todo(
+      id: DateTime.now().microsecondsSinceEpoch.toString(),
+      judul: judul,
+    );
+    emit(TodoState(daftar: [...state.daftar, todo]));
+  }
+
+  void ubahStatus(String id) {
+    emit(TodoState(
+      daftar: state.daftar
+          .map((t) =&gt; t.id == id ? t.copyWith(selesai: !t.selesai) : t)
+          .toList(),
+    ));
+  }
+}</code></pre>
+    <ul>
+      <li>State tidak boleh diubah langsung. Setiap perubahan membuat list baru lalu dikirim lewat <code>emit</code>.</li>
+    </ul>
+    <p class="ref">Materi: <a href="../docs/hari-2/05-state-management-cubit.md">Bagian 4. Cubit</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">UI</p>
+    <h2>Menghubungkan Cubit ke UI</h2>
+    <pre><code>BlocProvider(
+  create: (_) =&gt; TodoCubit(),
+  child: const TodoPage(),
+);
+
+BlocBuilder&lt;TodoCubit, TodoState&gt;(
+  builder: (context, state) {
+    return ListView.builder(
+      itemCount: state.daftar.length,
+      itemBuilder: (context, index) {
+        final todo = state.daftar[index];
+        return ListTile(
+          title: Text(todo.judul),
+          onTap: () =&gt; context.read&lt;TodoCubit&gt;().ubahStatus(todo.id),
+        );
+      },
+    );
+  },
+);</code></pre>
+    <p class="ref">Materi: <a href="../docs/hari-2/05-state-management-cubit.md">Bagian 5. Menghubungkan Cubit ke UI</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Referensi</p>
+    <h2>Widget Bloc</h2>
+    <table>
+      <tr><th>Widget / method</th><th>Fungsi</th></tr>
+      <tr><td><code>BlocProvider</code></td><td>Menyediakan Cubit untuk widget di bawahnya</td></tr>
+      <tr><td><code>BlocBuilder</code></td><td>Membangun ulang UI saat state berubah</td></tr>
+      <tr><td><code>BlocListener</code></td><td>Menjalankan efek samping, misalnya navigasi atau SnackBar</td></tr>
+      <tr><td><code>BlocConsumer</code></td><td>Gabungan <code>BlocBuilder</code> dan <code>BlocListener</code></td></tr>
+      <tr><td><code>context.read&lt;T&gt;()</code></td><td>Mengambil Cubit untuk memanggil method, tanpa berlangganan</td></tr>
+      <tr><td><code>context.watch&lt;T&gt;()</code></td><td>Mengambil Cubit dan membangun ulang saat state berubah</td></tr>
+    </table>
+    <p class="ref">Materi: <a href="../docs/hari-2/05-state-management-cubit.md">Bagian 6. Perbedaan Widget Bloc</a></p>
+  </section>
+
+  <section class="slide">
+    <p class="kicker">Latihan</p>
+    <h2>Latihan Modul 5</h2>
+    <ol>
+      <li>Tambahkan filter untuk menampilkan tugas yang belum selesai saja.</li>
+      <li>Tambahkan <code>BlocListener</code> yang menampilkan SnackBar setiap kali tugas dihapus.</li>
+      <li>Pindahkan validasi judul kosong ke dalam Cubit.</li>
+    </ol>
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 3 (PostCubit)</a> · Materi: <a href="../docs/hari-2/05-state-management-cubit.md">docs/hari-2/05-state-management-cubit.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="assets/slides.js"></script>
+</body>
+</html>
