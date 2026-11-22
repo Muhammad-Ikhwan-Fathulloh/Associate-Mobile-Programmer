@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 7: Dasar-Dasar Mobile Communication Security</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 13.00 to 15.00</p>
+    <h1>Modul 7: Dasar-Dasar Mobile Communication Security</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Menjelaskan ancaman umum pada komunikasi mobile.</li>
+      <li>Menjelaskan enkripsi, HTTPS, dan TLS.</li>
+      <li>Membedakan autentikasi dan otorisasi.</li>
+      <li>Menyimpan data sensitif dengan aman di Flutter.</li>
+    </ol>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 132" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah18" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="65.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="120.0" y="26">Aplikasi</text><line class="life" x1="120.0" y1="38" x2="120.0" y2="126"/><rect class="box" x="305.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="360.0" y="26">Server</text><line class="life" x1="360.0" y1="38" x2="360.0" y2="126"/><line class="arrow" x1="124.0" y1="66" x2="356.0" y2="66" marker-end="url(#ah18)"/><text class="sub" x="240.0" y="59">HTTPS request</text><line class="arrow dash" x1="356.0" y1="102" x2="124.0" y2="102" marker-end="url(#ah18)"/><text class="sub" x="240.0" y="95">response terenkripsi</text></svg><figcaption>Komunikasi terlindungi</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Pastikan semua URL memakai <code>https://</code>.</li><li>Simpan token di secure storage.</li><li>Validasi input dan URL sebelum dikirim.</li><li>Ikuti hands-on Step 4 dan 5.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/07-keamanan-komunikasi-mobile.md">docs/hari-2/07-keamanan-komunikasi-mobile.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Ancaman</p>
+    <h2>Ancaman pada Komunikasi Mobile</h2>
+    <table>
+      <tr><th>Ancaman</th><th>Contoh</th></tr>
+      <tr><td>Penyadapan</td><td>Wi-Fi publik tanpa perlindungan</td></tr>
+      <tr><td>Man-in-the-middle</td><td>Sertifikat palsu dipasang di perangkat</td></tr>
+      <tr><td>Pencurian perangkat</td><td>Token tersimpan dalam teks biasa</td></tr>
+      <tr><td>Aplikasi palsu</td><td>Aplikasi tiruan dari luar toko resmi</td></tr>
+      <tr><td>Injeksi data</td><td>Input tidak divalidasi</td></tr>
+    </table>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 132" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah19" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="25.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="80.0" y="26">Aplikasi</text><line class="life" x1="80.0" y1="38" x2="80.0" y2="126"/><rect class="box" x="185.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="240.0" y="26">Penyerang</text><line class="life" x1="240.0" y1="38" x2="240.0" y2="126"/><rect class="box" x="345.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="400.0" y="26">Server</text><line class="life" x1="400.0" y1="38" x2="400.0" y2="126"/><line class="arrow" x1="84.0" y1="66" x2="236.0" y2="66" marker-end="url(#ah19)"/><text class="sub" x="160.0" y="59">data lewat Wi-Fi publik</text><line class="arrow" x1="244.0" y1="102" x2="396.0" y2="102" marker-end="url(#ah19)"/><text class="sub" x="320.0" y="95">disalin atau diubah</text></svg><figcaption>Man-in-the-middle</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Gambar tiga pihak: aplikasi, penyerang, server.</li><li>Tandai titik rawan: jaringan tanpa perlindungan.</li><li>Tulis penangkalnya: TLS dan verifikasi sertifikat.</li><li>Tambahkan ancaman lain: perangkat hilang dan aplikasi palsu.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/07-keamanan-komunikasi-mobile.md">Bagian 1. Ancaman pada Komunikasi Mobile</a></p>
+  </section>
+
+  <section class="slide" data-sim="tls">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Protokol</p>
+    <h2>Enkripsi, HTTPS, dan TLS</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Kerahasiaan</h3>
+        <p>Data tidak dapat dibaca pihak ketiga.</p>
+      </div>
+      <div class="card">
+        <h3>Integritas</h3>
+        <p>Data tidak berubah di tengah jalan.</p>
+      </div>
+      <div class="card">
+        <h3>Autentikasi server</h3>
+        <p>Aplikasi memverifikasi sertifikat server.</p>
+      </div>
+    </div>
+    <p>HTTPS adalah HTTP yang dilindungi TLS. Pastikan semua URL memakai <code>https://</code>.</p>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 204" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah20" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="65.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="120.0" y="26">Aplikasi</text><line class="life" x1="120.0" y1="38" x2="120.0" y2="198"/><rect class="box" x="305.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="360.0" y="26">Server</text><line class="life" x1="360.0" y1="38" x2="360.0" y2="198"/><line class="arrow" x1="124.0" y1="66" x2="356.0" y2="66" marker-end="url(#ah20)"/><text class="sub" x="240.0" y="59">ClientHello</text><line class="arrow dash" x1="356.0" y1="102" x2="124.0" y2="102" marker-end="url(#ah20)"/><text class="sub" x="240.0" y="95">sertifikat server</text><line class="arrow" x1="124.0" y1="138" x2="356.0" y2="138" marker-end="url(#ah20)"/><text class="sub" x="240.0" y="131">kunci sesi</text><line class="arrow" x1="124.0" y1="174" x2="356.0" y2="174" marker-end="url(#ah20)"/><text class="sub" x="240.0" y="167">data terenkripsi</text></svg><figcaption>Garis besar jabat tangan TLS</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Aplikasi memulai koneksi dan menyebut versi TLS.</li><li>Server mengirim sertifikat; aplikasi memverifikasinya.</li><li>Kedua pihak menyepakati kunci sesi.</li><li>Data berikutnya dikirim terenkripsi.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/07-keamanan-komunikasi-mobile.md">Bagian 2. Enkripsi, HTTPS, dan TLS</a></p>
+  </section>
+
+  <section class="slide" data-sim="auth">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Akses</p>
+    <h2>Autentikasi dan Otorisasi</h2>
+    <ul>
+      <li><strong>Autentikasi</strong>: siapa Anda? Misalnya email dan kata sandi.</li>
+      <li><strong>Otorisasi</strong>: apa yang boleh Anda lakukan? Misalnya hanya admin yang dapat menghapus data.</li>
+    </ul>
+    <p>Token login diperlakukan seperti kata sandi. Jangan dicetak di log atau dikirim lewat URL.</p>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 204" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah21" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="65.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="120.0" y="26">Aplikasi</text><line class="life" x1="120.0" y1="38" x2="120.0" y2="198"/><rect class="box" x="305.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="360.0" y="26">Server</text><line class="life" x1="360.0" y1="38" x2="360.0" y2="198"/><line class="arrow" x1="124.0" y1="66" x2="356.0" y2="66" marker-end="url(#ah21)"/><text class="sub" x="240.0" y="59">login (email, sandi)</text><line class="arrow dash" x1="356.0" y1="102" x2="124.0" y2="102" marker-end="url(#ah21)"/><text class="sub" x="240.0" y="95">token</text><line class="arrow" x1="124.0" y1="138" x2="356.0" y2="138" marker-end="url(#ah21)"/><text class="sub" x="240.0" y="131">request + token</text><line class="arrow dash" x1="356.0" y1="174" x2="124.0" y2="174" marker-end="url(#ah21)"/><text class="sub" x="240.0" y="167">200 atau 403</text></svg><figcaption>Autentikasi lalu otorisasi</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Kirim email dan kata sandi lewat HTTPS.</li><li>Terima token dari server.</li><li>Sertakan token di header setiap request.</li><li>Server memeriksa hak akses: 200 bila boleh, 403 bila tidak.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/07-keamanan-komunikasi-mobile.md">Bagian 3. Autentikasi dan Otorisasi</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Penyimpanan</p>
+    <h2>Tempat Penyimpanan Data</h2>
+    <table>
+      <tr><th>Tempat</th><th>Cocok untuk</th></tr>
+      <tr><td>SharedPreferences</td><td>Pengaturan non-sensitif</td></tr>
+      <tr><td>SQLite</td><td>Data aplikasi dalam jumlah besar</td></tr>
+      <tr><td>Secure storage</td><td>Token dan data sensitif kecil</td></tr>
+    </table>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 166" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="20" y="10" width="440" height="44" rx="10"/><text class="txtl" x="36" y="37">SharedPreferences</text><text class="subr" x="444" y="37">tidak terenkripsi</text><rect class="box3" x="20" y="62" width="440" height="44" rx="10"/><text class="txtl" x="36" y="89">SQLite</text><text class="subr" x="444" y="89">tidak terenkripsi default</text><rect class="box2" x="20" y="114" width="440" height="44" rx="10"/><text class="txtl" x="36" y="141">Secure storage</text><text class="subr" x="444" y="141">Keystore / Keychain</text></svg><figcaption>Pilih tempat sesuai kerahasiaan</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Klasifikasikan data: biasa atau sensitif.</li><li>Simpan data biasa di SharedPreferences atau SQLite.</li><li>Simpan token dan kunci di secure storage.</li><li>Jangan menulis rahasia di kode atau repositori.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/07-keamanan-komunikasi-mobile.md">Bagian 4. Penyimpanan Data Sensitif</a></p>
+  </section>
+
+  <section class="slide" data-sim="secure">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode</p>
+    <h2>Secure Storage di Flutter</h2>
+    <pre><code>import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+const penyimpanan = FlutterSecureStorage();
+
+await penyimpanan.write(key: 'token', value: 'contoh-token');
+final token = await penyimpanan.read(key: 'token');
+await penyimpanan.delete(key: 'token');</code></pre>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah22" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="10.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="54.8" y="35.0">Token dari</text><text class="txt" x="54.8" y="50.0">server</text><line class="arrow" x1="102.5" y1="37.0" x2="130.5" y2="37.0" marker-end="url(#ah22)"/><rect class="box3" x="133.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="178.2" y="35.0">write(key,</text><text class="txt" x="178.2" y="50.0">value)</text><line class="arrow" x1="226.0" y1="37.0" x2="254.0" y2="37.0" marker-end="url(#ah22)"/><rect class="box2" x="257.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="301.8" y="35.0">Keystore /</text><text class="txt" x="301.8" y="50.0">Keychain</text><line class="arrow" x1="349.5" y1="37.0" x2="377.5" y2="37.0" marker-end="url(#ah22)"/><rect class="box4" x="380.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="425.2" y="42.0">read(key)</text></svg><figcaption>Alur memakai secure storage</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Tambahkan <code>flutter_secure_storage</code> di <code>pubspec.yaml</code>.</li><li>Buat <code>SecureStorageService</code> dengan <code>simpanToken</code>, <code>ambilToken</code>, <code>hapusToken</code>.</li><li>Tampilkan token disamarkan di UI.</li><li>Hapus token saat pengguna keluar.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Implementasi: <a href="../app/lib/services/secure_storage_service.dart">app/lib/services/secure_storage_service.dart</a></p>
+  </section>
+
+  <section class="slide" data-sim="urlcheck">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode</p>
+    <h2>Validasi URL dan HTTPS</h2>
+    <pre><code>String? periksaUrlAman(String url) {
+  final uri = Uri.tryParse(url.trim());
+  if (uri == null || !uri.hasAuthority) return 'URL tidak valid.';
+  if (uri.scheme != 'https') return 'Gunakan HTTPS (https://).';
+  return null;
+}</code></pre>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah23" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="10.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="54.8" y="42.0">URL input</text><line class="arrow" x1="102.5" y1="37.0" x2="130.5" y2="37.0" marker-end="url(#ah23)"/><rect class="box3" x="133.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="178.2" y="42.0">Uri.tryParse</text><line class="arrow" x1="226.0" y1="37.0" x2="254.0" y2="37.0" marker-end="url(#ah23)"/><rect class="box2" x="257.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="301.8" y="35.0">scheme</text><text class="txt" x="301.8" y="50.0">== https?</text><line class="arrow" x1="349.5" y1="37.0" x2="377.5" y2="37.0" marker-end="url(#ah23)"/><rect class="box4" x="380.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="425.2" y="35.0">Request</text><text class="txt" x="425.2" y="50.0">atau tolak</text></svg><figcaption>Validasi sebelum request</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Tulis <code>periksaUrlAman(String url)</code>.</li><li>Parse dengan <code>Uri.tryParse</code> dan periksa <code>hasAuthority</code>.</li><li>Tolak bila <code>scheme</code> bukan <code>https</code>.</li><li>Tambahkan <code>timeout</code> dan periksa status code di <code>HttpsService</code>.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/07-keamanan-komunikasi-mobile.md">Bagian 5. Praktik Keamanan Dasar</a> · Implementasi: <a href="../app/lib/services/https_service.dart">app/lib/services/https_service.dart</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik</p>
+    <h2>Latihan Modul 7</h2>
+    <ol>
+      <li>Simpan token, tutup aplikasi, lalu buka kembali. Pastikan token masih tersimpan.</li>
+      <li>Coba URL berawalan <code>http://</code> dan amati pesan yang muncul.</li>
+    </ol>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 174" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="20" y="10" width="440" height="32" rx="8"/><rect class="chk" x="32" y="18" width="16" height="16" rx="3"/><text class="txtl" x="60" y="31">Simpan token, tutup aplikasi, buka lagi</text><rect class="box3" x="20" y="50" width="440" height="32" rx="8"/><rect class="chk" x="32" y="58" width="16" height="16" rx="3"/><text class="txtl" x="60" y="71">Coba URL http:// dan amati pesan</text><rect class="box2" x="20" y="90" width="440" height="32" rx="8"/><rect class="chk" x="32" y="98" width="16" height="16" rx="3"/><text class="txtl" x="60" y="111">Tambah tombol hapus token</text><rect class="box4" x="20" y="130" width="440" height="32" rx="8"/><rect class="chk" x="32" y="138" width="16" height="16" rx="3"/><text class="txtl" x="60" y="151">Tulis tes tambahan periksaUrlAman</text></svg><figcaption>Daftar tugas modul 7</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Jangan memakai token sungguhan; pakai nilai contoh.</li><li>Jalankan <code>flutter test</code> setelah menambah tes.</li><li>Pastikan <code>.gitignore</code> menolak keystore dan kunci.</li><li>Commit hasil kerja.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 4 dan Step 5</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="assets/highlight.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/slides.js"></script>
+</body>
+</html>

@@ -43,21 +43,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^9.1.1      # Hari 2: state management Cubit
-  equatable: ^2.0.5         # Hari 2: perbandingan state
   go_router: ^14.2.0        # Hari 1: navigasi
   sqflite: ^2.3.3           # Hari 1: database SQLite lokal
   path: ^1.9.0
   geolocator: ^13.0.1       # Hari 1: GPS dan izin lokasi
   flutter_map: ^7.0.2       # Hari 1: peta OpenStreetMap (tanpa API key)
   latlong2: ^0.9.1
-  http: ^1.2.2              # Hari 1 dan 2: request ke API publik
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  bloc_test: ^9.1.7
 
 flutter:
   uses-material-design: true
@@ -151,7 +147,7 @@ Buka `ios/Runner/Info.plist`. Tambahkan dua baris berikut di dalam tag `<dict>`:
 
 ## Step 4: Router dan Halaman Beranda (10.05)
 
-Buat file `lib/router/app_router.dart`. Pada Hari 1, router hanya memuat route untuk catatan dan lokasi. Route post ditambahkan pada Hari 2 Step 4.
+Buat file `lib/router/app_router.dart`. Pada Hari 1, router hanya memuat route untuk catatan dan lokasi. Route Hari 2 (jaringan, sensor, perangkat, keamanan) ditambahkan pada Hari 2 Step 6.
 
 ```dart
 import 'package:go_router/go_router.dart';
@@ -205,12 +201,6 @@ class HomePage extends StatelessWidget {
       ikon: Icons.map_outlined,
       rute: '/lokasi',
     ),
-    _MenuItem(
-      judul: 'Daftar Post API',
-      deskripsi: 'REST API publik JSONPlaceholder dengan Cubit',
-      ikon: Icons.cloud_outlined,
-      rute: '/post',
-    ),
   ];
 
   @override
@@ -253,7 +243,7 @@ class _MenuItem {
 }
 ```
 
-Menu *Daftar Post API* akan berfungsi setelah Hari 2 Step 4.
+Menu untuk jaringan, sensor, perangkat, dan keamanan ditambahkan pada Hari 2 Step 6.
 
 Jalankan aplikasi:
 
@@ -261,7 +251,7 @@ Jalankan aplikasi:
 flutter run
 ```
 
-**Checkpoint:** layar beranda tampil dengan tiga menu. Tekan menu *Catatan Lokal* dan pastikan halaman kosong dengan pesan "Belum ada catatan" muncul (halaman ini dibuat pada Step 7).
+**Checkpoint:** layar beranda tampil dengan dua menu. Tekan menu *Catatan Lokal* dan pastikan halaman kosong dengan pesan "Belum ada catatan" muncul (halaman ini dibuat pada Step 7).
 
 ---
 

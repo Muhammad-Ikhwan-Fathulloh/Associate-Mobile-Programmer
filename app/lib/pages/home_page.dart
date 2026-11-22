@@ -18,10 +18,28 @@ class HomePage extends StatelessWidget {
       rute: '/lokasi',
     ),
     _MenuItem(
-      judul: 'Daftar Post API',
-      deskripsi: 'REST API publik JSONPlaceholder dengan Cubit',
-      ikon: Icons.cloud_outlined,
-      rute: '/post',
+      judul: 'Jaringan Seluler',
+      deskripsi: 'Jenis koneksi perangkat dan pemantauan perubahan jaringan',
+      ikon: Icons.signal_cellular_alt,
+      rute: '/jaringan',
+    ),
+    _MenuItem(
+      judul: 'Sensor',
+      deskripsi: 'Membaca data accelerometer secara langsung',
+      ikon: Icons.sensors,
+      rute: '/sensor',
+    ),
+    _MenuItem(
+      judul: 'Informasi Perangkat',
+      deskripsi: 'Merek, model, versi sistem operasi, dan arsitektur CPU',
+      ikon: Icons.phone_android,
+      rute: '/perangkat',
+    ),
+    _MenuItem(
+      judul: 'Keamanan dan HTTPS',
+      deskripsi: 'Penyimpanan token aman dan permintaan data melalui HTTPS',
+      ikon: Icons.lock_outline,
+      rute: '/keamanan',
     ),
   ];
 

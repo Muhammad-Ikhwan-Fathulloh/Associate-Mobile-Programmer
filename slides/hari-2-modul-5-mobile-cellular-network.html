@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 5: Mobile Cellular Network</title>
+  <link rel="stylesheet" href="assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 09.00 to 10.00</p>
+    <h1>Modul 5: Mobile Cellular Network</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Menjelaskan perkembangan generasi seluler dari 2G sampai 5G.</li>
+      <li>Menjelaskan arsitektur dasar jaringan seluler.</li>
+      <li>Menjelaskan spektrum, handover, dan roaming.</li>
+      <li>Mendeteksi jenis jaringan di aplikasi Flutter.</li>
+    </ol>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="10.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="54.8" y="42.0">Aplikasi</text><line class="arrow" x1="102.5" y1="37.0" x2="130.5" y2="37.0" marker-end="url(#ah13)"/><rect class="box3" x="133.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="178.2" y="35.0">Modem</text><text class="txt" x="178.2" y="50.0">perangkat</text><line class="arrow" x1="226.0" y1="37.0" x2="254.0" y2="37.0" marker-end="url(#ah13)"/><rect class="box2" x="257.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="301.8" y="35.0">Menara</text><text class="txt" x="301.8" y="50.0">(RAN)</text><line class="arrow" x1="349.5" y1="37.0" x2="377.5" y2="37.0" marker-end="url(#ah13)"/><rect class="box4" x="380.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="425.2" y="42.0">Internet</text></svg><figcaption>Jalur data lewat jaringan seluler</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Pahami jalurnya dari aplikasi sampai internet.</li><li>Siapkan perangkat Android fisik dengan kartu SIM.</li><li>Siapkan proyek <code>app/</code> untuk mencoba deteksi jaringan.</li><li>Ikuti hands-on Step 1.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">docs/hari-2/05-mobile-cellular-network.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Generasi</p>
+    <h2>Perkembangan Generasi Seluler</h2>
+    <table>
+      <tr><th>Generasi</th><th>Teknologi</th><th>Kemampuan utama</th></tr>
+      <tr><td>2G</td><td>GSM, GPRS, EDGE</td><td>Suara dan pesan singkat</td></tr>
+      <tr><td>3G</td><td>UMTS, HSPA</td><td>Data mobile dasar</td></tr>
+      <tr><td>4G</td><td>LTE</td><td>Data cepat, latensi rendah</td></tr>
+      <tr><td>5G</td><td>NR</td><td>Kecepatan tinggi, latensi sangat rendah</td></tr>
+    </table>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 222" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="10.0" y="146.0" width="90" height="50.0" rx="8"/><text class="txtb" x="55.0" y="174.0">2G</text><text class="sub" x="55.0" y="214">suara + SMS</text><rect class="box3" x="133.3" y="106.0" width="90" height="90.0" rx="8"/><text class="txtb" x="178.3" y="134.0">3G</text><text class="sub" x="178.3" y="214">data dasar</text><rect class="box2" x="256.7" y="66.0" width="90" height="130.0" rx="8"/><text class="txtb" x="301.7" y="94.0">4G</text><text class="sub" x="301.7" y="214">data cepat</text><rect class="box4" x="380.0" y="26.0" width="90" height="170.0" rx="8"/><text class="txtb" x="425.0" y="54.0">5G</text><text class="sub" x="425.0" y="214">latensi rendah</text><line class="rule" x1="6" y1="196" x2="474" y2="196"/></svg><figcaption>Kemampuan relatif tiap generasi</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Buat garis waktu 2G sampai 5G.</li><li>Catat teknologi: GSM/EDGE, UMTS/HSPA, LTE, NR.</li><li>Tulis kemampuan utama tiap generasi.</li><li>Catat dampak ke aplikasi: ukuran data dan waktu tunggu.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">Bagian 1. Perkembangan Generasi Seluler</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Arsitektur</p>
+    <h2>Arsitektur Dasar</h2>
+    <ul>
+      <li><strong>User Equipment (UE)</strong>: perangkat dengan SIM atau eSIM.</li>
+      <li><strong>Radio Access Network (RAN)</strong>: menara yang melayani perangkat melalui gelombang radio.</li>
+      <li><strong>Core Network</strong>: mengatur autentikasi, sesi data, dan tagihan.</li>
+    </ul>
+    <pre><code>Aplikasi -&gt; Sistem operasi -&gt; Modem -&gt; Menara (RAN) -&gt; Core Network -&gt; Internet</code></pre>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 218" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="20" y="10" width="440" height="44" rx="10"/><text class="txtl" x="36" y="37">User Equipment (UE)</text><text class="subr" x="444" y="37">ponsel + SIM</text><rect class="box3" x="20" y="62" width="440" height="44" rx="10"/><text class="txtl" x="36" y="89">Radio Access Network (RAN)</text><text class="subr" x="444" y="89">menara</text><rect class="box2" x="20" y="114" width="440" height="44" rx="10"/><text class="txtl" x="36" y="141">Core Network</text><text class="subr" x="444" y="141">autentikasi, sesi data</text><rect class="box4" x="20" y="166" width="440" height="44" rx="10"/><text class="txtl" x="36" y="193">Internet</text><text class="subr" x="444" y="193">layanan tujuan</text></svg><figcaption>Tiga bagian utama jaringan</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Gambar UE di bawah, menara di tengah.</li><li>Tambahkan Core Network sebagai pusat kendali.</li><li>Sambungkan ke internet.</li><li>Beri label jalur data dan jalur sinyal.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">Bagian 2. Arsitektur Dasar</a></p>
+  </section>
+
+  <section class="slide" data-sim="handover">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Spektrum, Handover, dan Roaming</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Spektrum</h3>
+        <p>Frekuensi rendah menjangkau luas, frekuensi tinggi berkapasitas besar tetapi jangkauannya pendek.</p>
+      </div>
+      <div class="card">
+        <h3>Handover</h3>
+        <p>Perpindahan koneksi antar-menara tanpa memutus sesi.</p>
+      </div>
+      <div class="card">
+        <h3>Roaming</h3>
+        <p>Penggunaan jaringan operator lain di luar area layanan utama.</p>
+      </div>
+    </div>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><circle class="cov" cx="120" cy="110" r="90"/><circle class="cov" cx="360" cy="110" r="90"/><polygon class="tower" points="120,70 108,120 132,120"/><text class="sub" x="120" y="140">Menara A</text><polygon class="tower" points="360,70 348,120 372,120"/><text class="sub" x="360" y="140">Menara B</text><path class="road" d="M60 175 L420 175" fill="none"/><circle class="pt" cx="150" cy="175" r="9"/><text class="sub" x="150" y="198">sesi aktif</text><circle class="pt2" cx="330" cy="175" r="9"/><text class="sub" x="330" y="198">handover</text><text class="txt" x="240" y="22">Perangkat berpindah sel tanpa memutus sesi</text></svg><figcaption>Handover antar-menara</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Gambar dua area sel yang saling beririsan.</li><li>Tandai jalur perpindahan perangkat.</li><li>Tandai titik handover di area irisan.</li><li>Bandingkan dengan roaming: pindah ke jaringan operator lain.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">Bagian 3. Spektrum, Handover, dan Roaming</a></p>
+  </section>
+
+  <section class="slide" data-sim="network">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode</p>
+    <h2>Mendeteksi Jenis Jaringan</h2>
+    <pre><code>import 'package:connectivity_plus/connectivity_plus.dart';
+
+final hasil = await Connectivity().checkConnectivity();
+
+Connectivity().onConnectivityChanged.listen((hasil) {
+  // Dipanggil setiap jenis koneksi berubah
+});</code></pre>
+    <p>Package ini hanya mengetahui jenis koneksi, bukan generasi (2G sampai 5G) atau kecepatan.</p>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 168" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="65.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="120.0" y="26">Aplikasi</text><line class="life" x1="120.0" y1="38" x2="120.0" y2="162"/><rect class="box" x="305.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="360.0" y="26">connectivity_plus</text><line class="life" x1="360.0" y1="38" x2="360.0" y2="162"/><line class="arrow" x1="124.0" y1="66" x2="356.0" y2="66" marker-end="url(#ah14)"/><text class="sub" x="240.0" y="59">checkConnectivity()</text><line class="arrow dash" x1="356.0" y1="102" x2="124.0" y2="102" marker-end="url(#ah14)"/><text class="sub" x="240.0" y="95">[mobile]</text><line class="arrow dash" x1="356.0" y1="138" x2="124.0" y2="138" marker-end="url(#ah14)"/><text class="sub" x="240.0" y="131">onConnectivityChanged</text></svg><figcaption>Alur deteksi jenis koneksi</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Tambahkan <code>connectivity_plus</code> di <code>pubspec.yaml</code>.</li><li>Panggil <code>Connectivity().checkConnectivity()</code> di <code>initState</code>.</li><li>Dengarkan <code>onConnectivityChanged</code> dan simpan hasil di State.</li><li>Batalkan langganan di <code>dispose()</code>.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">Bagian 4</a> · Implementasi: <a href="../app/lib/pages/network_page.dart">app/lib/pages/network_page.dart</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Dampak</p>
+    <h2>Pengaruh pada Aplikasi</h2>
+    <ul>
+      <li>Tampilkan pesan jelas saat tidak ada koneksi.</li>
+      <li>Simpan data penting di perangkat agar aplikasi tetap dapat dipakai saat offline.</li>
+      <li>Tunda unduhan besar saat jaringan seluler.</li>
+      <li>Atur batas waktu (timeout) untuk setiap request.</li>
+    </ul>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="10" y="8" width="225" height="98" rx="10"/><text class="txt" x="122" y="32">Tanpa koneksi</text><line class="rule" x1="22" y1="42" x2="223" y2="42"/><text class="txtl" x="26" y="66">• pesan jelas</text><text class="txtl" x="26" y="92">• tampilkan data lokal</text><rect class="box3" x="245" y="8" width="225" height="98" rx="10"/><text class="txt" x="357" y="32">Jaringan seluler</text><line class="rule" x1="257" y1="42" x2="458" y2="42"/><text class="txtl" x="261" y="66">• tunda unduhan besar</text><text class="txtl" x="261" y="92">• atur timeout</text></svg><figcaption>Strategi aplikasi menghadapi jaringan</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Buat fungsi <code>labelJaringan</code> yang memetakan hasil ke teks.</li><li>Tampilkan kartu peringatan saat tidak ada koneksi.</li><li>Tampilkan saran hemat data saat seluler.</li><li>Tambahkan <code>timeout</code> pada setiap request HTTP.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">Bagian 5. Pengaruh Jenis Jaringan terhadap Aplikasi</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik</p>
+    <h2>Latihan Modul 5</h2>
+    <ol>
+      <li>Jalankan aplikasi, lalu matikan Wi-Fi dan aktifkan data seluler. Amati perubahan label.</li>
+      <li>Tambahkan pesan khusus saat koneksi Ethernet terdeteksi.</li>
+    </ol>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 134" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="20" y="10" width="440" height="32" rx="8"/><rect class="chk" x="32" y="18" width="16" height="16" rx="3"/><text class="txtl" x="60" y="31">Matikan Wi-Fi, aktifkan data seluler, amati label</text><rect class="box3" x="20" y="50" width="440" height="32" rx="8"/><rect class="chk" x="32" y="58" width="16" height="16" rx="3"/><text class="txtl" x="60" y="71">Aktifkan mode pesawat, amati pesan</text><rect class="box2" x="20" y="90" width="440" height="32" rx="8"/><rect class="chk" x="32" y="98" width="16" height="16" rx="3"/><text class="txtl" x="60" y="111">Tambah pesan khusus untuk Ethernet</text></svg><figcaption>Daftar tugas modul 5</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Buka halaman Jaringan Seluler di aplikasi.</li><li>Ubah pengaturan jaringan perangkat satu per satu.</li><li>Catat perubahan label tanpa memuat ulang halaman.</li><li>Jalankan <code>flutter test</code> untuk uji <code>labelJaringan</code>.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 1 dan Step 6</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="assets/highlight.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/slides.js"></script>
+</body>
+</html>

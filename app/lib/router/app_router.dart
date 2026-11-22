@@ -1,15 +1,13 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../blocs/post_cubit.dart';
+import '../pages/device_page.dart';
 import '../pages/home_page.dart';
+import '../pages/keamanan_page.dart';
 import '../pages/location_page.dart';
+import '../pages/network_page.dart';
 import '../pages/note_form_page.dart';
 import '../pages/notes_page.dart';
-import '../pages/post_detail_page.dart';
-import '../pages/post_form_page.dart';
-import '../pages/posts_page.dart';
-import '../services/post_service.dart';
+import '../pages/sensor_page.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
@@ -32,28 +30,20 @@ final GoRouter appRouter = GoRouter(
     ),
     // Hari 2
     GoRoute(
-      path: '/post',
-      builder: (context, state) => BlocProvider(
-        create: (_) => PostCubit(PostService())..load(),
-        child: const PostsPage(),
-      ),
-    ),
-    // Rute '/post/baru' harus didaftarkan sebelum '/post/:id'
-    GoRoute(
-      path: '/post/baru',
-      builder: (context, state) => const PostFormPage(),
+      path: '/jaringan',
+      builder: (context, state) => const NetworkPage(),
     ),
     GoRoute(
-      path: '/post/:id',
-      builder: (context, state) {
-        final id = int.tryParse(state.pathParameters['id'] ?? '');
-        if (id == null) {
-          return const Scaffold(
-            body: Center(child: Text('ID post tidak valid')),
-          );
-        }
-        return PostDetailPage(postId: id);
-      },
+      path: '/sensor',
+      builder: (context, state) => const SensorPage(),
+    ),
+    GoRoute(
+      path: '/perangkat',
+      builder: (context, state) => const DevicePage(),
+    ),
+    GoRoute(
+      path: '/keamanan',
+      builder: (context, state) => const KeamananPage(),
     ),
   ],
 );

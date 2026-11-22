@@ -17,12 +17,18 @@
     bar.style.width = ((idx + 1) / slides.length * 100) + '%';
     history.replaceState(null, '', '#' + (idx + 1));
     window.scrollTo(0, 0);
+    document.dispatchEvent(new CustomEvent('slidechange', { detail: { index: idx, slide: slides[idx] } }));
   }
 
   prev.addEventListener('click', function () { show(idx - 1); });
   next.addEventListener('click', function () { show(idx + 1); });
 
   document.addEventListener('keydown', function (e) {
+    // Jangan ganti slide saat mengetik atau saat panel simulasi terbuka
+    var t = e.target;
+    var tag = t && t.tagName;
+    if (document.body.classList.contains('sim-open')) return;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
     if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
       e.preventDefault();
       show(idx + 1);

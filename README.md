@@ -10,14 +10,14 @@ Setelah mengikuti pelatihan, peserta mampu:
 2. Merancang antarmuka responsif dengan Material 3 dan navigasi antarlayar.
 3. Menyimpan dan mengelola data lokal menggunakan SQLite.
 4. Mengimplementasikan layanan lokasi, GPS, dan peta.
-5. Mengelola state dengan Cubit, mengambil data dari REST API, dan menyiapkan aplikasi untuk rilis.
+5. Memahami jaringan seluler, membaca sensor dan spesifikasi perangkat, serta menerapkan keamanan komunikasi mobile dasar.
 
 ## Prasyarat
 
 - Dasar pemrograman (variabel, fungsi, class).
 - Laptop dengan RAM minimal 8 GB.
 - Flutter SDK dan Android Studio atau VS Code terpasang. Jalankan `flutter doctor` untuk memastikan konfigurasi siap.
-- Emulator Android atau perangkat Android fisik dengan mode pengembang aktif.
+- Emulator Android atau perangkat Android fisik dengan mode pengembang aktif. Perangkat fisik diperlukan untuk menguji sensor dan jaringan seluler.
 
 ## Jadwal
 
@@ -35,14 +35,13 @@ Setelah mengikuti pelatihan, peserta mampu:
 
 | Waktu | Modul | Materi |
 |---|---|---|
-| 09.00 to 10.00 | 5 | [State Management dengan Cubit](docs/hari-2/05-state-management-cubit.md) |
-| 10.00 to 12.00 | 6 | [Advanced Widgets dan Animasi](docs/hari-2/06-advanced-widgets-animasi.md) |
+| 09.00 to 10.00 | 5 | [Mobile Cellular Network](docs/hari-2/05-mobile-cellular-network.md) |
+| 10.00 to 12.00 | 6 | [Mobile Sensor dan Spesifikasi Teknis Mobile Computing](docs/hari-2/06-mobile-sensor-spesifikasi.md) |
 | 12.00 to 13.00 | | Istirahat |
-| 13.00 to 15.00 | 7 | [Networking: REST API dan JSON](docs/hari-2/07-networking-api.md) |
-| 15.00 to 16.00 | 8 | [Testing dan Build Rilis](docs/hari-2/08-testing-rilis.md) |
-| 16.00 to 17.00 | 9 | [Proyek Akhir](docs/hari-2/09-proyek-akhir.md) |
+| 13.00 to 15.00 | 7 | [Dasar-Dasar Mobile Communication Security](docs/hari-2/07-keamanan-komunikasi-mobile.md) |
+| 15.00 to 17.00 | 8 | [Latihan Uji Kompetensi dan Pembahasan](docs/hari-2/08-latihan-uji-kompetensi.md) |
 
-Jadwal Hari 2 bersifat usulan dan dapat disesuaikan dengan silabus resmi.
+Jadwal mengikuti silabus resmi penyelenggara.
 
 ## Hands-On
 
@@ -51,7 +50,7 @@ Panduan langkah demi langkah dan kode aplikasi jadi:
 | Hari | Panduan | Kode |
 |---|---|---|
 | 1 | [docs/hands-on/hari-1.md](docs/hands-on/hari-1.md) | `app/` (Catatan Lokal, Lokasi dan Peta) |
-| 2 | [docs/hands-on/hari-2.md](docs/hands-on/hari-2.md) | `app/` (Daftar Post API, Cubit, Hero, rilis) |
+| 2 | [docs/hands-on/hari-2.md](docs/hands-on/hari-2.md) | `app/` (Jaringan, Sensor, Informasi Perangkat, Keamanan dan HTTPS) |
 
 Daftar tautan yang perlu disiapkan: [docs/links.md](docs/links.md).
 
@@ -59,11 +58,20 @@ Aplikasi di `app/` menggunakan `flutter_map` dengan OpenStreetMap, sehingga tida
 
 Cara menjalankan aplikasi: lihat langkah 1 pada `docs/hands-on/hari-1.md`.
 
+## Slide Interaktif
+
+Buka `index.html` atau `slides/index.html` di peramban. Tidak perlu server atau internet.
+
+- Panah kiri dan kanan atau spasi: pindah slide.
+- Tombol **Simulasi** atau tombol `S`: membuka simulasi interaktif pada slide yang memilikinya (17 simulasi, misalnya Haversine, validasi URL, TLS, dan counter). `Esc` menutup panel.
+- Setiap blok kode berwarna dan memiliki tombol **Salin**. Blok kode Flutter yang dapat berdiri sendiri memiliki tombol **DartPad** yang menyalin kode lalu membuka dartpad.dev. Kode yang memakai plugin (sqflite, geolocator, sensors_plus, dan sejenisnya) tidak dapat dijalankan di DartPad dan harus dijalankan di proyek `app/`.
+
 ## Struktur Repository
 
 ```
 associate-mobile-programmer-flutter/
 ├── README.md
+├── index.html                # Daftar materi (buka di browser)
 ├── app/                      # Proyek Flutter lengkap (kode jadi)
 │   ├── pubspec.yaml
 │   ├── lib/
@@ -79,11 +87,13 @@ associate-mobile-programmer-flutter/
 │   │   ├── 03-database-persistence.md
 │   │   └── 04-lokasi-gps-navigasi.md
 │   └── hari-2/
-│       ├── 05-state-management-cubit.md
-│       ├── 06-advanced-widgets-animasi.md
-│       ├── 07-networking-api.md
-│       ├── 08-testing-rilis.md
-│       └── 09-proyek-akhir.md
+│       ├── 05-mobile-cellular-network.md
+│       ├── 06-mobile-sensor-spesifikasi.md
+│       ├── 07-keamanan-komunikasi-mobile.md
+│       └── 08-latihan-uji-kompetensi.md
+├── slides/                   # Slide HTML per modul
+│   ├── index.html
+│   └── assets/
 └── .gitignore
 ```
 
@@ -92,11 +102,12 @@ Struktur folder proyek Flutter yang disarankan untuk peserta:
 ```
 lib/
 ├── main.dart
-├── blocs/        # Cubit dan state
+├── blocs/        # Controller state (ChangeNotifier)
 ├── models/       # Model data
-├── data/         # Database, repository, dan layanan API
+├── data/         # Database dan repository
+├── services/     # Layanan lokasi, jaringan, sensor, dan HTTPS
 ├── pages/        # Layar aplikasi
-└── widgets/      # Widget yang dapat digunakan ulang
+└── router/       # Konfigurasi navigasi
 ```
 
 ## Referensi

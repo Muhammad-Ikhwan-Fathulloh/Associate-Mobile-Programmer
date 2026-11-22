@@ -9,21 +9,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_bloc: ^9.1.1      # Hari 2: state management Cubit
-  equatable: ^2.0.5         # Hari 2: perbandingan state
-  go_router: ^14.2.0        # Hari 1: navigasi
-  sqflite: ^2.3.3           # Hari 1: database SQLite lokal
+  go_router: ^14.2.0          # Hari 1: navigasi
+  sqflite: ^2.3.3             # Hari 1: database SQLite lokal
   path: ^1.9.0
-  geolocator: ^13.0.1       # Hari 1: GPS dan izin lokasi
-  flutter_map: ^7.0.2       # Hari 1: peta OpenStreetMap (tanpa API key)
+  geolocator: ^13.0.1         # Hari 1: GPS dan izin lokasi
+  flutter_map: ^7.0.2         # Hari 1: peta OpenStreetMap (tanpa API key)
   latlong2: ^0.9.1
-  http: ^1.2.2              # Hari 1 dan 2: request ke API publik
+  connectivity_plus: ^6.0.5   # Hari 2 Modul 5: jenis jaringan
+  sensors_plus: ^6.0.0        # Hari 2 Modul 6: accelerometer
+  device_info_plus: ^11.0.0   # Hari 2 Modul 6: informasi perangkat
+  flutter_secure_storage: ^9.2.2  # Hari 2 Modul 7: penyimpanan aman
+  http: ^1.2.2                # Hari 2 Modul 7: request HTTPS
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  bloc_test: ^9.1.7
 
 flutter:
   uses-material-design: true
