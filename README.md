@@ -1,6 +1,6 @@
 # Associate Mobile Programmer: Flutter
 
-Materi pelatihan Associate Mobile Programmer berbasis Flutter. Pelatihan berlangsung selama 2 hari secara offline di Graha Pos Bandung pada 25 hingga 26 November 2026.
+Materi pelatihan Associate Mobile Programmer berbasis Flutter.
 
 ## Tujuan Pelatihan
 
