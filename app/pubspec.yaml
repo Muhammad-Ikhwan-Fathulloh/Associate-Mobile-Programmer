@@ -1,0 +1,29 @@
+name: associate_mobile_app
+description: Aplikasi contoh pelatihan Associate Mobile Programmer dengan Flutter.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.4.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1      # Hari 2: state management Cubit
+  equatable: ^2.0.5         # Hari 2: perbandingan state
+  go_router: ^14.2.0        # Hari 1: navigasi
+  sqflite: ^2.3.3           # Hari 1: database SQLite lokal
+  path: ^1.9.0
+  geolocator: ^13.0.1       # Hari 1: GPS dan izin lokasi
+  flutter_map: ^7.0.2       # Hari 1: peta OpenStreetMap (tanpa API key)
+  latlong2: ^0.9.1
+  http: ^1.2.2              # Hari 1 dan 2: request ke API publik
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  bloc_test: ^9.1.7
+
+flutter:
+  uses-material-design: true

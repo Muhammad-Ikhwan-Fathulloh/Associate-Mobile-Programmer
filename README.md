@@ -44,12 +44,35 @@ Setelah mengikuti pelatihan, peserta mampu:
 
 Jadwal Hari 2 bersifat usulan dan dapat disesuaikan dengan silabus resmi.
 
+## Hands-On
+
+Panduan langkah demi langkah dan kode aplikasi jadi:
+
+| Hari | Panduan | Kode |
+|---|---|---|
+| 1 | [docs/hands-on/hari-1.md](docs/hands-on/hari-1.md) | `app/` (Catatan Lokal, Lokasi dan Peta) |
+| 2 | [docs/hands-on/hari-2.md](docs/hands-on/hari-2.md) | `app/` (Daftar Post API, Cubit, Hero, rilis) |
+
+Daftar tautan yang perlu disiapkan: [docs/links.md](docs/links.md).
+
+Aplikasi di `app/` menggunakan `flutter_map` dengan OpenStreetMap, sehingga tidak memerlukan API key. Contoh pada `docs/hari-1/04-lokasi-gps-navigasi.md` menggunakan `google_maps_flutter` dan memerlukan API key. Keduanya dapat dipakai, tetapi peserta sebaiknya mengikuti versi `app/` jika tidak memiliki API key.
+
+Cara menjalankan aplikasi: lihat langkah 1 pada `docs/hands-on/hari-1.md`.
+
 ## Struktur Repository
 
 ```
 associate-mobile-programmer-flutter/
 ├── README.md
+├── app/                      # Proyek Flutter lengkap (kode jadi)
+│   ├── pubspec.yaml
+│   ├── lib/
+│   └── test/
 ├── docs/
+│   ├── links.md
+│   ├── hands-on/
+│   │   ├── hari-1.md
+│   │   └── hari-2.md
 │   ├── hari-1/
 │   │   ├── 01-platform-dan-bahasa.md
 │   │   ├── 02-mobile-interface.md
