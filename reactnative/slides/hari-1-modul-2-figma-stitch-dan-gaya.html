@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 2: Desain dengan Figma dan Stitch, Gaya, dan Implementasi dengan AI</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 10.00 to 12.00 · React Native</p>
+    <h1>Modul 2: Figma, Stitch, dan Gaya</h1><h2>Tujuan Pembelajaran</h2><ol><li>Merancang layar di Figma dengan Auto Layout dan variable</li><li>Memakai Google Stitch untuk membuat rancangan awal dari prompt</li><li>Membandingkan beberapa gaya desain</li><li>Mengubah token desain menjadi <code>src/theme.ts</code></li><li>Meminta AI menerapkan gaya ke aplikasi dan meninjau hasilnya</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-1/02-figma-stitch-dan-gaya.md">docs/hari-1/02-figma-stitch-dan-gaya.md</a></p>
+    <aside class="notes">Sebelum menulis banyak kode, kita memutuskan seperti apa aplikasinya. Dua jam ini memakai alat desain modern: Google Stitch untuk rancangan awal dari prompt, dan Figma untuk merapikannya dengan Auto Layout dan variable. Variable itu menjadi token yang kita pindahkan ke kode, lalu kita minta AI menerapkan gaya baru ke aplikasi. Tekankan dua hal: AI mempercepat, tetapi manusia yang meninjau hasilnya, dan token membuat perubahan gaya cukup di satu tempat.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.007.01</h2>
+<h3>Desain dengan Figma dan Stitch, Gaya, dan Implementasi dengan AI</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menentukan alat perancangan antarmuka</li><li>Memilih informasi yang ditampilkan per layar</li><li>Membuat aksi dan desain estetis per layar</li></ol><p><strong>Bukti pada pelatihan ini:</strong> berkas Figma (variable dan 5 layar), <code>src/theme.ts</code>, <code>src/ui.ts</code>, <code>app/_layout.tsx</code>, <code>app/note-form.tsx</code></p>
+    </div></div><!--/split-->
+    <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
+  </section>
+
+  <section class="slide" data-sim="stitch_flow">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Alur dari ide ke aplikasi</h2>
+<ul><li>Mulai dari kebutuhan pengguna dan daftar layar, bukan dari warna.</li><li>**Google Stitch** membuat rancangan awal dari prompt, lalu diperbaiki lewat chat.</li><li>**Figma** merapikan rancangan: Auto Layout, komponen, dan **variable**. Berkas contoh pelatihan: https://www.figma.com/design/grYqOsULGfzYsDrtIjmjRL</li><li>Variable menjadi **token** di <code>src/theme.ts</code>. Komponen kode memakai token, bukan angka langsung.</li><li>AI membantu menerapkan gaya ke kode. Manusia meninjau hasilnya.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Gambarkan jalurnya di papan tulis: kebutuhan, prompt di Stitch, rapikan di Figma, variable menjadi token, token menjadi theme.ts, AI menerapkan, manusia meninjau. Buka simulasi untuk menelusuri enam langkahnya. Tanyakan mana langkah yang paling berisiko jika dilompati, jawabannya hampir selalu peninjauan manusia.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Google Stitch</h2>
+<ul><li>Alat dari Google Labs di <code>stitch.withgoogle.com</code>: teks atau gambar menjadi rancangan antarmuka dan kode front-end.</li><li>Perbaiki dengan chat, ubah tema, lalu salin atau ekspor ke Figma sebagai layer yang bisa diedit.</li><li>Hasil Stitch adalah **titik awal**. Rapikan struktur dan token sebelum menjadi kode aplikasi.</li><li>Fitur dan menu berubah cepat. Cek tampilan terbaru sebelum sesi dimulai.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Tunjukkan Stitch secara langsung bila ada akses. Tulis prompt yang menyebut layar, isi, dan gaya, lalu perbaiki lewat chat. Tekankan bahwa hasilnya titik awal. Fitur dan menu Stitch cepat berubah, jadi beri tahu peserta bahwa tampilan mereka mungkin sedikit berbeda.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Figma untuk pengembang</h2>
+<table><tr><th>Fitur</th><th>Fungsi</th><th>Padanan di kode</th></tr><tr><td>Auto Layout</td><td>Isi menyesuaikan ukuran dan jarak</td><td>Flexbox, <code>flexDirection</code>, <code>gap</code></td></tr><tr><td>Component</td><td>Elemen yang dipakai ulang</td><td>Komponen React, mis. <code>Tombol</code></td></tr><tr><td>Variable</td><td>Warna, spasi, radius, font</td><td><code>tema</code> di <code>src/theme.ts</code></td></tr><tr><td>Dev Mode</td><td>Melihat ukuran dan nilai untuk pengembang</td><td>Nilai di <code>StyleSheet</code></td></tr><tr><td>Prototype</td><td>Mengklik antar layar</td><td>Navigasi <code>expo-router</code></td></tr></table>
+    </div></div><!--/split-->
+    <aside class="notes">Hubungkan setiap fitur Figma dengan padanannya di kode, seperti pada tabel. Auto Layout sama dengan flexbox, variable sama dengan token. Buka berkas contoh pelatihan dan tunjukkan panel Variables, lalu ubah satu warna agar peserta melihat semua layar ikut berubah.</aside>
+  </section>
+
+  <section class="slide" data-sim="theme">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Beberapa gaya desain</h2>
+<table><tr><th>Gaya</th><th>Ciri</th><th>Cocok untuk</th></tr><tr><td>Material</td><td>Bayangan lembut, tombol terisi, ikon jelas</td><td>Aplikasi Android umum</td></tr><tr><td>iOS (HIG)</td><td>Sudut membulat, banyak ruang kosong, teks tebal tipis</td><td>Aplikasi dengan nuansa iOS</td></tr><tr><td>Minimal</td><td>Sedikit warna, banyak spasi, tanpa dekorasi</td><td>Alat kerja dan catatan</td></tr><tr><td>Gelap</td><td>Latar gelap, kontras dijaga</td><td>Dipakai malam, hemat baterai layar OLED</td></tr></table>
+    </div></div><!--/split-->
+    <aside class="notes">Bandingkan empat gaya lewat simulasi tema: ubah warna dasar dan mode gelap. Tanyakan gaya mana yang cocok untuk aplikasi catatan dan mengapa. Tidak ada jawaban tunggal, tujuannya melatih peserta menjelaskan pilihan desainnya.</aside>
+  </section>
+
+  <section class="slide code" data-sim="tokens">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
+    <h2>Token menjadi theme.ts</h2>
+<p>Setiap variable Figma punya padanan di sini. Mengubah satu nilai mengubah seluruh aplikasi.</p><p class="ref"><code>src/theme.ts</code></p><pre><code>// Design token: satu sumber nilai gaya. Nilainya berasal dari variables di Figma.
+export const tema = {
+  warna: {
+    utama: '#1565c0',
+    latar: '#f5f7fb',
+    kartu: '#ffffff',
+    teks: '#1b1f27',
+    abu: '#5f6b7a',
+    garis: '#cfd6e0',
+    bahaya: '#c62828',
+    ok: '#2e7d32',
+  },
+  spasi: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24 },
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Buka simulasi token: geser warna, radius, spasi, dan font, lalu lihat kode dan tampilan berubah bersamaan. Itulah inti token. Tunjukkan bahwa nama di Figma dan di kode sengaja disamakan agar mudah dilacak.</aside>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Token diterapkan di komponen</h2>
+<p>Gaya dibuat dari <code>tema</code>. Target sentuh tombol 48 dp.</p><p class="ref"><code>src/ui.ts</code></p><pre><code>import { StyleSheet } from 'react-native';
+import { tema } from './theme';
+
+export const warna = tema.warna;
+
+export const gaya = StyleSheet.create({
+  layar: { flex: 1, backgroundColor: tema.warna.latar, padding: tema.spasi.lg },
+  kartu: { backgroundColor: tema.warna.kartu, borderRadius: tema.radius.md, padding: 14, marginBottom: tema.spasi.md, elevation: 1 },
+  judul: { fontSize: tema.font.judul, fontWeight: '700', color: tema.warna.teks },
+  teks: { fontSize: tema.font.isi, color: tema.warna.teks, marginTop: tema.spasi.xs },
+  abu: { fontSize: tema.font.kecil, color: tema.warna.abu, marginTop: tema.spasi.xs },
+  input: { backgroundColor: tema.warna.kartu, borderWidth: 1, borderColor: tema.warna.garis, borderRadius: tema.radius.sm, padding: 10, marginBottom: 10, fontSize: tema.font.isi },
+  tombol: { backgroundColor: tema.warna.utama, borderRadius: tema.radius.sm, minHeight: tema.tinggiTombol, justifyContent: 'center', alignItems: 'center', marginBottom: 10 },
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Perhatikan bahwa ui.ts tidak punya angka mentah, semuanya membaca dari tema. Sebut juga tinggi tombol 48 dp sebagai target sentuh yang nyaman. Minta peserta mencari satu angka mentah yang masih tersisa di proyek mereka.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Prompt AI untuk menerapkan gaya</h2>
+<ul><li>Sertakan **konteks**: tumpukan teknologi (Expo, TypeScript), file <code>src/theme.ts</code> dan <code>src/ui.ts</code>.</li><li>Sertakan **tujuan**: gaya apa, layar mana, dan batasannya (jangan ubah logika).</li><li>Sertakan **bukti desain**: tangkapan layar Figma atau nilai variable.</li><li>Setelah AI mengubah kode: jalankan <code>npm run typecheck</code> dan <code>npm test</code>, lalu lihat hasilnya di perangkat.</li><li>Jangan menempelkan rahasia (token, kata sandi) ke alat AI.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Bahas empat bahan prompt yang baik: konteks, tujuan, bukti desain, dan batasan. Peringatkan agar tidak menempelkan rahasia ke alat AI. Tekankan bahwa hasil AI harus ditinjau sebagai diff, dijalankan typecheck dan tes, lalu dilihat di perangkat sebelum diterima.</aside>
+  </section>
+
+  <section class="slide code" data-sim="rn_nav">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
+    <h2>Navigasi expo-router</h2>
+<p>Nama file di <code>app/</code> menjadi alamat halaman. <code>Stack</code> menambahkan tombol kembali.</p><p class="ref"><code>app/_layout.tsx</code></p><pre><code>import { Stack } from 'expo-router';
+
+export default function RootLayout() {
+  return (
+    &lt;Stack screenOptions={{ headerStyle: { backgroundColor: '#1565c0' }, headerTintColor: '#fff' }}&gt;
+      &lt;Stack.Screen name="index" options={{ title: 'Associate Mobile App' }} /&gt;
+      &lt;Stack.Screen name="notes" options={{ title: 'Catatan' }} /&gt;
+      &lt;Stack.Screen name="note-form" options={{ title: 'Form Catatan' }} /&gt;
+      &lt;Stack.Screen name="location" options={{ title: 'Lokasi dan Peta' }} /&gt;
+      &lt;Stack.Screen name="network" options={{ title: 'Jaringan Seluler' }} /&gt;
+      &lt;Stack.Screen name="sinkron" options={{ title: 'API dan Sinkronisasi' }} /&gt;
+      &lt;Stack.Screen name="sensor" options={{ title: 'Sensor' }} /&gt;
+      &lt;Stack.Screen name="device" options={{ title: 'Info Perangkat' }} /&gt;
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Aturannya mudah diingat: nama file adalah alamat halaman. Buka simulasi navigasi, ketuk berkas, dan perhatikan tumpukan layar bertambah lalu berkurang saat kembali. Berkas _layout menjadi bingkai yang memberi judul dan tombol kembali pada semua halaman.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan dan Coba</p>
+    <h2>Tugas Modul 2</h2>
+<ol><li>Buka berkas Figma contoh, ubah <code>warna/utama</code>, lalu samakan nilainya di <code>src/theme.ts</code>.</li><li>Buat rancangan layar Catatan di Stitch, ekspor ke Figma, dan rapikan dengan Auto Layout.</li><li>Minta AI mengubah gaya aplikasi menjadi gelap memakai prompt berkonteks, lalu tinjau perbedaannya.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 3 dan 4</a> · Materi: <a href="../docs/hari-1/02-figma-stitch-dan-gaya.md">docs/hari-1/02-figma-stitch-dan-gaya.md</a></p>
+    <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

@@ -21,14 +21,14 @@
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2</p>
     <h2>Daftar Langkah</h2>
-<ul class="stepgrid"><li><a href="#3"><b>S0</b>Persiapan</a></li><li><a href="#7"><b>S1</b>Jaringan Seluler</a></li><li><a href="#13"><b>S2</b>Sensor</a></li><li><a href="#18"><b>S3</b>Informasi Perangkat</a></li><li><a href="#23"><b>S4</b>Penyimpanan Aman</a></li><li><a href="#28"><b>S5</b>HTTPS dan Halaman Keamanan</a></li><li><a href="#34"><b>S6</b>Menjalankan Seluruh Aplikasi</a></li><li><a href="#38"><b>S7</b>Pengujian</a></li><li><a href="#45"><b>S8</b>Latihan</a></li><li><a href="#46"><b>Ringkasan File Hari 2</b>Ringkasan File Hari 2</a></li></ul>
+<ul class="stepgrid"><li><a href="#3"><b>S0</b>Persiapan dan Jalankan Server Latihan</a></li><li><a href="#8"><b>S1</b>API Dasar: REST, Metode, dan Status</a></li><li><a href="#12"><b>S2</b>Memanggil API dari Aplikasi</a></li><li><a href="#19"><b>S3</b>Sensor: Akselerometer, Giroskop, dan Kompas</a></li><li><a href="#25"><b>S4</b>Informasi Perangkat</a></li><li><a href="#30"><b>S5</b>Token, Penyimpanan Aman, dan Sinkronisasi</a></li><li><a href="#37"><b>S6</b>Jaringan Seluler dan Keamanan Komunikasi</a></li><li><a href="#44"><b>S7</b>Pengujian Hari 2</a></li><li><a href="#54"><b>S8</b>Latihan</a></li><li><a href="#55"><b>Ringkasan File Hari 2</b>Ringkasan File Hari 2</a></li></ul>
     </div></div><!--/split-->
   </section>
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 09.00</p>
-    <h2>Step 0: Persiapan</h2>
+    <h2>Step 0: Persiapan dan Jalankan Server Latihan</h2>
 <h3>File pada step ini</h3><ol><li><code>Terminal</code></li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
@@ -36,21 +36,32 @@
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 0 · Persiapan</p>
+    <p class="kicker">Teori · Step 0 · Persiapan dan Jalankan Server Latihan</p>
     <h2>Titik awal Hari 2</h2>
-<ul><li>Hari 2 menambah fitur ke aplikasi yang sama. Pastikan pengujian Hari 1 lulus dahulu.</li><li>Perubahan kecil dan sering diuji lebih mudah diperbaiki daripada satu perubahan besar.</li></ul>
+<ul><li>Hari 2 menambah fitur ke aplikasi yang sama dan menghubungkannya ke server latihan.</li><li>Server berjalan di komputer (<code>npm start</code>, port 3000). Emulator Android mengaksesnya lewat <code>10.0.2.2</code>.</li><li>Ponsel fisik memakai IP komputer dan harus satu Wi-Fi dengan komputer.</li></ul>
     </div></div><!--/split-->
   </section>
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 0 · Persiapan</p>
-    <h2>Terminal</h2>
+    <p class="kicker">Praktik · Step 0 · Persiapan dan Jalankan Server Latihan</p>
+    <h2>Terminal<span class="part">1 dari 2</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
-<div class="instr"><p>Semua paket Hari 2 sudah terpasang pada Step 1 Hari 1. Pastikan proyek Hari 1 masih lulus pengujian:</p></div>
+<div class="instr"><p>Pastikan proyek Hari 1 masih lulus pengujian:</p></div>
 <pre><code>npm test
-npm run typecheck
-npx expo start</code></pre>
+npm run typecheck</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 0 · Persiapan dan Jalankan Server Latihan</p>
+    <h2>Terminal<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><p>Di terminal lain, jalankan server latihan dari folder repositori:</p></div>
+<pre><code>cd shared/server
+npm install
+npm start</code></pre>
     </div></div><!--/split-->
   </section>
 
@@ -58,7 +69,7 @@ npx expo start</code></pre>
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 0 · cek hasil</p>
     <h2>Uji dan Periksa</h2>
-<p>Jika ada error, selesaikan dahulu sebelum menambah fitur baru.</p>
+<p>Buka <code>http://localhost:3000/health</code> di peramban. Jawaban <code>{"ok":true}</code> berarti server hidup. Emulator Android mengakses komputer lewat <code>10.0.2.2</code>. Ponsel fisik memakai alamat IP komputer (misalnya <code>http://192.168.1.10:3000</code>) dan harus berada di Wi-Fi yang sama.</p>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
@@ -66,24 +77,719 @@ npx expo start</code></pre>
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 09.15</p>
-    <h2>Step 1: Jaringan Seluler</h2>
-<h3>File pada step ini</h3><ol><li><code>src/services/networkService.ts</code></li><li><code>app/network.tsx</code></li></ol>
+    <h2>Step 1: API Dasar: REST, Metode, dan Status</h2>
+<p>Pelajari server latihan lebih dulu. Ini rute-rutenya:</p>
+<h3>File pada step ini</h3><ol><li><code>Kode TypeScript</code></li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 1 · Jaringan Seluler</p>
-    <h2>Jaringan seluler</h2>
-<ul><li>Ponsel terhubung lewat <strong>seluler</strong> (2G sampai 5G) atau <strong>Wi-Fi</strong>. Aplikasi perlu tahu mana yang aktif.</li><li>Data seluler berbayar dan lebih lambat. Unduhan besar sebaiknya menunggu Wi-Fi.</li><li><code>getNetworkStateAsync</code> mengembalikan status terhubung dan jenisnya. <code>labelJaringan</code> menerjemahkannya.</li><li>Aplikasi yang baik tetap berfungsi <strong>offline</strong> dan menyinkronkan saat koneksi kembali.</li></ul>
+    <p class="kicker">Teori · Step 1 · API Dasar: REST, Metode, dan Status</p>
+    <h2>API dan REST</h2>
+<ul><li><strong>API</strong> adalah pintu bagi aplikasi untuk meminta atau mengubah data di server.</li><li><strong>REST</strong>: alamat untuk sumber daya, metode HTTP untuk aksi (GET baca, POST buat, PUT ubah, DELETE hapus), data berbentuk JSON.</li><li>Kode status memberi tahu hasil: 200 dan 201 berhasil, 204 berhasil tanpa isi, 400 data salah, 401 belum login, 404 tidak ada.</li><li>Ponsel tidak langsung ke MySQL. API yang menjaga akses dan validasi, lalu berbicara ke MySQL.</li></ul>
     </div></div><!--/split-->
   </section>
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 1 · Jaringan Seluler</p>
-    <h2>src/services/networkService.ts<span class="part">1 dari 2</span></h2>
+    <p class="kicker">Praktik · Step 1 · API Dasar: REST, Metode, dan Status</p>
+    <h2>Kode TypeScript<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>Kode TypeScript</span></div>
+<div class="instr"><p>Berkas server <code>shared/server/app.js</code>:</p></div>
+<pre><code>// API catatan untuk pelatihan. Data disimpan di memori agar mudah dijalankan.
+// Untuk MySQL, lihat schema.sql dan docs/mysql-dan-api.md.
+const express = require('express');
+const crypto = require('crypto');
+
+const PENGGUNA = { email: 'peserta@contoh.id', password: 'rahasia123' };
+
+function buatApp() {
+  const app = express();
+  app.use(express.json());
+
+  const tokens = new Set();
+  let catatan = [];
+  let idBerikut = 1;
+
+  // CORS longgar untuk uji lokal (peramban). Jangan dipakai apa adanya di produksi.
+  app.use((req, res, next) =&gt; {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+    next();
+  });
+
+  const wajibLogin = (req, res, next) =&gt; {
+    const h = req.get('Authorization') || '';
+    const token = h.startsWith('Bearer ') ? h.slice(7) : '';
+    if (!tokens.has(token)) return res.status(401).json({ error: 'Token tidak valid atau belum login.' });
+    next();
+  };
+
+  const validasi = (b) =&gt; {
+    if (!b || typeof b.title !== 'string' || b.title.trim() === '') return 'Judul wajib diisi.';
+    if (b.title.trim().length &gt; 100) return 'Judul maksimal 100 karakter.';
+    if (typeof b.content !== 'string') return 'Isi wajib berupa teks.';
+    return null;
+  };
+
+  app.get('/health', (req, res) =&gt; res.json({ status: 'ok' }));
+
+  app.post('/login', (req, res) =&gt; {
+    const { email, password } = req.body || {};
+    if (email !== PENGGUNA.email || password !== PENGGUNA.password) {
+      return res.status(401).json({ error: 'Email atau kata sandi salah.' });
+    }
+    const token = crypto.randomBytes(16).toString('hex');
+    tokens.add(token);
+    res.json({ token });
+  });
+
+  app.get('/notes', wajibLogin, (req, res) =&gt; res.json(catatan));
+
+  app.post('/notes', wajibLogin, (req, res) =&gt; {
+    const pesan = validasi(req.body);
+    if (pesan) return res.status(400).json({ error: pesan });
+    const { title, content, latitude = null, longitude = null } = req.body;
+    const baru = { id: idBerikut++, title: title.trim(), content, latitude, longitude, updatedAt: Date.now() };
+    catatan.push(baru);
+    res.status(201).json(baru);
+  });
+
+  app.put('/notes/:id', wajibLogin, (req, res) =&gt; {
+    const n = catatan.find((x) =&gt; x.id === Number(req.params.id));
+    if (!n) return res.status(404).json({ error: 'Catatan tidak ditemukan.' });
+    const pesan = validasi(req.body);
+    if (pesan) return res.status(400).json({ error: pesan });
+    Object.assign(n, {
+      title: req.body.title.trim(),
+      content: req.body.content,
+      latitude: req.body.latitude ?? null,
+      longitude: req.body.longitude ?? null,
+      updatedAt: Date.now(),
+    });
+    res.json(n);
+  });
+
+  app.delete('/notes/:id', wajibLogin, (req, res) =&gt; {
+    const sebelum = catatan.length;
+    catatan = catatan.filter((x) =&gt; x.id !== Number(req.params.id));
+    if (catatan.length === sebelum) return res.status(404).json({ error: 'Catatan tidak ditemukan.' });
+    res.sendStatus(204);
+  });
+
+  return app;
+}
+
+module.exports = { buatApp, PENGGUNA };</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 1 · API Dasar: REST, Metode, dan Status</p>
+    <h2>Kode TypeScript<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>Kode TypeScript</span></div>
+<div class="instr"><p>Login contoh: <code>peserta@contoh.id</code> dengan kata sandi <code>rahasia123</code>. Skema MySQL pasangannya (untuk diskusi, server latihan memakai memori):</p>
+<p>Skema <code>shared/server/schema.sql</code>:</p></div>
+<pre><code>-- Skema MySQL untuk tabel catatan (padanan tabel notes di SQLite pada aplikasi).
+CREATE DATABASE IF NOT EXISTS pelatihan_mobile CHARACTER SET utf8mb4;
+USE pelatihan_mobile;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,       -- simpan hash (bcrypt/argon2), bukan kata sandi asli
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS notes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  content TEXT NOT NULL,
+  latitude DOUBLE NULL,
+  longitude DOUBLE NULL,
+  updated_at BIGINT NOT NULL,                 -- milidetik sejak epoch, sama dengan di aplikasi
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  INDEX idx_notes_user_updated (user_id, updated_at)
+);</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 09.40</p>
+    <h2>Step 2: Memanggil API dari Aplikasi</h2>
+<h3>File pada step ini</h3><ol><li><code>src/config.ts</code></li><li><code>src/services/httpsService.ts</code></li><li><code>src/services/apiClient.ts</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 2 · Memanggil API dari Aplikasi</p>
+    <h2>Memanggil API dengan fetch</h2>
+<ul><li><code>fetch</code> mengirim permintaan dan mengembalikan respons. Periksa <code>res.ok</code> sebelum membaca isi.</li><li>Pasang <strong>timeout</strong> dengan <code>AbortController</code> agar aplikasi tidak menunggu tanpa batas.</li><li>Header <code>Authorization: Bearer &lt;token&gt;</code> membawa tanda pengenal setelah login.</li><li>Status 204 tidak punya isi, jangan dibaca sebagai JSON.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 2 · Memanggil API dari Aplikasi</p>
+    <h2>src/config.ts<span class="part">1 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/config.ts</span></div>
+<div class="instr"><p>Buat file <code>src/config.ts</code>:</p></div>
+<pre><code>// Alamat server API. Ubah sesuai jaringan:
+//  - Emulator Android: http://10.0.2.2:3000 (alamat komputer dari dalam emulator)
+//  - Ponsel dengan Expo Go: http://&lt;IP komputer&gt;:3000 (komputer dan ponsel satu Wi-Fi)
+//  - Produksi: wajib https://
+export const API_URL_BAWAAN = 'http://10.0.2.2:3000';</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 2 · Memanggil API dari Aplikasi</p>
+    <h2>src/services/httpsService.ts<span class="part">2 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/services/httpsService.ts</span></div>
+<div class="instr"><p>Buat file <code>src/services/httpsService.ts</code>:</p></div>
+<pre><code>const HOST_LOKAL = /^(localhost|127\.0\.0\.1|10\.0\.2\.2|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/;
+
+/**
+ * Mengembalikan pesan error jika URL tidak aman, atau null jika URL aman.
+ * `izinkanLokal` membolehkan http hanya ke alamat jaringan lokal, untuk server uji saat pengembangan.
+ */
+export function periksaUrlAman(url: string, izinkanLokal = false): string | null {
+  let u: URL;
+  try {
+    u = new URL(url.trim());
+  } catch {
+    return 'URL tidak valid.';
+  }
+  if (u.protocol === 'https:') return null;
+  if (u.protocol === 'http:' &amp;&amp; izinkanLokal &amp;&amp; HOST_LOKAL.test(u.hostname)) return null;
+  return 'Gunakan HTTPS (https://).';
+}
+
+type FetchFn = typeof fetch;
+
+export type OpsiRequest = {
+  body?: unknown;
+  token?: string | null;
+  fetchFn?: FetchFn;
+  batasMs?: number;
+  izinkanLokal?: boolean;
+};
+
+export class ApiError extends Error {
+  constructor(public status: number, message: string) {
+    super(message);
+  }
+}
+
+/** Permintaan JSON dengan pemeriksaan URL, timeout, token, dan penanganan status. */
+export async function requestJson(metode: string, url: string, opsi: OpsiRequest = {}): Promise&lt;unknown&gt; {
+  const { body, token, fetchFn = fetch, batasMs = 10000, izinkanLokal = false } = opsi;
+  const pesan = periksaUrlAman(url, izinkanLokal);
+  if (pesan) throw new Error(pesan);
+
+  const kontrol = new AbortController();
+  const timer = setTimeout(() =&gt; kontrol.abort(), batasMs);
+  try {
+    const res = await fetchFn(url.trim(), {
+      method: metode,
+      headers: {
+        Accept: 'application/json',
+        ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+      signal: kontrol.signal,
+    });
+    if (res.status === 204) return null;
+    if (res.status &lt; 200 || res.status &gt; 299) {
+      let detail = '';
+      try {
+        detail = ((await res.json()) as { error?: string }).error ?? '';
+      } catch {
+        /* badan respons bukan JSON */
+      }
+      throw new ApiError(res.status, detail || `Server merespons status ${res.status}`);
+    }
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+export function ambilJson(url: string, fetchFn: FetchFn = fetch, batasMs = 10000): Promise&lt;unknown&gt; {
+  return requestJson('GET', url, { fetchFn, batasMs });
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 2 · Memanggil API dari Aplikasi</p>
+    <h2>src/services/apiClient.ts<span class="part">3 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/services/apiClient.ts</span></div>
+<div class="instr"><p>Buat file <code>src/services/apiClient.ts</code>:</p></div>
+<pre><code>import { Note } from '../models/note';
+import { requestJson, OpsiRequest } from './httpsService';
+
+export type NoteServer = {
+  id: number;
+  title: string;
+  content: string;
+  latitude: number | null;
+  longitude: number | null;
+  updatedAt: number;
+};
+
+/** Klien API catatan. `opsi` dipakai pengujian untuk fetch palsu. */
+export function buatApiClient(baseUrl: string, opsi: Pick&lt;OpsiRequest, 'fetchFn' | 'izinkanLokal' | 'batasMs'&gt; = {}) {
+  const url = (path: string) =&gt; baseUrl.replace(/\/+$/, '') + path;
+  const dasar = { izinkanLokal: true, ...opsi };
+
+  return {
+    async login(email: string, password: string): Promise&lt;string&gt; {
+      const r = (await requestJson('POST', url('/login'), { ...dasar, body: { email, password } })) as { token: string };
+      return r.token;
+    },
+    async daftarCatatan(token: string): Promise&lt;NoteServer[]&gt; {
+      return (await requestJson('GET', url('/notes'), { ...dasar, token })) as NoteServer[];
+    },
+    async buatCatatan(token: string, n: Note): Promise&lt;NoteServer&gt; {
+      const body = { title: n.title, content: n.content, latitude: n.latitude, longitude: n.longitude };
+      return (await requestJson('POST', url('/notes'), { ...dasar, token, body })) as NoteServer;
+    },
+    async ubahCatatan(token: string, serverId: number, n: Note): Promise&lt;NoteServer&gt; {
+      const body = { title: n.title, content: n.content, latitude: n.latitude, longitude: n.longitude };
+      return (await requestJson('PUT', url(`/notes/${serverId}`), { ...dasar, token, body })) as NoteServer;
+    },
+  };
+}
+
+export type ApiClient = ReturnType&lt;typeof buatApiClient&gt;;</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 2 · Memanggil API dari Aplikasi</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/config.ts</code></h3><ul><li>Alamat server bawaan untuk emulator Android (<code>10.0.2.2</code>).</li><li>Ganti dengan IP komputer untuk ponsel fisik.</li></ul></div><div class="card"><h3><code>src/services/httpsService.ts</code></h3><ul><li><code>periksaUrlAman</code> menolak URL tidak valid dan non-HTTPS.</li><li><code>ambilJson</code> memakai timeout dan memeriksa status 200.</li></ul></div><div class="card"><h3><code>src/services/apiClient.ts</code></h3><ul><li>Satu fungsi per endpoint: login, daftar, buat, ubah.</li><li>Halaman tidak perlu tahu detail URL.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 2 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p><code>requestJson</code> membatasi waktu, memeriksa status, dan mengubah kesalahan server menjadi <code>ApiError</code>. <code>apiClient</code> membungkus satu fungsi per endpoint.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 10.00</p>
+    <h2>Step 3: Sensor: Akselerometer, Giroskop, dan Kompas</h2>
+<h3>File pada step ini</h3><ol><li><code>src/services/sensorMath.ts</code></li><li><code>app/sensor.tsx</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Sensor: Akselerometer, Giroskop, dan Kompas</p>
+    <h2>Sensor ponsel</h2>
+<ul><li><strong>Akselerometer</strong> mengukur percepatan sumbu X, Y, Z dalam g. Diam di meja: Z sekitar 1 g.</li><li><strong>Giroskop</strong> mengukur laju putar (rad/s). <strong>Magnetometer</strong> mengukur medan magnet untuk kompas.</li><li>Guncangan: besar vektor akselerasi melewati ambang, misalnya 2 g.</li><li>Berlangganan dengan <code>addListener</code>, hentikan dengan <code>remove</code> saat halaman ditutup agar baterai hemat.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 3 · Sensor: Akselerometer, Giroskop, dan Kompas</p>
+    <h2>src/services/sensorMath.ts<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/services/sensorMath.ts</span></div>
+<div class="instr"><p>Buat file <code>src/services/sensorMath.ts</code>:</p></div>
+<pre><code>export type Vektor = { x: number; y: number; z: number };
+
+/** Besar vektor tiga sumbu. Diam di meja, akselerometer (satuan g) bernilai sekitar 1. */
+export function besarVektor(v: Vektor): number {
+  return Math.sqrt(v.x ** 2 + v.y ** 2 + v.z ** 2);
+}
+
+/** Guncangan terdeteksi bila besar percepatan melewati ambang (satuan g). */
+export function terdeteksiGuncangan(v: Vektor, ambang = 2): boolean {
+  return besarVektor(v) &gt; ambang;
+}
+
+/**
+ * Perkiraan arah kompas (derajat, 0 = utara, searah jarum jam) dari magnetometer
+ * saat ponsel datar. Hasilnya perkiraan: sumbu sensor dapat berbeda antarperangkat.
+ */
+export function arahKompas(m: Pick&lt;Vektor, 'x' | 'y'&gt;): number {
+  const derajat = (Math.atan2(-m.x, m.y) * 180) / Math.PI;
+  return (derajat + 360) % 360;
+}
+
+export function mataAngin(derajat: number): string {
+  const nama = ['Utara', 'Timur Laut', 'Timur', 'Tenggara', 'Selatan', 'Barat Daya', 'Barat', 'Barat Laut'];
+  return nama[Math.round((((derajat % 360) + 360) % 360) / 45) % 8];
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 3 · Sensor: Akselerometer, Giroskop, dan Kompas</p>
+    <h2>app/sensor.tsx<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app/sensor.tsx</span></div>
+<div class="instr"><p>Buat file <code>app/sensor.tsx</code>:</p></div>
+<pre><code>import { Accelerometer, Gyroscope, Magnetometer } from 'expo-sensors';
+import { useEffect, useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
+import { arahKompas, besarVektor, mataAngin, terdeteksiGuncangan, Vektor } from '../src/services/sensorMath';
+import { gaya } from '../src/ui';
+
+const NOL: Vektor = { x: 0, y: 0, z: 0 };
+
+type Sumber = {
+  isAvailableAsync: () =&gt; Promise&lt;boolean&gt;;
+  setUpdateInterval: (ms: number) =&gt; void;
+  addListener: (fn: (v: Vektor) =&gt; void) =&gt; { remove: () =&gt; void };
+};
+
+/** Berlangganan satu sensor, dan berhenti saat halaman ditutup. */
+function useSensor(sensor: Sumber, intervalMs = 300) {
+  const [nilai, setNilai] = useState&lt;Vektor&gt;(NOL);
+  const [tersedia, setTersedia] = useState&lt;boolean | null&gt;(null);
+
+  useEffect(() =&gt; {
+    let langganan: { remove: () =&gt; void } | undefined;
+    sensor.isAvailableAsync().then((ok) =&gt; {
+      setTersedia(ok);
+      if (!ok) return;
+      sensor.setUpdateInterval(intervalMs);
+      langganan = sensor.addListener(setNilai);
+    });
+    return () =&gt; langganan?.remove();
+  }, [sensor, intervalMs]);
+
+  return { nilai, tersedia };
+}
+
+const f = (n: number) =&gt; n.toFixed(2);
+
+export default function Sensor() {
+  const akselerometer = useSensor(Accelerometer);
+  const giroskop = useSensor(Gyroscope);
+  const magnetometer = useSensor(Magnetometer);
+  const derajat = arahKompas(magnetometer.nilai);
+
+  return (
+    &lt;ScrollView style={gaya.layar}&gt;
+      &lt;View style={gaya.kartu}&gt;
+        &lt;Text style={gaya.judul}&gt;Akselerometer&lt;/Text&gt;
+        {akselerometer.tersedia === false &amp;&amp; &lt;Text style={gaya.error}&gt;Sensor tidak tersedia.&lt;/Text&gt;}
+        &lt;Text style={gaya.teks}&gt;X {f(akselerometer.nilai.x)}  Y {f(akselerometer.nilai.y)}  Z {f(akselerometer.nilai.z)} (g)&lt;/Text&gt;
+        &lt;Text style={gaya.teks}&gt;Besar total: {f(besarVektor(akselerometer.nilai))} g&lt;/Text&gt;
+        &lt;Text style={gaya.teks}&gt;{terdeteksiGuncangan(akselerometer.nilai) ? 'Guncangan terdeteksi!' : 'Tidak ada guncangan'}&lt;/Text&gt;
+        &lt;Text style={gaya.abu}&gt;Diam di meja: Z mendekati 1 g karena gravitasi.&lt;/Text&gt;
+      &lt;/View&gt;
+
+      &lt;View style={gaya.kartu}&gt;
+        &lt;Text style={gaya.judul}&gt;Giroskop&lt;/Text&gt;
+        {giroskop.tersedia === false &amp;&amp; &lt;Text style={gaya.error}&gt;Sensor tidak tersedia.&lt;/Text&gt;}
+        &lt;Text style={gaya.teks}&gt;X {f(giroskop.nilai.x)}  Y {f(giroskop.nilai.y)}  Z {f(giroskop.nilai.z)} (rad/s)&lt;/Text&gt;
+        &lt;Text style={gaya.abu}&gt;Mengukur laju putaran. Diam di meja: mendekati 0.&lt;/Text&gt;
+      &lt;/View&gt;
+
+      &lt;View style={gaya.kartu}&gt;
+        &lt;Text style={gaya.judul}&gt;Magnetometer (kompas)&lt;/Text&gt;
+        {magnetometer.tersedia === false &amp;&amp; &lt;Text style={gaya.error}&gt;Sensor tidak tersedia.&lt;/Text&gt;}
+        &lt;Text style={gaya.teks}&gt;Perkiraan arah: {Math.round(derajat)}° ({mataAngin(derajat)})&lt;/Text&gt;
+        &lt;Text style={gaya.abu}&gt;Letakkan ponsel datar. Hasil berupa perkiraan dan terganggu logam di sekitar.&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/ScrollView&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Sensor: Akselerometer, Giroskop, dan Kompas</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/services/sensorMath.ts</code></h3><ul><li>Fungsi murni: besar vektor, guncangan, arah kompas, mata angin.</li><li>Mudah diuji tanpa perangkat.</li></ul></div><div class="card"><h3><code>app/sensor.tsx</code></h3><ul><li>Berlangganan akselerometer dengan interval 300 ms.</li><li><code>remove</code> pada cleanup menghentikan sensor.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 3 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Letakkan ponsel di meja: akselerometer Z mendekati 1 g. Guncang ponsel untuk memicu pesan guncangan. Putar ponsel untuk melihat giroskop. Arah kompas dari magnetometer adalah pendekatan sederhana, akurasinya dipengaruhi benda logam di sekitar.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 10.50</p>
+    <h2>Step 4: Informasi Perangkat</h2>
+<h3>File pada step ini</h3><ol><li><code>app/device.tsx</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Informasi Perangkat</p>
+    <h2>Informasi perangkat</h2>
+<ul><li>Model, versi OS, dan memori membantu menyesuaikan aplikasi dan membaca laporan bug.</li><li>Nilai bisa <code>null</code> pada emulator, jadi beri nilai cadangan seperti <code>-</code>.</li><li>Jangan mengumpulkan data perangkat yang tidak diperlukan. Itu soal privasi.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 4 · Informasi Perangkat</p>
+    <h2>app/device.tsx</h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app/device.tsx</span></div>
+<div class="instr"><p>Buat file <code>app/device.tsx</code>:</p></div>
+<pre><code>import * as Device from 'expo-device';
+import { Text, View } from 'react-native';
+import { gaya } from '../src/ui';
+
+export default function Perangkat() {
+  const baris: [string, string][] = [
+    ['Produsen', Device.manufacturer ?? '-'],
+    ['Model', Device.modelName ?? '-'],
+    ['Sistem operasi', `${Device.osName ?? '-'} ${Device.osVersion ?? ''}`],
+    ['Memori total', Device.totalMemory ? `${(Device.totalMemory / 1024 ** 3).toFixed(1)} GB` : '-'],
+    ['Perangkat fisik', Device.isDevice ? 'Ya' : 'Emulator'],
+  ];
+  return (
+    &lt;View style={gaya.layar}&gt;
+      &lt;View style={gaya.kartu}&gt;
+        {baris.map(([k, v]) =&gt; (
+          &lt;Text key={k} style={gaya.teks}&gt;{k}: {v}&lt;/Text&gt;
+        ))}
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Informasi Perangkat</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>app/device.tsx</code></h3><ul><li>Daftar pasangan label dan nilai.</li><li>Nilai kosong diganti tanda hubung.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 4 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Nilai yang tidak tersedia ditampilkan sebagai tanda hubung. Di emulator, baris <em>Perangkat fisik</em> menampilkan Emulator.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 13.00</p>
+    <h2>Step 5: Token, Penyimpanan Aman, dan Sinkronisasi</h2>
+<h3>File pada step ini</h3><ol><li><code>src/services/secureStorage.ts</code></li><li><code>src/services/sync.ts</code></li><li><code>app/sinkron.tsx</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 5 · Token, Penyimpanan Aman, dan Sinkronisasi</p>
+    <h2>Token dan sinkronisasi</h2>
+<ul><li>Token hasil login disimpan di <strong>secure store</strong> (Keystore Android, Keychain iOS), bukan di SQLite.</li><li><strong>Offline-first</strong>: simpan ke SQLite dengan status PENDING, kirim saat ada koneksi.</li><li>Catatan baru dikirim dengan POST. Catatan yang sudah punya <code>serverId</code> dikirim dengan PUT.</li><li>Satu kegagalan tidak menghentikan yang lain. Hasil dilaporkan: terkirim, diterima, gagal.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 5 · Token, Penyimpanan Aman, dan Sinkronisasi</p>
+    <h2>src/services/secureStorage.ts<span class="part">1 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/services/secureStorage.ts</span></div>
+<div class="instr"><p>Buat file <code>src/services/secureStorage.ts</code>:</p></div>
+<pre><code>import * as SecureStore from 'expo-secure-store';
+
+const KUNCI = 'token_demo';
+
+export const simpanToken = (nilai: string) =&gt; SecureStore.setItemAsync(KUNCI, nilai);
+export const bacaToken = () =&gt; SecureStore.getItemAsync(KUNCI);
+export const hapusToken = () =&gt; SecureStore.deleteItemAsync(KUNCI);</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 5 · Token, Penyimpanan Aman, dan Sinkronisasi</p>
+    <h2>src/services/sync.ts<span class="part">2 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/services/sync.ts</span></div>
+<div class="instr"><p>Buat file <code>src/services/sync.ts</code>:</p></div>
+<pre><code>import { Note } from '../models/note';
+import { ApiClient, NoteServer } from './apiClient';
+
+/** Bagian repository yang dibutuhkan sinkronisasi. Dipisah agar mudah diuji. */
+export type Penyimpanan = {
+  catatanPending: () =&gt; Promise&lt;Note[]&gt;;
+  tandaiSynced: (id: number, serverId: number) =&gt; Promise&lt;void&gt;;
+  simpanDariServer: (n: Note &amp; { serverId: number }) =&gt; Promise&lt;void&gt;;
+};
+
+export type HasilSinkron = { terkirim: number; diterima: number; gagal: number };
+
+/**
+ * Offline-first: kirim catatan PENDING ke server, lalu ambil catatan baru dari server.
+ * Kegagalan satu catatan tidak menghentikan yang lain.
+ */
+export async function sinkronkan(db: Penyimpanan, api: ApiClient, token: string): Promise&lt;HasilSinkron&gt; {
+  const hasil: HasilSinkron = { terkirim: 0, diterima: 0, gagal: 0 };
+
+  for (const n of await db.catatanPending()) {
+    try {
+      const di = n.serverId != null ? await api.ubahCatatan(token, n.serverId, n) : await api.buatCatatan(token, n);
+      await db.tandaiSynced(n.id!, di.id);
+      hasil.terkirim++;
+    } catch {
+      hasil.gagal++;
+    }
+  }
+
+  const dariServer: NoteServer[] = await api.daftarCatatan(token);
+  for (const s of dariServer) {
+    await db.simpanDariServer({
+      title: s.title,
+      content: s.content,
+      latitude: s.latitude,
+      longitude: s.longitude,
+      updatedAt: s.updatedAt,
+      syncStatus: 'SYNCED',
+      serverId: s.id,
+    });
+    hasil.diterima++;
+  }
+  return hasil;
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 5 · Token, Penyimpanan Aman, dan Sinkronisasi</p>
+    <h2>app/sinkron.tsx<span class="part">3 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app/sinkron.tsx</span></div>
+<div class="instr"><p>Buat file <code>app/sinkron.tsx</code>:</p></div>
+<pre><code>import { useMemo, useState } from 'react';
+import { ScrollView, Text, TextInput } from 'react-native';
+import { Tombol } from '../src/components/Tombol';
+import { API_URL_BAWAAN } from '../src/config';
+import { catatanPending, simpanDariServer, tandaiSynced } from '../src/data/noteRepository';
+import { buatApiClient } from '../src/services/apiClient';
+import { sinkronkan } from '../src/services/sync';
+import { gaya } from '../src/ui';
+
+export default function Sinkron() {
+  const [url, setUrl] = useState(API_URL_BAWAAN);
+  const [email, setEmail] = useState('peserta@contoh.id');
+  const [password, setPassword] = useState('rahasia123');
+  const [token, setToken] = useState&lt;string | null&gt;(null);
+  const [log, setLog] = useState&lt;string[]&gt;([]);
+  const api = useMemo(() =&gt; buatApiClient(url), [url]);
+  const catat = (t: string) =&gt; setLog((l) =&gt; [t, ...l].slice(0, 8));
+
+  const masuk = async () =&gt; {
+    try {
+      setToken(await api.login(email, password));
+      catat('Login berhasil, token diterima.');
+    } catch (e) {
+      catat(`Login gagal: ${(e as Error).message}`);
+    }
+  };
+
+  const sinkron = async () =&gt; {
+    if (!token) return catat('Login dahulu.');
+    try {
+      const h = await sinkronkan({ catatanPending, tandaiSynced, simpanDariServer }, api, token);
+      catat(`Selesai: terkirim ${h.terkirim}, diterima ${h.diterima}, gagal ${h.gagal}.`);
+    } catch (e) {
+      catat(`Sinkron gagal: ${(e as Error).message}`);
+    }
+  };
+
+  return (
+    &lt;ScrollView style={gaya.layar}&gt;
+      &lt;Text style={gaya.judul}&gt;Server API&lt;/Text&gt;
+      &lt;TextInput style={gaya.input} value={url} onChangeText={setUrl} autoCapitalize="none" autoCorrect={false} /&gt;
+      &lt;TextInput style={gaya.input} value={email} onChangeText={setEmail} autoCapitalize="none" keyboardType="email-address" /&gt;
+      &lt;TextInput style={gaya.input} value={password} onChangeText={setPassword} secureTextEntry /&gt;
+      &lt;Tombol label="Login" onPress={masuk} /&gt;
+      &lt;Tombol label="Sinkronkan catatan" onPress={sinkron} /&gt;
+      &lt;Text style={gaya.abu}&gt;Jalankan server dahulu: cd shared/server, npm install, npm start.&lt;/Text&gt;
+      {log.map((l, i) =&gt; (
+        &lt;Text key={i} style={gaya.teks}&gt;{l}&lt;/Text&gt;
+      ))}
+    &lt;/ScrollView&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 5 · Token, Penyimpanan Aman, dan Sinkronisasi</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/services/secureStorage.ts</code></h3><ul><li>Tiga fungsi: simpan, baca, hapus token.</li><li>Kunci disimpan di satu konstanta.</li></ul></div><div class="card"><h3><code>src/services/sync.ts</code></h3><ul><li>Dua tahap: kirim PENDING, lalu ambil dari server.</li><li>Kegagalan satu catatan tidak menghentikan yang lain.</li></ul></div><div class="card"><h3><code>app/sinkron.tsx</code></h3><ul><li>Isi URL server, login, lalu sinkronkan.</li><li>Log menampilkan jumlah terkirim, diterima, dan gagal.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 5 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Alur: catatan disimpan ke SQLite dengan status <code>PENDING</code>. Tombol <strong>Sinkronkan</strong> mengirim yang tertunda (POST, atau PUT bila sudah punya <code>serverId</code>), menandai <code>SYNCED</code>, lalu mengambil data baru dari server. Uji: matikan server, buat catatan, nyalakan server, tekan Sinkronkan.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 14.00</p>
+    <h2>Step 6: Jaringan Seluler dan Keamanan Komunikasi</h2>
+<h3>File pada step ini</h3><ol><li><code>src/services/networkService.ts</code></li><li><code>app/network.tsx</code></li><li><code>app/keamanan.tsx</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 6 · Jaringan Seluler dan Keamanan Komunikasi</p>
+    <h2>Jaringan seluler dan keamanan komunikasi</h2>
+<ul><li>Seluler (2G sampai 5G) berbayar dan bisa lambat. Aplikasi perlu tahu jenis koneksi yang aktif.</li><li><strong>HTTPS</strong> mengenkripsi data. HTTP publik ditolak. Alamat lokal hanya untuk pengembangan.</li><li>Serangan umum: penyadapan, man-in-the-middle, dan Wi-Fi palsu. Pertahanan: HTTPS, validasi, secure store.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 6 · Jaringan Seluler dan Keamanan Komunikasi</p>
+    <h2>src/services/networkService.ts<span class="part">1 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>src/services/networkService.ts</span></div>
 <div class="instr"><p>Buat file <code>src/services/networkService.ts</code>:</p></div>
 <pre><code>import * as Network from 'expo-network';
@@ -107,8 +813,8 @@ export async function cekJaringan() {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 1 · Jaringan Seluler</p>
-    <h2>app/network.tsx<span class="part">2 dari 2</span></h2>
+    <p class="kicker">Praktik · Step 6 · Jaringan Seluler dan Keamanan Komunikasi</p>
+    <h2>app/network.tsx<span class="part">2 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>app/network.tsx</span></div>
 <div class="instr"><p>Buat file <code>app/network.tsx</code>:</p></div>
 <pre><code>import * as Network from 'expo-network';
@@ -144,279 +850,10 @@ export default function Jaringan() {
     </div></div><!--/split-->
   </section>
 
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 1 · Jaringan Seluler</p>
-    <h2>Penjelasan Kode</h2>
-<div class="cards"><div class="card"><h3><code>src/services/networkService.ts</code></h3><ul><li><code>labelJaringan</code> menerjemahkan status menjadi label.</li><li><code>cekJaringan</code> mengambil status dari perangkat.</li></ul></div><div class="card"><h3><code>app/network.tsx</code></h3><ul><li>Menampilkan jenis jaringan, status, dan alamat IP.</li><li>Tombol memeriksa ulang.</li></ul></div></div>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 1 · cek hasil</p>
-    <h2>Uji dan Periksa</h2>
-<p><code>labelJaringan</code> menerjemahkan status mentah menjadi label. Uji: matikan Wi-Fi dan nyalakan data seluler, lalu tekan <strong>Periksa Ulang</strong>. Label harus berubah dari Wi-Fi ke Seluler. Nyalakan mode pesawat untuk melihat <strong>Tidak ada koneksi</strong>.</p>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide opener">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 2 · 10.00</p>
-    <h2>Step 2: Sensor</h2>
-<h3>File pada step ini</h3><ol><li><code>app/sensor.tsx</code></li></ol>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 2 · Sensor</p>
-    <h2>Sensor ponsel</h2>
-<ul><li><strong>Akselerometer</strong> mengukur percepatan pada sumbu X, Y, Z dalam satuan g. Diam di meja: Z sekitar 1 g.</li><li>Aplikasi <strong>berlangganan</strong> pembaruan (<code>addListener</code>) dengan interval tertentu.</li><li>Langganan harus dihentikan (<code>remove</code>) saat halaman ditutup agar baterai tidak boros.</li><li>Tidak semua perangkat memiliki semua sensor, jadi periksa <code>isAvailableAsync</code>.</li></ul>
-    </div></div><!--/split-->
-  </section>
-
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 2 · Sensor</p>
-    <h2>app/sensor.tsx</h2>
-<div class="filebar"><b>SALIN KE FILE</b><span>app/sensor.tsx</span></div>
-<div class="instr"><p>Buat file <code>app/sensor.tsx</code>:</p></div>
-<pre><code>import { Accelerometer } from 'expo-sensors';
-import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { gaya } from '../src/ui';
-
-export default function Sensor() {
-  const [a, setA] = useState({ x: 0, y: 0, z: 0 });
-  const [tersedia, setTersedia] = useState&lt;boolean | null&gt;(null);
-
-  useEffect(() =&gt; {
-    let langganan: { remove: () =&gt; void } | undefined;
-    Accelerometer.isAvailableAsync().then((ok) =&gt; {
-      setTersedia(ok);
-      if (!ok) return;
-      Accelerometer.setUpdateInterval(300);
-      langganan = Accelerometer.addListener(setA);
-    });
-    return () =&gt; langganan?.remove();
-  }, []);
-
-  const besar = Math.sqrt(a.x ** 2 + a.y ** 2 + a.z ** 2);
-  return (
-    &lt;View style={gaya.layar}&gt;
-      &lt;View style={gaya.kartu}&gt;
-        &lt;Text style={gaya.judul}&gt;Akselerometer&lt;/Text&gt;
-        {tersedia === false &amp;&amp; &lt;Text style={gaya.error}&gt;Sensor tidak tersedia di perangkat ini.&lt;/Text&gt;}
-        &lt;Text style={gaya.teks}&gt;X: {a.x.toFixed(2)}  Y: {a.y.toFixed(2)}  Z: {a.z.toFixed(2)} (satuan g)&lt;/Text&gt;
-        &lt;Text style={gaya.teks}&gt;Besar total: {besar.toFixed(2)} g&lt;/Text&gt;
-        &lt;Text style={gaya.abu}&gt;Diam di meja: Z mendekati 1 g karena gravitasi.&lt;/Text&gt;
-      &lt;/View&gt;
-    &lt;/View&gt;
-  );
-}</code></pre>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 2 · Sensor</p>
-    <h2>Penjelasan Kode</h2>
-<div class="cards"><div class="card"><h3><code>app/sensor.tsx</code></h3><ul><li>Berlangganan akselerometer dengan interval 300 ms.</li><li><code>remove</code> pada cleanup menghentikan sensor.</li></ul></div></div>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 2 · cek hasil</p>
-    <h2>Uji dan Periksa</h2>
-<p>Letakkan ponsel di meja, nilai Z mendekati 1 g karena gravitasi. Goyangkan ponsel untuk melihat besar total berubah. <code>return () =&gt; langganan?.remove()</code> berhenti membaca sensor saat halaman ditutup, supaya baterai hemat.</p>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide opener">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 2 · 10.40</p>
-    <h2>Step 3: Informasi Perangkat</h2>
-<h3>File pada step ini</h3><ol><li><code>app/device.tsx</code></li></ol>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 3 · Informasi Perangkat</p>
-    <h2>Informasi perangkat</h2>
-<ul><li>Model, versi OS, dan memori membantu menyesuaikan aplikasi dan membaca laporan bug.</li><li>Nilai bisa <code>null</code> pada emulator, jadi beri nilai cadangan seperti <code>-</code>.</li><li>Jangan mengumpulkan data perangkat yang tidak diperlukan. Itu soal privasi.</li></ul>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide code">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 3 · Informasi Perangkat</p>
-    <h2>app/device.tsx</h2>
-<div class="filebar"><b>SALIN KE FILE</b><span>app/device.tsx</span></div>
-<div class="instr"><p>Buat file <code>app/device.tsx</code>:</p></div>
-<pre><code>import * as Device from 'expo-device';
-import { Text, View } from 'react-native';
-import { gaya } from '../src/ui';
-
-export default function Perangkat() {
-  const baris: [string, string][] = [
-    ['Produsen', Device.manufacturer ?? '-'],
-    ['Model', Device.modelName ?? '-'],
-    ['Sistem operasi', `${Device.osName ?? '-'} ${Device.osVersion ?? ''}`],
-    ['Memori total', Device.totalMemory ? `${(Device.totalMemory / 1024 ** 3).toFixed(1)} GB` : '-'],
-    ['Perangkat fisik', Device.isDevice ? 'Ya' : 'Emulator'],
-  ];
-  return (
-    &lt;View style={gaya.layar}&gt;
-      &lt;View style={gaya.kartu}&gt;
-        {baris.map(([k, v]) =&gt; (
-          &lt;Text key={k} style={gaya.teks}&gt;{k}: {v}&lt;/Text&gt;
-        ))}
-      &lt;/View&gt;
-    &lt;/View&gt;
-  );
-}</code></pre>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 3 · Informasi Perangkat</p>
-    <h2>Penjelasan Kode</h2>
-<div class="cards"><div class="card"><h3><code>app/device.tsx</code></h3><ul><li>Daftar pasangan label dan nilai.</li><li>Nilai kosong diganti tanda hubung.</li></ul></div></div>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 3 · cek hasil</p>
-    <h2>Uji dan Periksa</h2>
-<p>Nilai yang tidak tersedia ditampilkan sebagai tanda hubung. Di emulator, baris <em>Perangkat fisik</em> menampilkan Emulator.</p>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide opener">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 2 · 13.00</p>
-    <h2>Step 4: Penyimpanan Aman</h2>
-<h3>File pada step ini</h3><ol><li><code>src/services/secureStorage.ts</code></li></ol>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 4 · Penyimpanan Aman</p>
-    <h2>Penyimpanan aman</h2>
-<ul><li>Data biasa di SQLite atau berkas bisa dibaca bila ponsel di-root. Token dan kata sandi butuh perlindungan lebih.</li><li><code>expo-secure-store</code> memakai <strong>Keystore</strong> Android dan <strong>Keychain</strong> iOS yang terenkripsi perangkat keras.</li><li>Hanya simpan rahasia kecil (token). Jangan simpan data besar di sini.</li></ul>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide code">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 4 · Penyimpanan Aman</p>
-    <h2>src/services/secureStorage.ts</h2>
-<div class="filebar"><b>SALIN KE FILE</b><span>src/services/secureStorage.ts</span></div>
-<div class="instr"><p>Buat file <code>src/services/secureStorage.ts</code>:</p></div>
-<pre><code>import * as SecureStore from 'expo-secure-store';
-
-const KUNCI = 'token_demo';
-
-export const simpanToken = (nilai: string) =&gt; SecureStore.setItemAsync(KUNCI, nilai);
-export const bacaToken = () =&gt; SecureStore.getItemAsync(KUNCI);
-export const hapusToken = () =&gt; SecureStore.deleteItemAsync(KUNCI);</code></pre>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 4 · Penyimpanan Aman</p>
-    <h2>Penjelasan Kode</h2>
-<div class="cards"><div class="card"><h3><code>src/services/secureStorage.ts</code></h3><ul><li>Tiga fungsi: simpan, baca, hapus token.</li><li>Kunci disimpan di satu konstanta.</li></ul></div></div>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 4 · cek hasil</p>
-    <h2>Uji dan Periksa</h2>
-<p><code>expo-secure-store</code> menyimpan nilai di Keystore Android atau Keychain iOS. Pakai ini untuk token dan kata sandi, bukan untuk data biasa.</p>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide opener">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 2 · 13.10</p>
-    <h2>Step 5: HTTPS dan Halaman Keamanan</h2>
-<h3>File pada step ini</h3><ol><li><code>src/services/httpsService.ts</code></li><li><code>app/keamanan.tsx</code></li></ol>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 5 · HTTPS dan Halaman Keamanan</p>
-    <h2>Keamanan komunikasi</h2>
-<ul><li><strong>HTTPS</strong> mengenkripsi data antara aplikasi dan server. Tanpa itu, data bisa disadap di Wi-Fi umum.</li><li>Aplikasi menolak alamat <code>http://</code> sebelum mengirim permintaan apa pun.</li><li><strong>Timeout</strong> (<code>AbortController</code>) mencegah aplikasi menunggu tanpa batas.</li><li>Serangan umum: penyadapan (sniffing), man-in-the-middle, dan Wi-Fi palsu.</li></ul>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide code">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 5 · HTTPS dan Halaman Keamanan</p>
-    <h2>src/services/httpsService.ts<span class="part">1 dari 2</span></h2>
-<div class="filebar"><b>SALIN KE FILE</b><span>src/services/httpsService.ts</span></div>
-<div class="instr"><p>Buat file <code>src/services/httpsService.ts</code>:</p></div>
-<pre><code>/** Mengembalikan pesan error jika URL tidak aman, atau null jika URL aman. */
-export function periksaUrlAman(url: string): string | null {
-  let u: URL;
-  try {
-    u = new URL(url.trim());
-  } catch {
-    return 'URL tidak valid.';
-  }
-  if (u.protocol !== 'https:') return 'Gunakan HTTPS (https://).';
-  return null;
-}
-
-type FetchFn = typeof fetch;
-
-export async function ambilJson(
-  url: string,
-  fetchFn: FetchFn = fetch,
-  batasMs = 10000,
-): Promise&lt;unknown&gt; {
-  const pesan = periksaUrlAman(url);
-  if (pesan) throw new Error(pesan);
-
-  const kontrol = new AbortController();
-  const timer = setTimeout(() =&gt; kontrol.abort(), batasMs);
-  try {
-    const res = await fetchFn(url.trim(), {
-      headers: { Accept: 'application/json' },
-      signal: kontrol.signal,
-    });
-    if (res.status !== 200) throw new Error(`Server merespons status ${res.status}`);
-    return await res.json();
-  } finally {
-    clearTimeout(timer);
-  }
-}</code></pre>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide code">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 5 · HTTPS dan Halaman Keamanan</p>
-    <h2>app/keamanan.tsx<span class="part">2 dari 2</span></h2>
+    <p class="kicker">Praktik · Step 6 · Jaringan Seluler dan Keamanan Komunikasi</p>
+    <h2>app/keamanan.tsx<span class="part">3 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>app/keamanan.tsx</span></div>
 <div class="instr"><p>Buat file <code>app/keamanan.tsx</code>:</p></div>
 <pre><code>import { useState } from 'react';
@@ -463,45 +900,9 @@ export default function Keamanan() {
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 5 · HTTPS dan Halaman Keamanan</p>
+    <p class="kicker">Teori · Step 6 · Jaringan Seluler dan Keamanan Komunikasi</p>
     <h2>Penjelasan Kode</h2>
-<div class="cards"><div class="card"><h3><code>src/services/httpsService.ts</code></h3><ul><li><code>periksaUrlAman</code> menolak URL tidak valid dan non-HTTPS.</li><li><code>ambilJson</code> memakai timeout dan memeriksa status 200.</li></ul></div><div class="card"><h3><code>app/keamanan.tsx</code></h3><ul><li>Bagian atas: uji HTTPS. Bagian bawah: penyimpanan aman.</li><li>Kolom token memakai <code>secureTextEntry</code>.</li></ul></div></div>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Step 5 · cek hasil</p>
-    <h2>Uji dan Periksa</h2>
-<p>Uji: ambil data dari alamat <code>https://</code>, lalu ganti menjadi <code>http://</code> dan pastikan ditolak. Simpan token, tutup aplikasi, buka lagi, lalu tekan <strong>Baca Token</strong>.</p>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide opener">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 2 · 13.40</p>
-    <h2>Step 6: Menjalankan Seluruh Aplikasi</h2>
-<h3>File pada step ini</h3><ol><li><code>src/menu.ts</code></li></ol>
-    </div></div><!--/split-->
-    <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
-  </section>
-
-  <section class="slide teori">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 6 · Menjalankan Seluruh Aplikasi</p>
-    <h2>Uji keseluruhan</h2>
-<ul><li>Telusuri setiap menu seperti pengguna baru, termasuk saat izin ditolak dan saat offline.</li><li>Catat bug dengan langkah, hasil yang diharapkan, dan hasil sebenarnya.</li></ul>
-    </div></div><!--/split-->
-  </section>
-
-  <section class="slide code">
-    <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 6 · Menjalankan Seluruh Aplikasi</p>
-    <h2>src/menu.ts</h2>
-<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>src/menu.ts</span></div>
-<div class="instr"><p>Semua halaman sudah terdaftar di <code>app/_layout.tsx</code> dan <code>src/menu.ts</code>. Jalankan aplikasi dan telusuri setiap menu:</p></div>
-<pre><code>npx expo start</code></pre>
+<div class="cards"><div class="card"><h3><code>src/services/networkService.ts</code></h3><ul><li><code>labelJaringan</code> menerjemahkan status menjadi label.</li><li><code>cekJaringan</code> mengambil status dari perangkat.</li></ul></div><div class="card"><h3><code>app/network.tsx</code></h3><ul><li>Menampilkan jenis jaringan, status, dan alamat IP.</li><li>Tombol memeriksa ulang.</li></ul></div><div class="card"><h3><code>app/keamanan.tsx</code></h3><ul><li>Bagian atas: uji HTTPS. Bagian bawah: penyimpanan aman.</li><li>Kolom token memakai <code>secureTextEntry</code>.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 
@@ -509,33 +910,32 @@ export default function Keamanan() {
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 6 · cek hasil</p>
     <h2>Uji dan Periksa</h2>
-<p>Periksa daftar berikut:</p>
-<ol><li>Catatan: tambah, ubah, hapus, lalu tutup dan buka aplikasi.</li><li>Lokasi: izin muncul saat tombol ditekan, peta tampil.</li><li>Jaringan: label sesuai kondisi koneksi.</li><li>Sensor: angka berubah saat ponsel digerakkan.</li><li>Keamanan: URL http ditolak, token tersimpan.</li></ol>
+<p><code>labelJaringan</code> menerjemahkan status mentah menjadi label. Uji: alamat <code>http://</code> publik ditolak, alamat lokal (<code>10.0.2.2</code>) diizinkan untuk pengembangan. Matikan Wi-Fi dan lihat label berubah.</p>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 2 · 14.00</p>
-    <h2>Step 7: Pengujian</h2>
-<h3>File pada step ini</h3><ol><li><code>__tests__/https.test.ts</code></li><li><code>__tests__/network.test.ts</code></li><li><code>Terminal</code></li></ol>
+    <p class="kicker">Hari 2 · 14.30</p>
+    <h2>Step 7: Pengujian Hari 2</h2>
+<h3>File pada step ini</h3><ol><li><code>__tests__/https.test.ts</code></li><li><code>__tests__/network.test.ts</code></li><li><code>__tests__/api.test.ts</code></li><li><code>__tests__/sync.test.ts</code></li><li><code>__tests__/sensor.test.ts</code></li><li><code>Terminal</code></li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 7 · Pengujian</p>
+    <p class="kicker">Teori · Step 7 · Pengujian Hari 2</p>
     <h2>Menguji tanpa jaringan</h2>
-<ul><li><code>fetch</code> palsu mengembalikan respons buatan sehingga uji cepat dan stabil.</li><li>Uji jalur gagal juga: status 500, URL http, dan timeout.</li><li><code>jest.fn()</code> mencatat apakah sebuah fungsi dipanggil.</li></ul>
+<ul><li><code>fetch</code> palsu mengembalikan respons buatan sehingga uji cepat dan stabil.</li><li>Uji jalur gagal juga: status 401, 400, URL http, dan timeout.</li><li>Sinkronisasi diuji dengan basis data tiruan dan klien API palsu.</li></ul>
     </div></div><!--/split-->
   </section>
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 7 · Pengujian</p>
-    <h2>__tests__/https.test.ts<span class="part">1 dari 3</span></h2>
+    <p class="kicker">Praktik · Step 7 · Pengujian Hari 2</p>
+    <h2>__tests__/https.test.ts<span class="part">1 dari 6</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>__tests__/https.test.ts</span></div>
 <div class="instr"><p>Buat file <code>__tests__/https.test.ts</code>:</p></div>
 <pre><code>import { ambilJson, periksaUrlAman } from '../src/services/httpsService';
@@ -572,8 +972,8 @@ describe('ambilJson', () =&gt; {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 7 · Pengujian</p>
-    <h2>__tests__/network.test.ts<span class="part">2 dari 3</span></h2>
+    <p class="kicker">Praktik · Step 7 · Pengujian Hari 2</p>
+    <h2>__tests__/network.test.ts<span class="part">2 dari 6</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>__tests__/network.test.ts</span></div>
 <div class="instr"><p>Buat file <code>__tests__/network.test.ts</code>:</p></div>
 <pre><code>import * as Network from 'expo-network';
@@ -591,8 +991,169 @@ describe('labelJaringan', () =&gt; {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 7 · Pengujian</p>
-    <h2>Terminal<span class="part">3 dari 3</span></h2>
+    <p class="kicker">Praktik · Step 7 · Pengujian Hari 2</p>
+    <h2>__tests__/api.test.ts<span class="part">3 dari 6</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>__tests__/api.test.ts</span></div>
+<div class="instr"><p>Buat file <code>__tests__/api.test.ts</code>:</p></div>
+<pre><code>import { buatApiClient } from '../src/services/apiClient';
+import { ApiError, periksaUrlAman, requestJson } from '../src/services/httpsService';
+
+const res = (status: number, body?: unknown) =&gt;
+  ({ status, json: async () =&gt; body }) as unknown as Response;
+
+describe('periksaUrlAman dengan izinkanLokal', () =&gt; {
+  it('http ke alamat publik tetap ditolak', () =&gt; {
+    expect(periksaUrlAman('http://contoh.com', true)).toBe('Gunakan HTTPS (https://).');
+  });
+  it('http ke jaringan lokal diizinkan hanya bila diminta', () =&gt; {
+    expect(periksaUrlAman('http://10.0.2.2:3000', false)).not.toBeNull();
+    expect(periksaUrlAman('http://10.0.2.2:3000', true)).toBeNull();
+    expect(periksaUrlAman('http://192.168.1.5:3000', true)).toBeNull();
+    expect(periksaUrlAman('http://localhost:3000', true)).toBeNull();
+  });
+});
+
+describe('requestJson', () =&gt; {
+  it('mengirim metode, token, dan badan JSON', async () =&gt; {
+    const fetchFn = jest.fn(async () =&gt; res(201, { id: 1 }));
+    await requestJson('POST', 'https://a.com/notes', { fetchFn: fetchFn as unknown as typeof fetch, token: 'abc', body: { title: 'x' } });
+    const [, opsi] = fetchFn.mock.calls[0] as unknown as [string, RequestInit];
+    expect(opsi.method).toBe('POST');
+    expect((opsi.headers as Record&lt;string, string&gt;).Authorization).toBe('Bearer abc');
+    expect(opsi.body).toBe('{"title":"x"}');
+  });
+  it('status 204 menghasilkan null', async () =&gt; {
+    const fetchFn = (async () =&gt; res(204)) as unknown as typeof fetch;
+    await expect(requestJson('DELETE', 'https://a.com/notes/1', { fetchFn })).resolves.toBeNull();
+  });
+  it('status 401 melempar ApiError dengan pesan dari server', async () =&gt; {
+    const fetchFn = (async () =&gt; res(401, { error: 'Token tidak valid' })) as unknown as typeof fetch;
+    await expect(requestJson('GET', 'https://a.com/notes', { fetchFn })).rejects.toMatchObject({ status: 401, message: 'Token tidak valid' });
+    await expect(requestJson('GET', 'https://a.com/notes', { fetchFn })).rejects.toBeInstanceOf(ApiError);
+  });
+});
+
+describe('buatApiClient', () =&gt; {
+  it('login mengembalikan token dan memakai alamat dasar tanpa garis miring ganda', async () =&gt; {
+    const fetchFn = jest.fn(async () =&gt; res(200, { token: 'tok' }));
+    const api = buatApiClient('http://10.0.2.2:3000/', { fetchFn: fetchFn as unknown as typeof fetch });
+    await expect(api.login('a', 'b')).resolves.toBe('tok');
+    expect((fetchFn.mock.calls[0] as unknown as [string])[0]).toBe('http://10.0.2.2:3000/login');
+  });
+});</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 7 · Pengujian Hari 2</p>
+    <h2>__tests__/sync.test.ts<span class="part">4 dari 6</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>__tests__/sync.test.ts</span></div>
+<div class="instr"><p>Buat file <code>__tests__/sync.test.ts</code>:</p></div>
+<pre><code>import { Note, noteBaru } from '../src/models/note';
+import { ApiClient } from '../src/services/apiClient';
+import { Penyimpanan, sinkronkan } from '../src/services/sync';
+
+const catatan = (id: number, serverId: number | null = null): Note =&gt; ({ ...noteBaru('judul ' + id, 'isi'), id, serverId });
+
+function buatDb(pending: Note[]) {
+  const synced: [number, number][] = [];
+  const dariServer: number[] = [];
+  const db: Penyimpanan = {
+    catatanPending: async () =&gt; pending,
+    tandaiSynced: async (id, sid) =&gt; { synced.push([id, sid]); },
+    simpanDariServer: async (n) =&gt; { dariServer.push(n.serverId); },
+  };
+  return { db, synced, dariServer };
+}
+
+const apiPalsu = (o: Partial&lt;ApiClient&gt;): ApiClient =&gt; ({
+  login: async () =&gt; 't',
+  daftarCatatan: async () =&gt; [],
+  buatCatatan: async () =&gt; ({ id: 100, title: '', content: '', latitude: null, longitude: null, updatedAt: 0 }),
+  ubahCatatan: async () =&gt; ({ id: 7, title: '', content: '', latitude: null, longitude: null, updatedAt: 0 }),
+  ...o,
+});
+
+describe('sinkronkan (offline-first)', () =&gt; {
+  it('mengirim catatan baru lewat POST dan menandainya SYNCED', async () =&gt; {
+    const { db, synced } = buatDb([catatan(1)]);
+    const h = await sinkronkan(db, apiPalsu({}), 't');
+    expect(synced).toEqual([[1, 100]]);
+    expect(h).toEqual({ terkirim: 1, diterima: 0, gagal: 0 });
+  });
+
+  it('catatan yang sudah punya serverId dikirim lewat PUT', async () =&gt; {
+    const ubah = jest.fn(apiPalsu({}).ubahCatatan);
+    const buat = jest.fn(apiPalsu({}).buatCatatan);
+    const { db, synced } = buatDb([catatan(2, 7)]);
+    await sinkronkan(db, apiPalsu({ ubahCatatan: ubah, buatCatatan: buat }), 't');
+    expect(ubah).toHaveBeenCalledTimes(1);
+    expect(buat).not.toHaveBeenCalled();
+    expect(synced).toEqual([[2, 7]]);
+  });
+
+  it('kegagalan satu catatan tidak menghentikan yang lain', async () =&gt; {
+    let n = 0;
+    const buat = async () =&gt; {
+      if (n++ === 0) throw new Error('jaringan putus');
+      return { id: 50, title: '', content: '', latitude: null, longitude: null, updatedAt: 0 };
+    };
+    const { db, synced } = buatDb([catatan(1), catatan(2)]);
+    const h = await sinkronkan(db, apiPalsu({ buatCatatan: buat }), 't');
+    expect(h.gagal).toBe(1);
+    expect(h.terkirim).toBe(1);
+    expect(synced).toEqual([[2, 50]]);
+  });
+
+  it('menyimpan catatan dari server', async () =&gt; {
+    const dariServer = [{ id: 9, title: 'dari server', content: 'x', latitude: null, longitude: null, updatedAt: 1 }];
+    const { db, dariServer: tersimpan } = buatDb([]);
+    const h = await sinkronkan(db, apiPalsu({ daftarCatatan: async () =&gt; dariServer }), 't');
+    expect(tersimpan).toEqual([9]);
+    expect(h.diterima).toBe(1);
+  });
+});</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 7 · Pengujian Hari 2</p>
+    <h2>__tests__/sensor.test.ts<span class="part">5 dari 6</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>__tests__/sensor.test.ts</span></div>
+<div class="instr"><p>Buat file <code>__tests__/sensor.test.ts</code>:</p></div>
+<pre><code>import { arahKompas, besarVektor, mataAngin, terdeteksiGuncangan } from '../src/services/sensorMath';
+
+describe('sensorMath', () =&gt; {
+  it('besar vektor diam di meja sekitar 1 g', () =&gt; {
+    expect(besarVektor({ x: 0, y: 0, z: 1 })).toBeCloseTo(1, 5);
+  });
+  it('guncangan terdeteksi di atas ambang', () =&gt; {
+    expect(terdeteksiGuncangan({ x: 0, y: 0, z: 1 })).toBe(false);
+    expect(terdeteksiGuncangan({ x: 2, y: 1.5, z: 1 })).toBe(true);
+    expect(terdeteksiGuncangan({ x: 0, y: 0, z: 1.5 }, 1.2)).toBe(true);
+  });
+  it('arah kompas: medan di sumbu +y berarti utara', () =&gt; {
+    expect(arahKompas({ x: 0, y: 1 })).toBeCloseTo(0, 5);
+    expect(arahKompas({ x: -1, y: 0 })).toBeCloseTo(90, 5);
+    expect(arahKompas({ x: 0, y: -1 })).toBeCloseTo(180, 5);
+    expect(arahKompas({ x: 1, y: 0 })).toBeCloseTo(270, 5);
+  });
+  it('nama mata angin', () =&gt; {
+    expect(mataAngin(0)).toBe('Utara');
+    expect(mataAngin(90)).toBe('Timur');
+    expect(mataAngin(359)).toBe('Utara');
+    expect(mataAngin(225)).toBe('Barat Daya');
+  });
+});</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 7 · Pengujian Hari 2</p>
+    <h2>Terminal<span class="part">6 dari 6</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><p>Jalankan pengujian:</p></div>
 <pre><code>npm test
@@ -602,9 +1163,9 @@ npm run typecheck</code></pre>
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 7 · Pengujian</p>
+    <p class="kicker">Teori · Step 7 · Pengujian Hari 2</p>
     <h2>Penjelasan Kode</h2>
-<div class="cards"><div class="card"><h3><code>__tests__/https.test.ts</code></h3><ul><li><code>fetch</code> palsu untuk status 200 dan 500.</li><li>Uji tolak http dan uji timeout.</li></ul></div><div class="card"><h3><code>__tests__/network.test.ts</code></h3><ul><li>Tiga kasus: seluler, Wi-Fi, terputus.</li></ul></div></div>
+<div class="cards"><div class="card"><h3><code>__tests__/https.test.ts</code></h3><ul><li><code>fetch</code> palsu untuk status 200 dan 500.</li><li>Uji tolak http dan uji timeout.</li></ul></div><div class="card"><h3><code>__tests__/network.test.ts</code></h3><ul><li>Tiga kasus: seluler, Wi-Fi, terputus.</li></ul></div><div class="card"><h3><code>__tests__/api.test.ts</code></h3><ul><li>Klien API diuji dengan <code>fetch</code> palsu.</li><li>Termasuk header token dan penanganan status error.</li></ul></div><div class="card"><h3><code>__tests__/sync.test.ts</code></h3><ul><li>Sinkronisasi diuji dengan basis data tiruan dan API palsu.</li><li>Termasuk kasus sebagian gagal.</li></ul></div><div class="card"><h3><code>__tests__/sensor.test.ts</code></h3><ul><li>Uji guncangan, arah kompas, dan mata angin.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 
@@ -612,16 +1173,16 @@ npm run typecheck</code></pre>
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 7 · cek hasil</p>
     <h2>Uji dan Periksa</h2>
-<p>Pengujian jaringan memakai fungsi <code>fetch</code> palsu, sehingga berjalan cepat tanpa internet.</p>
+<p>Pengujian API dan sinkronisasi memakai <code>fetch</code> palsu dan basis data tiruan, sehingga berjalan cepat tanpa jaringan. Pengujian server: <code>cd shared/server</code> lalu <code>npm test</code>.</p>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 2 · 15.00 to 17.00</p>
+    <p class="kicker">Hari 2 · 15.00</p>
     <h2>Step 8: Latihan</h2>
-<ol><li>Tambahkan peringatan pada halaman jaringan bila jenisnya <strong>Seluler</strong>: "Anda memakai data seluler".</li><li>Tambahkan pengujian <code>ambilJson</code> untuk respons JSON yang tidak valid.</li><li>Tampilkan waktu terakhir pemeriksaan pada halaman jaringan.</li><li>Persiapan uji kompetensi: buka <code>docs/sertifikasi-bnsp/</code> dan kerjakan latihan soal.</li></ol>
+<ol><li>Buat catatan saat server mati, nyalakan server, lalu sinkronkan. Pastikan status berubah menjadi SYNCED.</li><li>Ubah catatan yang sudah SYNCED lalu sinkronkan lagi. Pastikan server menerima PUT.</li><li>Tambahkan tampilan jumlah catatan PENDING pada halaman Sinkronisasi.</li><li>Tambahkan pengujian <code>sinkronkan</code> untuk kasus satu catatan gagal dan yang lain berhasil.</li><li>Persiapan uji kompetensi: buka <code>docs/sertifikasi-bnsp.md</code> dan kerjakan latihan soal.</li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>
@@ -630,7 +1191,7 @@ npm run typecheck</code></pre>
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2</p>
     <h2>Ringkasan File Hari 2</h2>
-<table><tr><th>File</th><th>Fungsi</th></tr><tr><td><code>src/services/networkService.ts</code>, <code>app/network.tsx</code></td><td>Status dan jenis jaringan</td></tr><tr><td><code>app/sensor.tsx</code></td><td>Akselerometer</td></tr><tr><td><code>app/device.tsx</code></td><td>Informasi perangkat</td></tr><tr><td><code>src/services/secureStorage.ts</code></td><td>Penyimpanan aman</td></tr><tr><td><code>src/services/httpsService.ts</code>, <code>app/keamanan.tsx</code></td><td>Pemeriksaan HTTPS dan halaman keamanan</td></tr><tr><td><code>__tests__/https.test.ts</code>, <code>__tests__/network.test.ts</code></td><td>Pengujian Hari 2</td></tr></table>
+<table><tr><th>File</th><th>Fungsi</th></tr><tr><td><code>shared/server/app.js</code>, <code>schema.sql</code></td><td>Server latihan dan skema MySQL</td></tr><tr><td><code>src/config.ts</code>, <code>src/services/httpsService.ts</code>, <code>src/services/apiClient.ts</code></td><td>Memanggil API</td></tr><tr><td><code>src/services/sensorMath.ts</code>, <code>app/sensor.tsx</code></td><td>Sensor dan perhitungannya</td></tr><tr><td><code>app/device.tsx</code></td><td>Informasi perangkat</td></tr><tr><td><code>src/services/secureStorage.ts</code>, <code>src/services/sync.ts</code>, <code>app/sinkron.tsx</code></td><td>Token dan sinkronisasi</td></tr><tr><td><code>src/services/networkService.ts</code>, <code>app/network.tsx</code>, <code>app/keamanan.tsx</code></td><td>Jaringan dan keamanan</td></tr><tr><td><code>__tests__/*.test.ts</code></td><td>Pengujian</td></tr></table>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-2.md">docs/hands-on/hari-2.md</a></p>
   </section>

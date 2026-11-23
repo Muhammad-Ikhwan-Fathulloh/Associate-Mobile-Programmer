@@ -6,7 +6,7 @@
 
 ## Pengantar
 
-Ponsel bukan hanya layar dan prosesor. Di dalamnya ada sensor yang merasakan gerakan, cahaya, arah, dan tekanan. Modul ini memperkenalkan jenis sensor dan cara aplikasi membacanya, lalu bagaimana membaca spesifikasi perangkat. Satu pelajaran penting: sensor menguras baterai bila tidak dihentikan, jadi berhenti membaca saat tidak diperlukan.
+Setelah API, kita beralih ke sensor. Ponsel merasakan percepatan, putaran, dan medan magnet. Peserta membaca akselerometer, giroskop, dan magnetometer, mendeteksi guncangan, lalu membuat kompas sederhana. Satu pelajaran penting: sensor menguras baterai, jadi berhenti membaca saat halaman ditutup. Sampaikan juga bahwa kompas sederhana punya batas akurasi.
 
 ## Tujuan Pembelajaran
 
@@ -37,49 +37,126 @@ Ponsel bukan hanya layar dan prosesor. Di dalamnya ada sensor yang merasakan ger
 
 > **Narasi pengajar:** Sensor mengukur besaran fisik, lalu diubah menjadi sinyal listrik, didigitalkan oleh ADC, diproses prosesor, dan akhirnya sampai ke aplikasi. Protokol I2C dan SPI adalah jalur chip sensor berbicara dengan prosesor. Cukup kenali namanya dan perannya.
 
-## 3. Membaca akselerometer
+## 3. Giroskop dan kompas
+
+- **Giroskop** mengukur laju putar (rad/s). Sudut didapat dengan mengakumulasi laju terhadap waktu, hasilnya cenderung bergeser (drift).
+- **Magnetometer** mengukur medan magnet bumi. Arah kompas dihitung dari komponen x dan y.
+- Padukan sensor (sensor fusion) untuk arah yang stabil. Di pelatihan ini pendekatan sederhana dipakai dan diberi catatan akurasinya.
+
+> **Narasi pengajar:** Buka simulasi giroskop dan geser sumbu z. Perhatikan bahwa giroskop memberi kecepatan putar, bukan sudut. Sudut didapat dengan menjumlahkan kecepatan terhadap waktu, dan hasilnya perlahan bergeser. Itu sebabnya kompas membutuhkan magnetometer.
+
+## 4. Membaca akselerometer
 
 Berlangganan dengan `addListener`, berhenti dengan `remove`. Berkas `app/sensor.tsx`:
 
 ```tsx
-import { Accelerometer } from 'expo-sensors';
+import { Accelerometer, Gyroscope, Magnetometer } from 'expo-sensors';
 import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
+import { arahKompas, besarVektor, mataAngin, terdeteksiGuncangan, Vektor } from '../src/services/sensorMath';
 import { gaya } from '../src/ui';
 
-export default function Sensor() {
-  const [a, setA] = useState({ x: 0, y: 0, z: 0 });
+const NOL: Vektor = { x: 0, y: 0, z: 0 };
+
+type Sumber = {
+  isAvailableAsync: () => Promise<boolean>;
+  setUpdateInterval: (ms: number) => void;
+  addListener: (fn: (v: Vektor) => void) => { remove: () => void };
+};
+
+/** Berlangganan satu sensor, dan berhenti saat halaman ditutup. */
+function useSensor(sensor: Sumber, intervalMs = 300) {
+  const [nilai, setNilai] = useState<Vektor>(NOL);
   const [tersedia, setTersedia] = useState<boolean | null>(null);
 
   useEffect(() => {
     let langganan: { remove: () => void } | undefined;
-    Accelerometer.isAvailableAsync().then((ok) => {
+    sensor.isAvailableAsync().then((ok) => {
       setTersedia(ok);
       if (!ok) return;
-      Accelerometer.setUpdateInterval(300);
-      langganan = Accelerometer.addListener(setA);
+      sensor.setUpdateInterval(intervalMs);
+      langganan = sensor.addListener(setNilai);
     });
     return () => langganan?.remove();
-  }, []);
+  }, [sensor, intervalMs]);
 
-  const besar = Math.sqrt(a.x ** 2 + a.y ** 2 + a.z ** 2);
+  return { nilai, tersedia };
+}
+
+const f = (n: number) => n.toFixed(2);
+
+export default function Sensor() {
+  const akselerometer = useSensor(Accelerometer);
+  const giroskop = useSensor(Gyroscope);
+  const magnetometer = useSensor(Magnetometer);
+  const derajat = arahKompas(magnetometer.nilai);
+
   return (
-    <View style={gaya.layar}>
+    <ScrollView style={gaya.layar}>
       <View style={gaya.kartu}>
         <Text style={gaya.judul}>Akselerometer</Text>
-        {tersedia === false && <Text style={gaya.error}>Sensor tidak tersedia di perangkat ini.</Text>}
-        <Text style={gaya.teks}>X: {a.x.toFixed(2)}  Y: {a.y.toFixed(2)}  Z: {a.z.toFixed(2)} (satuan g)</Text>
-        <Text style={gaya.teks}>Besar total: {besar.toFixed(2)} g</Text>
+        {akselerometer.tersedia === false && <Text style={gaya.error}>Sensor tidak tersedia.</Text>}
+        <Text style={gaya.teks}>X {f(akselerometer.nilai.x)}  Y {f(akselerometer.nilai.y)}  Z {f(akselerometer.nilai.z)} (g)</Text>
+        <Text style={gaya.teks}>Besar total: {f(besarVektor(akselerometer.nilai))} g</Text>
+        <Text style={gaya.teks}>{terdeteksiGuncangan(akselerometer.nilai) ? 'Guncangan terdeteksi!' : 'Tidak ada guncangan'}</Text>
         <Text style={gaya.abu}>Diam di meja: Z mendekati 1 g karena gravitasi.</Text>
       </View>
-    </View>
+
+      <View style={gaya.kartu}>
+        <Text style={gaya.judul}>Giroskop</Text>
+        {giroskop.tersedia === false && <Text style={gaya.error}>Sensor tidak tersedia.</Text>}
+        <Text style={gaya.teks}>X {f(giroskop.nilai.x)}  Y {f(giroskop.nilai.y)}  Z {f(giroskop.nilai.z)} (rad/s)</Text>
+        <Text style={gaya.abu}>Mengukur laju putaran. Diam di meja: mendekati 0.</Text>
+      </View>
+
+      <View style={gaya.kartu}>
+        <Text style={gaya.judul}>Magnetometer (kompas)</Text>
+        {magnetometer.tersedia === false && <Text style={gaya.error}>Sensor tidak tersedia.</Text>}
+        <Text style={gaya.teks}>Perkiraan arah: {Math.round(derajat)}° ({mataAngin(derajat)})</Text>
+        <Text style={gaya.abu}>Letakkan ponsel datar. Hasil berupa perkiraan dan terganggu logam di sekitar.</Text>
+      </View>
+    </ScrollView>
   );
 }
 ```
 
 > **Narasi pengajar:** Inti slide ini ada di dua baris: addListener untuk mulai berlangganan dan remove untuk berhenti. Buka simulasi useEffect: matikan cleanup, buka halaman, lalu tekan render ulang beberapa kali. Perhatikan jumlah pendengar menumpuk. Itulah kebocoran yang menguras baterai, dan itu sebabnya cleanup wajib ditulis.
 
-## 4. Informasi perangkat
+## 5. Menghitung guncangan dan arah
+
+Fungsi murni, mudah diuji: besar vektor, deteksi guncangan, arah kompas, dan mata angin. Berkas `src/services/sensorMath.ts`:
+
+```ts
+export type Vektor = { x: number; y: number; z: number };
+
+/** Besar vektor tiga sumbu. Diam di meja, akselerometer (satuan g) bernilai sekitar 1. */
+export function besarVektor(v: Vektor): number {
+  return Math.sqrt(v.x ** 2 + v.y ** 2 + v.z ** 2);
+}
+
+/** Guncangan terdeteksi bila besar percepatan melewati ambang (satuan g). */
+export function terdeteksiGuncangan(v: Vektor, ambang = 2): boolean {
+  return besarVektor(v) > ambang;
+}
+
+/**
+ * Perkiraan arah kompas (derajat, 0 = utara, searah jarum jam) dari magnetometer
+ * saat ponsel datar. Hasilnya perkiraan: sumbu sensor dapat berbeda antarperangkat.
+ */
+export function arahKompas(m: Pick<Vektor, 'x' | 'y'>): number {
+  const derajat = (Math.atan2(-m.x, m.y) * 180) / Math.PI;
+  return (derajat + 360) % 360;
+}
+
+export function mataAngin(derajat: number): string {
+  const nama = ['Utara', 'Timur Laut', 'Timur', 'Tenggara', 'Selatan', 'Barat Daya', 'Barat', 'Barat Laut'];
+  return nama[Math.round((((derajat % 360) + 360) % 360) / 45) % 8];
+}
+```
+
+> **Narasi pengajar:** Fungsi di berkas ini murni, jadi mudah diuji tanpa perangkat. Tunjukkan ambang 2 g untuk guncangan dan jelaskan bahwa arah kompas adalah pendekatan sederhana yang dipengaruhi benda logam di sekitar ponsel.
+
+## 6. Informasi perangkat
 
 Model, OS, dan memori. Nilai kosong diganti tanda hubung. Berkas `app/device.tsx`:
 
@@ -110,7 +187,7 @@ export default function Perangkat() {
 
 > **Narasi pengajar:** Informasi perangkat membantu kita menyesuaikan aplikasi dan membaca laporan bug. Perhatikan penanganan nilai kosong: di emulator beberapa nilai tidak tersedia, jadi kita beri tanda hubung. Sampaikan pula soal privasi: kumpulkan hanya yang benar-benar diperlukan.
 
-## 5. Praktik baik penggunaan sensor
+## 7. Praktik baik penggunaan sensor
 
 - Periksa ketersediaan sensor sebelum memakai.
 - Pilih interval pembaruan secukupnya agar baterai hemat.
@@ -122,8 +199,8 @@ export default function Perangkat() {
 ## Latihan
 
 1. Ubah interval sensor dan amati perubahan angka.
-2. Deteksi guncangan: tampilkan pesan saat besar total lebih dari 2 g.
-3. Tampilkan resolusi layar dengan `Dimensions`.
+2. Guncang ponsel dan pastikan pesan guncangan tampil (besar lebih dari 2 g).
+3. Putar ponsel dan amati giroskop serta arah kompas.
 
 ## Peta Kompetensi BNSP
 
@@ -135,4 +212,4 @@ Unit **J.612000.022.01**. Elemen yang dinilai:
 
 Bukti pada pelatihan ini: `app/sensor.tsx`, `app/device.tsx`, langganan dihentikan saat halaman ditutup.
 
-Praktik langkah demi langkah: [hands-on Hari 2, Step 2 dan 3](../hands-on/hari-2.md).
+Praktik langkah demi langkah: [hands-on Hari 2, Step 3 dan 4](../hands-on/hari-2.md).

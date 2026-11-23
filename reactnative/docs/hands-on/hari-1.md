@@ -1,4 +1,4 @@
-# Hands-On Hari 1: Dasar React Native, Database Lokal, dan Lokasi
+# Hands-On Hari 1: Environment, Desain Figma dan Stitch, SQLite, dan GPS
 
 Panduan ini membangun aplikasi `associate-mobile-app` dari awal dengan **Expo dan TypeScript**. Setiap step menampilkan kode lengkap untuk file yang dibuat atau diubah, sehingga peserta dapat mengetik kode sendiri sambil mengikuti langkahnya.
 
@@ -8,7 +8,7 @@ Panduan ini membangun aplikasi `associate-mobile-app` dari awal dengan **Expo da
 
 ---
 
-## Step 0: Instalasi dan Cek Lingkungan (09.00)
+## Step 0: Instalasi Platform, Emulator, dan Environment (09.00)
 
 Panduan lengkap per sistem operasi ada di [docs/instalasi-node-expo.md](../instalasi-node-expo.md). Ringkasannya:
 
@@ -29,7 +29,7 @@ Pastikan ketiganya menampilkan nomor versi tanpa pesan error.
 
 ---
 
-## Step 1: Buat Proyek dan Konfigurasi Dependensi (09.15)
+## Step 1: Buat Proyek dan Konfigurasi Dependensi (09.20)
 
 Buat proyek baru dari templat TypeScript kosong, lalu masuk ke foldernya:
 
@@ -70,7 +70,7 @@ Buka `package.json`, ubah `main` dan tambahkan skrip serta pengaturan jest. Bagi
 
 ---
 
-## Step 2: Konfigurasi Aplikasi dan TypeScript (09.35)
+## Step 2: Konfigurasi Aplikasi dan TypeScript (09.40)
 
 Ganti isi `app.json`:
 
@@ -117,27 +117,62 @@ Mode `strict` membuat TypeScript menandai nilai yang mungkin `null` atau `undefi
 
 ---
 
-## Step 3: Tema, Menu, dan Layout Navigasi (09.50)
+## Step 3: Desain di Figma dan Stitch, Token, Tema, dan Navigasi (10.00)
+
+### 3a. Rancang di Stitch (opsional) dan Figma
+
+1. Buka https://stitch.withgoogle.com dan tulis prompt, misalnya: *"Aplikasi catatan dengan lokasi GPS. Lima layar: Beranda, Catatan, Form Catatan, Lokasi, Sinkronisasi. Gaya bersih, warna utama biru, tombol besar."* Perbaiki lewat chat sampai sesuai. Fitur Stitch berubah cepat, jadi ikuti tampilan terbaru.
+2. Salin atau ekspor hasilnya ke Figma sebagai layer yang bisa diedit, lalu rapikan dengan **Auto Layout**.
+3. Buka berkas contoh pelatihan: https://www.figma.com/design/grYqOsULGfzYsDrtIjmjRL (5 layar dan 20 variable). Duplikat berkas itu ke akun Anda dan jelajahi panel **Variables**: koleksi `Warna`, `Spasi`, `Radius`, dan `Font`.
+4. Bandingkan beberapa gaya (Material, iOS, minimal, gelap) dengan mengubah `warna/utama`, `radius/sm`, dan `font/isi`. Lihat semua layar ikut berubah.
+
+### 3b. Pindahkan token ke kode
+
+Setiap variable Figma punya padanan di `src/theme.ts` (nama sama: `warna/utama` menjadi `tema.warna.utama`). Komponen memakai `tema`, bukan angka langsung.
 
 Buat folder `src/components` dan `app` bila belum ada.
+
+Buat file `src/theme.ts`:
+
+```ts
+// Design token: satu sumber nilai gaya. Nilainya berasal dari variables di Figma.
+export const tema = {
+  warna: {
+    utama: '#1565c0',
+    latar: '#f5f7fb',
+    kartu: '#ffffff',
+    teks: '#1b1f27',
+    abu: '#5f6b7a',
+    garis: '#cfd6e0',
+    bahaya: '#c62828',
+    ok: '#2e7d32',
+  },
+  spasi: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24 },
+  radius: { sm: 8, md: 12, lg: 20 },
+  font: { kecil: 13, isi: 15, judul: 18, besar: 24 },
+  // Target sentuh minimal yang disarankan pedoman desain: sekitar 48 dp
+  tinggiTombol: 48,
+} as const;
+```
 
 Buat file `src/ui.ts`:
 
 ```ts
 import { StyleSheet } from 'react-native';
+import { tema } from './theme';
 
-export const warna = { utama: '#1565c0', latar: '#f5f7fb', teks: '#1b1f27', abu: '#5f6b7a', bahaya: '#c62828', ok: '#2e7d32' };
+export const warna = tema.warna;
 
 export const gaya = StyleSheet.create({
-  layar: { flex: 1, backgroundColor: warna.latar, padding: 16 },
-  kartu: { backgroundColor: '#fff', borderRadius: 12, padding: 14, marginBottom: 12, elevation: 1 },
-  judul: { fontSize: 18, fontWeight: '700', color: warna.teks },
-  teks: { fontSize: 15, color: warna.teks, marginTop: 4 },
-  abu: { fontSize: 13, color: warna.abu, marginTop: 4 },
-  input: { backgroundColor: '#fff', borderWidth: 1, borderColor: '#cfd6e0', borderRadius: 8, padding: 10, marginBottom: 10, fontSize: 15 },
-  tombol: { backgroundColor: warna.utama, borderRadius: 8, paddingVertical: 12, alignItems: 'center', marginBottom: 10 },
-  tombolTeks: { color: '#fff', fontWeight: '700', fontSize: 15 },
-  error: { color: warna.bahaya, marginBottom: 8 },
+  layar: { flex: 1, backgroundColor: tema.warna.latar, padding: tema.spasi.lg },
+  kartu: { backgroundColor: tema.warna.kartu, borderRadius: tema.radius.md, padding: 14, marginBottom: tema.spasi.md, elevation: 1 },
+  judul: { fontSize: tema.font.judul, fontWeight: '700', color: tema.warna.teks },
+  teks: { fontSize: tema.font.isi, color: tema.warna.teks, marginTop: tema.spasi.xs },
+  abu: { fontSize: tema.font.kecil, color: tema.warna.abu, marginTop: tema.spasi.xs },
+  input: { backgroundColor: tema.warna.kartu, borderWidth: 1, borderColor: tema.warna.garis, borderRadius: tema.radius.sm, padding: 10, marginBottom: 10, fontSize: tema.font.isi },
+  tombol: { backgroundColor: tema.warna.utama, borderRadius: tema.radius.sm, minHeight: tema.tinggiTombol, justifyContent: 'center', alignItems: 'center', marginBottom: 10 },
+  tombolTeks: { color: '#fff', fontWeight: '700', fontSize: tema.font.isi },
+  error: { color: tema.warna.bahaya, marginBottom: tema.spasi.sm },
 });
 ```
 
@@ -145,10 +180,11 @@ Buat file `src/menu.ts`:
 
 ```ts
 export const MENU = [
-  { href: '/notes', judul: 'Catatan', ket: 'SQLite: tambah, ubah, hapus (Modul 2 dan 3)' },
+  { href: '/notes', judul: 'Catatan', ket: 'SQLite: tambah, ubah, hapus, simpan lokasi GPS (Modul 3 dan 4)' },
   { href: '/location', judul: 'Lokasi dan Peta', ket: 'GPS, jarak, peta OpenStreetMap (Modul 4)' },
-  { href: '/network', judul: 'Jaringan Seluler', ket: 'Status koneksi dan jenis jaringan (Modul 5)' },
-  { href: '/sensor', judul: 'Sensor', ket: 'Akselerometer dan protokol sensor (Modul 6)' },
+  { href: '/network', judul: 'Jaringan Seluler', ket: 'Status koneksi dan jenis jaringan (Modul 7)' },
+  { href: '/sinkron', judul: 'API dan Sinkronisasi', ket: 'Login, kirim dan ambil catatan dari server (Modul 5 dan 7)' },
+  { href: '/sensor', judul: 'Sensor', ket: 'Akselerometer, giroskop, kompas, deteksi guncangan (Modul 6)' },
   { href: '/device', judul: 'Info Perangkat', ket: 'Model, OS, memori (Modul 6)' },
   { href: '/keamanan', judul: 'Keamanan', ket: 'HTTPS dan penyimpanan aman (Modul 7)' },
 ] as const;
@@ -189,6 +225,7 @@ export default function RootLayout() {
       <Stack.Screen name="note-form" options={{ title: 'Form Catatan' }} />
       <Stack.Screen name="location" options={{ title: 'Lokasi dan Peta' }} />
       <Stack.Screen name="network" options={{ title: 'Jaringan Seluler' }} />
+      <Stack.Screen name="sinkron" options={{ title: 'API dan Sinkronisasi' }} />
       <Stack.Screen name="sensor" options={{ title: 'Sensor' }} />
       <Stack.Screen name="device" options={{ title: 'Info Perangkat' }} />
       <Stack.Screen name="keamanan" options={{ title: 'Keamanan' }} />
@@ -201,7 +238,7 @@ Di expo-router, setiap file di folder `app/` otomatis menjadi satu halaman, dan 
 
 ---
 
-## Step 4: Halaman Beranda (10.05)
+## Step 4: Halaman Beranda dan Menerapkan Gaya dengan AI (11.00)
 
 Buat file `app/index.tsx`:
 
@@ -236,15 +273,30 @@ npx expo start
 
 Menu tampil, tetapi ketukan belum membuka halaman karena halamannya belum dibuat. Itu normal, halaman dibuat pada step berikutnya.
 
+### Menerapkan gaya baru dengan AI
+
+Gunakan asisten AI (misalnya Claude atau Gemini) untuk menerapkan gaya dari Figma. Contoh prompt berkonteks:
+
+```text
+Konteks: aplikasi Expo + TypeScript. Warna, spasi, radius, dan font ada di src/theme.ts,
+gaya komponen dibuat dari tema di src/ui.ts. Saya lampirkan tangkapan layar Figma.
+Tujuan: ubah gaya menjadi tema gelap. Ubah HANYA src/theme.ts dan src/ui.ts,
+jangan ubah logika. Jaga kontras teks dan target sentuh tombol minimal 48.
+Berikan perubahan sebagai diff dan jelaskan alasannya.
+```
+
+Setelah AI mengubah kode: jalankan `npm run typecheck`, lihat hasilnya di ponsel, dan **tinjau diff** sebelum menerima. Jangan menempelkan token atau kata sandi ke alat AI.
+
 ---
 
-## Step 5: Model Data Catatan (10.30)
+## Step 5: Model Data Catatan (13.00)
 
 Buat file `src/models/note.ts`:
 
 ```ts
 export type Note = {
   id?: number;
+  serverId?: number | null;
   title: string;
   content: string;
   latitude: number | null;
@@ -259,7 +311,7 @@ export function noteBaru(
   latitude: number | null = null,
   longitude: number | null = null,
 ): Note {
-  return { title, content, latitude, longitude, updatedAt: Date.now(), syncStatus: 'PENDING' };
+  return { title, content, latitude, longitude, serverId: null, updatedAt: Date.now(), syncStatus: 'PENDING' };
 }
 
 /** Mengembalikan pesan error jika judul tidak valid, atau null jika valid. */
@@ -268,13 +320,21 @@ export function validasiJudul(judul: string): string | null {
   if (judul.trim().length > 100) return 'Judul maksimal 100 karakter.';
   return null;
 }
+
+/** Teks koordinat untuk ditampilkan, atau null bila catatan tidak punya lokasi. */
+export function formatKoordinat(n: Pick<Note, 'latitude' | 'longitude'>): string | null {
+  if (n.latitude == null || n.longitude == null) return null;
+  return `${n.latitude.toFixed(5)}, ${n.longitude.toFixed(5)}`;
+}
 ```
 
 `validasiJudul` adalah fungsi murni sehingga mudah diuji tanpa perangkat.
 
 ---
 
-## Step 6: Database SQLite (10.50)
+## Step 6: Database SQLite (13.20)
+
+**SQLite atau MySQL?** SQLite adalah berkas di ponsel tanpa server, cocok untuk penyimpanan lokal dan tetap jalan offline. MySQL adalah basis data server untuk banyak pengguna. Aplikasi mobile **tidak boleh terhubung langsung ke MySQL** (kata sandi basis data ikut di aplikasi dan port basis data terbuka ke internet). Jalurnya: ponsel, lalu API, lalu MySQL. Hari 2 membahas API-nya; skema MySQL contoh ada di `shared/server/schema.sql`.
 
 Buat file `src/data/database.ts`:
 
@@ -297,7 +357,8 @@ export function getDb(): Promise<SQLite.SQLiteDatabase> {
           latitude REAL,
           longitude REAL,
           updated_at INTEGER NOT NULL,
-          sync_status TEXT NOT NULL DEFAULT 'PENDING'
+          sync_status TEXT NOT NULL DEFAULT 'PENDING',
+          server_id INTEGER
         );
         CREATE INDEX IF NOT EXISTS idx_notes_updated_at ON notes(updated_at);
       `);
@@ -312,7 +373,7 @@ Tabel dibuat hanya jika belum ada (`IF NOT EXISTS`), dan kolom `sync_status` men
 
 ---
 
-## Step 7: Repository (11.05)
+## Step 7: Repository (13.50)
 
 Buat file `src/data/noteRepository.ts`:
 
@@ -328,10 +389,12 @@ type Row = {
   longitude: number | null;
   updated_at: number;
   sync_status: 'PENDING' | 'SYNCED';
+  server_id: number | null;
 };
 
 const dariRow = (r: Row): Note => ({
   id: r.id,
+  serverId: r.server_id,
   title: r.title,
   content: r.content,
   latitude: r.latitude,
@@ -365,13 +428,36 @@ export async function hapusCatatan(id: number): Promise<void> {
   const db = await getDb();
   await db.runAsync('DELETE FROM notes WHERE id = ?', [id]);
 }
+
+/** Catatan yang belum dikirim ke server. */
+export async function catatanPending(): Promise<Note[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<Row>("SELECT * FROM notes WHERE sync_status = 'PENDING'");
+  return rows.map(dariRow);
+}
+
+export async function tandaiSynced(id: number, serverId: number): Promise<void> {
+  const db = await getDb();
+  await db.runAsync("UPDATE notes SET sync_status = 'SYNCED', server_id = ? WHERE id = ?", [serverId, id]);
+}
+
+/** Menyimpan catatan yang berasal dari server sebagai SYNCED, bila belum ada di lokal. */
+export async function simpanDariServer(n: Note & { serverId: number }): Promise<void> {
+  const db = await getDb();
+  const ada = await db.getFirstAsync<{ id: number }>('SELECT id FROM notes WHERE server_id = ?', [n.serverId]);
+  if (ada) return;
+  await db.runAsync(
+    "INSERT INTO notes (title, content, latitude, longitude, updated_at, sync_status, server_id) VALUES (?, ?, ?, ?, ?, 'SYNCED', ?)",
+    [n.title, n.content, n.latitude, n.longitude, n.updatedAt, n.serverId],
+  );
+}
 ```
 
 Halaman tidak menulis SQL sendiri. Semua akses data lewat tiga fungsi ini, dan parameter selalu memakai tanda tanya (`?`) agar aman dari SQL injection.
 
 ---
 
-## Step 8: Halaman Catatan dan Form (11.30)
+## Step 8: Halaman Catatan dan Form (14.20)
 
 Buat file `app/notes.tsx`:
 
@@ -381,7 +467,7 @@ import { useCallback, useState } from 'react';
 import { Alert, FlatList, Pressable, Text, View } from 'react-native';
 import { Tombol } from '../src/components/Tombol';
 import { hapusCatatan, semuaCatatan } from '../src/data/noteRepository';
-import { Note } from '../src/models/note';
+import { formatKoordinat, Note } from '../src/models/note';
 import { gaya } from '../src/ui';
 
 export default function Catatan() {
@@ -412,6 +498,7 @@ export default function Catatan() {
           >
             <Text style={gaya.judul}>{item.title}</Text>
             <Text style={gaya.teks} numberOfLines={2}>{item.content}</Text>
+            {formatKoordinat(item) && <Text style={gaya.abu}>Lokasi: {formatKoordinat(item)}</Text>}
             <Text style={gaya.abu}>Status sinkron: {item.syncStatus} · tahan lama untuk menghapus</Text>
           </Pressable>
         )}
@@ -429,7 +516,8 @@ import { useEffect, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { Tombol } from '../src/components/Tombol';
 import { semuaCatatan, simpanCatatan } from '../src/data/noteRepository';
-import { Note, noteBaru, validasiJudul } from '../src/models/note';
+import { formatKoordinat, Note, noteBaru, validasiJudul } from '../src/models/note';
+import { posisiSekarang } from '../src/services/locationService';
 import { gaya } from '../src/ui';
 
 export default function FormCatatan() {
@@ -438,22 +526,40 @@ export default function FormCatatan() {
   const [lama, setLama] = useState<Note | null>(null);
   const [judul, setJudul] = useState('');
   const [isi, setIsi] = useState('');
+  const [lokasi, setLokasi] = useState<{ latitude: number; longitude: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!id) return;
     semuaCatatan().then((semua) => {
       const n = semua.find((x) => String(x.id) === id);
-      if (n) { setLama(n); setJudul(n.title); setIsi(n.content); }
+      if (n) {
+        setLama(n);
+        setJudul(n.title);
+        setIsi(n.content);
+        if (n.latitude != null && n.longitude != null) setLokasi({ latitude: n.latitude, longitude: n.longitude });
+      }
     });
   }, [id]);
+
+  const ambilLokasi = async () => {
+    try {
+      setError(null);
+      const p = await posisiSekarang();
+      setLokasi({ latitude: p.latitude, longitude: p.longitude });
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  };
 
   const simpan = async () => {
     const pesan = validasiJudul(judul);
     if (pesan) return setError(pesan);
+    const lat = lokasi?.latitude ?? null;
+    const lon = lokasi?.longitude ?? null;
     const n = lama
-      ? { ...lama, title: judul.trim(), content: isi.trim() }
-      : noteBaru(judul.trim(), isi.trim());
+      ? { ...lama, title: judul.trim(), content: isi.trim(), latitude: lat, longitude: lon }
+      : noteBaru(judul.trim(), isi.trim(), lat, lon);
     await simpanCatatan(n);
     router.back();
   };
@@ -462,6 +568,8 @@ export default function FormCatatan() {
     <View style={gaya.layar}>
       <TextInput testID="input-judul" style={gaya.input} placeholder="Judul" value={judul} onChangeText={(t) => { setJudul(t); setError(null); }} />
       <TextInput testID="input-isi" style={[gaya.input, { height: 140, textAlignVertical: 'top' }]} placeholder="Isi catatan" multiline value={isi} onChangeText={setIsi} />
+      <Tombol label={lokasi ? 'Perbarui lokasi saya' : 'Sertakan lokasi saya (GPS)'} onPress={ambilLokasi} />
+      {lokasi && <Text style={gaya.abu}>Lokasi tersimpan bersama catatan: {formatKoordinat(lokasi)}</Text>}
       {error && <Text style={gaya.error}>{error}</Text>}
       <Tombol label="Simpan" onPress={simpan} testID="tombol-simpan" />
     </View>
@@ -473,7 +581,7 @@ Uji: tambah catatan, tutup aplikasi sepenuhnya, lalu buka lagi. Catatan harus te
 
 ---
 
-## Step 9: Layanan Lokasi dan Jarak (13.00)
+## Step 9: Layanan Lokasi dan Jarak (15.00)
 
 Buat file `src/services/distance.ts`:
 
@@ -520,7 +628,7 @@ Aplikasi meminta izin lokasi saat tombol ditekan, bukan saat aplikasi dibuka. It
 
 ---
 
-## Step 10: Peta dan Halaman Lokasi (14.00)
+## Step 10: Peta dan Simpan GPS ke SQLite (15.40)
 
 Buat file `src/services/petaHtml.ts`:
 
@@ -618,9 +726,15 @@ export default function Lokasi() {
 
 Peta memakai OpenStreetMap lewat Leaflet di dalam `WebView`, sehingga tidak perlu API key. Ubah `ACUAN` bila ingin jarak ke tempat lain.
 
+### Simpan GPS ke SQLite
+
+`app/note-form.tsx` (dibuat pada Step 8) sudah memiliki tombol **Sertakan lokasi saya (GPS)**. Tombol memanggil `posisiSekarang()`, hasilnya disimpan di state `lokasi`, lalu `latitude` dan `longitude` masuk ke dua kolom tabel `notes` saat catatan disimpan. `app/notes.tsx` menampilkan koordinat memakai `formatKoordinat`.
+
+Uji: buat catatan dengan lokasi, tutup aplikasi sepenuhnya, buka lagi, dan pastikan koordinat tetap tampil. Lalu tolak izin lokasi dan pastikan catatan tetap bisa disimpan tanpa koordinat.
+
 ---
 
-## Step 11: Pengujian Hari 1 (14.30)
+## Step 11: Pengujian Hari 1 (16.30)
 
 Buat file `__tests__/distance.test.ts`:
 
@@ -662,6 +776,13 @@ describe('catatan', () => {
     expect(n.id).toBeUndefined();
   });
 });
+
+import { formatKoordinat } from '../src/models/note';
+
+describe('formatKoordinat', () => {
+  it('tanpa lokasi menghasilkan null', () => expect(formatKoordinat({ latitude: null, longitude: null })).toBeNull());
+  it('lima angka di belakang koma', () => expect(formatKoordinat({ latitude: -6.9175, longitude: 107.6191 })).toBe('-6.91750, 107.61910'));
+});
 ```
 
 Buat file `__tests__/map.test.ts`:
@@ -687,9 +808,9 @@ Semua pengujian harus lulus dan `tsc` tidak menampilkan error.
 
 ---
 
-## Latihan Mandiri (15.00)
+## Latihan Mandiri (16.45)
 
-1. Tambahkan tombol **Simpan lokasi** pada form catatan, isi `latitude` dan `longitude` dari `posisiSekarang()`.
+1. Tambahkan pesan khusus saat izin lokasi ditolak pada form catatan.
 2. Tampilkan jarak dari posisi pengguna pada setiap kartu catatan yang punya koordinat.
 3. Tambahkan pencarian judul pada halaman catatan dengan `TextInput` dan `filter`.
 4. Tulis satu pengujian tambahan untuk `validasiJudul` dengan judul tepat 100 karakter.

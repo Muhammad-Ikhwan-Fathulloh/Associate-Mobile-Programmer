@@ -20,6 +20,12 @@ def kode(path, keterangan):
     return f"{keterangan} `{path}`:\n\n```{lang}\n{p.read_text(encoding='utf-8').rstrip()}\n```\n"
 
 
+def kode_server(path, keterangan):
+    p = ROOT.parent / "shared" / "server" / path
+    lang = {".js": "js", ".json": "json", ".sql": "sql"}.get(p.suffix, "")
+    return f"{keterangan} `shared/server/{path}`:\n\n```{lang}\n{p.read_text(encoding='utf-8').rstrip()}\n```\n"
+
+
 def bash(*baris):
     return "```bash\n" + "\n".join(baris) + "\n```\n"
 
@@ -28,7 +34,7 @@ def jalankan_tes(*berkas):
     return "Jalankan pengujian:\n\n" + bash("npm test", "npm run typecheck")
 
 
-H1 = f"""# Hands-On Hari 1: Dasar React Native, Database Lokal, dan Lokasi
+H1 = f"""# Hands-On Hari 1: Environment, Desain Figma dan Stitch, SQLite, dan GPS
 
 Panduan ini membangun aplikasi `associate-mobile-app` dari awal dengan **Expo dan TypeScript**. Setiap step menampilkan kode lengkap untuk file yang dibuat atau diubah, sehingga peserta dapat mengetik kode sendiri sambil mengikuti langkahnya.
 
@@ -38,7 +44,7 @@ Panduan ini membangun aplikasi `associate-mobile-app` dari awal dengan **Expo da
 
 ---
 
-## Step 0: Instalasi dan Cek Lingkungan (09.00)
+## Step 0: Instalasi Platform, Emulator, dan Environment (09.00)
 
 Panduan lengkap per sistem operasi ada di [docs/instalasi-node-expo.md](../instalasi-node-expo.md). Ringkasannya:
 
@@ -54,7 +60,7 @@ Pastikan ketiganya menampilkan nomor versi tanpa pesan error.
 
 ---
 
-## Step 1: Buat Proyek dan Konfigurasi Dependensi (09.15)
+## Step 1: Buat Proyek dan Konfigurasi Dependensi (09.20)
 
 Buat proyek baru dari templat TypeScript kosong, lalu masuk ke foldernya:
 
@@ -84,7 +90,7 @@ Buka `package.json`, ubah `main` dan tambahkan skrip serta pengaturan jest. Bagi
 
 ---
 
-## Step 2: Konfigurasi Aplikasi dan TypeScript (09.35)
+## Step 2: Konfigurasi Aplikasi dan TypeScript (09.40)
 
 {kode("app.json", "Ganti isi")}
 Plugin `expo-location` berisi teks izin yang dibaca pengguna. Daftar `permissions` Android menyatakan izin lokasi dan status jaringan.
@@ -94,10 +100,22 @@ Mode `strict` membuat TypeScript menandai nilai yang mungkin `null` atau `undefi
 
 ---
 
-## Step 3: Tema, Menu, dan Layout Navigasi (09.50)
+## Step 3: Desain di Figma dan Stitch, Token, Tema, dan Navigasi (10.00)
+
+### 3a. Rancang di Stitch (opsional) dan Figma
+
+1. Buka https://stitch.withgoogle.com dan tulis prompt, misalnya: *"Aplikasi catatan dengan lokasi GPS. Lima layar: Beranda, Catatan, Form Catatan, Lokasi, Sinkronisasi. Gaya bersih, warna utama biru, tombol besar."* Perbaiki lewat chat sampai sesuai. Fitur Stitch berubah cepat, jadi ikuti tampilan terbaru.
+2. Salin atau ekspor hasilnya ke Figma sebagai layer yang bisa diedit, lalu rapikan dengan **Auto Layout**.
+3. Buka berkas contoh pelatihan: https://www.figma.com/design/grYqOsULGfzYsDrtIjmjRL (5 layar dan 20 variable). Duplikat berkas itu ke akun Anda dan jelajahi panel **Variables**: koleksi `Warna`, `Spasi`, `Radius`, dan `Font`.
+4. Bandingkan beberapa gaya (Material, iOS, minimal, gelap) dengan mengubah `warna/utama`, `radius/sm`, dan `font/isi`. Lihat semua layar ikut berubah.
+
+### 3b. Pindahkan token ke kode
+
+Setiap variable Figma punya padanan di `src/theme.ts` (nama sama: `warna/utama` menjadi `tema.warna.utama`). Komponen memakai `tema`, bukan angka langsung.
 
 Buat folder `src/components` dan `app` bila belum ada.
 
+{kode("src/theme.ts", "Buat file")}
 {kode("src/ui.ts", "Buat file")}
 {kode("src/menu.ts", "Buat file")}
 {kode("src/components/Tombol.tsx", "Buat file")}
@@ -106,7 +124,7 @@ Di expo-router, setiap file di folder `app/` otomatis menjadi satu halaman, dan 
 
 ---
 
-## Step 4: Halaman Beranda (10.05)
+## Step 4: Halaman Beranda dan Menerapkan Gaya dengan AI (11.00)
 
 {kode("app/index.tsx", "Buat file")}
 Jalankan aplikasi dan buka lewat Expo Go dengan memindai kode QR:
@@ -114,30 +132,46 @@ Jalankan aplikasi dan buka lewat Expo Go dengan memindai kode QR:
 {bash("npx expo start")}
 Menu tampil, tetapi ketukan belum membuka halaman karena halamannya belum dibuat. Itu normal, halaman dibuat pada step berikutnya.
 
+### Menerapkan gaya baru dengan AI
+
+Gunakan asisten AI (misalnya Claude atau Gemini) untuk menerapkan gaya dari Figma. Contoh prompt berkonteks:
+
+```text
+Konteks: aplikasi Expo + TypeScript. Warna, spasi, radius, dan font ada di src/theme.ts,
+gaya komponen dibuat dari tema di src/ui.ts. Saya lampirkan tangkapan layar Figma.
+Tujuan: ubah gaya menjadi tema gelap. Ubah HANYA src/theme.ts dan src/ui.ts,
+jangan ubah logika. Jaga kontras teks dan target sentuh tombol minimal 48.
+Berikan perubahan sebagai diff dan jelaskan alasannya.
+```
+
+Setelah AI mengubah kode: jalankan `npm run typecheck`, lihat hasilnya di ponsel, dan **tinjau diff** sebelum menerima. Jangan menempelkan token atau kata sandi ke alat AI.
+
 ---
 
-## Step 5: Model Data Catatan (10.30)
+## Step 5: Model Data Catatan (13.00)
 
 {kode("src/models/note.ts", "Buat file")}
 `validasiJudul` adalah fungsi murni sehingga mudah diuji tanpa perangkat.
 
 ---
 
-## Step 6: Database SQLite (10.50)
+## Step 6: Database SQLite (13.20)
+
+**SQLite atau MySQL?** SQLite adalah berkas di ponsel tanpa server, cocok untuk penyimpanan lokal dan tetap jalan offline. MySQL adalah basis data server untuk banyak pengguna. Aplikasi mobile **tidak boleh terhubung langsung ke MySQL** (kata sandi basis data ikut di aplikasi dan port basis data terbuka ke internet). Jalurnya: ponsel, lalu API, lalu MySQL. Hari 2 membahas API-nya; skema MySQL contoh ada di `shared/server/schema.sql`.
 
 {kode("src/data/database.ts", "Buat file")}
 Tabel dibuat hanya jika belum ada (`IF NOT EXISTS`), dan kolom `sync_status` menyiapkan sinkronisasi ke server.
 
 ---
 
-## Step 7: Repository (11.05)
+## Step 7: Repository (13.50)
 
 {kode("src/data/noteRepository.ts", "Buat file")}
 Halaman tidak menulis SQL sendiri. Semua akses data lewat tiga fungsi ini, dan parameter selalu memakai tanda tanya (`?`) agar aman dari SQL injection.
 
 ---
 
-## Step 8: Halaman Catatan dan Form (11.30)
+## Step 8: Halaman Catatan dan Form (14.20)
 
 {kode("app/notes.tsx", "Buat file")}
 {kode("app/note-form.tsx", "Buat file")}
@@ -145,7 +179,7 @@ Uji: tambah catatan, tutup aplikasi sepenuhnya, lalu buka lagi. Catatan harus te
 
 ---
 
-## Step 9: Layanan Lokasi dan Jarak (13.00)
+## Step 9: Layanan Lokasi dan Jarak (15.00)
 
 {kode("src/services/distance.ts", "Buat file")}
 {kode("src/services/locationService.ts", "Buat file")}
@@ -153,16 +187,22 @@ Aplikasi meminta izin lokasi saat tombol ditekan, bukan saat aplikasi dibuka. It
 
 ---
 
-## Step 10: Peta dan Halaman Lokasi (14.00)
+## Step 10: Peta dan Simpan GPS ke SQLite (15.40)
 
 {kode("src/services/petaHtml.ts", "Buat file")}
 {kode("src/components/LeafletMap.tsx", "Buat file")}
 {kode("app/location.tsx", "Buat file")}
 Peta memakai OpenStreetMap lewat Leaflet di dalam `WebView`, sehingga tidak perlu API key. Ubah `ACUAN` bila ingin jarak ke tempat lain.
 
+### Simpan GPS ke SQLite
+
+`app/note-form.tsx` (dibuat pada Step 8) sudah memiliki tombol **Sertakan lokasi saya (GPS)**. Tombol memanggil `posisiSekarang()`, hasilnya disimpan di state `lokasi`, lalu `latitude` dan `longitude` masuk ke dua kolom tabel `notes` saat catatan disimpan. `app/notes.tsx` menampilkan koordinat memakai `formatKoordinat`.
+
+Uji: buat catatan dengan lokasi, tutup aplikasi sepenuhnya, buka lagi, dan pastikan koordinat tetap tampil. Lalu tolak izin lokasi dan pastikan catatan tetap bisa disimpan tanpa koordinat.
+
 ---
 
-## Step 11: Pengujian Hari 1 (14.30)
+## Step 11: Pengujian Hari 1 (16.30)
 
 {kode("__tests__/distance.test.ts", "Buat file")}
 {kode("__tests__/note.test.ts", "Buat file")}
@@ -172,9 +212,9 @@ Semua pengujian harus lulus dan `tsc` tidak menampilkan error.
 
 ---
 
-## Latihan Mandiri (15.00)
+## Latihan Mandiri (16.45)
 
-1. Tambahkan tombol **Simpan lokasi** pada form catatan, isi `latitude` dan `longitude` dari `posisiSekarang()`.
+1. Tambahkan pesan khusus saat izin lokasi ditolak pada form catatan.
 2. Tampilkan jarak dari posisi pengguna pada setiap kartu catatan yang punya koordinat.
 3. Tambahkan pencarian judul pada halaman catatan dengan `TextInput` dan `filter`.
 4. Tulis satu pengujian tambahan untuk `validasiJudul` dengan judul tepat 100 karakter.
@@ -195,90 +235,97 @@ Semua pengujian harus lulus dan `tsc` tidak menampilkan error.
 | `__tests__/*.test.ts` | Pengujian otomatis |
 """
 
-H2 = f"""# Hands-On Hari 2: Jaringan, Sensor, Perangkat, dan Keamanan
+H2 = f"""# Hands-On Hari 2: API, Sensor, Sinkronisasi, dan Keamanan
 
-Hari 2 melanjutkan aplikasi `associate-mobile-app` dari Hari 1.
+Hari 2 melanjutkan aplikasi `associate-mobile-app` dari Hari 1 dan menghubungkannya ke server latihan di folder `shared/server` pada repositori ini.
 
-**Waktu:** 09.00 to 17.00 (istirahat 12.00 to 13.00)
-
----
-
-## Step 0: Persiapan (09.00)
-
-Semua paket Hari 2 sudah terpasang pada Step 1 Hari 1. Pastikan proyek Hari 1 masih lulus pengujian:
-
-{bash("npm test", "npm run typecheck", "npx expo start")}
-Jika ada error, selesaikan dahulu sebelum menambah fitur baru.
+**Waktu:** 09.00 to 15.00 (istirahat 12.00 to 13.00). Sisa waktu untuk latihan dan persiapan uji kompetensi.
 
 ---
 
-## Step 1: Jaringan Seluler (09.15)
+## Step 0: Persiapan dan Jalankan Server Latihan (09.00)
 
-{kode("src/services/networkService.ts", "Buat file")}
-{kode("app/network.tsx", "Buat file")}
-`labelJaringan` menerjemahkan status mentah menjadi label. Uji: matikan Wi-Fi dan nyalakan data seluler, lalu tekan **Periksa Ulang**. Label harus berubah dari Wi-Fi ke Seluler. Nyalakan mode pesawat untuk melihat **Tidak ada koneksi**.
+Pastikan proyek Hari 1 masih lulus pengujian:
+
+{bash("npm test", "npm run typecheck")}
+Di terminal lain, jalankan server latihan dari folder repositori:
+
+{bash("cd shared/server", "npm install", "npm start")}
+Buka `http://localhost:3000/health` di peramban. Jawaban `{{"ok":true}}` berarti server hidup. Emulator Android mengakses komputer lewat `10.0.2.2`. Ponsel fisik memakai alamat IP komputer (misalnya `http://192.168.1.10:3000`) dan harus berada di Wi-Fi yang sama.
 
 ---
 
-## Step 2: Sensor (10.00)
+## Step 1: API Dasar: REST, Metode, dan Status (09.15)
 
+Pelajari server latihan lebih dulu. Ini rute-rutenya:
+
+{kode_server("app.js", "Berkas server")}
+Login contoh: `peserta@contoh.id` dengan kata sandi `rahasia123`. Skema MySQL pasangannya (untuk diskusi, server latihan memakai memori):
+
+{kode_server("schema.sql", "Skema")}
+---
+
+## Step 2: Memanggil API dari Aplikasi (09.40)
+
+{kode("src/config.ts", "Buat file")}
+{kode("src/services/httpsService.ts", "Buat file")}
+{kode("src/services/apiClient.ts", "Buat file")}
+`requestJson` membatasi waktu, memeriksa status, dan mengubah kesalahan server menjadi `ApiError`. `apiClient` membungkus satu fungsi per endpoint.
+
+---
+
+## Step 3: Sensor: Akselerometer, Giroskop, dan Kompas (10.00)
+
+{kode("src/services/sensorMath.ts", "Buat file")}
 {kode("app/sensor.tsx", "Buat file")}
-Letakkan ponsel di meja, nilai Z mendekati 1 g karena gravitasi. Goyangkan ponsel untuk melihat besar total berubah. `return () => langganan?.remove()` berhenti membaca sensor saat halaman ditutup, supaya baterai hemat.
+Letakkan ponsel di meja: akselerometer Z mendekati 1 g. Guncang ponsel untuk memicu pesan guncangan. Putar ponsel untuk melihat giroskop. Arah kompas dari magnetometer adalah pendekatan sederhana, akurasinya dipengaruhi benda logam di sekitar.
 
 ---
 
-## Step 3: Informasi Perangkat (10.40)
+## Step 4: Informasi Perangkat (10.50)
 
 {kode("app/device.tsx", "Buat file")}
 Nilai yang tidak tersedia ditampilkan sebagai tanda hubung. Di emulator, baris *Perangkat fisik* menampilkan Emulator.
 
 ---
 
-## Step 4: Penyimpanan Aman (13.00)
+## Step 5: Token, Penyimpanan Aman, dan Sinkronisasi (13.00)
 
 {kode("src/services/secureStorage.ts", "Buat file")}
-`expo-secure-store` menyimpan nilai di Keystore Android atau Keychain iOS. Pakai ini untuk token dan kata sandi, bukan untuk data biasa.
+{kode("src/services/sync.ts", "Buat file")}
+{kode("app/sinkron.tsx", "Buat file")}
+Alur: catatan disimpan ke SQLite dengan status `PENDING`. Tombol **Sinkronkan** mengirim yang tertunda (POST, atau PUT bila sudah punya `serverId`), menandai `SYNCED`, lalu mengambil data baru dari server. Uji: matikan server, buat catatan, nyalakan server, tekan Sinkronkan.
 
 ---
 
-## Step 5: HTTPS dan Halaman Keamanan (13.10)
+## Step 6: Jaringan Seluler dan Keamanan Komunikasi (14.00)
 
-{kode("src/services/httpsService.ts", "Buat file")}
+{kode("src/services/networkService.ts", "Buat file")}
+{kode("app/network.tsx", "Buat file")}
 {kode("app/keamanan.tsx", "Buat file")}
-Uji: ambil data dari alamat `https://`, lalu ganti menjadi `http://` dan pastikan ditolak. Simpan token, tutup aplikasi, buka lagi, lalu tekan **Baca Token**.
+`labelJaringan` menerjemahkan status mentah menjadi label. Uji: alamat `http://` publik ditolak, alamat lokal (`10.0.2.2`) diizinkan untuk pengembangan. Matikan Wi-Fi dan lihat label berubah.
 
 ---
 
-## Step 6: Menjalankan Seluruh Aplikasi (13.40)
-
-Semua halaman sudah terdaftar di `app/_layout.tsx` dan `src/menu.ts`. Jalankan aplikasi dan telusuri setiap menu:
-
-{bash("npx expo start")}
-Periksa daftar berikut:
-
-1. Catatan: tambah, ubah, hapus, lalu tutup dan buka aplikasi.
-2. Lokasi: izin muncul saat tombol ditekan, peta tampil.
-3. Jaringan: label sesuai kondisi koneksi.
-4. Sensor: angka berubah saat ponsel digerakkan.
-5. Keamanan: URL http ditolak, token tersimpan.
-
----
-
-## Step 7: Pengujian (14.00)
+## Step 7: Pengujian Hari 2 (14.30)
 
 {kode("__tests__/https.test.ts", "Buat file")}
 {kode("__tests__/network.test.ts", "Buat file")}
+{kode("__tests__/api.test.ts", "Buat file")}
+{kode("__tests__/sync.test.ts", "Buat file")}
+{kode("__tests__/sensor.test.ts", "Buat file")}
 {jalankan_tes()}
-Pengujian jaringan memakai fungsi `fetch` palsu, sehingga berjalan cepat tanpa internet.
+Pengujian API dan sinkronisasi memakai `fetch` palsu dan basis data tiruan, sehingga berjalan cepat tanpa jaringan. Pengujian server: `cd shared/server` lalu `npm test`.
 
 ---
 
-## Step 8: Latihan (15.00 to 17.00)
+## Step 8: Latihan (15.00)
 
-1. Tambahkan peringatan pada halaman jaringan bila jenisnya **Seluler**: "Anda memakai data seluler".
-2. Tambahkan pengujian `ambilJson` untuk respons JSON yang tidak valid.
-3. Tampilkan waktu terakhir pemeriksaan pada halaman jaringan.
-4. Persiapan uji kompetensi: buka `docs/sertifikasi-bnsp/` dan kerjakan latihan soal.
+1. Buat catatan saat server mati, nyalakan server, lalu sinkronkan. Pastikan status berubah menjadi SYNCED.
+2. Ubah catatan yang sudah SYNCED lalu sinkronkan lagi. Pastikan server menerima PUT.
+3. Tambahkan tampilan jumlah catatan PENDING pada halaman Sinkronisasi.
+4. Tambahkan pengujian `sinkronkan` untuk kasus satu catatan gagal dan yang lain berhasil.
+5. Persiapan uji kompetensi: buka `docs/sertifikasi-bnsp.md` dan kerjakan latihan soal.
 
 ---
 
@@ -286,12 +333,13 @@ Pengujian jaringan memakai fungsi `fetch` palsu, sehingga berjalan cepat tanpa i
 
 | File | Fungsi |
 |---|---|
-| `src/services/networkService.ts`, `app/network.tsx` | Status dan jenis jaringan |
-| `app/sensor.tsx` | Akselerometer |
+| `shared/server/app.js`, `schema.sql` | Server latihan dan skema MySQL |
+| `src/config.ts`, `src/services/httpsService.ts`, `src/services/apiClient.ts` | Memanggil API |
+| `src/services/sensorMath.ts`, `app/sensor.tsx` | Sensor dan perhitungannya |
 | `app/device.tsx` | Informasi perangkat |
-| `src/services/secureStorage.ts` | Penyimpanan aman |
-| `src/services/httpsService.ts`, `app/keamanan.tsx` | Pemeriksaan HTTPS dan halaman keamanan |
-| `__tests__/https.test.ts`, `__tests__/network.test.ts` | Pengujian Hari 2 |
+| `src/services/secureStorage.ts`, `src/services/sync.ts`, `app/sinkron.tsx` | Token dan sinkronisasi |
+| `src/services/networkService.ts`, `app/network.tsx`, `app/keamanan.tsx` | Jaringan dan keamanan |
+| `__tests__/*.test.ts` | Pengujian |
 """
 
 if __name__ == "__main__":

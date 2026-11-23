@@ -17,11 +17,12 @@ Ini sesi penutup dan persiapan uji kompetensi. Kita menjalankan seluruh aplikasi
 
 ## 1. Daftar periksa aplikasi
 
+- Desain: token di `src/theme.ts` sama dengan variable Figma.
 - Catatan: tambah, ubah, hapus, data tetap ada setelah aplikasi ditutup.
-- Lokasi: izin diminta saat tombol ditekan, peta dan jarak tampil.
-- Jaringan: label sesuai kondisi, aplikasi tetap berfungsi offline.
-- Sensor dan perangkat: angka tampil, langganan dihentikan.
-- Keamanan: HTTP ditolak, token tersimpan aman.
+- Lokasi: izin diminta saat tombol ditekan, koordinat tersimpan di SQLite.
+- API: login, sinkronisasi, dan penanganan server mati berjalan.
+- Sensor: angka tampil, guncangan terdeteksi, langganan dihentikan.
+- Keamanan: HTTP publik ditolak, token tersimpan aman.
 
 > **Narasi pengajar:** Gunakan daftar ini seperti pengguna baru: buka setiap menu, coba jalur normal, lalu coba jalur gagal seperti menolak izin dan mematikan internet. Peserta mencentang satu per satu. Yang gagal dicatat dan diperbaiki sebelum lanjut.
 
@@ -86,4 +87,4 @@ Unit **Semua unit**. Elemen yang dinilai:
 
 Bukti pada pelatihan ini: aplikasi berjalan, `npm test` lulus, `npm run typecheck` bersih, hasil latihan soal.
 
-Praktik langkah demi langkah: [hands-on Hari 2, Step 6 sampai 8](../hands-on/hari-2.md).
+Praktik langkah demi langkah: [hands-on Hari 2, Step 8](../hands-on/hari-2.md).

@@ -36,6 +36,12 @@ TEORI = {
         ], None),
     ],
     (1, 3): [
+        ("Figma, Stitch, dan token desain", [
+            "**Stitch** membuat rancangan awal dari prompt. **Figma** merapikannya dengan Auto Layout dan komponen.",
+            "**Variable** Figma (warna, spasi, radius, font) adalah **token desain**.",
+            "Token dipindah ke `src/theme.ts` dengan nama yang sama. Ubah satu nilai, seluruh aplikasi ikut berubah.",
+            "Target sentuh tombol minimal sekitar 48 dp.",
+        ], None),
         ("Komponen dan gaya", [
             "**Komponen** adalah fungsi yang mengembalikan tampilan (JSX). Contoh: `Text`, `View`, `Pressable`.",
             "**Props** adalah parameter komponen, misalnya `label` dan `onPress` pada `Tombol`.",
@@ -114,64 +120,76 @@ TEORI = {
     # ------------------------------------------------------------ HARI 2
     (2, 0): [
         ("Titik awal Hari 2", [
-            "Hari 2 menambah fitur ke aplikasi yang sama. Pastikan pengujian Hari 1 lulus dahulu.",
-            "Perubahan kecil dan sering diuji lebih mudah diperbaiki daripada satu perubahan besar.",
+            "Hari 2 menambah fitur ke aplikasi yang sama dan menghubungkannya ke server latihan.",
+            "Server berjalan di komputer (`npm start`, port 3000). Emulator Android mengaksesnya lewat `10.0.2.2`.",
+            "Ponsel fisik memakai IP komputer dan harus satu Wi-Fi dengan komputer.",
         ], None),
     ],
     (2, 1): [
-        ("Jaringan seluler", [
-            "Ponsel terhubung lewat **seluler** (2G sampai 5G) atau **Wi-Fi**. Aplikasi perlu tahu mana yang aktif.",
-            "Data seluler berbayar dan lebih lambat. Unduhan besar sebaiknya menunggu Wi-Fi.",
-            "`getNetworkStateAsync` mengembalikan status terhubung dan jenisnya. `labelJaringan` menerjemahkannya.",
-            "Aplikasi yang baik tetap berfungsi **offline** dan menyinkronkan saat koneksi kembali.",
+        ("API dan REST", [
+            "**API** adalah pintu bagi aplikasi untuk meminta atau mengubah data di server.",
+            "**REST**: alamat untuk sumber daya, metode HTTP untuk aksi (GET baca, POST buat, PUT ubah, DELETE hapus), data berbentuk JSON.",
+            "Kode status memberi tahu hasil: 200 dan 201 berhasil, 204 berhasil tanpa isi, 400 data salah, 401 belum login, 404 tidak ada.",
+            "Ponsel tidak langsung ke MySQL. API yang menjaga akses dan validasi, lalu berbicara ke MySQL.",
         ], None),
     ],
     (2, 2): [
-        ("Sensor ponsel", [
-            "**Akselerometer** mengukur percepatan pada sumbu X, Y, Z dalam satuan g. Diam di meja: Z sekitar 1 g.",
-            "Aplikasi **berlangganan** pembaruan (`addListener`) dengan interval tertentu.",
-            "Langganan harus dihentikan (`remove`) saat halaman ditutup agar baterai tidak boros.",
-            "Tidak semua perangkat memiliki semua sensor, jadi periksa `isAvailableAsync`.",
+        ("Memanggil API dengan fetch", [
+            "`fetch` mengirim permintaan dan mengembalikan respons. Periksa `res.ok` sebelum membaca isi.",
+            "Pasang **timeout** dengan `AbortController` agar aplikasi tidak menunggu tanpa batas.",
+            "Header `Authorization: Bearer <token>` membawa tanda pengenal setelah login.",
+            "Status 204 tidak punya isi, jangan dibaca sebagai JSON.",
         ], None),
     ],
     (2, 3): [
+        ("Sensor ponsel", [
+            "**Akselerometer** mengukur percepatan sumbu X, Y, Z dalam g. Diam di meja: Z sekitar 1 g.",
+            "**Giroskop** mengukur laju putar (rad/s). **Magnetometer** mengukur medan magnet untuk kompas.",
+            "Guncangan: besar vektor akselerasi melewati ambang, misalnya 2 g.",
+            "Berlangganan dengan `addListener`, hentikan dengan `remove` saat halaman ditutup agar baterai hemat.",
+        ], None),
+    ],
+    (2, 4): [
         ("Informasi perangkat", [
             "Model, versi OS, dan memori membantu menyesuaikan aplikasi dan membaca laporan bug.",
             "Nilai bisa `null` pada emulator, jadi beri nilai cadangan seperti `-`.",
             "Jangan mengumpulkan data perangkat yang tidak diperlukan. Itu soal privasi.",
         ], None),
     ],
-    (2, 4): [
-        ("Penyimpanan aman", [
-            "Data biasa di SQLite atau berkas bisa dibaca bila ponsel di-root. Token dan kata sandi butuh perlindungan lebih.",
-            "`expo-secure-store` memakai **Keystore** Android dan **Keychain** iOS yang terenkripsi perangkat keras.",
-            "Hanya simpan rahasia kecil (token). Jangan simpan data besar di sini.",
-        ], None),
-    ],
     (2, 5): [
-        ("Keamanan komunikasi", [
-            "**HTTPS** mengenkripsi data antara aplikasi dan server. Tanpa itu, data bisa disadap di Wi-Fi umum.",
-            "Aplikasi menolak alamat `http://` sebelum mengirim permintaan apa pun.",
-            "**Timeout** (`AbortController`) mencegah aplikasi menunggu tanpa batas.",
-            "Serangan umum: penyadapan (sniffing), man-in-the-middle, dan Wi-Fi palsu.",
+        ("Token dan sinkronisasi", [
+            "Token hasil login disimpan di **secure store** (Keystore Android, Keychain iOS), bukan di SQLite.",
+            "**Offline-first**: simpan ke SQLite dengan status PENDING, kirim saat ada koneksi.",
+            "Catatan baru dikirim dengan POST. Catatan yang sudah punya `serverId` dikirim dengan PUT.",
+            "Satu kegagalan tidak menghentikan yang lain. Hasil dilaporkan: terkirim, diterima, gagal.",
         ], None),
     ],
     (2, 6): [
-        ("Uji keseluruhan", [
-            "Telusuri setiap menu seperti pengguna baru, termasuk saat izin ditolak dan saat offline.",
-            "Catat bug dengan langkah, hasil yang diharapkan, dan hasil sebenarnya.",
+        ("Jaringan seluler dan keamanan komunikasi", [
+            "Seluler (2G sampai 5G) berbayar dan bisa lambat. Aplikasi perlu tahu jenis koneksi yang aktif.",
+            "**HTTPS** mengenkripsi data. HTTP publik ditolak. Alamat lokal hanya untuk pengembangan.",
+            "Serangan umum: penyadapan, man-in-the-middle, dan Wi-Fi palsu. Pertahanan: HTTPS, validasi, secure store.",
         ], None),
     ],
     (2, 7): [
         ("Menguji tanpa jaringan", [
             "`fetch` palsu mengembalikan respons buatan sehingga uji cepat dan stabil.",
-            "Uji jalur gagal juga: status 500, URL http, dan timeout.",
-            "`jest.fn()` mencatat apakah sebuah fungsi dipanggil.",
+            "Uji jalur gagal juga: status 401, 400, URL http, dan timeout.",
+            "Sinkronisasi diuji dengan basis data tiruan dan klien API palsu.",
         ], None),
     ],
 }
 
 PENJELASAN = {
+    (1, "src/theme.ts"): ["Token desain: warna, spasi, radius, font, dan tinggi tombol.", "Nilainya berasal dari variable di Figma."],
+    (2, "src/config.ts"): ["Alamat server bawaan untuk emulator Android (`10.0.2.2`).", "Ganti dengan IP komputer untuk ponsel fisik."],
+    (2, "src/services/apiClient.ts"): ["Satu fungsi per endpoint: login, daftar, buat, ubah.", "Halaman tidak perlu tahu detail URL."],
+    (2, "src/services/sensorMath.ts"): ["Fungsi murni: besar vektor, guncangan, arah kompas, mata angin.", "Mudah diuji tanpa perangkat."],
+    (2, "src/services/sync.ts"): ["Dua tahap: kirim PENDING, lalu ambil dari server.", "Kegagalan satu catatan tidak menghentikan yang lain."],
+    (2, "app/sinkron.tsx"): ["Isi URL server, login, lalu sinkronkan.", "Log menampilkan jumlah terkirim, diterima, dan gagal."],
+    (2, "__tests__/api.test.ts"): ["Klien API diuji dengan `fetch` palsu.", "Termasuk header token dan penanganan status error."],
+    (2, "__tests__/sync.test.ts"): ["Sinkronisasi diuji dengan basis data tiruan dan API palsu.", "Termasuk kasus sebagian gagal."],
+    (2, "__tests__/sensor.test.ts"): ["Uji guncangan, arah kompas, dan mata angin."],
     (1, "app.json"): ["Nama, ID paket, dan daftar izin Android.", "Plugin `expo-location` memuat teks izin untuk pengguna."],
     (1, "tsconfig.json"): ["Mewarisi pengaturan dasar Expo.", "`strict: true` mengaktifkan pemeriksaan tipe ketat."],
     (1, "src/ui.ts"): ["`warna` dan `gaya` dipakai ulang oleh semua halaman.", "Satu tempat untuk mengubah tampilan."],

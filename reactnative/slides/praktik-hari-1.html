@@ -21,14 +21,14 @@
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1</p>
     <h2>Daftar Langkah</h2>
-<ul class="stepgrid"><li><a href="#3"><b>S0</b>Instalasi dan Cek Lingkungan</a></li><li><a href="#7"><b>S1</b>Buat Proyek dan Konfigurasi Dependensi</a></li><li><a href="#14"><b>S2</b>Konfigurasi Aplikasi dan TypeScript</a></li><li><a href="#20"><b>S3</b>Tema, Menu, dan Layout Navigasi</a></li><li><a href="#29"><b>S4</b>Halaman Beranda</a></li><li><a href="#35"><b>S5</b>Model Data Catatan</a></li><li><a href="#40"><b>S6</b>Database SQLite</a></li><li><a href="#45"><b>S7</b>Repository</a></li><li><a href="#50"><b>S8</b>Halaman Catatan dan Form</a></li><li><a href="#56"><b>S9</b>Layanan Lokasi dan Jarak</a></li><li><a href="#63"><b>S10</b>Peta dan Halaman Lokasi</a></li><li><a href="#70"><b>S11</b>Pengujian Hari 1</a></li><li><a href="#78"><b>Latihan Mandiri</b>Latihan Mandiri</a></li><li><a href="#79"><b>Ringkasan File</b>Ringkasan File</a></li></ul>
+<ul class="stepgrid"><li><a href="#3"><b>S0</b>Instalasi Platform, Emulator, dan Environment</a></li><li><a href="#7"><b>S1</b>Buat Proyek dan Konfigurasi Dependensi</a></li><li><a href="#14"><b>S2</b>Konfigurasi Aplikasi dan TypeScript</a></li><li><a href="#20"><b>S3</b>Desain di Figma dan Stitch, Token, Tema, dan Navigasi</a></li><li><a href="#31"><b>S4</b>Halaman Beranda dan Menerapkan Gaya dengan AI</a></li><li><a href="#38"><b>S5</b>Model Data Catatan</a></li><li><a href="#43"><b>S6</b>Database SQLite</a></li><li><a href="#48"><b>S7</b>Repository</a></li><li><a href="#53"><b>S8</b>Halaman Catatan dan Form</a></li><li><a href="#59"><b>S9</b>Layanan Lokasi dan Jarak</a></li><li><a href="#66"><b>S10</b>Peta dan Simpan GPS ke SQLite</a></li><li><a href="#73"><b>S11</b>Pengujian Hari 1</a></li><li><a href="#81"><b>Latihan Mandiri</b>Latihan Mandiri</a></li><li><a href="#82"><b>Ringkasan File</b>Ringkasan File</a></li></ul>
     </div></div><!--/split-->
   </section>
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 09.00</p>
-    <h2>Step 0: Instalasi dan Cek Lingkungan</h2>
+    <h2>Step 0: Instalasi Platform, Emulator, dan Environment</h2>
 <p>Panduan lengkap per sistem operasi ada di <a href="../instalasi-node-expo.md">docs/instalasi-node-expo.md</a>. Ringkasannya:</p>
 <ol><li>Pasang Node.js versi LTS dari https://nodejs.org (npm ikut terpasang).</li><li>Pasang Git dan VS Code.</li><li>Pasang aplikasi <strong>Expo Go</strong> di ponsel Android, atau pasang Android Studio dan buat emulator di <em>Device Manager</em>.</li><li>Pastikan laptop dan ponsel berada pada jaringan Wi-Fi yang sama.</li></ol>
 <h3>File pada step ini</h3><ol><li><code>Terminal</code></li></ol>
@@ -38,7 +38,7 @@
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 0 · Instalasi dan Cek Lingkungan</p>
+    <p class="kicker">Teori · Step 0 · Instalasi Platform, Emulator, dan Environment</p>
     <h2>Apa yang dipasang dan mengapa</h2>
 <ul><li><strong>Node.js</strong>: mesin JavaScript untuk menjalankan alat pengembangan. <strong>npm</strong> ikut terpasang.</li><li><strong>Expo</strong>: kerangka kerja di atas React Native yang menyederhanakan build dan uji di ponsel.</li><li><strong>Expo Go</strong>: aplikasi di ponsel untuk membuka proyek lewat kode QR tanpa memasang Android Studio.</li><li><strong>Emulator Android</strong> (opsional): ponsel virtual dari Android Studio.</li></ul>
     </div></div><!--/split-->
@@ -46,7 +46,7 @@
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 0 · Instalasi dan Cek Lingkungan</p>
+    <p class="kicker">Praktik · Step 0 · Instalasi Platform, Emulator, dan Environment</p>
     <h2>Terminal</h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><p>Verifikasi:</p></div>
@@ -67,7 +67,7 @@ git --version</code></pre>
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 09.15</p>
+    <p class="kicker">Hari 1 · 09.20</p>
     <h2>Step 1: Buat Proyek dan Konfigurasi Dependensi</h2>
 <h3>File pada step ini</h3><ol><li><code>Terminal</code></li><li><code>package.json</code></li></ol>
     </div></div><!--/split-->
@@ -145,7 +145,7 @@ npx expo install --dev jest jest-expo @types/jest typescript</code></pre>
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 09.35</p>
+    <p class="kicker">Hari 1 · 09.40</p>
     <h2>Step 2: Konfigurasi Aplikasi dan TypeScript</h2>
 <h3>File pada step ini</h3><ol><li><code>app.json</code></li><li><code>tsconfig.json</code></li></ol>
     </div></div><!--/split-->
@@ -227,17 +227,29 @@ npx expo install --dev jest jest-expo @types/jest typescript</code></pre>
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 09.50</p>
-    <h2>Step 3: Tema, Menu, dan Layout Navigasi</h2>
+    <p class="kicker">Hari 1 · 10.00</p>
+    <h2>Step 3: Desain di Figma dan Stitch, Token, Tema, dan Navigasi</h2>
+<h3>3a. Rancang di Stitch (opsional) dan Figma</h3>
+<ol><li>Buka https://stitch.withgoogle.com dan tulis prompt, misalnya: <em>"Aplikasi catatan dengan lokasi GPS. Lima layar: Beranda, Catatan, Form Catatan, Lokasi, Sinkronisasi. Gaya bersih, warna utama biru, tombol besar."</em> Perbaiki lewat chat sampai sesuai. Fitur Stitch berubah cepat, jadi ikuti tampilan terbaru.</li><li>Salin atau ekspor hasilnya ke Figma sebagai layer yang bisa diedit, lalu rapikan dengan <strong>Auto Layout</strong>.</li><li>Buka berkas contoh pelatihan: https://www.figma.com/design/grYqOsULGfzYsDrtIjmjRL (5 layar dan 20 variable). Duplikat berkas itu ke akun Anda dan jelajahi panel <strong>Variables</strong>: koleksi <code>Warna</code>, <code>Spasi</code>, <code>Radius</code>, dan <code>Font</code>.</li><li>Bandingkan beberapa gaya (Material, iOS, minimal, gelap) dengan mengubah <code>warna/utama</code>, <code>radius/sm</code>, dan <code>font/isi</code>. Lihat semua layar ikut berubah.</li></ol>
+<h3>3b. Pindahkan token ke kode</h3>
+<p>Setiap variable Figma punya padanan di <code>src/theme.ts</code> (nama sama: <code>warna/utama</code> menjadi <code>tema.warna.utama</code>). Komponen memakai <code>tema</code>, bukan angka langsung.</p>
 <p>Buat folder <code>src/components</code> dan <code>app</code> bila belum ada.</p>
-<h3>File pada step ini</h3><ol><li><code>src/ui.ts</code></li><li><code>src/menu.ts</code></li><li><code>src/components/Tombol.tsx</code></li><li><code>app/_layout.tsx</code></li></ol>
+<h3>File pada step ini</h3><ol><li><code>src/theme.ts</code></li><li><code>src/ui.ts</code></li><li><code>src/menu.ts</code></li><li><code>src/components/Tombol.tsx</code></li><li><code>app/_layout.tsx</code></li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <p class="kicker">Teori · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
+    <h2>Figma, Stitch, dan token desain</h2>
+<ul><li><strong>Stitch</strong> membuat rancangan awal dari prompt. <strong>Figma</strong> merapikannya dengan Auto Layout dan komponen.</li><li><strong>Variable</strong> Figma (warna, spasi, radius, font) adalah <strong>token desain</strong>.</li><li>Token dipindah ke <code>src/theme.ts</code> dengan nama yang sama. Ubah satu nilai, seluruh aplikasi ikut berubah.</li><li>Target sentuh tombol minimal sekitar 48 dp.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
     <h2>Komponen dan gaya</h2>
 <ul><li><strong>Komponen</strong> adalah fungsi yang mengembalikan tampilan (JSX). Contoh: <code>Text</code>, <code>View</code>, <code>Pressable</code>.</li><li><strong>Props</strong> adalah parameter komponen, misalnya <code>label</code> dan <code>onPress</code> pada <code>Tombol</code>.</li><li><code>StyleSheet.create</code> mengumpulkan gaya. Tata letak memakai <strong>flexbox</strong>.</li></ul>
     </div></div><!--/split-->
@@ -245,7 +257,7 @@ npx expo install --dev jest jest-expo @types/jest typescript</code></pre>
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <p class="kicker">Teori · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
     <h2>Navigasi dengan expo-router</h2>
 <ul><li>Nama file menentukan alamat: <code>app/notes.tsx</code> menjadi <code>/notes</code>.</li><li><code>_layout.tsx</code> membungkus semua halaman dengan <code>Stack</code>, yaitu tumpukan layar dengan tombol kembali.</li><li><code>router.push('/notes')</code> berpindah halaman.</li></ul><pre><code>router.push('/notes');</code></pre>
     </div></div><!--/split-->
@@ -253,39 +265,68 @@ npx expo install --dev jest jest-expo @types/jest typescript</code></pre>
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 3 · Tema, Menu, dan Layout Navigasi</p>
-    <h2>src/ui.ts<span class="part">1 dari 4</span></h2>
+    <p class="kicker">Praktik · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
+    <h2>src/theme.ts<span class="part">1 dari 5</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/theme.ts</span></div>
+<div class="instr"><p>Buat file <code>src/theme.ts</code>:</p></div>
+<pre><code>// Design token: satu sumber nilai gaya. Nilainya berasal dari variables di Figma.
+export const tema = {
+  warna: {
+    utama: '#1565c0',
+    latar: '#f5f7fb',
+    kartu: '#ffffff',
+    teks: '#1b1f27',
+    abu: '#5f6b7a',
+    garis: '#cfd6e0',
+    bahaya: '#c62828',
+    ok: '#2e7d32',
+  },
+  spasi: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24 },
+  radius: { sm: 8, md: 12, lg: 20 },
+  font: { kecil: 13, isi: 15, judul: 18, besar: 24 },
+  // Target sentuh minimal yang disarankan pedoman desain: sekitar 48 dp
+  tinggiTombol: 48,
+} as const;</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
+    <h2>src/ui.ts<span class="part">2 dari 5</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>src/ui.ts</span></div>
 <div class="instr"><p>Buat file <code>src/ui.ts</code>:</p></div>
 <pre><code>import { StyleSheet } from 'react-native';
+import { tema } from './theme';
 
-export const warna = { utama: '#1565c0', latar: '#f5f7fb', teks: '#1b1f27', abu: '#5f6b7a', bahaya: '#c62828', ok: '#2e7d32' };
+export const warna = tema.warna;
 
 export const gaya = StyleSheet.create({
-  layar: { flex: 1, backgroundColor: warna.latar, padding: 16 },
-  kartu: { backgroundColor: '#fff', borderRadius: 12, padding: 14, marginBottom: 12, elevation: 1 },
-  judul: { fontSize: 18, fontWeight: '700', color: warna.teks },
-  teks: { fontSize: 15, color: warna.teks, marginTop: 4 },
-  abu: { fontSize: 13, color: warna.abu, marginTop: 4 },
-  input: { backgroundColor: '#fff', borderWidth: 1, borderColor: '#cfd6e0', borderRadius: 8, padding: 10, marginBottom: 10, fontSize: 15 },
-  tombol: { backgroundColor: warna.utama, borderRadius: 8, paddingVertical: 12, alignItems: 'center', marginBottom: 10 },
-  tombolTeks: { color: '#fff', fontWeight: '700', fontSize: 15 },
-  error: { color: warna.bahaya, marginBottom: 8 },
+  layar: { flex: 1, backgroundColor: tema.warna.latar, padding: tema.spasi.lg },
+  kartu: { backgroundColor: tema.warna.kartu, borderRadius: tema.radius.md, padding: 14, marginBottom: tema.spasi.md, elevation: 1 },
+  judul: { fontSize: tema.font.judul, fontWeight: '700', color: tema.warna.teks },
+  teks: { fontSize: tema.font.isi, color: tema.warna.teks, marginTop: tema.spasi.xs },
+  abu: { fontSize: tema.font.kecil, color: tema.warna.abu, marginTop: tema.spasi.xs },
+  input: { backgroundColor: tema.warna.kartu, borderWidth: 1, borderColor: tema.warna.garis, borderRadius: tema.radius.sm, padding: 10, marginBottom: 10, fontSize: tema.font.isi },
+  tombol: { backgroundColor: tema.warna.utama, borderRadius: tema.radius.sm, minHeight: tema.tinggiTombol, justifyContent: 'center', alignItems: 'center', marginBottom: 10 },
+  tombolTeks: { color: '#fff', fontWeight: '700', fontSize: tema.font.isi },
+  error: { color: tema.warna.bahaya, marginBottom: tema.spasi.sm },
 });</code></pre>
     </div></div><!--/split-->
   </section>
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 3 · Tema, Menu, dan Layout Navigasi</p>
-    <h2>src/menu.ts<span class="part">2 dari 4</span></h2>
+    <p class="kicker">Praktik · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
+    <h2>src/menu.ts<span class="part">3 dari 5</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>src/menu.ts</span></div>
 <div class="instr"><p>Buat file <code>src/menu.ts</code>:</p></div>
 <pre><code>export const MENU = [
-  { href: '/notes', judul: 'Catatan', ket: 'SQLite: tambah, ubah, hapus (Modul 2 dan 3)' },
+  { href: '/notes', judul: 'Catatan', ket: 'SQLite: tambah, ubah, hapus, simpan lokasi GPS (Modul 3 dan 4)' },
   { href: '/location', judul: 'Lokasi dan Peta', ket: 'GPS, jarak, peta OpenStreetMap (Modul 4)' },
-  { href: '/network', judul: 'Jaringan Seluler', ket: 'Status koneksi dan jenis jaringan (Modul 5)' },
-  { href: '/sensor', judul: 'Sensor', ket: 'Akselerometer dan protokol sensor (Modul 6)' },
+  { href: '/network', judul: 'Jaringan Seluler', ket: 'Status koneksi dan jenis jaringan (Modul 7)' },
+  { href: '/sinkron', judul: 'API dan Sinkronisasi', ket: 'Login, kirim dan ambil catatan dari server (Modul 5 dan 7)' },
+  { href: '/sensor', judul: 'Sensor', ket: 'Akselerometer, giroskop, kompas, deteksi guncangan (Modul 6)' },
   { href: '/device', judul: 'Info Perangkat', ket: 'Model, OS, memori (Modul 6)' },
   { href: '/keamanan', judul: 'Keamanan', ket: 'HTTPS dan penyimpanan aman (Modul 7)' },
 ] as const;</code></pre>
@@ -294,8 +335,8 @@ export const gaya = StyleSheet.create({
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 3 · Tema, Menu, dan Layout Navigasi</p>
-    <h2>src/components/Tombol.tsx<span class="part">3 dari 4</span></h2>
+    <p class="kicker">Praktik · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
+    <h2>src/components/Tombol.tsx<span class="part">4 dari 5</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>src/components/Tombol.tsx</span></div>
 <div class="instr"><p>Buat file <code>src/components/Tombol.tsx</code>:</p></div>
 <pre><code>import { Pressable, Text } from 'react-native';
@@ -320,8 +361,8 @@ export function Tombol({ label, onPress, bahaya, testID }: Props) {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 3 · Tema, Menu, dan Layout Navigasi</p>
-    <h2>app/_layout.tsx<span class="part">4 dari 4</span></h2>
+    <p class="kicker">Praktik · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
+    <h2>app/_layout.tsx<span class="part">5 dari 5</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>app/_layout.tsx</span></div>
 <div class="instr"><p>Buat file <code>app/_layout.tsx</code>:</p></div>
 <pre><code>import { Stack } from 'expo-router';
@@ -334,6 +375,7 @@ export default function RootLayout() {
       &lt;Stack.Screen name="note-form" options={{ title: 'Form Catatan' }} /&gt;
       &lt;Stack.Screen name="location" options={{ title: 'Lokasi dan Peta' }} /&gt;
       &lt;Stack.Screen name="network" options={{ title: 'Jaringan Seluler' }} /&gt;
+      &lt;Stack.Screen name="sinkron" options={{ title: 'API dan Sinkronisasi' }} /&gt;
       &lt;Stack.Screen name="sensor" options={{ title: 'Sensor' }} /&gt;
       &lt;Stack.Screen name="device" options={{ title: 'Info Perangkat' }} /&gt;
       &lt;Stack.Screen name="keamanan" options={{ title: 'Keamanan' }} /&gt;
@@ -345,9 +387,9 @@ export default function RootLayout() {
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <p class="kicker">Teori · Step 3 · Desain di Figma dan Stitch, Token, Tema, dan Navigasi</p>
     <h2>Penjelasan Kode</h2>
-<div class="cards"><div class="card"><h3><code>src/ui.ts</code></h3><ul><li><code>warna</code> dan <code>gaya</code> dipakai ulang oleh semua halaman.</li><li>Satu tempat untuk mengubah tampilan.</li></ul></div><div class="card"><h3><code>src/menu.ts</code></h3><ul><li>Data menu: alamat, judul, keterangan.</li><li><code>as const</code> membuat alamat dikenali tipe route.</li></ul></div><div class="card"><h3><code>src/components/Tombol.tsx</code></h3><ul><li>Komponen tombol yang dapat dipakai ulang.</li><li>Prop <code>bahaya</code> mengubah warna menjadi merah.</li></ul></div><div class="card"><h3><code>app/_layout.tsx</code></h3><ul><li><code>Stack</code> membungkus semua halaman.</li><li><code>Stack.Screen</code> mengatur judul tiap halaman.</li></ul></div></div>
+<div class="cards"><div class="card"><h3><code>src/theme.ts</code></h3><ul><li>Token desain: warna, spasi, radius, font, dan tinggi tombol.</li><li>Nilainya berasal dari variable di Figma.</li></ul></div><div class="card"><h3><code>src/ui.ts</code></h3><ul><li><code>warna</code> dan <code>gaya</code> dipakai ulang oleh semua halaman.</li><li>Satu tempat untuk mengubah tampilan.</li></ul></div><div class="card"><h3><code>src/menu.ts</code></h3><ul><li>Data menu: alamat, judul, keterangan.</li><li><code>as const</code> membuat alamat dikenali tipe route.</li></ul></div><div class="card"><h3><code>src/components/Tombol.tsx</code></h3><ul><li>Komponen tombol yang dapat dipakai ulang.</li><li>Prop <code>bahaya</code> mengubah warna menjadi merah.</li></ul></div><div class="card"><h3><code>app/_layout.tsx</code></h3><ul><li><code>Stack</code> membungkus semua halaman.</li><li><code>Stack.Screen</code> mengatur judul tiap halaman.</li></ul></div></div>
     </div></div><!--/split-->
   </section>
 
@@ -362,16 +404,16 @@ export default function RootLayout() {
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 10.05</p>
-    <h2>Step 4: Halaman Beranda</h2>
-<h3>File pada step ini</h3><ol><li><code>app/index.tsx</code></li><li><code>Terminal</code></li></ol>
+    <p class="kicker">Hari 1 · 11.00</p>
+    <h2>Step 4: Halaman Beranda dan Menerapkan Gaya dengan AI</h2>
+<h3>File pada step ini</h3><ol><li><code>app/index.tsx</code></li><li><code>Terminal</code></li><li><code>Kode TypeScript</code></li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 4 · Halaman Beranda</p>
+    <p class="kicker">Teori · Step 4 · Halaman Beranda dan Menerapkan Gaya dengan AI</p>
     <h2>Daftar menu dengan map</h2>
 <ul><li><code>MENU.map(...)</code> mengubah array data menjadi daftar komponen.</li><li>Atribut <code>key</code> wajib agar React dapat melacak tiap item.</li><li>Memisahkan data menu dari tampilan memudahkan penambahan halaman baru.</li></ul>
     </div></div><!--/split-->
@@ -379,8 +421,8 @@ export default function RootLayout() {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 4 · Halaman Beranda</p>
-    <h2>app/index.tsx<span class="part">1 dari 2</span></h2>
+    <p class="kicker">Praktik · Step 4 · Halaman Beranda dan Menerapkan Gaya dengan AI</p>
+    <h2>app/index.tsx<span class="part">1 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>app/index.tsx</span></div>
 <div class="instr"><p>Buat file <code>app/index.tsx</code>:</p></div>
 <pre><code>import { Link } from 'expo-router';
@@ -408,17 +450,33 @@ export default function Beranda() {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 4 · Halaman Beranda</p>
-    <h2>Terminal<span class="part">2 dari 2</span></h2>
+    <p class="kicker">Praktik · Step 4 · Halaman Beranda dan Menerapkan Gaya dengan AI</p>
+    <h2>Terminal<span class="part">2 dari 3</span></h2>
 <div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
 <div class="instr"><p>Jalankan aplikasi dan buka lewat Expo Go dengan memindai kode QR:</p></div>
 <pre><code>npx expo start</code></pre>
     </div></div><!--/split-->
   </section>
 
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 4 · Halaman Beranda dan Menerapkan Gaya dengan AI</p>
+    <h2>Kode TypeScript<span class="part">3 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>Kode TypeScript</span></div>
+<div class="instr"><p>Menu tampil, tetapi ketukan belum membuka halaman karena halamannya belum dibuat. Itu normal, halaman dibuat pada step berikutnya.</p>
+<h3>Menerapkan gaya baru dengan AI</h3>
+<p>Gunakan asisten AI (misalnya Claude atau Gemini) untuk menerapkan gaya dari Figma. Contoh prompt berkonteks:</p></div>
+<pre><code>Konteks: aplikasi Expo + TypeScript. Warna, spasi, radius, dan font ada di src/theme.ts,
+gaya komponen dibuat dari tema di src/ui.ts. Saya lampirkan tangkapan layar Figma.
+Tujuan: ubah gaya menjadi tema gelap. Ubah HANYA src/theme.ts dan src/ui.ts,
+jangan ubah logika. Jaga kontras teks dan target sentuh tombol minimal 48.
+Berikan perubahan sebagai diff dan jelaskan alasannya.</code></pre>
+    </div></div><!--/split-->
+  </section>
+
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 4 · Halaman Beranda</p>
+    <p class="kicker">Teori · Step 4 · Halaman Beranda dan Menerapkan Gaya dengan AI</p>
     <h2>Penjelasan Kode</h2>
 <div class="cards"><div class="card"><h3><code>app/index.tsx</code></h3><ul><li><code>MENU.map</code> membuat satu kartu per menu.</li><li><code>Link</code> dengan <code>asChild</code> membuat kartu bisa diketuk.</li></ul></div></div>
     </div></div><!--/split-->
@@ -428,14 +486,14 @@ export default function Beranda() {
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Step 4 · cek hasil</p>
     <h2>Uji dan Periksa</h2>
-<p>Menu tampil, tetapi ketukan belum membuka halaman karena halamannya belum dibuat. Itu normal, halaman dibuat pada step berikutnya.</p>
+<p>Setelah AI mengubah kode: jalankan <code>npm run typecheck</code>, lihat hasilnya di ponsel, dan <strong>tinjau diff</strong> sebelum menerima. Jangan menempelkan token atau kata sandi ke alat AI.</p>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 10.30</p>
+    <p class="kicker">Hari 1 · 13.00</p>
     <h2>Step 5: Model Data Catatan</h2>
 <h3>File pada step ini</h3><ol><li><code>src/models/note.ts</code></li></ol>
     </div></div><!--/split-->
@@ -458,6 +516,7 @@ export default function Beranda() {
 <div class="instr"><p>Buat file <code>src/models/note.ts</code>:</p></div>
 <pre><code>export type Note = {
   id?: number;
+  serverId?: number | null;
   title: string;
   content: string;
   latitude: number | null;
@@ -472,7 +531,7 @@ export function noteBaru(
   latitude: number | null = null,
   longitude: number | null = null,
 ): Note {
-  return { title, content, latitude, longitude, updatedAt: Date.now(), syncStatus: 'PENDING' };
+  return { title, content, latitude, longitude, serverId: null, updatedAt: Date.now(), syncStatus: 'PENDING' };
 }
 
 /** Mengembalikan pesan error jika judul tidak valid, atau null jika valid. */
@@ -480,6 +539,12 @@ export function validasiJudul(judul: string): string | null {
   if (judul.trim().length === 0) return 'Judul wajib diisi.';
   if (judul.trim().length &gt; 100) return 'Judul maksimal 100 karakter.';
   return null;
+}
+
+/** Teks koordinat untuk ditampilkan, atau null bila catatan tidak punya lokasi. */
+export function formatKoordinat(n: Pick&lt;Note, 'latitude' | 'longitude'&gt;): string | null {
+  if (n.latitude == null || n.longitude == null) return null;
+  return `${n.latitude.toFixed(5)}, ${n.longitude.toFixed(5)}`;
 }</code></pre>
     </div></div><!--/split-->
   </section>
@@ -503,8 +568,9 @@ export function validasiJudul(judul: string): string | null {
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 10.50</p>
+    <p class="kicker">Hari 1 · 13.20</p>
     <h2>Step 6: Database SQLite</h2>
+<p><strong>SQLite atau MySQL?</strong> SQLite adalah berkas di ponsel tanpa server, cocok untuk penyimpanan lokal dan tetap jalan offline. MySQL adalah basis data server untuk banyak pengguna. Aplikasi mobile <strong>tidak boleh terhubung langsung ke MySQL</strong> (kata sandi basis data ikut di aplikasi dan port basis data terbuka ke internet). Jalurnya: ponsel, lalu API, lalu MySQL. Hari 2 membahas API-nya; skema MySQL contoh ada di <code>shared/server/schema.sql</code>.</p>
 <h3>File pada step ini</h3><ol><li><code>src/data/database.ts</code></li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
@@ -545,7 +611,8 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
           latitude REAL,
           longitude REAL,
           updated_at INTEGER NOT NULL,
-          sync_status TEXT NOT NULL DEFAULT 'PENDING'
+          sync_status TEXT NOT NULL DEFAULT 'PENDING',
+          server_id INTEGER
         );
         CREATE INDEX IF NOT EXISTS idx_notes_updated_at ON notes(updated_at);
       `);
@@ -576,7 +643,7 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 11.05</p>
+    <p class="kicker">Hari 1 · 13.50</p>
     <h2>Step 7: Repository</h2>
 <h3>File pada step ini</h3><ol><li><code>src/data/noteRepository.ts</code></li></ol>
     </div></div><!--/split-->
@@ -608,10 +675,12 @@ type Row = {
   longitude: number | null;
   updated_at: number;
   sync_status: 'PENDING' | 'SYNCED';
+  server_id: number | null;
 };
 
 const dariRow = (r: Row): Note =&gt; ({
   id: r.id,
+  serverId: r.server_id,
   title: r.title,
   content: r.content,
   latitude: r.latitude,
@@ -644,6 +713,29 @@ export async function simpanCatatan(n: Note): Promise&lt;void&gt; {
 export async function hapusCatatan(id: number): Promise&lt;void&gt; {
   const db = await getDb();
   await db.runAsync('DELETE FROM notes WHERE id = ?', [id]);
+}
+
+/** Catatan yang belum dikirim ke server. */
+export async function catatanPending(): Promise&lt;Note[]&gt; {
+  const db = await getDb();
+  const rows = await db.getAllAsync&lt;Row&gt;("SELECT * FROM notes WHERE sync_status = 'PENDING'");
+  return rows.map(dariRow);
+}
+
+export async function tandaiSynced(id: number, serverId: number): Promise&lt;void&gt; {
+  const db = await getDb();
+  await db.runAsync("UPDATE notes SET sync_status = 'SYNCED', server_id = ? WHERE id = ?", [serverId, id]);
+}
+
+/** Menyimpan catatan yang berasal dari server sebagai SYNCED, bila belum ada di lokal. */
+export async function simpanDariServer(n: Note &amp; { serverId: number }): Promise&lt;void&gt; {
+  const db = await getDb();
+  const ada = await db.getFirstAsync&lt;{ id: number }&gt;('SELECT id FROM notes WHERE server_id = ?', [n.serverId]);
+  if (ada) return;
+  await db.runAsync(
+    "INSERT INTO notes (title, content, latitude, longitude, updated_at, sync_status, server_id) VALUES (?, ?, ?, ?, ?, 'SYNCED', ?)",
+    [n.title, n.content, n.latitude, n.longitude, n.updatedAt, n.serverId],
+  );
 }</code></pre>
     </div></div><!--/split-->
   </section>
@@ -667,7 +759,7 @@ export async function hapusCatatan(id: number): Promise&lt;void&gt; {
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 11.30</p>
+    <p class="kicker">Hari 1 · 14.20</p>
     <h2>Step 8: Halaman Catatan dan Form</h2>
 <h3>File pada step ini</h3><ol><li><code>app/notes.tsx</code></li><li><code>app/note-form.tsx</code></li></ol>
     </div></div><!--/split-->
@@ -693,7 +785,7 @@ import { useCallback, useState } from 'react';
 import { Alert, FlatList, Pressable, Text, View } from 'react-native';
 import { Tombol } from '../src/components/Tombol';
 import { hapusCatatan, semuaCatatan } from '../src/data/noteRepository';
-import { Note } from '../src/models/note';
+import { formatKoordinat, Note } from '../src/models/note';
 import { gaya } from '../src/ui';
 
 export default function Catatan() {
@@ -724,6 +816,7 @@ export default function Catatan() {
           &gt;
             &lt;Text style={gaya.judul}&gt;{item.title}&lt;/Text&gt;
             &lt;Text style={gaya.teks} numberOfLines={2}&gt;{item.content}&lt;/Text&gt;
+            {formatKoordinat(item) &amp;&amp; &lt;Text style={gaya.abu}&gt;Lokasi: {formatKoordinat(item)}&lt;/Text&gt;}
             &lt;Text style={gaya.abu}&gt;Status sinkron: {item.syncStatus} · tahan lama untuk menghapus&lt;/Text&gt;
           &lt;/Pressable&gt;
         )}
@@ -745,7 +838,8 @@ import { useEffect, useState } from 'react';
 import { Text, TextInput, View } from 'react-native';
 import { Tombol } from '../src/components/Tombol';
 import { semuaCatatan, simpanCatatan } from '../src/data/noteRepository';
-import { Note, noteBaru, validasiJudul } from '../src/models/note';
+import { formatKoordinat, Note, noteBaru, validasiJudul } from '../src/models/note';
+import { posisiSekarang } from '../src/services/locationService';
 import { gaya } from '../src/ui';
 
 export default function FormCatatan() {
@@ -754,22 +848,40 @@ export default function FormCatatan() {
   const [lama, setLama] = useState&lt;Note | null&gt;(null);
   const [judul, setJudul] = useState('');
   const [isi, setIsi] = useState('');
+  const [lokasi, setLokasi] = useState&lt;{ latitude: number; longitude: number } | null&gt;(null);
   const [error, setError] = useState&lt;string | null&gt;(null);
 
   useEffect(() =&gt; {
     if (!id) return;
     semuaCatatan().then((semua) =&gt; {
       const n = semua.find((x) =&gt; String(x.id) === id);
-      if (n) { setLama(n); setJudul(n.title); setIsi(n.content); }
+      if (n) {
+        setLama(n);
+        setJudul(n.title);
+        setIsi(n.content);
+        if (n.latitude != null &amp;&amp; n.longitude != null) setLokasi({ latitude: n.latitude, longitude: n.longitude });
+      }
     });
   }, [id]);
+
+  const ambilLokasi = async () =&gt; {
+    try {
+      setError(null);
+      const p = await posisiSekarang();
+      setLokasi({ latitude: p.latitude, longitude: p.longitude });
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  };
 
   const simpan = async () =&gt; {
     const pesan = validasiJudul(judul);
     if (pesan) return setError(pesan);
+    const lat = lokasi?.latitude ?? null;
+    const lon = lokasi?.longitude ?? null;
     const n = lama
-      ? { ...lama, title: judul.trim(), content: isi.trim() }
-      : noteBaru(judul.trim(), isi.trim());
+      ? { ...lama, title: judul.trim(), content: isi.trim(), latitude: lat, longitude: lon }
+      : noteBaru(judul.trim(), isi.trim(), lat, lon);
     await simpanCatatan(n);
     router.back();
   };
@@ -778,6 +890,8 @@ export default function FormCatatan() {
     &lt;View style={gaya.layar}&gt;
       &lt;TextInput testID="input-judul" style={gaya.input} placeholder="Judul" value={judul} onChangeText={(t) =&gt; { setJudul(t); setError(null); }} /&gt;
       &lt;TextInput testID="input-isi" style={[gaya.input, { height: 140, textAlignVertical: 'top' }]} placeholder="Isi catatan" multiline value={isi} onChangeText={setIsi} /&gt;
+      &lt;Tombol label={lokasi ? 'Perbarui lokasi saya' : 'Sertakan lokasi saya (GPS)'} onPress={ambilLokasi} /&gt;
+      {lokasi &amp;&amp; &lt;Text style={gaya.abu}&gt;Lokasi tersimpan bersama catatan: {formatKoordinat(lokasi)}&lt;/Text&gt;}
       {error &amp;&amp; &lt;Text style={gaya.error}&gt;{error}&lt;/Text&gt;}
       &lt;Tombol label="Simpan" onPress={simpan} testID="tombol-simpan" /&gt;
     &lt;/View&gt;
@@ -805,7 +919,7 @@ export default function FormCatatan() {
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 13.00</p>
+    <p class="kicker">Hari 1 · 15.00</p>
     <h2>Step 9: Layanan Lokasi dan Jarak</h2>
 <h3>File pada step ini</h3><ol><li><code>src/services/distance.ts</code></li><li><code>src/services/locationService.ts</code></li></ol>
     </div></div><!--/split-->
@@ -896,8 +1010,8 @@ export async function alamatDari(latitude: number, longitude: number): Promise&l
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 14.00</p>
-    <h2>Step 10: Peta dan Halaman Lokasi</h2>
+    <p class="kicker">Hari 1 · 15.40</p>
+    <h2>Step 10: Peta dan Simpan GPS ke SQLite</h2>
 <h3>File pada step ini</h3><ol><li><code>src/services/petaHtml.ts</code></li><li><code>src/components/LeafletMap.tsx</code></li><li><code>app/location.tsx</code></li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
@@ -905,7 +1019,7 @@ export async function alamatDari(latitude: number, longitude: number): Promise&l
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 10 · Peta dan Halaman Lokasi</p>
+    <p class="kicker">Teori · Step 10 · Peta dan Simpan GPS ke SQLite</p>
     <h2>Peta tanpa API key</h2>
 <ul><li><strong>OpenStreetMap</strong> adalah peta terbuka. <strong>Leaflet</strong> adalah pustaka JavaScript untuk menampilkannya.</li><li><code>WebView</code> menampilkan halaman web di dalam aplikasi, jadi peta cukup berupa HTML.</li><li>HTML dibuat oleh fungsi biasa (<code>buatHtmlPeta</code>) sehingga bisa diuji tanpa perangkat.</li><li>Peta butuh internet untuk mengunduh ubin gambar.</li></ul>
     </div></div><!--/split-->
@@ -913,7 +1027,7 @@ export async function alamatDari(latitude: number, longitude: number): Promise&l
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 10 · Peta dan Halaman Lokasi</p>
+    <p class="kicker">Praktik · Step 10 · Peta dan Simpan GPS ke SQLite</p>
     <h2>src/services/petaHtml.ts<span class="part">1 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>src/services/petaHtml.ts</span></div>
 <div class="instr"><p>Buat file <code>src/services/petaHtml.ts</code>:</p></div>
@@ -940,7 +1054,7 @@ L.marker([${latitude}, ${longitude}]).addTo(map).bindPopup(${teks}).openPopup();
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 10 · Peta dan Halaman Lokasi</p>
+    <p class="kicker">Praktik · Step 10 · Peta dan Simpan GPS ke SQLite</p>
     <h2>src/components/LeafletMap.tsx<span class="part">2 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>src/components/LeafletMap.tsx</span></div>
 <div class="instr"><p>Buat file <code>src/components/LeafletMap.tsx</code>:</p></div>
@@ -961,7 +1075,7 @@ export function LeafletMap(props: TitikPeta) {
 
   <section class="slide code">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Praktik · Step 10 · Peta dan Halaman Lokasi</p>
+    <p class="kicker">Praktik · Step 10 · Peta dan Simpan GPS ke SQLite</p>
     <h2>app/location.tsx<span class="part">3 dari 3</span></h2>
 <div class="filebar"><b>SALIN KE FILE</b><span>app/location.tsx</span></div>
 <div class="instr"><p>Buat file <code>app/location.tsx</code>:</p></div>
@@ -1019,7 +1133,7 @@ export default function Lokasi() {
 
   <section class="slide teori">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Teori · Step 10 · Peta dan Halaman Lokasi</p>
+    <p class="kicker">Teori · Step 10 · Peta dan Simpan GPS ke SQLite</p>
     <h2>Penjelasan Kode</h2>
 <div class="cards"><div class="card"><h3><code>src/services/petaHtml.ts</code></h3><ul><li>Membuat HTML Leaflet dengan koordinat yang diberikan.</li><li><code>JSON.stringify</code> mengamankan teks judul di dalam skrip.</li></ul></div><div class="card"><h3><code>src/components/LeafletMap.tsx</code></h3><ul><li><code>WebView</code> menampilkan HTML peta.</li><li>Dipisah dari pembuat HTML agar HTML dapat diuji.</li></ul></div><div class="card"><h3><code>app/location.tsx</code></h3><ul><li>Tombol mengambil posisi, alamat, dan jarak ke titik acuan.</li><li>Kesalahan izin ditampilkan sebagai pesan.</li></ul></div></div>
     </div></div><!--/split-->
@@ -1030,13 +1144,16 @@ export default function Lokasi() {
     <p class="kicker">Step 10 · cek hasil</p>
     <h2>Uji dan Periksa</h2>
 <p>Peta memakai OpenStreetMap lewat Leaflet di dalam <code>WebView</code>, sehingga tidak perlu API key. Ubah <code>ACUAN</code> bila ingin jarak ke tempat lain.</p>
+<h3>Simpan GPS ke SQLite</h3>
+<p><code>app/note-form.tsx</code> (dibuat pada Step 8) sudah memiliki tombol <strong>Sertakan lokasi saya (GPS)</strong>. Tombol memanggil <code>posisiSekarang()</code>, hasilnya disimpan di state <code>lokasi</code>, lalu <code>latitude</code> dan <code>longitude</code> masuk ke dua kolom tabel <code>notes</code> saat catatan disimpan. <code>app/notes.tsx</code> menampilkan koordinat memakai <code>formatKoordinat</code>.</p>
+<p>Uji: buat catatan dengan lokasi, tutup aplikasi sepenuhnya, buka lagi, dan pastikan koordinat tetap tampil. Lalu tolak izin lokasi dan pastikan catatan tetap bisa disimpan tanpa koordinat.</p>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>
 
   <section class="slide opener">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 14.30</p>
+    <p class="kicker">Hari 1 · 16.30</p>
     <h2>Step 11: Pengujian Hari 1</h2>
 <h3>File pada step ini</h3><ol><li><code>__tests__/distance.test.ts</code></li><li><code>__tests__/note.test.ts</code></li><li><code>__tests__/map.test.ts</code></li><li><code>Terminal</code></li></ol>
     </div></div><!--/split-->
@@ -1097,6 +1214,13 @@ describe('catatan', () =&gt; {
     expect(n.syncStatus).toBe('PENDING');
     expect(n.id).toBeUndefined();
   });
+});
+
+import { formatKoordinat } from '../src/models/note';
+
+describe('formatKoordinat', () =&gt; {
+  it('tanpa lokasi menghasilkan null', () =&gt; expect(formatKoordinat({ latitude: null, longitude: null })).toBeNull());
+  it('lima angka di belakang koma', () =&gt; expect(formatKoordinat({ latitude: -6.9175, longitude: 107.6191 })).toBe('-6.91750, 107.61910'));
 });</code></pre>
     </div></div><!--/split-->
   </section>
@@ -1147,9 +1271,9 @@ npm run typecheck</code></pre>
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Hari 1 · 15.00</p>
+    <p class="kicker">Hari 1 · 16.45</p>
     <h2>Latihan Mandiri</h2>
-<ol><li>Tambahkan tombol <strong>Simpan lokasi</strong> pada form catatan, isi <code>latitude</code> dan <code>longitude</code> dari <code>posisiSekarang()</code>.</li><li>Tampilkan jarak dari posisi pengguna pada setiap kartu catatan yang punya koordinat.</li><li>Tambahkan pencarian judul pada halaman catatan dengan <code>TextInput</code> dan <code>filter</code>.</li><li>Tulis satu pengujian tambahan untuk <code>validasiJudul</code> dengan judul tepat 100 karakter.</li></ol>
+<ol><li>Tambahkan pesan khusus saat izin lokasi ditolak pada form catatan.</li><li>Tampilkan jarak dari posisi pengguna pada setiap kartu catatan yang punya koordinat.</li><li>Tambahkan pencarian judul pada halaman catatan dengan <code>TextInput</code> dan <code>filter</code>.</li><li>Tulis satu pengujian tambahan untuk <code>validasiJudul</code> dengan judul tepat 100 karakter.</li></ol>
     </div></div><!--/split-->
     <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
   </section>

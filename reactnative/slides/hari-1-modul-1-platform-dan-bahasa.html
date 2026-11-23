@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modul 1: Platform Operating System dan Bahasa Pemrograman</title>
+  <title>Modul 1: Instalasi Platform, Emulator, dan Environment</title>
   <link rel="stylesheet" href="../../shared/assets/slides.css">
 </head>
 <body data-lang="tsx">
@@ -12,19 +12,28 @@
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 09.00 to 10.00 · React Native</p>
-    <h1>Modul 1: Platform dan Bahasa</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjelaskan perbedaan platform Android dan iOS</li><li>Memilih pendekatan native atau cross-platform sesuai kebutuhan</li><li>Menulis TypeScript dasar</li><li>Membuat dan menjalankan proyek React Native dengan Expo</li></ol>
+    <h1>Modul 1: Instalasi dan Platform</h1><h2>Tujuan Pembelajaran</h2><ol><li>Memasang Node.js, editor, dan emulator atau Expo Go</li><li>Menjelaskan perbedaan Android dan iOS serta pilihan native atau cross-platform</li><li>Menulis TypeScript dasar</li><li>Membuat dan menjalankan proyek React Native dengan Expo</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
-    <aside class="notes">Kita mulai dari pertanyaan paling dasar: aplikasi di ponsel itu sebenarnya berjalan di atas apa? Dua sistem operasi menguasai pasar, Android dan iOS, dan keduanya punya bahasa, alat, dan aturan sendiri. Di modul ini peserta mengenal perbedaannya, memahami mengapa ada kerangka kerja lintas platform, lalu menjalankan aplikasi pertama di perangkat sendiri. Targetnya sederhana: di akhir modul, semua peserta punya aplikasi yang berjalan dan bisa menjelaskan mengapa teknologi ini dipilih.</aside>
+    <aside class="notes">Hari pertama dimulai dari fondasi: semua peserta harus punya lingkungan kerja yang berjalan. Satu jam ini dipakai memasang Node.js, editor, dan emulator atau Expo Go, sambil memahami perbedaan Android dan iOS serta alasan memilih kerangka kerja lintas platform. Peserta yang memilih Flutter mengikuti jalur Flutter, yang memilih React Native mengikuti jalur ini. Target akhir jam ini: satu aplikasi kosong tampil di perangkat atau emulator.</aside>
   </section>
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Sertifikasi BNSP</p>
     <h2>Peta Kompetensi: J.612000.001.01</h2>
-<h3>Platform Operating System dan Bahasa Pemrograman</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mengenali jenis platform OS mobile</li><li>Menentukan platform OS sesuai kebutuhan pengguna</li><li>Menjelaskan bahasa pemrograman mobile</li></ol><p><strong>Bukti pada pelatihan ini:</strong> tabel platform, <code>src/models/note.ts</code>, aplikasi berjalan di Expo Go</p>
+<h3>Instalasi Platform, Emulator, dan Environment</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mengenali jenis platform OS mobile</li><li>Menentukan platform OS sesuai kebutuhan pengguna</li><li>Menjelaskan bahasa pemrograman mobile</li></ol><p><strong>Bukti pada pelatihan ini:</strong> tabel platform, <code>src/models/note.ts</code>, aplikasi berjalan di Expo Go</p>
     </div></div><!--/split-->
     <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Menyiapkan environment</h2>
+<table><tr><th>Kebutuhan</th><th>React Native (Expo)</th><th>Flutter</th></tr><tr><td>Bahasa</td><td>TypeScript (butuh Node.js LTS)</td><td>Dart (ikut Flutter SDK)</td></tr><tr><td>Editor</td><td>VS Code</td><td>VS Code atau Android Studio</td></tr><tr><td>Menjalankan di ponsel</td><td>Expo Go + kode QR</td><td>Kabel USB atau emulator</td></tr><tr><td>Emulator Android</td><td>Android Studio, Device Manager</td><td>Android Studio, Device Manager</td></tr><tr><td>Perintah cek</td><td><code>node -v</code> dan <code>npx expo --version</code></td><td><code>flutter doctor</code></td></tr></table>
+    </div></div><!--/split-->
+    <aside class="notes">Mulai dengan memastikan semua orang punya hal yang sama. Minta peserta menjalankan perintah cek versi dan membacakan hasilnya. Emulator butuh komputer yang cukup kuat, jadi tawarkan Expo Go di ponsel sebagai jalan keluar. Peserta Flutter memakai flutter doctor sebagai pemeriksa. Jangan lanjut sebelum mayoritas peserta berhasil.</aside>
   </section>
 
   <section class="slide">
@@ -102,9 +111,9 @@ export function Tombol({ label, onPress, bahaya, testID }: Props) {
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan dan Coba</p>
     <h2>Tugas Modul 1</h2>
-<ol><li>Pasang Node.js, Expo Go, dan jalankan <code>npx expo start</code>.</li><li>Ubah teks pada <code>app/index.tsx</code> dan lihat perubahan langsung (Fast Refresh).</li><li>Tulis fungsi TypeScript yang menghitung rata-rata nilai dari array.</li></ol>
+<ol><li>Pasang Node.js, Expo Go, dan jalankan <code>npx expo start</code>.</li><li>Buat emulator di Android Studio atau siapkan ponsel dengan Expo Go.</li><li>Ubah teks pada <code>app/index.tsx</code> dan lihat perubahan langsung (Fast Refresh).</li></ol>
     </div></div><!--/split-->
-    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 0 sampai 4</a> · Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 0 sampai 2</a> · Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
     <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 5: API dan Menghubungkan Aplikasi Mobile</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 09.00 to 10.00 · React Native</p>
+    <h1>Modul 5: API Dasar</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjelaskan REST, metode HTTP, kode status, dan JSON</li><li>Menjalankan server latihan</li><li>Memanggil API dari aplikasi dengan <code>fetch</code></li><li>Menangani gagal: status error, timeout, dan jaringan mati</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-2/05-api-dasar.md">docs/hari-2/05-api-dasar.md</a></p>
+    <aside class="notes">Hari kedua dimulai dengan satu jam untuk memahami API. Aplikasi kita berbicara dengan server memakai permintaan dan jawaban. Peserta menjalankan server latihan di komputer, mencoba rute-rutenya, lalu memanggilnya dari aplikasi dengan fetch. Pertanyaan kuncinya: apa yang dilakukan aplikasi bila server mati atau menjawab error?</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.025.01</h2>
+<h3>API dan Menghubungkan Aplikasi Mobile</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Memahami protokol dan komunikasi data</li><li>Mengakses jaringan dari aplikasi</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>shared/server/app.js</code>, <code>src/services/httpsService.ts</code>, <code>src/services/apiClient.ts</code>, halaman Sinkronisasi</p>
+    </div></div><!--/split-->
+    <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Apa itu API</h2>
+<ul><li>**API** adalah pintu bagi program lain untuk meminta atau mengubah data.</li><li>**REST** memakai alamat (URL) untuk sumber daya dan **metode HTTP** untuk aksinya, data umumnya **JSON**.</li><li>Aplikasi adalah **klien**, server menjawab. Satu permintaan, satu jawaban.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Pakai analogi pelayan restoran: aplikasi adalah tamu, API adalah pelayan, dapur adalah server dan basis data. Tamu tidak masuk ke dapur. Dari sini mudah menjelaskan mengapa ponsel tidak langsung ke basis data.</aside>
+  </section>
+
+  <section class="slide" data-sim="rest">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Metode dan kode status</h2>
+<table><tr><th>Metode</th><th>Aksi</th><th>Status berhasil</th></tr><tr><td>GET /notes</td><td>Baca daftar</td><td>200</td></tr><tr><td>POST /notes</td><td>Buat baru</td><td>201</td></tr><tr><td>PUT /notes/:id</td><td>Ubah</td><td>200</td></tr><tr><td>DELETE /notes/:id</td><td>Hapus</td><td>204 (tanpa isi)</td></tr><tr><td>Kesalahan klien</td><td>Data salah, belum login, tidak ada</td><td>400, 401, 404</td></tr></table>
+    </div></div><!--/split-->
+    <aside class="notes">Buka simulasi pembuat permintaan REST. Pilih tiap permintaan, lalu ubah kondisi menjadi tanpa token, judul kosong, tidak ada, dan server mati. Minta peserta menebak kode status dan tindakan aplikasi sebelum Anda menekan tombol.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Server latihan</h2>
+<ul><li>Ada di <code>shared/server</code>: Express, penyimpanan di memori, <code>npm start</code> pada port 3000.</li><li>Login contoh: <code>peserta@contoh.id</code> dengan kata sandi <code>rahasia123</code>. Server mengembalikan **token**.</li><li>Emulator Android mengakses komputer lewat <code>10.0.2.2</code>. Ponsel fisik memakai alamat IP komputer di Wi-Fi yang sama.</li><li>Tersedia 4 pengujian otomatis: <code>npm test</code>.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Pandu peserta menjalankan server dan membuka alamat health di peramban. Bila ada yang gagal, periksa dulu apakah port 3000 dipakai dan apakah emulator memakai 10.0.2.2. Ponsel fisik wajib satu Wi-Fi dengan komputer.</aside>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Memanggil API dengan fetch</h2>
+<p><code>requestJson</code> membatasi waktu, memeriksa status, dan melempar <code>ApiError</code> bermuatan pesan server.</p><p class="ref"><code>src/services/httpsService.ts</code></p><pre><code>export async function requestJson(metode: string, url: string, opsi: OpsiRequest = {}): Promise&lt;unknown&gt; {
+  const { body, token, fetchFn = fetch, batasMs = 10000, izinkanLokal = false } = opsi;
+  const pesan = periksaUrlAman(url, izinkanLokal);
+  if (pesan) throw new Error(pesan);
+
+  const kontrol = new AbortController();
+  const timer = setTimeout(() =&gt; kontrol.abort(), batasMs);
+  try {
+    const res = await fetchFn(url.trim(), {
+      method: metode,
+      headers: {
+        Accept: 'application/json',
+        ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}),
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Tunjukkan tiga lapisan perlindungan di requestJson: batas waktu, pemeriksaan status, dan pesan error dari server. Tanyakan apa yang terjadi bila status 204 dibaca sebagai JSON, lalu tunjukkan penanganannya.</aside>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Klien API</h2>
+<p>Satu fungsi per endpoint. Halaman tidak perlu tahu detail URL.</p><p class="ref"><code>src/services/apiClient.ts</code></p><pre><code>export function buatApiClient(baseUrl: string, opsi: Pick&lt;OpsiRequest, 'fetchFn' | 'izinkanLokal' | 'batasMs'&gt; = {}) {
+  const url = (path: string) =&gt; baseUrl.replace(/\/+$/, '') + path;
+  const dasar = { izinkanLokal: true, ...opsi };
+
+  return {
+    async login(email: string, password: string): Promise&lt;string&gt; {
+      const r = (await requestJson('POST', url('/login'), { ...dasar, body: { email, password } })) as { token: string };
+      return r.token;
+    },
+    async daftarCatatan(token: string): Promise&lt;NoteServer[]&gt; {
+      return (await requestJson('GET', url('/notes'), { ...dasar, token })) as NoteServer[];
+    },
+    async buatCatatan(token: string, n: Note): Promise&lt;NoteServer&gt; {
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Satu fungsi per endpoint membuat halaman bersih dan mudah diuji. Bandingkan dengan menaruh fetch langsung di setiap halaman, lalu minta peserta menyebut kerugiannya.</aside>
+  </section>
+
+  <section class="slide" data-sim="network">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Menangani kegagalan</h2>
+<ul><li>Status 4xx: tampilkan pesan dari server (<code>error</code>).</li><li>Timeout atau jaringan mati: simpan sebagai PENDING, coba lagi nanti.</li><li>Jangan membaca body kosong (204) sebagai JSON.</li><li>Aplikasi tidak boleh macet: selalu ada batas waktu.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Buka simulasi jaringan atau ubah kondisi pada simulasi REST. Buat peserta menyebut tindakan untuk tiap kegagalan: tampilkan pesan, biarkan PENDING, atau arahkan login. Aplikasi yang baik tidak pernah macet menunggu.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan dan Coba</p>
+    <h2>Tugas Modul 5</h2>
+<ol><li>Jalankan server: <code>cd shared/server</code>, <code>npm install</code>, <code>npm start</code>, buka <code>http://localhost:3000/health</code>.</li><li>Login lewat halaman Sinkronisasi dan baca log hasilnya.</li><li>Matikan server lalu coba lagi. Apa pesan error yang tampil?</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 0 sampai 2</a> · Materi: <a href="../docs/hari-2/05-api-dasar.md">docs/hari-2/05-api-dasar.md</a></p>
+    <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-# Modul 1: Platform Operating System dan Bahasa Pemrograman
+# Modul 1: Instalasi Platform, Emulator, dan Environment
 
 **Durasi:** 09.00 to 10.00
 
@@ -6,16 +6,28 @@
 
 ## Pengantar
 
-Kita mulai dari pertanyaan paling dasar: aplikasi di ponsel itu sebenarnya berjalan di atas apa? Dua sistem operasi menguasai pasar, Android dan iOS, dan keduanya punya bahasa, alat, dan aturan sendiri. Di modul ini peserta mengenal perbedaannya, memahami mengapa ada kerangka kerja lintas platform, lalu menjalankan aplikasi pertama di perangkat sendiri. Targetnya sederhana: di akhir modul, semua peserta punya aplikasi yang berjalan dan bisa menjelaskan mengapa teknologi ini dipilih.
+Hari pertama dimulai dari fondasi: semua peserta harus punya lingkungan kerja yang berjalan. Satu jam ini dipakai memasang Node.js, editor, dan emulator atau Expo Go, sambil memahami perbedaan Android dan iOS serta alasan memilih kerangka kerja lintas platform. Peserta yang memilih Flutter mengikuti jalur Flutter, yang memilih React Native mengikuti jalur ini. Target akhir jam ini: satu aplikasi kosong tampil di perangkat atau emulator.
 
 ## Tujuan Pembelajaran
 
-1. Menjelaskan perbedaan platform Android dan iOS.
-2. Memilih pendekatan native atau cross-platform sesuai kebutuhan.
+1. Memasang Node.js, editor, dan emulator atau Expo Go.
+2. Menjelaskan perbedaan Android dan iOS serta pilihan native atau cross-platform.
 3. Menulis TypeScript dasar.
 4. Membuat dan menjalankan proyek React Native dengan Expo.
 
-## 1. Android dan iOS
+## 1. Menyiapkan environment
+
+| Kebutuhan | React Native (Expo) | Flutter |
+|---|---|---|
+| Bahasa | TypeScript (butuh Node.js LTS) | Dart (ikut Flutter SDK) |
+| Editor | VS Code | VS Code atau Android Studio |
+| Menjalankan di ponsel | Expo Go + kode QR | Kabel USB atau emulator |
+| Emulator Android | Android Studio, Device Manager | Android Studio, Device Manager |
+| Perintah cek | `node -v` dan `npx expo --version` | `flutter doctor` |
+
+> **Narasi pengajar:** Mulai dengan memastikan semua orang punya hal yang sama. Minta peserta menjalankan perintah cek versi dan membacakan hasilnya. Emulator butuh komputer yang cukup kuat, jadi tawarkan Expo Go di ponsel sebagai jalan keluar. Peserta Flutter memakai flutter doctor sebagai pemeriksa. Jangan lanjut sebelum mayoritas peserta berhasil.
+
+## 2. Android dan iOS
 
 | Aspek | Android | iOS |
 |---|---|---|
@@ -27,7 +39,7 @@ Kita mulai dari pertanyaan paling dasar: aplikasi di ponsel itu sebenarnya berja
 
 > **Narasi pengajar:** Mulai dengan bertanya: siapa yang pakai Android, siapa iOS? Jawaban peserta membuka diskusi. Tunjukkan bahwa perbedaan terpenting bagi pengembang ada di tiga hal: bahasa, alat, dan cara distribusi. Satu catatan praktis: Xcode hanya ada di macOS, sehingga membangun aplikasi iOS membutuhkan Mac. Itu salah satu alasan banyak tim memilih kerangka kerja lintas platform.
 
-## 2. Native atau cross-platform
+## 3. Native atau cross-platform
 
 | Pilihan | Kelebihan | Keterbatasan |
 |---|---|---|
@@ -38,7 +50,7 @@ Kita mulai dari pertanyaan paling dasar: aplikasi di ponsel itu sebenarnya berja
 
 > **Narasi pengajar:** Tidak ada pilihan yang selalu benar. Native memberi kendali penuh tetapi berarti menulis dua aplikasi. Lintas platform menghemat waktu dengan satu basis kode. Tanyakan kepada peserta: bila Anda tim kecil dengan tenggat dua bulan, mana yang Anda pilih dan mengapa? Biarkan mereka berargumen sebelum Anda menjelaskan trade-off pada tabel.
 
-## 3. Cara kerja React Native
+## 4. Cara kerja React Native
 
 - Kode ditulis dengan **komponen React** dan bahasa **TypeScript**.
 - JavaScript berjalan di mesin JS dalam aplikasi, lalu memerintahkan pembuatan **view native** (Text menjadi teks Android/iOS asli).
@@ -47,7 +59,7 @@ Kita mulai dari pertanyaan paling dasar: aplikasi di ponsel itu sebenarnya berja
 
 > **Narasi pengajar:** Poin utama: React Native tidak menampilkan halaman web. Kode JavaScript berjalan di dalam aplikasi dan memerintahkan pembuatan tampilan asli. Itu sebabnya hasilnya terasa seperti aplikasi biasa. Buka simulasi di slide ini, pilih komponen, lalu ganti platform untuk melihat padanannya di Android dan iOS. Expo adalah lapisan yang membuat proses build dan uji jauh lebih mudah.
 
-## 4. TypeScript dasar
+## 5. TypeScript dasar
 
 ```ts
 type Mahasiswa = { nama: string; nilai: number };
@@ -68,7 +80,7 @@ async function ambil(url: string): Promise<unknown> {
 
 > **Narasi pengajar:** TypeScript adalah JavaScript dengan tipe. Tunjukkan bahwa menulis tipe Mahasiswa membuat editor langsung memberi tahu bila kita salah mengetik nama properti. Jelaskan tiga hal yang akan sering muncul: type, filter dan map pada array, serta async await untuk pekerjaan yang butuh waktu seperti memanggil server. Peserta tidak perlu hafal, cukup mengenali bentuknya.
 
-## 5. Komponen pertama
+## 6. Komponen pertama
 
 Komponen dengan props `label`, `onPress`, dan `bahaya`. Berkas `src/components/Tombol.tsx`:
 
@@ -97,8 +109,8 @@ export function Tombol({ label, onPress, bahaya, testID }: Props) {
 ## Latihan
 
 1. Pasang Node.js, Expo Go, dan jalankan `npx expo start`.
-2. Ubah teks pada `app/index.tsx` dan lihat perubahan langsung (Fast Refresh).
-3. Tulis fungsi TypeScript yang menghitung rata-rata nilai dari array.
+2. Buat emulator di Android Studio atau siapkan ponsel dengan Expo Go.
+3. Ubah teks pada `app/index.tsx` dan lihat perubahan langsung (Fast Refresh).
 
 ## Peta Kompetensi BNSP
 
@@ -110,4 +122,4 @@ Unit **J.612000.001.01**. Elemen yang dinilai:
 
 Bukti pada pelatihan ini: tabel platform, `src/models/note.ts`, aplikasi berjalan di Expo Go.
 
-Praktik langkah demi langkah: [hands-on Hari 1, Step 0 sampai 4](../hands-on/hari-1.md).
+Praktik langkah demi langkah: [hands-on Hari 1, Step 0 sampai 2](../hands-on/hari-1.md).

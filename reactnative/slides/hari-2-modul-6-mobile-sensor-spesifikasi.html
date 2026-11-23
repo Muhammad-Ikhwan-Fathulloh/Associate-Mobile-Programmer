@@ -15,7 +15,7 @@
     <h1>Modul 6: Sensor dan Perangkat</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menyebutkan jenis sensor ponsel dan fungsinya</li><li>Membaca akselerometer dengan expo-sensors</li><li>Membaca informasi perangkat</li><li>Menghentikan langganan sensor dengan benar</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">docs/hari-2/06-mobile-sensor-spesifikasi.md</a></p>
-    <aside class="notes">Ponsel bukan hanya layar dan prosesor. Di dalamnya ada sensor yang merasakan gerakan, cahaya, arah, dan tekanan. Modul ini memperkenalkan jenis sensor dan cara aplikasi membacanya, lalu bagaimana membaca spesifikasi perangkat. Satu pelajaran penting: sensor menguras baterai bila tidak dihentikan, jadi berhenti membaca saat tidak diperlukan.</aside>
+    <aside class="notes">Setelah API, kita beralih ke sensor. Ponsel merasakan percepatan, putaran, dan medan magnet. Peserta membaca akselerometer, giroskop, dan magnetometer, mendeteksi guncangan, lalu membuat kompas sederhana. Satu pelajaran penting: sensor menguras baterai, jadi berhenti membaca saat halaman ditutup. Sampaikan juga bahwa kompas sederhana punya batas akurasi.</aside>
   </section>
 
   <section class="slide">
@@ -45,26 +45,57 @@
     <aside class="notes">Sensor mengukur besaran fisik, lalu diubah menjadi sinyal listrik, didigitalkan oleh ADC, diproses prosesor, dan akhirnya sampai ke aplikasi. Protokol I2C dan SPI adalah jalur chip sensor berbicara dengan prosesor. Cukup kenali namanya dan perannya.</aside>
   </section>
 
+  <section class="slide" data-sim="gyro">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Giroskop dan kompas</h2>
+<ul><li>**Giroskop** mengukur laju putar (rad/s). Sudut didapat dengan mengakumulasi laju terhadap waktu, hasilnya cenderung bergeser (drift).</li><li>**Magnetometer** mengukur medan magnet bumi. Arah kompas dihitung dari komponen x dan y.</li><li>Padukan sensor (sensor fusion) untuk arah yang stabil. Di pelatihan ini pendekatan sederhana dipakai dan diberi catatan akurasinya.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Buka simulasi giroskop dan geser sumbu z. Perhatikan bahwa giroskop memberi kecepatan putar, bukan sudut. Sudut didapat dengan menjumlahkan kecepatan terhadap waktu, dan hasilnya perlahan bergeser. Itu sebabnya kompas membutuhkan magnetometer.</aside>
+  </section>
+
   <section class="slide code" data-sim="rn_effect">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>Membaca akselerometer</h2>
 <p>Berlangganan dengan <code>addListener</code>, berhenti dengan <code>remove</code>.</p><p class="ref"><code>app/sensor.tsx</code></p><pre><code>  useEffect(() =&gt; {
     let langganan: { remove: () =&gt; void } | undefined;
-    Accelerometer.isAvailableAsync().then((ok) =&gt; {
+    sensor.isAvailableAsync().then((ok) =&gt; {
       setTersedia(ok);
       if (!ok) return;
-      Accelerometer.setUpdateInterval(300);
-      langganan = Accelerometer.addListener(setA);
+      sensor.setUpdateInterval(intervalMs);
+      langganan = sensor.addListener(setNilai);
     });
     return () =&gt; langganan?.remove();
-  }, []);
+  }, [sensor, intervalMs]);
 
-  const besar = Math.sqrt(a.x ** 2 + a.y ** 2 + a.z ** 2);
-  return (
+  return { nilai, tersedia };
+}
 // ... selengkapnya di berkas ini</code></pre>
     </div></div><!--/split-->
     <aside class="notes">Inti slide ini ada di dua baris: addListener untuk mulai berlangganan dan remove untuk berhenti. Buka simulasi useEffect: matikan cleanup, buka halaman, lalu tekan render ulang beberapa kali. Perhatikan jumlah pendengar menumpuk. Itulah kebocoran yang menguras baterai, dan itu sebabnya cleanup wajib ditulis.</aside>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Menghitung guncangan dan arah</h2>
+<p>Fungsi murni, mudah diuji: besar vektor, deteksi guncangan, arah kompas, dan mata angin.</p><p class="ref"><code>src/services/sensorMath.ts</code></p><pre><code>export function terdeteksiGuncangan(v: Vektor, ambang = 2): boolean {
+  return besarVektor(v) &gt; ambang;
+}
+
+/**
+ * Perkiraan arah kompas (derajat, 0 = utara, searah jarum jam) dari magnetometer
+ * saat ponsel datar. Hasilnya perkiraan: sumbu sensor dapat berbeda antarperangkat.
+ */
+export function arahKompas(m: Pick&lt;Vektor, 'x' | 'y'&gt;): number {
+  const derajat = (Math.atan2(-m.x, m.y) * 180) / Math.PI;
+  return (derajat + 360) % 360;
+}
+
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Fungsi di berkas ini murni, jadi mudah diuji tanpa perangkat. Tunjukkan ambang 2 g untuk guncangan dan jelaskan bahwa arah kompas adalah pendekatan sederhana yang dipengaruhi benda logam di sekitar ponsel.</aside>
   </section>
 
   <section class="slide code">
@@ -102,9 +133,9 @@ export default function Perangkat() {
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan dan Coba</p>
     <h2>Tugas Modul 6</h2>
-<ol><li>Ubah interval sensor dan amati perubahan angka.</li><li>Deteksi guncangan: tampilkan pesan saat besar total lebih dari 2 g.</li><li>Tampilkan resolusi layar dengan <code>Dimensions</code>.</li></ol>
+<ol><li>Ubah interval sensor dan amati perubahan angka.</li><li>Guncang ponsel dan pastikan pesan guncangan tampil (besar lebih dari 2 g).</li><li>Putar ponsel dan amati giroskop serta arah kompas.</li></ol>
     </div></div><!--/split-->
-    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 2 dan 3</a> · Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">docs/hari-2/06-mobile-sensor-spesifikasi.md</a></p>
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 3 dan 4</a> · Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">docs/hari-2/06-mobile-sensor-spesifikasi.md</a></p>
     <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 

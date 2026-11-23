@@ -12,9 +12,9 @@ Skema dan bentuk asesmen (tertulis, praktik, wawancara) ditentukan oleh LSP peny
 | J.612000.007.01 | Mobile Interface | `app/index.tsx`, `app/note-form.tsx`, `app/_layout.tsx`, `src/ui.ts` |
 | J.612000.003.01 | Database dan Data Persistence | `src/data/database.ts`, `src/data/noteRepository.ts`, data tetap ada setelah aplikasi ditutup |
 | J.612000.006.01 | LBS, GPS, Navigasi | `src/services/locationService.ts`, `src/services/distance.ts`, `app/location.tsx` |
-| J.612000.025.01 | Mobile Cellular Network | `src/services/networkService.ts`, `app/network.tsx` |
+| J.612000.025.01 | Mobile Cellular Network | `src/services/networkService.ts`, `app/network.tsx`, `src/services/apiClient.ts`, `src/services/sync.ts` (Modul 5 dan 7) |
 | J.612000.022.01 | Mobile Sensor dan Spesifikasi | `app/sensor.tsx`, `app/device.tsx` |
-| J.612000.008.01 | Mobile Communication Security | `src/services/httpsService.ts`, `src/services/secureStorage.ts`, `app/keamanan.tsx` |
+| J.612000.008.01 | Mobile Communication Security | `src/services/httpsService.ts`, `src/services/secureStorage.ts`, `app/keamanan.tsx` (Modul 7) |
 
 ## Padanan istilah Flutter ke React Native
 

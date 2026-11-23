@@ -77,3 +77,55 @@ NARASI = {
         "Menyiapkan bukti BNSP": "Asesor ingin melihat dua hal: aplikasi berjalan, dan peserta paham yang dibuatnya. Siapkan satu file bukti untuk setiap unit dan latih penjelasan dua menit: apa yang dibuat, mengapa dipilih, dan bagaimana mengujinya. Jalankan npm test sebagai bukti kualitas.",
     },
 }
+
+
+# ---------------------------------------------------------------------------
+# Agenda baru: pembuka dan narasi untuk konsep yang baru atau dipindah
+# ---------------------------------------------------------------------------
+PEMBUKA.update({
+    1: "Hari pertama dimulai dari fondasi: semua peserta harus punya lingkungan kerja yang berjalan. Satu jam ini dipakai memasang Node.js, editor, dan emulator atau Expo Go, sambil memahami perbedaan Android dan iOS serta alasan memilih kerangka kerja lintas platform. Peserta yang memilih Flutter mengikuti jalur Flutter, yang memilih React Native mengikuti jalur ini. Target akhir jam ini: satu aplikasi kosong tampil di perangkat atau emulator.",
+    2: "Sebelum menulis banyak kode, kita memutuskan seperti apa aplikasinya. Dua jam ini memakai alat desain modern: Google Stitch untuk rancangan awal dari prompt, dan Figma untuk merapikannya dengan Auto Layout dan variable. Variable itu menjadi token yang kita pindahkan ke kode, lalu kita minta AI menerapkan gaya baru ke aplikasi. Tekankan dua hal: AI mempercepat, tetapi manusia yang meninjau hasilnya, dan token membuat perubahan gaya cukup di satu tempat.",
+    3: "Kini aplikasi perlu mengingat data. Kita bahas SQLite sebagai penyimpanan lokal, merancang tabel, dan membuat operasi tambah, baca, ubah, hapus. Kita juga membahas MySQL dan menjawab pertanyaan yang selalu muncul: mengapa ponsel tidak langsung terhubung ke MySQL? Jawabannya mengantar kita ke API di hari kedua. Di akhir, peserta menutup aplikasi, membukanya lagi, dan melihat data masih ada.",
+    4: "Sesi terakhir hari pertama menggabungkan dua hal yang sudah dipelajari: lokasi dan basis data. Peserta mengambil posisi GPS dengan izin yang sopan, menyimpannya sebagai latitude dan longitude di SQLite, lalu menampilkannya lagi dan menghitung jarak. Tekankan kasus gagal: izin ditolak dan GPS mati tidak boleh membuat catatan gagal disimpan.",
+    5: "Hari kedua dimulai dengan satu jam untuk memahami API. Aplikasi kita berbicara dengan server memakai permintaan dan jawaban. Peserta menjalankan server latihan di komputer, mencoba rute-rutenya, lalu memanggilnya dari aplikasi dengan fetch. Pertanyaan kuncinya: apa yang dilakukan aplikasi bila server mati atau menjawab error?",
+    6: "Setelah API, kita beralih ke sensor. Ponsel merasakan percepatan, putaran, dan medan magnet. Peserta membaca akselerometer, giroskop, dan magnetometer, mendeteksi guncangan, lalu membuat kompas sederhana. Satu pelajaran penting: sensor menguras baterai, jadi berhenti membaca saat halaman ditutup. Sampaikan juga bahwa kompas sederhana punya batas akurasi.",
+    7: "Sesi ini menyelesaikan jalur data: dari SQLite ke server dan kembali. Kita melengkapi API dengan login dan token, menyimpan token dengan aman, lalu membangun sinkronisasi offline-first. Sepanjang jalan kita membahas jaringan seluler dan ancaman komunikasi nirkabel, karena sinkronisasi berjalan di atas jaringan yang tidak selalu aman. Pesannya: data lokal dulu, kirim saat bisa, dan amankan jalurnya.",
+})
+NARASI[1]["Menyiapkan environment"] = "Mulai dengan memastikan semua orang punya hal yang sama. Minta peserta menjalankan perintah cek versi dan membacakan hasilnya. Emulator butuh komputer yang cukup kuat, jadi tawarkan Expo Go di ponsel sebagai jalan keluar. Peserta Flutter memakai flutter doctor sebagai pemeriksa. Jangan lanjut sebelum mayoritas peserta berhasil."
+NARASI[2].update({
+    "Alur dari ide ke aplikasi": "Gambarkan jalurnya di papan tulis: kebutuhan, prompt di Stitch, rapikan di Figma, variable menjadi token, token menjadi theme.ts, AI menerapkan, manusia meninjau. Buka simulasi untuk menelusuri enam langkahnya. Tanyakan mana langkah yang paling berisiko jika dilompati, jawabannya hampir selalu peninjauan manusia.",
+    "Google Stitch": "Tunjukkan Stitch secara langsung bila ada akses. Tulis prompt yang menyebut layar, isi, dan gaya, lalu perbaiki lewat chat. Tekankan bahwa hasilnya titik awal. Fitur dan menu Stitch cepat berubah, jadi beri tahu peserta bahwa tampilan mereka mungkin sedikit berbeda.",
+    "Figma untuk pengembang": "Hubungkan setiap fitur Figma dengan padanannya di kode, seperti pada tabel. Auto Layout sama dengan flexbox, variable sama dengan token. Buka berkas contoh pelatihan dan tunjukkan panel Variables, lalu ubah satu warna agar peserta melihat semua layar ikut berubah.",
+    "Beberapa gaya desain": "Bandingkan empat gaya lewat simulasi tema: ubah warna dasar dan mode gelap. Tanyakan gaya mana yang cocok untuk aplikasi catatan dan mengapa. Tidak ada jawaban tunggal, tujuannya melatih peserta menjelaskan pilihan desainnya.",
+    "Token menjadi theme.ts": "Buka simulasi token: geser warna, radius, spasi, dan font, lalu lihat kode dan tampilan berubah bersamaan. Itulah inti token. Tunjukkan bahwa nama di Figma dan di kode sengaja disamakan agar mudah dilacak.",
+    "Token diterapkan di komponen": "Perhatikan bahwa ui.ts tidak punya angka mentah, semuanya membaca dari tema. Sebut juga tinggi tombol 48 dp sebagai target sentuh yang nyaman. Minta peserta mencari satu angka mentah yang masih tersisa di proyek mereka.",
+    "Prompt AI untuk menerapkan gaya": "Bahas empat bahan prompt yang baik: konteks, tujuan, bukti desain, dan batasan. Peringatkan agar tidak menempelkan rahasia ke alat AI. Tekankan bahwa hasil AI harus ditinjau sebagai diff, dijalankan typecheck dan tes, lalu dilihat di perangkat sebelum diterima.",
+})
+NARASI[3].update({
+    "SQLite dan MySQL": "Buka simulasi SQLite atau MySQL dan pilih tiap kebutuhan. Minta peserta menebak jawabannya dulu. Intinya: SQLite untuk penyimpanan lokal di ponsel, MySQL untuk data bersama di server, dan keduanya dihubungkan lewat API.",
+    "Mengapa ponsel tidak langsung ke MySQL": "Ini pertanyaan yang hampir pasti muncul. Jelaskan tiga alasan: kata sandi basis data ikut di aplikasi dan aplikasi bisa dibongkar, port basis data terbuka ke internet, dan tidak ada tempat memeriksa hak akses. Jembatannya adalah API, yang kita bangun di hari kedua.",
+})
+NARASI[4].update({
+    "Menyimpan GPS ke SQLite": "Telusuri alurnya di kode: tombol mengisi state lokasi, saat disimpan dua angka masuk ke kolom tabel. Buka simulasi, simpan dengan lokasi, lalu tolak izin dan simpan lagi untuk melihat nilai NULL. Tekankan bahwa kegagalan lokasi tidak boleh menggagalkan penyimpanan catatan.",
+    "Menampilkan koordinat tersimpan": "Koordinat disimpan sebagai angka desimal supaya bisa dihitung, misalnya untuk jarak. Sebut juga sisi privasi: lokasi adalah data pribadi, jadi simpan seperlunya dan jelaskan alasannya kepada pengguna.",
+})
+NARASI[5].update({
+    "Apa itu API": "Pakai analogi pelayan restoran: aplikasi adalah tamu, API adalah pelayan, dapur adalah server dan basis data. Tamu tidak masuk ke dapur. Dari sini mudah menjelaskan mengapa ponsel tidak langsung ke basis data.",
+    "Metode dan kode status": "Buka simulasi pembuat permintaan REST. Pilih tiap permintaan, lalu ubah kondisi menjadi tanpa token, judul kosong, tidak ada, dan server mati. Minta peserta menebak kode status dan tindakan aplikasi sebelum Anda menekan tombol.",
+    "Server latihan": "Pandu peserta menjalankan server dan membuka alamat health di peramban. Bila ada yang gagal, periksa dulu apakah port 3000 dipakai dan apakah emulator memakai 10.0.2.2. Ponsel fisik wajib satu Wi-Fi dengan komputer.",
+    "Memanggil API dengan fetch": "Tunjukkan tiga lapisan perlindungan di requestJson: batas waktu, pemeriksaan status, dan pesan error dari server. Tanyakan apa yang terjadi bila status 204 dibaca sebagai JSON, lalu tunjukkan penanganannya.",
+    "Klien API": "Satu fungsi per endpoint membuat halaman bersih dan mudah diuji. Bandingkan dengan menaruh fetch langsung di setiap halaman, lalu minta peserta menyebut kerugiannya.",
+    "Menangani kegagalan": "Buka simulasi jaringan atau ubah kondisi pada simulasi REST. Buat peserta menyebut tindakan untuk tiap kegagalan: tampilkan pesan, biarkan PENDING, atau arahkan login. Aplikasi yang baik tidak pernah macet menunggu.",
+})
+NARASI[6].update({
+    "Giroskop dan kompas": "Buka simulasi giroskop dan geser sumbu z. Perhatikan bahwa giroskop memberi kecepatan putar, bukan sudut. Sudut didapat dengan menjumlahkan kecepatan terhadap waktu, dan hasilnya perlahan bergeser. Itu sebabnya kompas membutuhkan magnetometer.",
+    "Menghitung guncangan dan arah": "Fungsi di berkas ini murni, jadi mudah diuji tanpa perangkat. Tunjukkan ambang 2 g untuk guncangan dan jelaskan bahwa arah kompas adalah pendekatan sederhana yang dipengaruhi benda logam di sekitar ponsel.",
+})
+NARASI[7].update({
+    "Alur sinkronisasi": "Buka simulasi offline-first. Buat beberapa catatan saat offline, lalu sambungkan jaringan. Minta peserta menjelaskan apa yang berubah pada status tiap catatan. Tekankan bahwa kegagalan satu catatan tidak boleh menghentikan yang lain.",
+    "Kode sinkronisasi": "Telusuri dua tahap di sync.ts: kirim yang PENDING, lalu ambil dari server. Tunjukkan percabangan POST untuk catatan baru dan PUT untuk catatan yang sudah punya serverId. Sebut bahwa pengujiannya memakai API palsu sehingga tidak butuh jaringan.",
+    "Token dan penyimpanan aman": "Token adalah kunci akses. Simpan di secure store, bukan di SQLite atau teks biasa. Buka simulasi penyimpanan aman untuk membandingkan tempat penyimpanan dan risikonya.",
+    "Jaringan seluler secara ringkas": "Bagian ini ringkas karena fokusnya keputusan di aplikasi. Cukup kenali generasi jaringan dan ciri utamanya, lalu hubungkan: data seluler berbayar, jadi sinkronisasi besar sebaiknya menunggu Wi-Fi.",
+    "Handover dan Mobile IP": "Buka simulasi handover dan lihat sambungan berpindah antar menara. Jelaskan Mobile IP sebagai cara perangkat tetap dapat dijangkau dengan alamat yang sama saat berpindah jaringan, dengan peran home agent dan foreign agent.",
+    "Mendeteksi jenis koneksi": "Fungsi labelJaringan menerjemahkan status mentah menjadi label yang dimengerti pengguna. Hubungkan dengan sinkronisasi: aplikasi bisa menunda pengiriman besar sampai jaringan yang sesuai.",
+})

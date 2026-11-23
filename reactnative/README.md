@@ -37,10 +37,16 @@ Setiap slide modul punya narasi pengajar. Tekan **N** (atau tombol Narasi) untuk
 
 ## Jadwal
 
-| Hari | Modul |
-|---|---|
-| 1 | 1 Platform dan Bahasa, 2 Mobile Interface, 3 Database, 4 Lokasi dan GPS |
-| 2 | 5 Jaringan Seluler, 6 Sensor dan Perangkat, 7 Keamanan, 8 Latihan dan Uji Kompetensi |
+| Hari | Waktu | Sesi |
+|---|---|---|
+| 1 | 09.00 to 10.00 | Instalasi platform, emulator, dan environment (Flutter atau React Native) |
+| 1 | 10.00 to 12.00 | Figma dan Google Stitch, beberapa gaya desain, menerapkan gaya ke aplikasi dengan AI |
+| 1 | 13.00 to 15.00 | SQLite (dan tools sejenis), pembahasan MySQL |
+| 1 | 15.00 to 17.00 | GPS dan menyimpan lokasi ke SQLite |
+| 2 | 09.00 to 10.00 | API dan menghubungkan aplikasi mobile |
+| 2 | 10.00 to 12.00 | Sensor: akselerometer, giroskop, dan lainnya |
+| 2 | 13.00 to 15.00 | Lanjutan API: menghubungkan aplikasi ke API, token, sinkronisasi |
+| 2 | 15.00 to 17.00 | Latihan dan persiapan uji kompetensi |
 
 ## Menjalankan aplikasi contoh
 

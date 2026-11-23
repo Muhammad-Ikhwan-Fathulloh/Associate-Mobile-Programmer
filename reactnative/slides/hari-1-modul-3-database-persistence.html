@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modul 3: Database dan Data Persistence</title>
+  <title>Modul 3: SQLite, MySQL, dan Data Persistence</title>
   <link rel="stylesheet" href="../../shared/assets/slides.css">
 </head>
 <body data-lang="tsx">
@@ -12,17 +12,17 @@
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 13.00 to 15.00 · React Native</p>
-    <h1>Modul 3: Database</h1><h2>Tujuan Pembelajaran</h2><ol><li>Memilih metode penyimpanan lokal yang sesuai</li><li>Merancang tabel untuk aplikasi mobile</li><li>Mengimplementasikan CRUD dengan expo-sqlite</li><li>Memahami offline-first dan sinkronisasi</li></ol>
+    <h1>Modul 3: SQLite dan MySQL</h1><h2>Tujuan Pembelajaran</h2><ol><li>Memilih metode penyimpanan lokal yang sesuai</li><li>Merancang tabel untuk aplikasi mobile</li><li>Mengimplementasikan CRUD dengan expo-sqlite</li><li>Memahami offline-first dan sinkronisasi</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
-    <aside class="notes">Aplikasi yang melupakan semua data begitu ditutup tidak berguna. Modul ini menjawab bagaimana data disimpan di ponsel. Kita membandingkan pilihan penyimpanan, merancang satu tabel, lalu membuat operasi tambah, baca, ubah, dan hapus. Di akhir, peserta menutup aplikasi, membukanya lagi, dan melihat datanya masih ada. Itu momen yang membuat konsep persistensi terasa nyata.</aside>
+    <aside class="notes">Kini aplikasi perlu mengingat data. Kita bahas SQLite sebagai penyimpanan lokal, merancang tabel, dan membuat operasi tambah, baca, ubah, hapus. Kita juga membahas MySQL dan menjawab pertanyaan yang selalu muncul: mengapa ponsel tidak langsung terhubung ke MySQL? Jawabannya mengantar kita ke API di hari kedua. Di akhir, peserta menutup aplikasi, membukanya lagi, dan melihat data masih ada.</aside>
   </section>
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Sertifikasi BNSP</p>
     <h2>Peta Kompetensi: J.612000.003.01</h2>
-<h3>Database dan Data Persistence</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mendesain internal storage</li><li>Mendesain external storage</li><li>Mendesain database SQLite</li><li>Mendesain database mobile dengan model berlapis</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/data/database.ts</code>, <code>src/data/noteRepository.ts</code>, data bertahan setelah aplikasi ditutup</p>
+<h3>SQLite, MySQL, dan Data Persistence</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mendesain internal storage</li><li>Mendesain external storage</li><li>Mendesain database SQLite</li><li>Mendesain database mobile dengan model berlapis</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/data/database.ts</code>, <code>src/data/noteRepository.ts</code>, data bertahan setelah aplikasi ditutup</p>
     </div></div><!--/split-->
     <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
   </section>
@@ -51,6 +51,24 @@
 );</code></pre>
     </div></div><!--/split-->
     <aside class="notes">Baca tabel ini seperti membaca formulir. Id adalah nomor unik, title dan content wajib terisi, latitude dan longitude boleh kosong karena tidak semua catatan punya lokasi. Kolom sync_status adalah siasat untuk nanti: ia menandai catatan yang belum dikirim ke server.</aside>
+  </section>
+
+  <section class="slide" data-sim="sqlmysql">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>SQLite dan MySQL</h2>
+<table><tr><th>Aspek</th><th>SQLite</th><th>MySQL</th></tr><tr><td>Lokasi</td><td>Berkas di ponsel, tertanam di aplikasi</td><td>Server terpisah</td></tr><tr><td>Pengguna</td><td>Satu aplikasi, satu pengguna</td><td>Banyak pengguna bersamaan</td></tr><tr><td>Instalasi</td><td>Tanpa instalasi</td><td>Perlu server dan akun basis data</td></tr><tr><td>Offline</td><td>Tetap jalan</td><td>Butuh jaringan</td></tr><tr><td>Peran di aplikasi mobile</td><td>Penyimpanan lokal</td><td>Penyimpanan pusat di belakang API</td></tr></table>
+    </div></div><!--/split-->
+    <aside class="notes">Buka simulasi SQLite atau MySQL dan pilih tiap kebutuhan. Minta peserta menebak jawabannya dulu. Intinya: SQLite untuk penyimpanan lokal di ponsel, MySQL untuk data bersama di server, dan keduanya dihubungkan lewat API.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Mengapa ponsel tidak langsung ke MySQL</h2>
+<ul><li>Kata sandi basis data harus ada di aplikasi, dan aplikasi dapat dibongkar.</li><li>Port MySQL terbuka ke internet, menambah risiko serangan.</li><li>Tidak ada tempat memeriksa hak akses dan validasi per pengguna.</li><li>Solusi: ponsel memanggil **API** (HTTPS + token), API yang berbicara ke MySQL. Skema contoh ada di <code>shared/server/schema.sql</code>.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Ini pertanyaan yang hampir pasti muncul. Jelaskan tiga alasan: kata sandi basis data ikut di aplikasi dan aplikasi bisa dibongkar, port basis data terbuka ke internet, dan tidak ada tempat memeriksa hak akses. Jembatannya adalah API, yang kita bangun di hari kedua.</aside>
   </section>
 
   <section class="slide code">
@@ -112,7 +130,7 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
     <h2>Tugas Modul 3</h2>
 <ol><li>Tambahkan kolom <code>kategori</code> dan pikirkan cara memigrasikan data lama.</li><li>Tambahkan pencarian judul dengan <code>LIKE</code>.</li><li>Uji: tambah catatan, tutup aplikasi, buka kembali.</li></ol>
     </div></div><!--/split-->
-    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 5 sampai 8</a> · Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 5 sampai 7</a> · Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
     <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 

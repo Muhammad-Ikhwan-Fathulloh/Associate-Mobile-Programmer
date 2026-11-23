@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modul 4: Location Based Service, GPS, dan Navigasi</title>
+  <title>Modul 4: GPS, Peta, dan Menyimpan Lokasi ke SQLite</title>
   <link rel="stylesheet" href="../../shared/assets/slides.css">
 </head>
 <body data-lang="tsx">
@@ -12,17 +12,17 @@
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 15.00 to 17.00 · React Native</p>
-    <h1>Modul 4: Lokasi dan GPS</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjelaskan cara kerja GPS dan izin lokasi</li><li>Mengambil posisi dengan expo-location</li><li>Menghitung jarak dengan rumus Haversine</li><li>Menampilkan posisi di peta OpenStreetMap</li></ol>
+    <h1>Modul 4: GPS dan SQLite</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjelaskan cara kerja GPS dan izin lokasi</li><li>Mengambil posisi dengan expo-location</li><li>Menghitung jarak dengan rumus Haversine</li><li>Menampilkan posisi di peta OpenStreetMap</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">docs/hari-1/04-lokasi-gps-navigasi.md</a></p>
-    <aside class="notes">Peta dan lokasi adalah fitur yang paling mudah membuat peserta bersemangat, sekaligus yang paling banyak jebakannya: izin, GPS mati, dan akurasi yang berubah-ubah. Kita bahas dari mana lokasi berasal, bagaimana meminta izin dengan sopan, bagaimana menghitung jarak dua titik, dan bagaimana menampilkannya di peta. Tekankan bahwa kode yang baik selalu menangani kasus gagal.</aside>
+    <aside class="notes">Sesi terakhir hari pertama menggabungkan dua hal yang sudah dipelajari: lokasi dan basis data. Peserta mengambil posisi GPS dengan izin yang sopan, menyimpannya sebagai latitude dan longitude di SQLite, lalu menampilkannya lagi dan menghitung jarak. Tekankan kasus gagal: izin ditolak dan GPS mati tidak boleh membuat catatan gagal disimpan.</aside>
   </section>
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Sertifikasi BNSP</p>
     <h2>Peta Kompetensi: J.612000.006.01</h2>
-<h3>Location Based Service, GPS, dan Navigasi</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menentukan komponen LBS</li><li>Mengimplementasikan GPS dan navigasi</li><li>Menampilkan peta dan posisi pengguna</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/services/locationService.ts</code>, <code>src/services/distance.ts</code>, <code>app/location.tsx</code>, peta tampil</p>
+<h3>GPS, Peta, dan Menyimpan Lokasi ke SQLite</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menentukan komponen LBS</li><li>Mengimplementasikan GPS dan navigasi</li><li>Menampilkan peta dan posisi pengguna</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/services/locationService.ts</code>, <code>src/services/distance.ts</code>, <code>app/location.tsx</code>, peta tampil</p>
     </div></div><!--/split-->
     <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
   </section>
@@ -67,6 +67,37 @@ export async function posisiSekarang(): Promise&lt;Posisi&gt; {
     <aside class="notes">Baca urutannya: minta izin, periksa apakah layanan lokasi menyala, baru ambil posisi. Setiap tahap bisa gagal, dan setiap kegagalan dilempar sebagai pesan yang bisa ditampilkan. Ini contoh bagus bagaimana kode menangani jalur gagal, bukan hanya jalur berhasil.</aside>
   </section>
 
+  <section class="slide code" data-sim="gps_save">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
+    <h2>Menyimpan GPS ke SQLite</h2>
+<p>Tombol mengisi <code>lokasi</code>. Saat disimpan, <code>latitude</code> dan <code>longitude</code> masuk ke dua kolom tabel <code>notes</code>. Tanpa izin, kolom bernilai NULL.</p><p class="ref"><code>app/note-form.tsx</code></p><pre><code>  const ambilLokasi = async () =&gt; {
+    try {
+      setError(null);
+      const p = await posisiSekarang();
+      setLokasi({ latitude: p.latitude, longitude: p.longitude });
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  };
+
+  const simpan = async () =&gt; {
+    const pesan = validasiJudul(judul);
+    if (pesan) return setError(pesan);
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Telusuri alurnya di kode: tombol mengisi state lokasi, saat disimpan dua angka masuk ke kolom tabel. Buka simulasi, simpan dengan lokasi, lalu tolak izin dan simpan lagi untuk melihat nilai NULL. Tekankan bahwa kegagalan lokasi tidak boleh menggagalkan penyimpanan catatan.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Menampilkan koordinat tersimpan</h2>
+<ul><li>Koordinat disimpan sebagai angka desimal (<code>REAL</code>), bukan teks.</li><li>Fungsi <code>formatKoordinat</code> menampilkan <code>-6.91750, 107.61910</code> atau teks pengganti bila kosong.</li><li>Jarak antara dua catatan dihitung dengan Haversine dari dua pasang koordinat tersimpan.</li><li>Lokasi adalah **data pribadi**: simpan seperlunya dan jelaskan alasannya.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Koordinat disimpan sebagai angka desimal supaya bisa dihitung, misalnya untuk jarak. Sebut juga sisi privasi: lokasi adalah data pribadi, jadi simpan seperlunya dan jelaskan alasannya kepada pengguna.</aside>
+  </section>
+
   <section class="slide code" data-sim="haversine">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
@@ -100,9 +131,9 @@ export function jarakMeter(lat1: number, lon1: number, lat2: number, lon2: numbe
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan dan Coba</p>
     <h2>Tugas Modul 4</h2>
-<ol><li>Ubah titik acuan pada <code>app/location.tsx</code> ke alamat Anda.</li><li>Tampilkan akurasi posisi dalam meter.</li><li>Tambahkan tombol yang membuka aplikasi peta dengan <code>Linking.openURL</code>.</li></ol>
+<ol><li>Buat catatan dengan lokasi, tutup aplikasi, buka lagi, dan pastikan koordinat tetap ada.</li><li>Tolak izin lokasi dan pastikan catatan tetap tersimpan.</li><li>Tampilkan jarak catatan ke posisi Anda sekarang.</li></ol>
     </div></div><!--/split-->
-    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 9 dan 10</a> · Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">docs/hari-1/04-lokasi-gps-navigasi.md</a></p>
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 8 sampai 10</a> · Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">docs/hari-1/04-lokasi-gps-navigasi.md</a></p>
     <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 

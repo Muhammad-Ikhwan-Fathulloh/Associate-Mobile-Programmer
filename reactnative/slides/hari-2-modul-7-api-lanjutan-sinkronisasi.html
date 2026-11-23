@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 7: API Lanjutan: CRUD, Token, Sinkronisasi, dan Keamanan Jaringan</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 13.00 to 15.00 · React Native</p>
+    <h1>Modul 7: API Lanjutan</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menyelesaikan CRUD lewat API dengan token</li><li>Menyimpan token dengan aman</li><li>Menyinkronkan data lokal dengan server (offline-first)</li><li>Menjelaskan jaringan seluler dan ancaman komunikasi nirkabel</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-2/07-api-lanjutan-sinkronisasi.md">docs/hari-2/07-api-lanjutan-sinkronisasi.md</a></p>
+    <aside class="notes">Sesi ini menyelesaikan jalur data: dari SQLite ke server dan kembali. Kita melengkapi API dengan login dan token, menyimpan token dengan aman, lalu membangun sinkronisasi offline-first. Sepanjang jalan kita membahas jaringan seluler dan ancaman komunikasi nirkabel, karena sinkronisasi berjalan di atas jaringan yang tidak selalu aman. Pesannya: data lokal dulu, kirim saat bisa, dan amankan jalurnya.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.008.01</h2>
+<h3>API Lanjutan: CRUD, Token, Sinkronisasi, dan Keamanan Jaringan</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mengenali kerentanan komunikasi nirkabel</li><li>Menerapkan pengamanan komunikasi</li><li>Memahami arsitektur jaringan seluler</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/services/sync.ts</code>, <code>src/services/secureStorage.ts</code>, <code>app/sinkron.tsx</code>, <code>src/services/networkService.ts</code></p>
+    </div></div><!--/split-->
+    <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
+  </section>
+
+  <section class="slide" data-sim="offline">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Alur sinkronisasi</h2>
+<ul><li>Simpan ke SQLite dulu (**offline-first**) dengan status <code>PENDING</code>.</li><li>Saat online: kirim semua <code>PENDING</code> (POST bila baru, PUT bila sudah punya <code>serverId</code>).</li><li>Tandai <code>SYNCED</code> dan simpan <code>serverId</code> dari server, lalu ambil data baru dari server.</li><li>Satu kegagalan tidak boleh menghentikan yang lain. Hasil dilaporkan: terkirim, diterima, gagal.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Buka simulasi offline-first. Buat beberapa catatan saat offline, lalu sambungkan jaringan. Minta peserta menjelaskan apa yang berubah pada status tiap catatan. Tekankan bahwa kegagalan satu catatan tidak boleh menghentikan yang lain.</aside>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Kode sinkronisasi</h2>
+<p>Dua tahap: kirim yang tertunda, lalu ambil dari server. Pengujiannya memakai API palsu tanpa jaringan.</p><p class="ref"><code>src/services/sync.ts</code></p><pre><code>export async function sinkronkan(db: Penyimpanan, api: ApiClient, token: string): Promise&lt;HasilSinkron&gt; {
+  const hasil: HasilSinkron = { terkirim: 0, diterima: 0, gagal: 0 };
+
+  for (const n of await db.catatanPending()) {
+    try {
+      const di = n.serverId != null ? await api.ubahCatatan(token, n.serverId, n) : await api.buatCatatan(token, n);
+      await db.tandaiSynced(n.id!, di.id);
+      hasil.terkirim++;
+    } catch {
+      hasil.gagal++;
+    }
+  }
+
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Telusuri dua tahap di sync.ts: kirim yang PENDING, lalu ambil dari server. Tunjukkan percabangan POST untuk catatan baru dan PUT untuk catatan yang sudah punya serverId. Sebut bahwa pengujiannya memakai API palsu sehingga tidak butuh jaringan.</aside>
+  </section>
+
+  <section class="slide code" data-sim="secure">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
+    <h2>Token dan penyimpanan aman</h2>
+<p>Token disimpan di Keystore Android atau Keychain iOS, bukan di SQLite.</p><p class="ref"><code>src/services/secureStorage.ts</code></p><pre><code>import * as SecureStore from 'expo-secure-store';
+
+const KUNCI = 'token_demo';
+
+export const simpanToken = (nilai: string) =&gt; SecureStore.setItemAsync(KUNCI, nilai);
+export const bacaToken = () =&gt; SecureStore.getItemAsync(KUNCI);
+export const hapusToken = () =&gt; SecureStore.deleteItemAsync(KUNCI);</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Token adalah kunci akses. Simpan di secure store, bukan di SQLite atau teks biasa. Buka simulasi penyimpanan aman untuk membandingkan tempat penyimpanan dan risikonya.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Jaringan seluler secara ringkas</h2>
+<table><tr><th>Generasi</th><th>Ciri utama</th></tr><tr><td>2G (GSM)</td><td>Suara digital dan SMS, data terbatas</td></tr><tr><td>3G</td><td>Data seluler dan internet bergerak</td></tr><tr><td>4G (LTE)</td><td>Data cepat, berbasis IP penuh</td></tr><tr><td>5G</td><td>Kecepatan tinggi dan latensi rendah</td></tr></table>
+    </div></div><!--/split-->
+    <aside class="notes">Bagian ini ringkas karena fokusnya keputusan di aplikasi. Cukup kenali generasi jaringan dan ciri utamanya, lalu hubungkan: data seluler berbayar, jadi sinkronisasi besar sebaiknya menunggu Wi-Fi.</aside>
+  </section>
+
+  <section class="slide" data-sim="handover">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Handover dan Mobile IP</h2>
+<ul><li>**Handover**: sambungan berpindah ke menara lain saat pengguna bergerak.</li><li>**Mobile IP**: perangkat tetap dapat dijangkau dengan alamat yang sama saat berpindah jaringan.</li><li>Komponen GSM: MS (ponsel dan SIM), BTS (menara), BSC, MSC, serta HLR dan VLR (basis data pelanggan).</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Buka simulasi handover dan lihat sambungan berpindah antar menara. Jelaskan Mobile IP sebagai cara perangkat tetap dapat dijangkau dengan alamat yang sama saat berpindah jaringan, dengan peran home agent dan foreign agent.</aside>
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Mendeteksi jenis koneksi</h2>
+<p><code>labelJaringan</code> menerjemahkan status mentah menjadi label. Dipakai agar sinkronisasi menunggu jaringan yang sesuai.</p><p class="ref"><code>src/services/networkService.ts</code></p><pre><code>import * as Network from 'expo-network';
+
+export type JenisJaringan = 'Seluler' | 'Wi-Fi' | 'Tidak ada koneksi' | 'Lainnya';
+
+/** Menerjemahkan hasil expo-network menjadi label bahasa Indonesia. */
+export function labelJaringan(s: Network.NetworkState): JenisJaringan {
+  if (!s.isConnected) return 'Tidak ada koneksi';
+  if (s.type === Network.NetworkStateType.CELLULAR) return 'Seluler';
+  if (s.type === Network.NetworkStateType.WIFI) return 'Wi-Fi';
+  return 'Lainnya';
+}
+
+export async function cekJaringan() {
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Fungsi labelJaringan menerjemahkan status mentah menjadi label yang dimengerti pengguna. Hubungkan dengan sinkronisasi: aplikasi bisa menunda pengiriman besar sampai jaringan yang sesuai.</aside>
+  </section>
+
+  <section class="slide" data-sim="tls">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Ancaman komunikasi nirkabel</h2>
+<table><tr><th>Ancaman</th><th>Cara kerja</th><th>Pencegahan</th></tr><tr><td>Penyadapan (sniffing)</td><td>Membaca lalu lintas Wi-Fi terbuka</td><td>HTTPS, hindari Wi-Fi terbuka</td></tr><tr><td>Man-in-the-middle</td><td>Penyerang berada di tengah jalur</td><td>TLS dengan sertifikat valid</td></tr><tr><td>Access point palsu</td><td>Wi-Fi tiruan menjebak pengguna</td><td>Verifikasi jaringan, pakai VPN</td></tr><tr><td>Pencurian token</td><td>Rahasia dibaca dari penyimpanan biasa</td><td>Penyimpanan aman</td></tr></table>
+    </div></div><!--/split-->
+    <aside class="notes">Mulai dengan skenario: Anda memakai Wi-Fi gratis di kafe. Apa yang bisa dilihat orang lain di jaringan yang sama? Dari situ kita bahas penyadapan, man-in-the-middle, dan access point palsu. Buka simulasi TLS untuk melihat bedanya data terbuka dan data terenkripsi.</aside>
+  </section>
+
+  <section class="slide code" data-sim="urlcheck">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
+    <h2>HTTPS dan timeout</h2>
+<p>Tolak URL non-HTTPS (kecuali alamat lokal untuk pengembangan), batasi waktu dengan <code>AbortController</code>.</p><p class="ref"><code>src/services/httpsService.ts</code></p><pre><code>export function periksaUrlAman(url: string, izinkanLokal = false): string | null {
+  let u: URL;
+  try {
+    u = new URL(url.trim());
+  } catch {
+    return 'URL tidak valid.';
+  }
+  if (u.protocol === 'https:') return null;
+  if (u.protocol === 'http:' &amp;&amp; izinkanLokal &amp;&amp; HOST_LOKAL.test(u.hostname)) return null;
+  return 'Gunakan HTTPS (https://).';
+}
+
+type FetchFn = typeof fetch;
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+    <aside class="notes">Dua kebiasaan dalam satu fungsi. Pertama, tolak alamat selain HTTPS sebelum permintaan dikirim. Kedua, batasi waktu tunggu agar aplikasi tidak menggantung. Buka simulasi pemeriksa URL, ketik beberapa alamat, dan lihat mana yang ditolak.</aside>
+  </section>
+
+  <section class="slide" data-sim="auth">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep · simulasi: tekan S</p>
+    <h2>Prinsip pengamanan aplikasi</h2>
+<ul><li>Selalu **HTTPS** di produksi. HTTP hanya untuk server lokal saat pengembangan.</li><li>Rahasia di **secure store**, bukan di SQLite atau teks biasa.</li><li>**Validasi masukan** di aplikasi dan di server.</li><li>Jangan menaruh kunci rahasia di dalam kode aplikasi.</li><li>Minta **izin seperlunya** dan jelaskan alasannya.</li></ul>
+    </div></div><!--/split-->
+    <aside class="notes">Rangkum dengan lima prinsip yang bisa dicek di kode: selalu HTTPS, rahasia di secure store, validasi masukan, jangan taruh kunci rahasia di dalam aplikasi, dan minta izin seperlunya. Buka simulasi autentikasi: login untuk mendapat token, lalu coba endpoint dengan dan tanpa token. Diskusikan mengapa token itu harus disimpan di secure store.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan dan Coba</p>
+    <h2>Tugas Modul 7</h2>
+<ol><li>Buat catatan saat server mati, nyalakan server, lalu tekan Sinkronkan. Pastikan status berubah menjadi SYNCED.</li><li>Ubah catatan yang sudah SYNCED dan sinkronkan lagi. Server menerima PUT atau POST?</li><li>Uji alamat <code>http://</code> publik dan pastikan ditolak.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 5 sampai 7</a> · Materi: <a href="../docs/hari-2/07-api-lanjutan-sinkronisasi.md">docs/hari-2/07-api-lanjutan-sinkronisasi.md</a></p>
+    <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

@@ -14,18 +14,40 @@ Materi pelatihan **Associate Mobile Programmer** (dua hari, persiapan sertifikas
 ```
 flutter/        materi dan aplikasi contoh Flutter (app, docs, slides, scripts)
 reactnative/    materi dan aplikasi contoh React Native (app, docs, slides, scripts)
+shared/server/  server latihan (Express) dan skema MySQL untuk sesi API
+shared/docs/    panduan Figma dan Stitch serta SQLite, MySQL, dan API (netral teknologi)
 shared/assets/  CSS dan JavaScript slide yang dipakai kedua jalur
 index.html      halaman awal untuk memilih jalur
 ```
 
 ## Jadwal
 
-| Hari | Modul |
-|---|---|
-| 1 | 1 Platform OS dan Bahasa, 2 Mobile Interface, 3 Database dan Data Persistence, 4 Lokasi, GPS, dan Navigasi |
-| 2 | 5 Mobile Cellular Network, 6 Sensor dan Spesifikasi, 7 Keamanan Komunikasi Mobile, 8 Latihan Uji Kompetensi |
+| Hari | Waktu | Sesi |
+|---|---|---|
+| 1 | 09.00 to 10.00 | Instalasi platform, emulator, dan environment (Flutter atau React Native) |
+| 1 | 10.00 to 12.00 | Figma dan Google Stitch, beberapa gaya desain, menerapkan gaya ke aplikasi dengan AI |
+| 1 | 13.00 to 15.00 | SQLite (dan tools sejenis), pembahasan MySQL |
+| 1 | 15.00 to 17.00 | GPS dan menyimpan lokasi ke SQLite |
+| 2 | 09.00 to 10.00 | API dan menghubungkan aplikasi mobile |
+| 2 | 10.00 to 12.00 | Sensor: akselerometer, giroskop, dan lainnya |
+| 2 | 13.00 to 15.00 | Lanjutan API: menghubungkan aplikasi ke API, token, sinkronisasi |
+| 2 | 15.00 to 17.00 | Latihan dan persiapan uji kompetensi |
 
 Hari 3 (tentatif): uji kompetensi BNSP. Skema dan tujuh unit kompetensinya sama untuk kedua jalur; panduan dan bank soal ada di [flutter/docs/sertifikasi-bnsp](flutter/docs/sertifikasi-bnsp/00-panduan-sertifikasi.md).
+
+## Desain Figma
+
+Berkas Figma contoh (20 variable token dan 5 layar aplikasi): https://www.figma.com/design/grYqOsULGfzYsDrtIjmjRL. Duplikat ke akun Anda untuk berlatih. Token-nya sama dengan `reactnative/app/src/theme.ts`. Panduan: [shared/docs/design-figma-stitch.md](shared/docs/design-figma-stitch.md).
+
+## Server latihan API
+
+```bash
+cd shared/server
+npm install
+npm start      # http://localhost:3000, npm test untuk pengujian
+```
+
+Panduan: [shared/docs/sqlite-mysql-api.md](shared/docs/sqlite-mysql-api.md).
 
 ## Membuka slide
 
