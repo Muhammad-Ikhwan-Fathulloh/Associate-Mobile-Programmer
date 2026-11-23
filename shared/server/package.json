@@ -1,0 +1,14 @@
+{
+  "name": "server-catatan",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Server API contoh untuk pelatihan Associate Mobile Programmer (dipakai jalur Flutter dan React Native)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

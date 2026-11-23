@@ -16,7 +16,8 @@ export function getDb(): Promise<SQLite.SQLiteDatabase> {
           latitude REAL,
           longitude REAL,
           updated_at INTEGER NOT NULL,
-          sync_status TEXT NOT NULL DEFAULT 'PENDING'
+          sync_status TEXT NOT NULL DEFAULT 'PENDING',
+          server_id INTEGER
         );
         CREATE INDEX IF NOT EXISTS idx_notes_updated_at ON notes(updated_at);
       `);

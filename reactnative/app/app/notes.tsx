@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { Alert, FlatList, Pressable, Text, View } from 'react-native';
 import { Tombol } from '../src/components/Tombol';
 import { hapusCatatan, semuaCatatan } from '../src/data/noteRepository';
-import { Note } from '../src/models/note';
+import { formatKoordinat, Note } from '../src/models/note';
 import { gaya } from '../src/ui';
 
 export default function Catatan() {
@@ -34,6 +34,7 @@ export default function Catatan() {
           >
             <Text style={gaya.judul}>{item.title}</Text>
             <Text style={gaya.teks} numberOfLines={2}>{item.content}</Text>
+            {formatKoordinat(item) && <Text style={gaya.abu}>Lokasi: {formatKoordinat(item)}</Text>}
             <Text style={gaya.abu}>Status sinkron: {item.syncStatus} · tahan lama untuk menghapus</Text>
           </Pressable>
         )}

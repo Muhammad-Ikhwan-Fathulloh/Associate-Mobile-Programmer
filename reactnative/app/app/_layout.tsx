@@ -8,6 +8,7 @@ export default function RootLayout() {
       <Stack.Screen name="note-form" options={{ title: 'Form Catatan' }} />
       <Stack.Screen name="location" options={{ title: 'Lokasi dan Peta' }} />
       <Stack.Screen name="network" options={{ title: 'Jaringan Seluler' }} />
+      <Stack.Screen name="sinkron" options={{ title: 'API dan Sinkronisasi' }} />
       <Stack.Screen name="sensor" options={{ title: 'Sensor' }} />
       <Stack.Screen name="device" options={{ title: 'Info Perangkat' }} />
       <Stack.Screen name="keamanan" options={{ title: 'Keamanan' }} />
