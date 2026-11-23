@@ -8,6 +8,7 @@ import '../pages/network_page.dart';
 import '../pages/note_form_page.dart';
 import '../pages/notes_page.dart';
 import '../pages/sensor_page.dart';
+import '../pages/sinkron_page.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
@@ -29,6 +30,10 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const LocationPage(),
     ),
     // Hari 2
+    GoRoute(
+      path: '/sinkron',
+      builder: (context, state) => const SinkronPage(),
+    ),
     GoRoute(
       path: '/jaringan',
       builder: (context, state) => const NetworkPage(),

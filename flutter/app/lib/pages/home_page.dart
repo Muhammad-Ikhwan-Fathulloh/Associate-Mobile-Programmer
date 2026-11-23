@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../theme/tema.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -16,6 +18,12 @@ class HomePage extends StatelessWidget {
       deskripsi: 'GPS, peta OpenStreetMap, dan alamat dari koordinat',
       ikon: Icons.map_outlined,
       rute: '/lokasi',
+    ),
+    _MenuItem(
+      judul: 'API dan Sinkronisasi',
+      deskripsi: 'Login, kirim dan ambil catatan dari server latihan',
+      ikon: Icons.sync,
+      rute: '/sinkron',
     ),
     _MenuItem(
       judul: 'Jaringan Seluler',
@@ -46,20 +54,37 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Associate Mobile Programmer')),
+      appBar: AppBar(title: const Text('Catatan Lokasi')),
       body: ListView.separated(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(Tema.spasiLg),
         itemCount: _menu.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 8),
+        separatorBuilder: (_, __) => const SizedBox(height: Tema.spasiMd),
         itemBuilder: (context, index) {
           final item = _menu[index];
           return Card(
-            child: ListTile(
-              leading: Icon(item.ikon),
-              title: Text(item.judul),
-              subtitle: Text(item.deskripsi),
-              trailing: const Icon(Icons.chevron_right),
+            clipBehavior: Clip.antiAlias,
+            child: InkWell(
               onTap: () => context.push(item.rute),
+              child: Padding(
+                padding: const EdgeInsets.all(Tema.spasiLg),
+                child: Row(
+                  children: [
+                    Icon(item.ikon, color: Tema.utama),
+                    const SizedBox(width: Tema.spasiMd),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item.judul, style: Theme.of(context).textTheme.titleMedium),
+                          const SizedBox(height: Tema.spasiXs),
+                          Text(item.deskripsi, style: Theme.of(context).textTheme.bodySmall),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.chevron_right, color: Tema.abu),
+                  ],
+                ),
+              ),
             ),
           );
         },

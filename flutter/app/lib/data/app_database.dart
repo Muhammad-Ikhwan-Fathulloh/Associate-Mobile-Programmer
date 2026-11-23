@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 /// Pengelola koneksi SQLite. Database dibuat sekali lalu digunakan ulang.
 class AppDatabase {
   static const _namaDatabase = 'associate_mobile.db';
-  static const _versi = 1;
+  static const _versi = 2;
 
   static Database? _database;
 
@@ -20,6 +20,7 @@ class AppDatabase {
         await db.execute('PRAGMA foreign_keys = ON');
       },
       onCreate: _buatTabel,
+      onUpgrade: _migrasi,
     );
     _database = db;
     return db;
@@ -34,9 +35,16 @@ class AppDatabase {
         latitude REAL,
         longitude REAL,
         updated_at INTEGER NOT NULL,
-        sync_status TEXT NOT NULL DEFAULT 'PENDING'
+        sync_status TEXT NOT NULL DEFAULT 'PENDING',
+        server_id INTEGER
       )
     ''');
     await db.execute('CREATE INDEX idx_notes_updated_at ON notes(updated_at)');
+  }
+
+  static Future<void> _migrasi(Database db, int lama, int baru) async {
+    if (lama < 2) {
+      await db.execute('ALTER TABLE notes ADD COLUMN server_id INTEGER');
+    }
   }
 }

@@ -13,6 +13,23 @@ Agenda baru menambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giroskop
 | Hari 2, 10.00 to 12.00 | Modul 6 dan bagian 4 (giroskop) |
 | Hari 2, 13.00 to 15.00 | Bagian 3 (sinkronisasi), Modul 5 (jaringan seluler), dan Modul 7 (keamanan) |
 
+## 0. Desain Figma sudah diterjemahkan ke kode Flutter
+
+Lima layar pada berkas Figma pelatihan sudah diterapkan di `flutter/app` (belum dikompilasi, lihat catatan di atas):
+
+| Layar Figma | Berkas Flutter |
+|---|---|
+| Token (Warna, Spasi, Radius, Font) | `lib/theme/tema.dart`, dipasang di `lib/app.dart` |
+| 01 Beranda | `lib/pages/home_page.dart` |
+| 02 Catatan | `lib/pages/notes_page.dart` |
+| 03 Form Catatan | `lib/pages/note_form_page.dart` |
+| 04 Lokasi | `lib/pages/location_page.dart` (mengikuti tema global, tata letak peta tidak diubah) |
+| 05 Sinkronisasi | `lib/pages/sinkron_page.dart`, `lib/services/api_client.dart`, `lib/services/sync_service.dart` |
+
+Perubahan data: kolom `server_id` pada tabel `notes` (database versi 2 dengan migrasi), model `Note.serverId`, dan metode `catatanPending`, `tandaiSynced`, `simpanDariServer` pada `NoteRepository`. Pengujian baru: `test/api_client_test.dart`. Tema memakai `CardThemeData`, sehingga butuh Flutter 3.27 atau lebih baru.
+
+Bagian 1 sampai 3 di bawah menjelaskan kodenya. Untuk menerjemahkan desain ke kode dengan agen AI, lihat [panduan Antigravity](../../../shared/docs/antigravity-desain-ke-kode.md).
+
 ## 1. Token desain menjadi tema Flutter
 
 Variable Figma (lihat tabel di panduan desain) dipetakan ke satu kelas konstanta, lalu dipakai oleh `ThemeData`.

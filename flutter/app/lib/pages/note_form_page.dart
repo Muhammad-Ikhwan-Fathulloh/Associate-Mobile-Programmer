@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../models/note.dart';
 import '../services/location_service.dart';
+import '../theme/tema.dart';
 
 class NoteFormPage extends StatefulWidget {
   const NoteFormPage({super.key});
@@ -74,50 +75,43 @@ class _NoteFormPageState extends State<NoteFormPage> {
       body: Form(
         key: _formKey,
         child: ListView(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(Tema.spasiLg),
           children: [
+            Text('Judul', style: Theme.of(context).textTheme.bodySmall),
+            const SizedBox(height: Tema.spasiXs),
             TextFormField(
               controller: _judul,
-              decoration: const InputDecoration(
-                labelText: 'Judul',
-                border: OutlineInputBorder(),
-              ),
               validator: (value) => (value == null || value.trim().length < 3)
                   ? 'Judul minimal 3 karakter'
                   : null,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: Tema.spasiMd),
+            Text('Isi', style: Theme.of(context).textTheme.bodySmall),
+            const SizedBox(height: Tema.spasiXs),
             TextFormField(
               controller: _isi,
               maxLines: 4,
-              decoration: const InputDecoration(
-                labelText: 'Isi catatan',
-                border: OutlineInputBorder(),
-              ),
               validator: (value) => (value == null || value.trim().isEmpty)
                   ? 'Isi catatan tidak boleh kosong'
                   : null,
             ),
-            const SizedBox(height: 12),
-            Card(
-              child: ListTile(
-                leading: const Icon(Icons.place_outlined),
-                title: Text(
-                  lat == null || lon == null
-                      ? 'Lokasi belum diambil (opsional)'
-                      : 'Lokasi: ${lat.toStringAsFixed(5)}, ${lon.toStringAsFixed(5)}',
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            OutlinedButton.icon(
+            const SizedBox(height: Tema.spasiMd),
+            OutlinedButton(
               onPressed: _mengambilLokasi ? null : _ambilLokasi,
-              icon: const Icon(Icons.my_location),
-              label: Text(
-                _mengambilLokasi ? 'Mengambil lokasi...' : 'Ambil lokasi saat ini',
+              child: Text(
+                _mengambilLokasi
+                    ? 'Mengambil lokasi...'
+                    : (lat == null ? 'Sertakan lokasi saya (GPS)' : 'Perbarui lokasi saya'),
               ),
             ),
-            const SizedBox(height: 24),
+            if (lat != null && lon != null) ...[
+              const SizedBox(height: Tema.spasiSm),
+              Text(
+                '${lat.toStringAsFixed(5)}, ${lon.toStringAsFixed(5)}',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+            const SizedBox(height: Tema.spasiMd),
             FilledButton(
               onPressed: _simpan,
               child: const Text('Simpan'),

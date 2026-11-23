@@ -9,6 +9,7 @@ void main() {
 
     expect(find.text('Catatan Lokal'), findsOneWidget);
     expect(find.text('Lokasi dan Peta'), findsOneWidget);
+    expect(find.text('API dan Sinkronisasi'), findsOneWidget);
     expect(find.text('Jaringan Seluler'), findsOneWidget);
     expect(find.text('Sensor'), findsOneWidget);
     expect(find.text('Informasi Perangkat'), findsOneWidget);

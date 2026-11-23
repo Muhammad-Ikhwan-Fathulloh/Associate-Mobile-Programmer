@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'router/app_router.dart';
+import 'theme/tema.dart';
 
 class AssociateMobileApp extends StatelessWidget {
   const AssociateMobileApp({super.key});
@@ -8,14 +9,9 @@ class AssociateMobileApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Associate Mobile Programmer',
+      title: 'Catatan Lokasi',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
-      darkTheme: ThemeData(
-        colorSchemeSeed: Colors.indigo,
-        useMaterial3: true,
-        brightness: Brightness.dark,
-      ),
+      theme: Tema.terang(),
       routerConfig: appRouter,
     );
   }
