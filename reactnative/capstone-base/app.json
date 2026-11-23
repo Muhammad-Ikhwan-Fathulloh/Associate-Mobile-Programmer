@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Aplikasi Saya",
+    "slug": "aplikasi-saya",
+    "version": "1.0.0",
+    "scheme": "aplikasisaya",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Aplikasi memakai lokasi untuk menandai catatan."
+        }
+      ],
+      "expo-secure-store"
+    ],
+    "android": {
+      "package": "id.contoh.aplikasisaya",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_NETWORK_STATE"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.aplikasisaya"
+    }
+  }
+}

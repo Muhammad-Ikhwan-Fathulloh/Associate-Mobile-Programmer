@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyek Akhir: Aplikasi Buatan Anda</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Proyek Akhir</p>
+    <h1>Proyek Akhir: Aplikasi Buatan Anda</h1><p style="margin:.2rem 0 1rem">by <a href="https://one.nocturnailed.com/" target="_blank" rel="noopener">Muhammad Ikhwan Fathulloh</a></p><p>Bangun satu aplikasi utuh yang menggabungkan seluruh materi: desain, SQLite, GPS, API, sensor, dan keamanan. Mulailah dari proyek dasar (<code>capstone-base</code>) lalu ubah menjadi aplikasi dengan tema pilihan Anda.</p>
+    </div></div><!--/split-->
+    <p class="ref">Dokumen: <a href="../../shared/docs/proyek/capstone.md">shared/docs/proyek/capstone.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Pilih tema</p>
+    <h2>Enam Ide Tema</h2>
+<table><tr><th>Tema</th><th>Gambaran</th></tr><tr><td>Jurnal Perjalanan</td><td>Catatan perjalanan dengan foto lokasi, peta jejak, dan kategori. Sensor: kompas arah tujuan.</td></tr><tr><td>Pelacak Kebiasaan Berlokasi</td><td>Kebiasaan yang dicatat di tempat tertentu (gym, perpustakaan). Sensor: guncang untuk catat cepat.</td></tr><tr><td>Laporan Warga</td><td>Laporan masalah (jalan rusak, lampu mati) dengan lokasi dan kategori, dikirim ke server. Sensor: guncang untuk laporan darurat.</td></tr><tr><td>Daftar Belanja Dekat Toko</td><td>Daftar belanja yang mengingatkan saat dekat toko favorit. Sensor: kompas menuju toko.</td></tr><tr><td>Pelacak Olahraga</td><td>Catat sesi lari atau jalan, jarak dari titik GPS, dan hitung langkah kasar dari akselerometer.</td></tr><tr><td>Katalog UMKM Sekitar</td><td>Daftar usaha kecil di sekitar dengan jarak dan peta. Data dari server latihan.</td></tr></table>
+    </div></div><!--/split-->
+    <p class="ref">Dokumen: <a href="../../shared/docs/proyek/capstone.md">shared/docs/proyek/capstone.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Proyek dasar</p>
+    <h2>Mulai dari Capstone Base</h2>
+<ul><li>React Native: <code>reactnative/capstone-base</code>. Flutter: <code>flutter/capstone-base</code>.</li><li>Sudah ada: struktur berlapis, tema, SQLite, GPS, klien API, sinkronisasi, sensor, dan tes.</li><li>Ubah <code>proyek.config</code> untuk nama aplikasi, nama entri, dan warna.</li><li>Kerjakan slot bertanda <code>TODO(peserta)</code> lalu tambahkan fitur kreatif.</li></ul>
+    </div></div><!--/split-->
+    <p class="ref">Dokumen: <a href="../../shared/docs/proyek/capstone.md">shared/docs/proyek/capstone.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Syarat</p>
+    <h2>Matriks Fitur Wajib</h2>
+<table><tr><th>Modul</th><th>Topik</th><th>Yang harus ada</th></tr><tr><td>1</td><td>Platform dan bahasa</td><td>Aplikasi berjalan di emulator atau perangkat, kode bertipe, komponen dipakai ulang.</td></tr><tr><td>2</td><td>Desain</td><td>Rancangan di Figma atau Stitch (minimal 3 layar), variable menjadi token di berkas tema, tanpa angka mentah.</td></tr><tr><td>3</td><td>SQLite</td><td>Minimal satu tabel dengan CRUD lengkap, repository terpisah, data bertahan, satu migrasi.</td></tr><tr><td>4</td><td>GPS</td><td>Koordinat tersimpan di SQLite, izin dan kegagalan ditangani, jarak atau peta ditampilkan.</td></tr><tr><td>5 dan 7</td><td>API dan sinkronisasi</td><td>Login, kirim dan ambil data, status PENDING dan SYNCED, token di penyimpanan aman, HTTP publik ditolak.</td></tr><tr><td>6</td><td>Sensor</td><td>Minimal satu sensor dipakai dengan makna (bukan sekadar menampilkan angka), langganan dihentikan.</td></tr><tr><td>8</td><td>Kualitas</td><td>Minimal 8 tes lulus, analisis bersih, README, dan demo lima menit.</td></tr></table>
+    </div></div><!--/split-->
+    <p class="ref">Dokumen: <a href="../../shared/docs/proyek/capstone.md">shared/docs/proyek/capstone.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Tahapan</p>
+    <h2>Lima Tahap Kerja</h2>
+<table><tr><th>Tahap</th><th>Kegiatan</th></tr><tr><td>Tahap 1</td><td>Pilih tema, gambar rancangan 3 layar, ubah <code>proyek.config</code> dan token.</td></tr><tr><td>Tahap 2</td><td>Sesuaikan model dan tabel, buat layar utama dan form dengan GPS.</td></tr><tr><td>Tahap 3</td><td>Hubungkan ke server latihan dan lengkapi sinkronisasi.</td></tr><tr><td>Tahap 4</td><td>Tambahkan sensor dan fitur kreatif.</td></tr><tr><td>Tahap 5</td><td>Tes, README, tangkapan layar, dan latihan demo.</td></tr></table>
+    </div></div><!--/split-->
+    <p class="ref">Dokumen: <a href="../../shared/docs/proyek/capstone.md">shared/docs/proyek/capstone.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Penilaian</p>
+    <h2>Rubrik 100 Poin</h2>
+<table><tr><th>Aspek</th><th>Poin</th></tr><tr><td>Matriks fitur terpenuhi (7 baris)</td><td>35</td></tr><tr><td>Desain dan konsistensi token</td><td>15</td></tr><tr><td>Kualitas kode dan struktur berlapis</td><td>15</td></tr><tr><td>Tes, analisis, dan README</td><td>15</td></tr><tr><td>Fitur kreatif</td><td>10</td></tr><tr><td>Demo lima menit</td><td>10</td></tr></table>
+    </div></div><!--/split-->
+    <p class="ref">Dokumen: <a href="../../shared/docs/proyek/capstone.md">shared/docs/proyek/capstone.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Proyek modul</p>
+    <h2>Delapan Proyek Kecil</h2>
+<table><tr><th>Modul</th><th>Proyek</th><th>Estimasi</th></tr><tr><td>1</td><td>Kartu Kenal Digital</td><td>30 menit</td></tr><tr><td>2</td><td>Redesain Dua Layar dengan Token</td><td>60 menit</td></tr><tr><td>3</td><td>Pelacak Kebiasaan dengan SQLite</td><td>75 menit</td></tr><tr><td>4</td><td>Peta Tempat Favorit</td><td>75 menit</td></tr><tr><td>5</td><td>Klien API Catatan</td><td>60 menit</td></tr><tr><td>6</td><td>Penghitung Guncangan dan Kompas</td><td>60 menit</td></tr><tr><td>7</td><td>Sinkronisasi Offline-First</td><td>90 menit</td></tr><tr><td>8</td><td>Paket Bukti Kompetensi</td><td>60 menit</td></tr></table>
+    </div></div><!--/split-->
+    <p class="ref">Dokumen: <a href="../../shared/docs/proyek/capstone.md">shared/docs/proyek/capstone.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

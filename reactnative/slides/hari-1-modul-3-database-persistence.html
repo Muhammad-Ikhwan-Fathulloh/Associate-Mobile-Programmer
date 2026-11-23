@@ -126,6 +126,16 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
+    <p class="kicker">Proyek Modul 3 · 75 menit</p>
+    <h2>Pelacak Kebiasaan dengan SQLite</h2>
+<p>Buat pelacak kebiasaan harian (minum air, olahraga, membaca). Pengguna menambah kebiasaan dan mencentang kebiasaan yang selesai hari ini. Data harus tetap ada setelah aplikasi ditutup.</p><ul><li>Dua tabel: <code>habits</code> (id, nama, dibuat) dan <code>logs</code> (id, habit_id, tanggal) dengan kunci asing.</li><li>Lapisan repository terpisah dari tampilan: tambah, baca, ubah, hapus kebiasaan, serta catat dan batalkan centang.</li><li>Satu migrasi: tambahkan kolom <code>warna</code> pada <code>habits</code> tanpa menghapus data lama.</li><li>Layar daftar dengan jumlah hari berturut-turut (streak) per kebiasaan.</li><li>Jawaban tertulis tiga kalimat: mengapa aplikasi ini memakai SQLite dan bukan MySQL langsung?</li></ul>
+    </div></div><!--/split-->
+    <p class="ref">Brief lengkap: <a href="../../shared/docs/proyek/modul-3-pelacak-kebiasaan-dengan-sqlite.md">shared/docs/proyek/modul-3-pelacak-kebiasaan-dengan-sqlite.md</a></p>
+    <aside class="notes">Proyek ini adalah irisan kecil yang bisa berdiri sendiri dan nanti dapat digabung ke proyek akhir. Bacakan skenario, lalu minta peserta memilih satu syarat yang paling menantang bagi mereka. Kriteria penerimaan dan rubrik ada di brief lengkap.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan dan Coba</p>
     <h2>Tugas Modul 3</h2>
 <ol><li>Tambahkan kolom <code>kategori</code> dan pikirkan cara memigrasikan data lama.</li><li>Tambahkan pencarian judul dengan <code>LIKE</code>.</li><li>Uji: tambah catatan, tutup aplikasi, buka kembali.</li></ol>

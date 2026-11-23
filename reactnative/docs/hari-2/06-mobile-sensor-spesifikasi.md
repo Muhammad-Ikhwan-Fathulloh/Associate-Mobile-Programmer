@@ -202,6 +202,20 @@ export default function Perangkat() {
 2. Guncang ponsel dan pastikan pesan guncangan tampil (besar lebih dari 2 g).
 3. Putar ponsel dan amati giroskop serta arah kompas.
 
+## Proyek Modul: Penghitung Guncangan dan Kompas
+
+Buat alat kecil yang membaca sensor: menghitung berapa kali ponsel diguncang, menampilkan arah kompas, dan menampilkan kecepatan putar. Fokus pada fungsi perhitungan yang bisa diuji.
+
+Syarat utama:
+
+- Akselerometer: deteksi guncangan bila besar vektor melewati ambang, dengan jeda agar satu guncangan tidak dihitung berkali-kali.
+- Magnetometer: arah dalam derajat dan mata angin (U, TL, T, TG, S, BD, B, BL).
+- Giroskop: tampilkan kecepatan putar tiga sumbu.
+- Berhenti membaca sensor saat halaman ditutup.
+- Fungsi perhitungan murni dan diuji tanpa perangkat.
+
+Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/modul-6-penghitung-guncangan-dan-kompas.md).
+
 ## Peta Kompetensi BNSP
 
 Unit **J.612000.022.01**. Elemen yang dinilai:

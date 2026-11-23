@@ -35,6 +35,14 @@ index.html      halaman awal untuk memilih jalur
 
 Hari 3 (tentatif): uji kompetensi BNSP. Skema dan tujuh unit kompetensinya sama untuk kedua jalur; panduan dan bank soal ada di [flutter/docs/sertifikasi-bnsp](flutter/docs/sertifikasi-bnsp/00-panduan-sertifikasi.md).
 
+## Proyek
+
+Setiap modul punya satu proyek kecil, dan semuanya bermuara pada **proyek akhir** yang menggabungkan seluruh materi.
+
+- [Daftar proyek modul dan proyek akhir](shared/docs/proyek/README.md)
+- Proyek dasar (base) untuk proyek akhir: [React Native](reactnative/capstone-base/README.md) (sudah diuji) dan [Flutter](flutter/capstone-base/README.md) (kode Dart belum dikompilasi).
+- Slide: [proyek akhir](reactnative/slides/proyek-akhir.html). Slide proyek modul ada di tiap deck modul React Native.
+
 ## Desain Figma
 
 Berkas Figma contoh (20 variable token dan 5 layar aplikasi): https://www.figma.com/design/grYqOsULGfzYsDrtIjmjRL. Duplikat ke akun Anda untuk berlatih. Token-nya sama dengan `reactnative/app/src/theme.ts`. Panduan: [shared/docs/design-figma-stitch.md](shared/docs/design-figma-stitch.md).

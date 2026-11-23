@@ -79,6 +79,19 @@ describe('ambilJson', () => {
 2. Jalankan seluruh aplikasi dari awal tanpa melihat catatan.
 3. Jelaskan satu fitur kepada teman dalam dua menit.
 
+## Proyek Modul: Paket Bukti Kompetensi
+
+Siapkan bukti untuk uji kompetensi: aplikasi berjalan, kode yang menjadi bukti tiap unit, tes hijau, dan penjelasan lisan lima menit.
+
+Syarat utama:
+
+- Tabel bukti: satu baris per unit kompetensi (tujuh unit) berisi berkas kode atau layar yang membuktikannya.
+- Semua tes lulus dan pemeriksaan tipe atau analisis bersih (`npm test`, `npm run typecheck` atau `flutter analyze`, `flutter test`).
+- README proyek: cara menjalankan, fitur, dan tangkapan layar.
+- Skrip demo lima menit: apa yang dibuat, mengapa, bagaimana menguji.
+
+Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/modul-8-paket-bukti-kompetensi.md).
+
 ## Peta Kompetensi BNSP
 
 Unit **Semua unit**. Elemen yang dinilai:

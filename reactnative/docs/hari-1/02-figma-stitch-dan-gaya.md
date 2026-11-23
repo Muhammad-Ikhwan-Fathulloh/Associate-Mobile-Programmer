@@ -152,6 +152,21 @@ export default function RootLayout() {
 2. Buat rancangan layar Catatan di Stitch, ekspor ke Figma, dan rapikan dengan Auto Layout.
 3. Minta AI mengubah gaya aplikasi menjadi gelap memakai prompt berkonteks, lalu tinjau perbedaannya.
 
+## Proyek Modul: Redesain Dua Layar dengan Token
+
+Ambil rancangan dua layar (Beranda dan Daftar) dari Stitch atau Figma, jadikan variable menjadi token, lalu implementasikan di aplikasi. Boleh meminta bantuan AI, tetapi hasilnya harus Anda tinjau.
+
+Syarat utama:
+
+- Rancangan dua layar di Figma (boleh dimulai dari Stitch atau berkas contoh pelatihan).
+- Minimal 8 variable di Figma: warna, spasi, dan radius.
+- Berkas tema di kode dengan nama yang sama dengan variable Figma.
+- Dua layar di aplikasi memakai tema, tanpa angka warna atau jarak mentah di komponen.
+- Tangkapan layar perbandingan: desain di samping hasil aplikasi.
+- Catatan singkat prompt AI yang dipakai dan satu hal yang Anda koreksi dari hasil AI.
+
+Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/modul-2-redesain-dua-layar-dengan-token.md).
+
 ## Peta Kompetensi BNSP
 
 Unit **J.612000.007.01**. Elemen yang dinilai:

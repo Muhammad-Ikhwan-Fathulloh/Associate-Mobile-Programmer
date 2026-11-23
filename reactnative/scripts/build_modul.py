@@ -11,6 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from modul_data import MODUL  # noqa: E402
 from narasi_data import NARASI, NARASI_UMUM, PEMBUKA  # noqa: E402
+from proyek_data import PROYEK  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 APP = ROOT / "app"
@@ -57,9 +58,17 @@ def md_modul(m):
         if nar:
             L += ["", f"> **Narasi pengajar:** {nar}"]
     L += ["", "## Latihan", ""] + [f"{i}. {t}" for i, t in enumerate(m["tugas"], 1)]
+    pr = PROYEK[m["n"]]
+    L += ["", f"## Proyek Modul: {pr['judul']}", "", pr["skenario"], "", "Syarat utama:", ""] + [f"- {x}" for x in pr["wajib"]]
+    L += ["", f"Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/{nama_proyek(m['n'])})."]
     L += ["", "## Peta Kompetensi BNSP", "", f"Unit **{m['unit']}**. Elemen yang dinilai:", ""] + [f"- {e}" for e in m["elemen"]]
     L += ["", f"Bukti pada pelatihan ini: {m['bukti']}.", "", f"Praktik langkah demi langkah: [hands-on {m['praktik']}](../hands-on/hari-{m['hari']}.md)."]
     return "\n".join(L) + "\n"
+
+
+def nama_proyek(n):
+    import re as _re
+    return f"modul-{n}-" + _re.sub(r"[^a-z0-9]+", "-", PROYEK[n]["judul"].lower()).strip("-") + ".md"
 
 
 # ---------------------------------------------------------------------- HTML
@@ -129,6 +138,11 @@ def html_modul(m):
                 baris = baris[:MAKS_BARIS] + ["// ... selengkapnya di berkas ini"]
             body = f"<p>{inline(isi[1])}</p><p class=\"ref\"><code>{esc(isi[0])}</code></p><pre><code>{esc(chr(10).join(baris))}</code></pre>"
             s.append(sec(KODE_KICK(sim), esc(judul), body, "code", sim=sim, narasi=nar))
+    pr = PROYEK[m["n"]]
+    pbody = f"<p>{inline(pr['skenario'])}</p><ul>" + "".join(f"<li>{inline(x)}</li>" for x in pr["wajib"]) + "</ul>"
+    pref = f'Brief lengkap: <a href="../../shared/docs/proyek/{nama_proyek(m["n"])}">shared/docs/proyek/{nama_proyek(m["n"])}</a>'
+    s.append(sec(f"Proyek Modul {m['n']} · {pr['waktu']}", esc(pr["judul"]), pbody, "", pref,
+                 narasi="Proyek ini adalah irisan kecil yang bisa berdiri sendiri dan nanti dapat digabung ke proyek akhir. Bacakan skenario, lalu minta peserta memilih satu syarat yang paling menantang bagi mereka. Kriteria penerimaan dan rubrik ada di brief lengkap."))
     tugas = "<ol>" + "".join(f"<li>{inline(t)}</li>" for t in m["tugas"]) + "</ol>"
     praktik_ref = f'Praktik: <a href="../docs/hands-on/hari-{m["hari"]}.md">hands-on {m["praktik"]}</a> · ' + md_ref
     s.append(sec("Latihan dan Coba", "Tugas Modul " + str(m["n"]), tugas, "", praktik_ref, narasi=NARASI_UMUM["latihan"]))

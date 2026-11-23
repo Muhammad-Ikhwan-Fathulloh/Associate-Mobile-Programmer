@@ -245,6 +245,21 @@ export function ambilJson(url: string, fetchFn: FetchFn = fetch, batasMs = 10000
 2. Ubah catatan yang sudah SYNCED dan sinkronkan lagi. Server menerima PUT atau POST?
 3. Uji alamat `http://` publik dan pastikan ditolak.
 
+## Proyek Modul: Sinkronisasi Offline-First
+
+Lengkapi aplikasi catatan agar bekerja tanpa internet. Catatan disimpan lokal dengan status PENDING, lalu dikirim ke server saat pengguna menekan Sinkronkan. Token disimpan dengan aman.
+
+Syarat utama:
+
+- Kolom `sync_status` (PENDING atau SYNCED) dan `server_id` pada tabel lokal.
+- Fungsi sinkronisasi: kirim PENDING (POST bila baru, PUT bila sudah punya `server_id`), tandai SYNCED, lalu ambil data baru dari server.
+- Satu kegagalan tidak menghentikan catatan lain; hasil dilaporkan (terkirim, diterima, gagal).
+- Token login disimpan di penyimpanan aman, bukan SQLite.
+- Alamat HTTP publik ditolak. HTTP hanya diizinkan ke alamat lokal untuk pengembangan.
+- Minimal 4 tes sinkronisasi dengan basis data tiruan dan API palsu.
+
+Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/modul-7-sinkronisasi-offline-first.md).
+
 ## Peta Kompetensi BNSP
 
 Unit **J.612000.008.01**. Elemen yang dinilai:

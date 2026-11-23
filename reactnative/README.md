@@ -48,6 +48,10 @@ Setiap slide modul punya narasi pengajar. Tekan **N** (atau tombol Narasi) untuk
 | 2 | 13.00 to 15.00 | Lanjutan API: menghubungkan aplikasi ke API, token, sinkronisasi |
 | 2 | 15.00 to 17.00 | Latihan dan persiapan uji kompetensi |
 
+## Proyek
+
+Tiap modul punya proyek kecil (slide "Proyek Modul" dan [brief lengkap](../shared/docs/proyek/README.md)). Proyek akhir dimulai dari [capstone-base](capstone-base/README.md), proyek dasar yang dapat diubah lewat `src/proyek.config.ts`. Slide: [proyek akhir](slides/proyek-akhir.html).
+
 ## Menjalankan aplikasi contoh
 
 ```bash

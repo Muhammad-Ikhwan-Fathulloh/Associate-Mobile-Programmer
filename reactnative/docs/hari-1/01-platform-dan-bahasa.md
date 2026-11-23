@@ -112,6 +112,20 @@ export function Tombol({ label, onPress, bahaya, testID }: Props) {
 2. Buat emulator di Android Studio atau siapkan ponsel dengan Expo Go.
 3. Ubah teks pada `app/index.tsx` dan lihat perubahan langsung (Fast Refresh).
 
+## Proyek Modul: Kartu Kenal Digital
+
+Buat aplikasi satu layar yang menampilkan kartu kenal Anda: inisial, nama, peran, dan tiga keahlian. Proyek ini memastikan lingkungan kerja, bahasa, dan komponen dasar berjalan.
+
+Syarat utama:
+
+- Aplikasi berjalan di emulator atau Expo Go (atau `flutter run`).
+- Data profil disimpan dalam satu objek atau kelas bertipe, bukan teks yang tersebar di tampilan.
+- Satu komponen `Kartu` dipakai ulang minimal dua kali (misalnya profil dan keahlian).
+- Fungsi murni `inisial(nama)` yang mengubah "Ani Lestari" menjadi "AL".
+- Tombol yang mengubah satu tampilan (misalnya menampilkan atau menyembunyikan keahlian).
+
+Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/modul-1-kartu-kenal-digital.md).
+
 ## Peta Kompetensi BNSP
 
 Unit **J.612000.001.01**. Elemen yang dinilai:

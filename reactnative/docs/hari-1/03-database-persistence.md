@@ -197,6 +197,20 @@ export async function simpanDariServer(n: Note & { serverId: number }): Promise<
 2. Tambahkan pencarian judul dengan `LIKE`.
 3. Uji: tambah catatan, tutup aplikasi, buka kembali.
 
+## Proyek Modul: Pelacak Kebiasaan dengan SQLite
+
+Buat pelacak kebiasaan harian (minum air, olahraga, membaca). Pengguna menambah kebiasaan dan mencentang kebiasaan yang selesai hari ini. Data harus tetap ada setelah aplikasi ditutup.
+
+Syarat utama:
+
+- Dua tabel: `habits` (id, nama, dibuat) dan `logs` (id, habit_id, tanggal) dengan kunci asing.
+- Lapisan repository terpisah dari tampilan: tambah, baca, ubah, hapus kebiasaan, serta catat dan batalkan centang.
+- Satu migrasi: tambahkan kolom `warna` pada `habits` tanpa menghapus data lama.
+- Layar daftar dengan jumlah hari berturut-turut (streak) per kebiasaan.
+- Jawaban tertulis tiga kalimat: mengapa aplikasi ini memakai SQLite dan bukan MySQL langsung?
+
+Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/modul-3-pelacak-kebiasaan-dengan-sqlite.md).
+
 ## Peta Kompetensi BNSP
 
 Unit **J.612000.003.01**. Elemen yang dinilai:

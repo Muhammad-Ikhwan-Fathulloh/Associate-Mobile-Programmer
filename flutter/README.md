@@ -47,6 +47,10 @@ Agenda terbaru ditambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giros
 
 Jadwal mengikuti silabus resmi penyelenggara.
 
+## Proyek
+
+Brief proyek tiap modul dan proyek akhir ada di [shared/docs/proyek](../shared/docs/proyek/README.md) (netral teknologi, dengan petunjuk Flutter). Proyek dasar proyek akhir: [capstone-base](capstone-base/README.md) (kode Dart belum dikompilasi).
+
 ## Hands-On
 
 Panduan langkah demi langkah dan kode aplikasi jadi:

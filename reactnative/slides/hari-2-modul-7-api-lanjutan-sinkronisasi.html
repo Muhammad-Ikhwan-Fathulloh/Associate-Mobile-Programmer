@@ -155,6 +155,16 @@ type FetchFn = typeof fetch;
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
+    <p class="kicker">Proyek Modul 7 · 90 menit</p>
+    <h2>Sinkronisasi Offline-First</h2>
+<p>Lengkapi aplikasi catatan agar bekerja tanpa internet. Catatan disimpan lokal dengan status PENDING, lalu dikirim ke server saat pengguna menekan Sinkronkan. Token disimpan dengan aman.</p><ul><li>Kolom <code>sync_status</code> (PENDING atau SYNCED) dan <code>server_id</code> pada tabel lokal.</li><li>Fungsi sinkronisasi: kirim PENDING (POST bila baru, PUT bila sudah punya <code>server_id</code>), tandai SYNCED, lalu ambil data baru dari server.</li><li>Satu kegagalan tidak menghentikan catatan lain; hasil dilaporkan (terkirim, diterima, gagal).</li><li>Token login disimpan di penyimpanan aman, bukan SQLite.</li><li>Alamat HTTP publik ditolak. HTTP hanya diizinkan ke alamat lokal untuk pengembangan.</li><li>Minimal 4 tes sinkronisasi dengan basis data tiruan dan API palsu.</li></ul>
+    </div></div><!--/split-->
+    <p class="ref">Brief lengkap: <a href="../../shared/docs/proyek/modul-7-sinkronisasi-offline-first.md">shared/docs/proyek/modul-7-sinkronisasi-offline-first.md</a></p>
+    <aside class="notes">Proyek ini adalah irisan kecil yang bisa berdiri sendiri dan nanti dapat digabung ke proyek akhir. Bacakan skenario, lalu minta peserta memilih satu syarat yang paling menantang bagi mereka. Kriteria penerimaan dan rubrik ada di brief lengkap.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan dan Coba</p>
     <h2>Tugas Modul 7</h2>
 <ol><li>Buat catatan saat server mati, nyalakan server, lalu tekan Sinkronkan. Pastikan status berubah menjadi SYNCED.</li><li>Ubah catatan yang sudah SYNCED dan sinkronkan lagi. Server menerima PUT atau POST?</li><li>Uji alamat <code>http://</code> publik dan pastikan ditolak.</li></ol>

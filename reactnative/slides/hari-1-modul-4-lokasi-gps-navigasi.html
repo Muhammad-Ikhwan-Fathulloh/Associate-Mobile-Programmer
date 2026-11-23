@@ -129,6 +129,16 @@ export function jarakMeter(lat1: number, lon1: number, lat2: number, lon2: numbe
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
+    <p class="kicker">Proyek Modul 4 · 75 menit</p>
+    <h2>Peta Tempat Favorit</h2>
+<p>Aplikasi untuk menyimpan tempat favorit (kafe, masjid, taman). Saat menambah tempat, pengguna dapat menyertakan lokasi GPS. Daftar menampilkan jarak dari posisi sekarang, dan peta menampilkan semua tempat.</p><ul><li>Tombol "Sertakan lokasi saya" mengisi <code>latitude</code> dan <code>longitude</code>, tersimpan di SQLite.</li><li>Izin lokasi diminta saat tombol ditekan, bukan saat aplikasi dibuka.</li><li>Kasus gagal ditangani: izin ditolak, GPS mati, dan waktu habis. Tempat tetap bisa disimpan tanpa koordinat.</li><li>Daftar menampilkan jarak (m atau km) memakai Haversine bagi tempat yang punya koordinat.</li><li>Peta OpenStreetMap menampilkan penanda untuk setiap tempat.</li></ul>
+    </div></div><!--/split-->
+    <p class="ref">Brief lengkap: <a href="../../shared/docs/proyek/modul-4-peta-tempat-favorit.md">shared/docs/proyek/modul-4-peta-tempat-favorit.md</a></p>
+    <aside class="notes">Proyek ini adalah irisan kecil yang bisa berdiri sendiri dan nanti dapat digabung ke proyek akhir. Bacakan skenario, lalu minta peserta memilih satu syarat yang paling menantang bagi mereka. Kriteria penerimaan dan rubrik ada di brief lengkap.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
     <p class="kicker">Latihan dan Coba</p>
     <h2>Tugas Modul 4</h2>
 <ol><li>Buat catatan dengan lokasi, tutup aplikasi, buka lagi, dan pastikan koordinat tetap ada.</li><li>Tolak izin lokasi dan pastikan catatan tetap tersimpan.</li><li>Tampilkan jarak catatan ke posisi Anda sekarang.</li></ol>

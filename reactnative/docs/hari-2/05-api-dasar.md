@@ -186,6 +186,21 @@ export type ApiClient = ReturnType<typeof buatApiClient>;
 2. Login lewat halaman Sinkronisasi dan baca log hasilnya.
 3. Matikan server lalu coba lagi. Apa pesan error yang tampil?
 
+## Proyek Modul: Klien API Catatan
+
+Hubungkan aplikasi ke server latihan (`shared/server`). Pengguna login, melihat daftar catatan dari server, dan membuat catatan baru. Kesalahan server ditampilkan dengan pesan yang ramah.
+
+Syarat utama:
+
+- Server latihan berjalan (`npm start`) dan dapat dijangkau dari emulator (`10.0.2.2`) atau ponsel (IP komputer).
+- Klien API terpisah dari tampilan: `login`, `daftarCatatan`, `buatCatatan`.
+- Header `Authorization: Bearer <token>` dikirim pada rute catatan.
+- Pesan error dari server (`error`) ditampilkan, bukan teks teknis.
+- Batas waktu permintaan (timeout) dan penanganan server mati.
+- Minimal 4 tes klien dengan `fetch` atau `http.Client` palsu.
+
+Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/modul-5-klien-api-catatan.md).
+
 ## Peta Kompetensi BNSP
 
 Unit **J.612000.025.01**. Elemen yang dinilai:

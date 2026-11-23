@@ -179,6 +179,20 @@ export function jarakMeter(lat1: number, lon1: number, lat2: number, lon2: numbe
 2. Tolak izin lokasi dan pastikan catatan tetap tersimpan.
 3. Tampilkan jarak catatan ke posisi Anda sekarang.
 
+## Proyek Modul: Peta Tempat Favorit
+
+Aplikasi untuk menyimpan tempat favorit (kafe, masjid, taman). Saat menambah tempat, pengguna dapat menyertakan lokasi GPS. Daftar menampilkan jarak dari posisi sekarang, dan peta menampilkan semua tempat.
+
+Syarat utama:
+
+- Tombol "Sertakan lokasi saya" mengisi `latitude` dan `longitude`, tersimpan di SQLite.
+- Izin lokasi diminta saat tombol ditekan, bukan saat aplikasi dibuka.
+- Kasus gagal ditangani: izin ditolak, GPS mati, dan waktu habis. Tempat tetap bisa disimpan tanpa koordinat.
+- Daftar menampilkan jarak (m atau km) memakai Haversine bagi tempat yang punya koordinat.
+- Peta OpenStreetMap menampilkan penanda untuk setiap tempat.
+
+Brief lengkap, kriteria penerimaan, dan rubrik: [shared/docs/proyek](../../../shared/docs/proyek/modul-4-peta-tempat-favorit.md).
+
 ## Peta Kompetensi BNSP
 
 Unit **J.612000.006.01**. Elemen yang dinilai:
