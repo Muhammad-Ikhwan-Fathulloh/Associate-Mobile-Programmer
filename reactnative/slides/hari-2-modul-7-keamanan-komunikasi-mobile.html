@@ -25,17 +25,17 @@
     </div></div><!--/split-->
   </section>
 
-  <section class="slide">
+  <section class="slide" data-sim="tls">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Konsep</p>
+    <p class="kicker">Konsep · simulasi: tekan S</p>
     <h2>Ancaman komunikasi nirkabel</h2>
 <table><tr><th>Ancaman</th><th>Cara kerja</th><th>Pencegahan</th></tr><tr><td>Penyadapan (sniffing)</td><td>Membaca lalu lintas Wi-Fi terbuka</td><td>HTTPS, hindari Wi-Fi terbuka</td></tr><tr><td>Man-in-the-middle</td><td>Penyerang berada di tengah jalur</td><td>TLS dengan sertifikat valid</td></tr><tr><td>Access point palsu</td><td>Wi-Fi tiruan menjebak pengguna</td><td>Verifikasi jaringan, pakai VPN</td></tr><tr><td>Pencurian token</td><td>Rahasia dibaca dari penyimpanan biasa</td><td>Penyimpanan aman</td></tr></table>
     </div></div><!--/split-->
   </section>
 
-  <section class="slide code">
+  <section class="slide code" data-sim="urlcheck">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Kode di Aplikasi</p>
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>HTTPS dan timeout</h2>
 <p>Tolak URL non-HTTPS, batasi waktu dengan <code>AbortController</code>, periksa status.</p><p class="ref"><code>src/services/httpsService.ts</code></p><pre><code>export async function ambilJson(
   url: string,
@@ -54,9 +54,9 @@
     </div></div><!--/split-->
   </section>
 
-  <section class="slide code">
+  <section class="slide code" data-sim="secure">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Kode di Aplikasi</p>
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>Penyimpanan aman</h2>
 <p>Token disimpan di Keystore Android atau Keychain iOS.</p><p class="ref"><code>src/services/secureStorage.ts</code></p><pre><code>import * as SecureStore from 'expo-secure-store';
 
@@ -68,9 +68,9 @@ export const hapusToken = () =&gt; SecureStore.deleteItemAsync(KUNCI);</code></p
     </div></div><!--/split-->
   </section>
 
-  <section class="slide">
+  <section class="slide" data-sim="auth">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Konsep</p>
+    <p class="kicker">Konsep · simulasi: tekan S</p>
     <h2>Prinsip pengamanan aplikasi</h2>
 <ul><li>Selalu **HTTPS**. Jangan menonaktifkan pemeriksaan sertifikat.</li><li>Rahasia di **secure store**, bukan di SQLite atau teks biasa.</li><li>**Validasi masukan** di aplikasi dan di server.</li><li>Jangan menaruh API key rahasia di dalam kode aplikasi.</li><li>Minta **izin seperlunya** dan jelaskan alasannya.</li></ul>
     </div></div><!--/split-->
@@ -95,6 +95,7 @@ export const hapusToken = () =&gt; SecureStore.deleteItemAsync(KUNCI);</code></p
 </div>
 <script src="../../shared/assets/highlight.js"></script>
 <script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
 <script src="../../shared/assets/slides.js"></script>
 </body>
 </html>

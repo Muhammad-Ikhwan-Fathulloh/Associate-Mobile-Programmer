@@ -25,9 +25,9 @@
     </div></div><!--/split-->
   </section>
 
-  <section class="slide">
+  <section class="slide" data-sim="accel">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Konsep</p>
+    <p class="kicker">Konsep · simulasi: tekan S</p>
     <h2>Jenis sensor</h2>
 <table><tr><th>Sensor</th><th>Mengukur</th><th>Contoh penggunaan</th></tr><tr><td>Akselerometer</td><td>Percepatan</td><td>Hitung langkah, deteksi guncangan</td></tr><tr><td>Giroskop</td><td>Laju putaran</td><td>Game, stabilisasi</td></tr><tr><td>Magnetometer</td><td>Medan magnet</td><td>Kompas</td></tr><tr><td>Sensor cahaya</td><td>Kecerahan</td><td>Kecerahan layar otomatis</td></tr><tr><td>Sensor jarak</td><td>Dekat atau jauh</td><td>Layar mati saat telepon ke telinga</td></tr><tr><td>Barometer</td><td>Tekanan udara</td><td>Perkiraan ketinggian</td></tr></table>
     </div></div><!--/split-->
@@ -41,9 +41,9 @@
     </div></div><!--/split-->
   </section>
 
-  <section class="slide code">
+  <section class="slide code" data-sim="rn_effect">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Kode di Aplikasi</p>
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>Membaca akselerometer</h2>
 <p>Berlangganan dengan <code>addListener</code>, berhenti dengan <code>remove</code>.</p><p class="ref"><code>app/sensor.tsx</code></p><pre><code>  useEffect(() =&gt; {
     let langganan: { remove: () =&gt; void } | undefined;
@@ -110,6 +110,7 @@ export default function Perangkat() {
 </div>
 <script src="../../shared/assets/highlight.js"></script>
 <script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
 <script src="../../shared/assets/slides.js"></script>
 </body>
 </html>

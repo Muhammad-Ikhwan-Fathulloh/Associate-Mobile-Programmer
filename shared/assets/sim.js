@@ -600,6 +600,9 @@
     }
   };
 
+  /* Pintu bagi berkas simulasi tambahan (misalnya sim-rn.js) */
+  window.AMP_SIM = { SIMS: SIMS, h: h, btn: btn, phone: phone, logBox: logBox };
+
   /* ---------- Panel ---------- */
   var overlay = null, current = null, openBtn = null;
 

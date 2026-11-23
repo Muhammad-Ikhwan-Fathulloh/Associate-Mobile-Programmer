@@ -41,17 +41,17 @@
     </div></div><!--/split-->
   </section>
 
-  <section class="slide">
+  <section class="slide" data-sim="handover">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Konsep</p>
+    <p class="kicker">Konsep · simulasi: tekan S</p>
     <h2>Handover dan Mobile IP</h2>
 <ul><li>**Handover**: sambungan berpindah ke menara lain saat pengguna bergerak.</li><li>**Mobile IP**: perangkat tetap dapat dijangkau dengan alamat yang sama saat berpindah jaringan.</li><li>Peran utama: *home agent* di jaringan asal dan *foreign agent* di jaringan yang dikunjungi.</li></ul>
     </div></div><!--/split-->
   </section>
 
-  <section class="slide code">
+  <section class="slide code" data-sim="network">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Kode di Aplikasi</p>
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>Mendeteksi jenis koneksi</h2>
 <p><code>labelJaringan</code> menerjemahkan status mentah menjadi label.</p><p class="ref"><code>src/services/networkService.ts</code></p><pre><code>import * as Network from 'expo-network';
 
@@ -97,6 +97,7 @@ export async function cekJaringan() {
 </div>
 <script src="../../shared/assets/highlight.js"></script>
 <script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
 <script src="../../shared/assets/slides.js"></script>
 </body>
 </html>

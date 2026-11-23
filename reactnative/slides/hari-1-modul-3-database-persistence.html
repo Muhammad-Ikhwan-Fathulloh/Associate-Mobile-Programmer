@@ -70,9 +70,9 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
     </div></div><!--/split-->
   </section>
 
-  <section class="slide code">
+  <section class="slide code" data-sim="crud">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Kode di Aplikasi</p>
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>Repository dan CRUD</h2>
 <p>Tiga fungsi: baca semua, simpan (tambah atau ubah), hapus. Parameter memakai tanda tanya.</p><p class="ref"><code>src/data/noteRepository.ts</code></p><pre><code>export async function simpanCatatan(n: Note): Promise&lt;void&gt; {
   const db = await getDb();
@@ -91,9 +91,9 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
     </div></div><!--/split-->
   </section>
 
-  <section class="slide">
+  <section class="slide" data-sim="offline">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Konsep</p>
+    <p class="kicker">Konsep · simulasi: tekan S</p>
     <h2>Model berlapis dan sinkronisasi</h2>
 <ul><li>**Lapisan**: tampilan (halaman) memanggil repository, repository memanggil SQLite.</li><li>**Offline-first**: simpan ke SQLite dahulu, kirim ke server saat ada koneksi.</li><li>Kolom <code>sync_status</code> menandai data **PENDING** (belum dikirim) atau **SYNCED**.</li><li>Konflik sinkronisasi biasanya diselesaikan dengan <code>updated_at</code> terbaru.</li></ul>
     </div></div><!--/split-->
@@ -118,6 +118,7 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
 </div>
 <script src="../../shared/assets/highlight.js"></script>
 <script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
 <script src="../../shared/assets/slides.js"></script>
 </body>
 </html>

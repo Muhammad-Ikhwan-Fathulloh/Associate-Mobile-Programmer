@@ -41,9 +41,9 @@
     </div></div><!--/split-->
   </section>
 
-  <section class="slide">
+  <section class="slide" data-sim="rn_bridge">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Konsep</p>
+    <p class="kicker">Konsep · simulasi: tekan S</p>
     <h2>Cara kerja React Native</h2>
 <ul><li>Kode ditulis dengan **komponen React** dan bahasa **TypeScript**.</li><li>JavaScript berjalan di mesin JS dalam aplikasi, lalu memerintahkan pembuatan **view native** (Text menjadi teks Android/iOS asli).</li><li>**Expo** menyediakan alat build dan modul siap pakai (SQLite, lokasi, sensor).</li><li>**Expo Go** memungkinkan menjalankan proyek di ponsel dengan memindai kode QR.</li></ul>
     </div></div><!--/split-->
@@ -70,9 +70,9 @@ async function ambil(url: string): Promise&lt;unknown&gt; {
     </div></div><!--/split-->
   </section>
 
-  <section class="slide code">
+  <section class="slide code" data-sim="rn_state">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Kode di Aplikasi</p>
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>Komponen pertama</h2>
 <p>Komponen dengan props <code>label</code>, <code>onPress</code>, dan <code>bahaya</code>.</p><p class="ref"><code>src/components/Tombol.tsx</code></p><pre><code>import { Pressable, Text } from 'react-native';
 import { gaya, warna } from '../ui';
@@ -110,6 +110,7 @@ export function Tombol({ label, onPress, bahaya, testID }: Props) {
 </div>
 <script src="../../shared/assets/highlight.js"></script>
 <script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
 <script src="../../shared/assets/slides.js"></script>
 </body>
 </html>

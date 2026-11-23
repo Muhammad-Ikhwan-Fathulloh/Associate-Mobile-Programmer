@@ -59,11 +59,12 @@ def md_modul(m):
 
 
 # ---------------------------------------------------------------------- HTML
-def sec(kicker, title, body, cls="", ref=""):
+def sec(kicker, title, body, cls="", ref="", sim=None):
     ref_html = f'\n    <p class="ref">{ref}</p>' if ref else ""
     c = f"slide {cls}".strip()
+    sim_attr = f' data-sim="{sim}"' if sim else ""
     return (
-        f'  <section class="{c}">\n    <!--split--><div class="split"><div class="main">\n'
+        f'  <section class="{c}"{sim_attr}>\n    <!--split--><div class="split"><div class="main">\n'
         f'    <p class="kicker">{esc(kicker)}</p>\n    <h2>{title}</h2>\n{body}\n'
         f"    </div></div><!--/split-->{ref_html}\n  </section>\n"
     )
@@ -73,6 +74,14 @@ def html_table(head, rows):
     h = "".join(f"<th>{inline(x)}</th>" for x in head)
     r = "".join("<tr>" + "".join(f"<td>{inline(c)}</td>" for c in row) + "</tr>" for row in rows)
     return f"<table><tr>{h}</tr>{r}</table>"
+
+
+def KONSEP_KICK(sim):
+    return "Konsep · simulasi: tekan S" if sim else "Konsep"
+
+
+def KODE_KICK(sim):
+    return "Kode di Aplikasi · simulasi: tekan S" if sim else "Kode di Aplikasi"
 
 
 def html_modul(m):
@@ -95,13 +104,14 @@ def html_modul(m):
     )
     s.append(sec("Sertifikasi BNSP", f"Peta Kompetensi: {esc(m['unit'])}", peta))
     for judul, jenis, isi in m["konsep"]:
+        sim = m.get("sim", {}).get(judul)
         if jenis == "bullets":
             body = "<ul>" + "".join(f"<li>{inline(b)}</li>" for b in isi) + "</ul>"
-            s.append(sec("Konsep", esc(judul), body))
+            s.append(sec(KONSEP_KICK(sim), esc(judul), body, sim=sim))
         elif jenis == "table":
-            s.append(sec("Konsep", esc(judul), html_table(*isi)))
+            s.append(sec(KONSEP_KICK(sim), esc(judul), html_table(*isi), sim=sim))
         elif jenis == "snippet":
-            s.append(sec("Contoh Kode", esc(judul), f"<pre><code>{esc(isi[1])}</code></pre>"))
+            s.append(sec("Contoh Kode", esc(judul), f"<pre><code>{esc(isi[1])}</code></pre>", sim=sim))
         elif jenis == "code":
             baris = baca(isi[0]).split("\n")
             if len(isi) > 2:  # mulai dari baris yang memuat penanda
@@ -109,7 +119,7 @@ def html_modul(m):
             if len(baris) > MAKS_BARIS:
                 baris = baris[:MAKS_BARIS] + ["// ... selengkapnya di berkas ini"]
             body = f"<p>{inline(isi[1])}</p><p class=\"ref\"><code>{esc(isi[0])}</code></p><pre><code>{esc(chr(10).join(baris))}</code></pre>"
-            s.append(sec("Kode di Aplikasi", esc(judul), body, "code"))
+            s.append(sec(KODE_KICK(sim), esc(judul), body, "code", sim=sim))
     tugas = "<ol>" + "".join(f"<li>{inline(t)}</li>" for t in m["tugas"]) + "</ol>"
     praktik_ref = f'Praktik: <a href="../docs/hands-on/hari-{m["hari"]}.md">hands-on {m["praktik"]}</a> · ' + md_ref
     s.append(sec("Latihan dan Coba", "Tugas Modul " + str(m["n"]), tugas, "", praktik_ref))
@@ -138,6 +148,7 @@ PAGE = """<!DOCTYPE html>
 </div>
 <script src="../../shared/assets/highlight.js"></script>
 <script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
 <script src="../../shared/assets/slides.js"></script>
 </body>
 </html>

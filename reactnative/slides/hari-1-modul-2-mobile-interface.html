@@ -41,17 +41,17 @@
     </div></div><!--/split-->
   </section>
 
-  <section class="slide">
+  <section class="slide" data-sim="rn_flex">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Konsep</p>
+    <p class="kicker">Konsep · simulasi: tekan S</p>
     <h2>Flexbox dan gaya</h2>
 <ul><li><code>flex: 1</code> membuat elemen mengisi ruang yang tersedia.</li><li><code>flexDirection</code> (default <code>column</code>) mengatur arah susunan anak.</li><li><code>padding</code> di dalam, <code>margin</code> di luar. Satuan dalam dp (tanpa tulisan px).</li><li><code>StyleSheet.create</code> mengumpulkan gaya di satu tempat.</li></ul>
     </div></div><!--/split-->
   </section>
 
-  <section class="slide code">
+  <section class="slide code" data-sim="rn_nav">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Kode di Aplikasi</p>
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>Navigasi expo-router</h2>
 <p>Nama file di <code>app/</code> menjadi alamat halaman. <code>Stack</code> menambahkan tombol kembali.</p><p class="ref"><code>app/_layout.tsx</code></p><pre><code>import { Stack } from 'expo-router';
 
@@ -70,9 +70,9 @@ export default function RootLayout() {
     </div></div><!--/split-->
   </section>
 
-  <section class="slide code">
+  <section class="slide code" data-sim="form">
     <!--split--><div class="split"><div class="main">
-    <p class="kicker">Kode di Aplikasi</p>
+    <p class="kicker">Kode di Aplikasi · simulasi: tekan S</p>
     <h2>Form dan validasi</h2>
 <p>State <code>judul</code>, <code>isi</code>, <code>error</code>. Validasi dilakukan sebelum menyimpan.</p><p class="ref"><code>app/note-form.tsx</code></p><pre><code>  const simpan = async () =&gt; {
     const pesan = validasiJudul(judul);
@@ -110,6 +110,7 @@ export default function RootLayout() {
 </div>
 <script src="../../shared/assets/highlight.js"></script>
 <script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/sim-rn.js"></script>
 <script src="../../shared/assets/slides.js"></script>
 </body>
 </html>

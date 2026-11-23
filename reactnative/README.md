@@ -14,6 +14,21 @@ Materi pelatihan **Associate Mobile Programmer** (dua hari, persiapan sertifikas
 | `slides/` | Slide per modul dan slide praktik (buka `slides/index.html`) |
 | `scripts/` | Pembuat panduan dan slide dari kode proyek |
 
+## Simulasi interaktif
+
+Setiap deck modul punya simulasi yang dibuka dengan tombol **Simulasi** atau tombol **S**:
+
+| Modul | Simulasi |
+|---|---|
+| 1 | Dari JSX ke tampilan native, `useState` dan render ulang |
+| 2 | Flexbox dengan `StyleSheet` langsung terlihat, navigasi expo-router, form dan validasi |
+| 3 | CRUD SQLite, offline-first dan sinkronisasi |
+| 4 | Izin lokasi, jarak Haversine |
+| 5 | Handover antar menara, deteksi jenis jaringan |
+| 6 | Akselerometer, `useEffect` dan cleanup langganan sensor |
+| 7 | TLS, pemeriksaan URL HTTPS, penyimpanan aman, autentikasi |
+| 8 | `npm test`: sisipkan bug, lihat tes menjadi merah |
+
 ## Jadwal
 
 | Hari | Modul |

@@ -241,3 +241,9 @@ async function ambil(url: string): Promise<unknown> {
         tugas=["Kerjakan latihan soal BNSP di `flutter/slides/latihan-soal-bnsp.html` (soal konseptual berlaku untuk kedua teknologi).", "Jalankan seluruh aplikasi dari awal tanpa melihat catatan.", "Jelaskan satu fitur kepada teman dalam dua menit."],
     ),
 ]
+
+
+# Simulasi interaktif per modul: {judul konsep: nama simulasi} (lihat shared/assets/sim.js dan sim-rn.js)
+SIM = {1: {'Cara kerja React Native': 'rn_bridge', 'Komponen pertama': 'rn_state'}, 2: {'Flexbox dan gaya': 'rn_flex', 'Navigasi expo-router': 'rn_nav', 'Form dan validasi': 'form'}, 3: {'Repository dan CRUD': 'crud', 'Model berlapis dan sinkronisasi': 'offline'}, 4: {'Izin lokasi': 'permission', 'Jarak Haversine': 'haversine'}, 5: {'Handover dan Mobile IP': 'handover', 'Mendeteksi jenis koneksi': 'network'}, 6: {'Jenis sensor': 'accel', 'Membaca akselerometer': 'rn_effect'}, 7: {'Ancaman komunikasi nirkabel': 'tls', 'HTTPS dan timeout': 'urlcheck', 'Penyimpanan aman': 'secure', 'Prinsip pengamanan aplikasi': 'auth'}, 8: {'Pengujian otomatis': 'rn_tests'}}
+for _m in MODUL:
+    _m["sim"] = SIM[_m["n"]]
