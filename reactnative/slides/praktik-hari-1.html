@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Praktik Hari 1: Dasar React Native, Database Lokal, dan Lokasi</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body class="praktik" data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Associate Mobile Programmer · React Native</p>
+    <h1>Praktik Hari 1</h1>
+<h2>Dasar React Native, Database Lokal, dan Lokasi</h2><p>Setiap step mengikuti alur yang sama:</p><ol><li><strong>Teori</strong>: konsep dan alasan di balik kode (slide dengan garis oranye)</li><li><strong>Praktik</strong>: salin kode ke file yang disebutkan (slide dengan tombol Salin)</li><li><strong>Penjelasan dan uji</strong>: pahami kode, jalankan, lalu cek hasilnya</li></ol><p>Panah kiri dan kanan memindah slide. Tombol F membuka layar penuh. Daftar langkah ada di slide 2.</p>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1</p>
+    <h2>Daftar Langkah</h2>
+<ul class="stepgrid"><li><a href="#3"><b>S0</b>Instalasi dan Cek Lingkungan</a></li><li><a href="#7"><b>S1</b>Buat Proyek dan Konfigurasi Dependensi</a></li><li><a href="#14"><b>S2</b>Konfigurasi Aplikasi dan TypeScript</a></li><li><a href="#20"><b>S3</b>Tema, Menu, dan Layout Navigasi</a></li><li><a href="#29"><b>S4</b>Halaman Beranda</a></li><li><a href="#35"><b>S5</b>Model Data Catatan</a></li><li><a href="#40"><b>S6</b>Database SQLite</a></li><li><a href="#45"><b>S7</b>Repository</a></li><li><a href="#50"><b>S8</b>Halaman Catatan dan Form</a></li><li><a href="#56"><b>S9</b>Layanan Lokasi dan Jarak</a></li><li><a href="#63"><b>S10</b>Peta dan Halaman Lokasi</a></li><li><a href="#70"><b>S11</b>Pengujian Hari 1</a></li><li><a href="#78"><b>Latihan Mandiri</b>Latihan Mandiri</a></li><li><a href="#79"><b>Ringkasan File</b>Ringkasan File</a></li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 09.00</p>
+    <h2>Step 0: Instalasi dan Cek Lingkungan</h2>
+<p>Panduan lengkap per sistem operasi ada di <a href="../instalasi-node-expo.md">docs/instalasi-node-expo.md</a>. Ringkasannya:</p>
+<ol><li>Pasang Node.js versi LTS dari https://nodejs.org (npm ikut terpasang).</li><li>Pasang Git dan VS Code.</li><li>Pasang aplikasi <strong>Expo Go</strong> di ponsel Android, atau pasang Android Studio dan buat emulator di <em>Device Manager</em>.</li><li>Pastikan laptop dan ponsel berada pada jaringan Wi-Fi yang sama.</li></ol>
+<h3>File pada step ini</h3><ol><li><code>Terminal</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 0 · Instalasi dan Cek Lingkungan</p>
+    <h2>Apa yang dipasang dan mengapa</h2>
+<ul><li><strong>Node.js</strong>: mesin JavaScript untuk menjalankan alat pengembangan. <strong>npm</strong> ikut terpasang.</li><li><strong>Expo</strong>: kerangka kerja di atas React Native yang menyederhanakan build dan uji di ponsel.</li><li><strong>Expo Go</strong>: aplikasi di ponsel untuk membuka proyek lewat kode QR tanpa memasang Android Studio.</li><li><strong>Emulator Android</strong> (opsional): ponsel virtual dari Android Studio.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 0 · Instalasi dan Cek Lingkungan</p>
+    <h2>Terminal</h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><p>Verifikasi:</p></div>
+<pre><code>node --version
+npm --version
+git --version</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 0 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Pastikan ketiganya menampilkan nomor versi tanpa pesan error.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 09.15</p>
+    <h2>Step 1: Buat Proyek dan Konfigurasi Dependensi</h2>
+<h3>File pada step ini</h3><ol><li><code>Terminal</code></li><li><code>package.json</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>React Native dan Expo</h2>
+<ul><li><strong>React Native</strong> menulis antarmuka dengan komponen React, lalu menampilkannya sebagai widget native.</li><li>Bahasanya <strong>TypeScript</strong>: JavaScript dengan tipe data, sehingga banyak kesalahan terlihat sebelum aplikasi jalan.</li><li><strong>Expo</strong> menyediakan modul siap pakai: SQLite, lokasi, sensor, penyimpanan aman.</li><li><code>npx expo install</code> memilih versi paket yang cocok dengan versi Expo.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>Struktur proyek</h2>
+<ul><li><code>app/</code> berisi halaman. Satu file menjadi satu route (expo-router).</li><li><code>src/</code> berisi kode kita: model, data, layanan, komponen.</li><li><code>package.json</code> mendaftar dependensi dan skrip. <code>app.json</code> mengatur nama, izin, dan plugin.</li><li><code>__tests__/</code> berisi pengujian otomatis dengan jest.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>Terminal<span class="part">1 dari 4</span></h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><p>Buat proyek baru dari templat TypeScript kosong, lalu masuk ke foldernya:</p></div>
+<pre><code>npx create-expo-app@latest associate-mobile-app --template blank-typescript
+cd associate-mobile-app</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>Terminal<span class="part">2 dari 4</span></h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><p>Pasang semua paket yang dipakai pada Hari 1 dan Hari 2 sekarang, agar tidak perlu memasang ulang. Perintah <code>npx expo install</code> memilih versi yang cocok dengan versi Expo di proyek:</p></div>
+<pre><code>npx expo install expo-router expo-sqlite expo-location expo-network expo-sensors expo-device expo-secure-store expo-status-bar react-native-webview react-native-safe-area-context react-native-screens
+npx expo install --dev jest jest-expo @types/jest typescript</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>Terminal<span class="part">3 dari 4</span></h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><p>Hapus file templat yang tidak dipakai, karena navigasi akan memakai <em>expo-router</em>:</p></div>
+<pre><code>rm App.tsx index.ts</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 1 · Buat Proyek dan Konfigurasi Dependensi</p>
+    <h2>package.json<span class="part">4 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>package.json</span></div>
+<div class="instr"><p>Buka <code>package.json</code>, ubah <code>main</code> dan tambahkan skrip serta pengaturan jest. Bagian lain biarkan seperti hasil perintah di atas:</p></div>
+<pre><code>{
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 09.35</p>
+    <h2>Step 2: Konfigurasi Aplikasi dan TypeScript</h2>
+<h3>File pada step ini</h3><ol><li><code>app.json</code></li><li><code>tsconfig.json</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 2 · Konfigurasi Aplikasi dan TypeScript</p>
+    <h2>Konfigurasi aplikasi</h2>
+<ul><li><code>app.json</code> memuat nama, ID paket, ikon, dan <strong>izin</strong> yang diminta aplikasi.</li><li>Izin Android dideklarasikan sebelum aplikasi dibangun. Pengguna tetap diminta menyetujui saat runtime.</li><li><code>tsconfig.json</code> dengan <code>strict: true</code> membuat TypeScript memeriksa <code>null</code> dan <code>undefined</code>.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 2 · Konfigurasi Aplikasi dan TypeScript</p>
+    <h2>app.json<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app.json</span></div>
+<div class="instr"><p>Ganti isi <code>app.json</code>:</p></div>
+<pre><code>{
+  "expo": {
+    "name": "Associate Mobile App",
+    "slug": "associate-mobile-app",
+    "version": "1.0.0",
+    "scheme": "associatemobile",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      [
+        "expo-location",
+        { "locationWhenInUsePermission": "Aplikasi memakai lokasi untuk menandai catatan." }
+      ],
+      "expo-secure-store"
+    ],
+    "android": {
+      "package": "id.ac.associate.mobileapp",
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION", "ACCESS_NETWORK_STATE"]
+    },
+    "ios": { "bundleIdentifier": "id.ac.associate.mobileapp" }
+  }
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 2 · Konfigurasi Aplikasi dan TypeScript</p>
+    <h2>tsconfig.json<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>tsconfig.json</span></div>
+<div class="instr"><p>Plugin <code>expo-location</code> berisi teks izin yang dibaca pengguna. Daftar <code>permissions</code> Android menyatakan izin lokasi dan status jaringan.</p>
+<p>Ganti isi <code>tsconfig.json</code>:</p></div>
+<pre><code>{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": { "strict": true },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 2 · Konfigurasi Aplikasi dan TypeScript</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>app.json</code></h3><ul><li>Nama, ID paket, dan daftar izin Android.</li><li>Plugin <code>expo-location</code> memuat teks izin untuk pengguna.</li></ul></div><div class="card"><h3><code>tsconfig.json</code></h3><ul><li>Mewarisi pengaturan dasar Expo.</li><li><code>strict: true</code> mengaktifkan pemeriksaan tipe ketat.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 2 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Mode <code>strict</code> membuat TypeScript menandai nilai yang mungkin <code>null</code> atau <code>undefined</code> sebelum aplikasi dijalankan.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 09.50</p>
+    <h2>Step 3: Tema, Menu, dan Layout Navigasi</h2>
+<p>Buat folder <code>src/components</code> dan <code>app</code> bila belum ada.</p>
+<h3>File pada step ini</h3><ol><li><code>src/ui.ts</code></li><li><code>src/menu.ts</code></li><li><code>src/components/Tombol.tsx</code></li><li><code>app/_layout.tsx</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <h2>Komponen dan gaya</h2>
+<ul><li><strong>Komponen</strong> adalah fungsi yang mengembalikan tampilan (JSX). Contoh: <code>Text</code>, <code>View</code>, <code>Pressable</code>.</li><li><strong>Props</strong> adalah parameter komponen, misalnya <code>label</code> dan <code>onPress</code> pada <code>Tombol</code>.</li><li><code>StyleSheet.create</code> mengumpulkan gaya. Tata letak memakai <strong>flexbox</strong>.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <h2>Navigasi dengan expo-router</h2>
+<ul><li>Nama file menentukan alamat: <code>app/notes.tsx</code> menjadi <code>/notes</code>.</li><li><code>_layout.tsx</code> membungkus semua halaman dengan <code>Stack</code>, yaitu tumpukan layar dengan tombol kembali.</li><li><code>router.push('/notes')</code> berpindah halaman.</li></ul><pre><code>router.push('/notes');</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <h2>src/ui.ts<span class="part">1 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/ui.ts</span></div>
+<div class="instr"><p>Buat file <code>src/ui.ts</code>:</p></div>
+<pre><code>import { StyleSheet } from 'react-native';
+
+export const warna = { utama: '#1565c0', latar: '#f5f7fb', teks: '#1b1f27', abu: '#5f6b7a', bahaya: '#c62828', ok: '#2e7d32' };
+
+export const gaya = StyleSheet.create({
+  layar: { flex: 1, backgroundColor: warna.latar, padding: 16 },
+  kartu: { backgroundColor: '#fff', borderRadius: 12, padding: 14, marginBottom: 12, elevation: 1 },
+  judul: { fontSize: 18, fontWeight: '700', color: warna.teks },
+  teks: { fontSize: 15, color: warna.teks, marginTop: 4 },
+  abu: { fontSize: 13, color: warna.abu, marginTop: 4 },
+  input: { backgroundColor: '#fff', borderWidth: 1, borderColor: '#cfd6e0', borderRadius: 8, padding: 10, marginBottom: 10, fontSize: 15 },
+  tombol: { backgroundColor: warna.utama, borderRadius: 8, paddingVertical: 12, alignItems: 'center', marginBottom: 10 },
+  tombolTeks: { color: '#fff', fontWeight: '700', fontSize: 15 },
+  error: { color: warna.bahaya, marginBottom: 8 },
+});</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <h2>src/menu.ts<span class="part">2 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/menu.ts</span></div>
+<div class="instr"><p>Buat file <code>src/menu.ts</code>:</p></div>
+<pre><code>export const MENU = [
+  { href: '/notes', judul: 'Catatan', ket: 'SQLite: tambah, ubah, hapus (Modul 2 dan 3)' },
+  { href: '/location', judul: 'Lokasi dan Peta', ket: 'GPS, jarak, peta OpenStreetMap (Modul 4)' },
+  { href: '/network', judul: 'Jaringan Seluler', ket: 'Status koneksi dan jenis jaringan (Modul 5)' },
+  { href: '/sensor', judul: 'Sensor', ket: 'Akselerometer dan protokol sensor (Modul 6)' },
+  { href: '/device', judul: 'Info Perangkat', ket: 'Model, OS, memori (Modul 6)' },
+  { href: '/keamanan', judul: 'Keamanan', ket: 'HTTPS dan penyimpanan aman (Modul 7)' },
+] as const;</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <h2>src/components/Tombol.tsx<span class="part">3 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/components/Tombol.tsx</span></div>
+<div class="instr"><p>Buat file <code>src/components/Tombol.tsx</code>:</p></div>
+<pre><code>import { Pressable, Text } from 'react-native';
+import { gaya, warna } from '../ui';
+
+type Props = { label: string; onPress: () =&gt; void; bahaya?: boolean; testID?: string };
+
+export function Tombol({ label, onPress, bahaya, testID }: Props) {
+  return (
+    &lt;Pressable
+      testID={testID}
+      accessibilityRole="button"
+      onPress={onPress}
+      style={[gaya.tombol, bahaya &amp;&amp; { backgroundColor: warna.bahaya }]}
+    &gt;
+      &lt;Text style={gaya.tombolTeks}&gt;{label}&lt;/Text&gt;
+    &lt;/Pressable&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <h2>app/_layout.tsx<span class="part">4 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app/_layout.tsx</span></div>
+<div class="instr"><p>Buat file <code>app/_layout.tsx</code>:</p></div>
+<pre><code>import { Stack } from 'expo-router';
+
+export default function RootLayout() {
+  return (
+    &lt;Stack screenOptions={{ headerStyle: { backgroundColor: '#1565c0' }, headerTintColor: '#fff' }}&gt;
+      &lt;Stack.Screen name="index" options={{ title: 'Associate Mobile App' }} /&gt;
+      &lt;Stack.Screen name="notes" options={{ title: 'Catatan' }} /&gt;
+      &lt;Stack.Screen name="note-form" options={{ title: 'Form Catatan' }} /&gt;
+      &lt;Stack.Screen name="location" options={{ title: 'Lokasi dan Peta' }} /&gt;
+      &lt;Stack.Screen name="network" options={{ title: 'Jaringan Seluler' }} /&gt;
+      &lt;Stack.Screen name="sensor" options={{ title: 'Sensor' }} /&gt;
+      &lt;Stack.Screen name="device" options={{ title: 'Info Perangkat' }} /&gt;
+      &lt;Stack.Screen name="keamanan" options={{ title: 'Keamanan' }} /&gt;
+    &lt;/Stack&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 3 · Tema, Menu, dan Layout Navigasi</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/ui.ts</code></h3><ul><li><code>warna</code> dan <code>gaya</code> dipakai ulang oleh semua halaman.</li><li>Satu tempat untuk mengubah tampilan.</li></ul></div><div class="card"><h3><code>src/menu.ts</code></h3><ul><li>Data menu: alamat, judul, keterangan.</li><li><code>as const</code> membuat alamat dikenali tipe route.</li></ul></div><div class="card"><h3><code>src/components/Tombol.tsx</code></h3><ul><li>Komponen tombol yang dapat dipakai ulang.</li><li>Prop <code>bahaya</code> mengubah warna menjadi merah.</li></ul></div><div class="card"><h3><code>app/_layout.tsx</code></h3><ul><li><code>Stack</code> membungkus semua halaman.</li><li><code>Stack.Screen</code> mengatur judul tiap halaman.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 3 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Di expo-router, setiap file di folder <code>app/</code> otomatis menjadi satu halaman, dan <code>_layout.tsx</code> mengatur bingkai navigasinya.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 10.05</p>
+    <h2>Step 4: Halaman Beranda</h2>
+<h3>File pada step ini</h3><ol><li><code>app/index.tsx</code></li><li><code>Terminal</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Halaman Beranda</p>
+    <h2>Daftar menu dengan map</h2>
+<ul><li><code>MENU.map(...)</code> mengubah array data menjadi daftar komponen.</li><li>Atribut <code>key</code> wajib agar React dapat melacak tiap item.</li><li>Memisahkan data menu dari tampilan memudahkan penambahan halaman baru.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 4 · Halaman Beranda</p>
+    <h2>app/index.tsx<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app/index.tsx</span></div>
+<div class="instr"><p>Buat file <code>app/index.tsx</code>:</p></div>
+<pre><code>import { Link } from 'expo-router';
+import { ScrollView, Text, Pressable } from 'react-native';
+import { MENU } from '../src/menu';
+import { gaya } from '../src/ui';
+
+export default function Beranda() {
+  return (
+    &lt;ScrollView style={gaya.layar}&gt;
+      &lt;Text style={[gaya.judul, { marginBottom: 12 }]}&gt;Pilih materi praktik&lt;/Text&gt;
+      {MENU.map((m) =&gt; (
+        &lt;Link key={m.href} href={m.href} asChild&gt;
+          &lt;Pressable style={gaya.kartu} accessibilityRole="button"&gt;
+            &lt;Text style={gaya.judul}&gt;{m.judul}&lt;/Text&gt;
+            &lt;Text style={gaya.abu}&gt;{m.ket}&lt;/Text&gt;
+          &lt;/Pressable&gt;
+        &lt;/Link&gt;
+      ))}
+    &lt;/ScrollView&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 4 · Halaman Beranda</p>
+    <h2>Terminal<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><p>Jalankan aplikasi dan buka lewat Expo Go dengan memindai kode QR:</p></div>
+<pre><code>npx expo start</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 4 · Halaman Beranda</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>app/index.tsx</code></h3><ul><li><code>MENU.map</code> membuat satu kartu per menu.</li><li><code>Link</code> dengan <code>asChild</code> membuat kartu bisa diketuk.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 4 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Menu tampil, tetapi ketukan belum membuka halaman karena halamannya belum dibuat. Itu normal, halaman dibuat pada step berikutnya.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 10.30</p>
+    <h2>Step 5: Model Data Catatan</h2>
+<h3>File pada step ini</h3><ol><li><code>src/models/note.ts</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 5 · Model Data Catatan</p>
+    <h2>Model dan tipe data</h2>
+<ul><li><code>type Note</code> menggambarkan bentuk data. Kompiler menolak kode yang salah bentuk.</li><li><code>number | null</code> berarti nilainya angka atau kosong. Lokasi bersifat opsional.</li><li>Validasi ditulis sebagai <strong>fungsi murni</strong> (masukan sama, hasil sama) sehingga mudah diuji.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 5 · Model Data Catatan</p>
+    <h2>src/models/note.ts</h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/models/note.ts</span></div>
+<div class="instr"><p>Buat file <code>src/models/note.ts</code>:</p></div>
+<pre><code>export type Note = {
+  id?: number;
+  title: string;
+  content: string;
+  latitude: number | null;
+  longitude: number | null;
+  updatedAt: number;
+  syncStatus: 'PENDING' | 'SYNCED';
+};
+
+export function noteBaru(
+  title: string,
+  content: string,
+  latitude: number | null = null,
+  longitude: number | null = null,
+): Note {
+  return { title, content, latitude, longitude, updatedAt: Date.now(), syncStatus: 'PENDING' };
+}
+
+/** Mengembalikan pesan error jika judul tidak valid, atau null jika valid. */
+export function validasiJudul(judul: string): string | null {
+  if (judul.trim().length === 0) return 'Judul wajib diisi.';
+  if (judul.trim().length &gt; 100) return 'Judul maksimal 100 karakter.';
+  return null;
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 5 · Model Data Catatan</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/models/note.ts</code></h3><ul><li><code>noteBaru</code> membuat catatan dengan waktu sekarang dan status PENDING.</li><li><code>validasiJudul</code> mengembalikan pesan error atau <code>null</code>.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 5 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p><code>validasiJudul</code> adalah fungsi murni sehingga mudah diuji tanpa perangkat.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 10.50</p>
+    <h2>Step 6: Database SQLite</h2>
+<h3>File pada step ini</h3><ol><li><code>src/data/database.ts</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 6 · Database SQLite</p>
+    <h2>SQLite di perangkat</h2>
+<ul><li><strong>SQLite</strong> adalah database relasional kecil yang tersimpan sebagai satu file di ponsel.</li><li>Data tetap ada setelah aplikasi ditutup (<strong>persisten</strong>) dan bisa dipakai tanpa internet (<strong>offline-first</strong>).</li><li>Skema: <code>id</code> kunci utama, <code>title</code> dan <code>content</code> wajib (<code>NOT NULL</code>), <code>sync_status</code> menandai data yang belum dikirim ke server.</li><li>Indeks pada <code>updated_at</code> mempercepat pengurutan.</li></ul><pre><code>CREATE TABLE notes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL
+);</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 6 · Database SQLite</p>
+    <h2>src/data/database.ts</h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/data/database.ts</span></div>
+<div class="instr"><p>Buat file <code>src/data/database.ts</code>:</p></div>
+<pre><code>import * as SQLite from 'expo-sqlite';
+
+let dbPromise: Promise&lt;SQLite.SQLiteDatabase&gt; | null = null;
+
+/** Membuka database sekali, lalu memakai koneksi yang sama. */
+export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
+  if (!dbPromise) {
+    dbPromise = (async () =&gt; {
+      const db = await SQLite.openDatabaseAsync('associate_mobile.db');
+      await db.execAsync(`
+        PRAGMA foreign_keys = ON;
+        CREATE TABLE IF NOT EXISTS notes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT NOT NULL,
+          content TEXT NOT NULL,
+          latitude REAL,
+          longitude REAL,
+          updated_at INTEGER NOT NULL,
+          sync_status TEXT NOT NULL DEFAULT 'PENDING'
+        );
+        CREATE INDEX IF NOT EXISTS idx_notes_updated_at ON notes(updated_at);
+      `);
+      return db;
+    })();
+  }
+  return dbPromise;
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 6 · Database SQLite</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/data/database.ts</code></h3><ul><li>Koneksi dibuka sekali lalu dipakai ulang.</li><li><code>execAsync</code> membuat tabel dan indeks bila belum ada.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 6 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Tabel dibuat hanya jika belum ada (<code>IF NOT EXISTS</code>), dan kolom <code>sync_status</code> menyiapkan sinkronisasi ke server.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 11.05</p>
+    <h2>Step 7: Repository</h2>
+<h3>File pada step ini</h3><ol><li><code>src/data/noteRepository.ts</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 7 · Repository</p>
+    <h2>Pola repository</h2>
+<ul><li><strong>Repository</strong> adalah satu-satunya tempat yang tahu SQL. Halaman hanya memanggil fungsi.</li><li>Model berlapis: tampilan, akses data, penyimpanan. Satu lapisan diganti tanpa merusak yang lain.</li><li>Tanda tanya <code>?</code> adalah <strong>parameter</strong>. Nilai dikirim terpisah dari SQL sehingga aman dari SQL injection.</li></ul><pre><code>db.runAsync('DELETE FROM notes WHERE id = ?', [id]);</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 7 · Repository</p>
+    <h2>src/data/noteRepository.ts</h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/data/noteRepository.ts</span></div>
+<div class="instr"><p>Buat file <code>src/data/noteRepository.ts</code>:</p></div>
+<pre><code>import { getDb } from './database';
+import { Note } from '../models/note';
+
+type Row = {
+  id: number;
+  title: string;
+  content: string;
+  latitude: number | null;
+  longitude: number | null;
+  updated_at: number;
+  sync_status: 'PENDING' | 'SYNCED';
+};
+
+const dariRow = (r: Row): Note =&gt; ({
+  id: r.id,
+  title: r.title,
+  content: r.content,
+  latitude: r.latitude,
+  longitude: r.longitude,
+  updatedAt: r.updated_at,
+  syncStatus: r.sync_status,
+});
+
+export async function semuaCatatan(): Promise&lt;Note[]&gt; {
+  const db = await getDb();
+  const rows = await db.getAllAsync&lt;Row&gt;('SELECT * FROM notes ORDER BY updated_at DESC');
+  return rows.map(dariRow);
+}
+
+export async function simpanCatatan(n: Note): Promise&lt;void&gt; {
+  const db = await getDb();
+  if (n.id == null) {
+    await db.runAsync(
+      'INSERT INTO notes (title, content, latitude, longitude, updated_at, sync_status) VALUES (?, ?, ?, ?, ?, ?)',
+      [n.title, n.content, n.latitude, n.longitude, n.updatedAt, n.syncStatus],
+    );
+  } else {
+    await db.runAsync(
+      "UPDATE notes SET title = ?, content = ?, latitude = ?, longitude = ?, updated_at = ?, sync_status = 'PENDING' WHERE id = ?",
+      [n.title, n.content, n.latitude, n.longitude, Date.now(), n.id],
+    );
+  }
+}
+
+export async function hapusCatatan(id: number): Promise&lt;void&gt; {
+  const db = await getDb();
+  await db.runAsync('DELETE FROM notes WHERE id = ?', [id]);
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 7 · Repository</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/data/noteRepository.ts</code></h3><ul><li><code>semuaCatatan</code>, <code>simpanCatatan</code>, <code>hapusCatatan</code>.</li><li><code>dariRow</code> mengubah baris SQL menjadi objek <code>Note</code>.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 7 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Halaman tidak menulis SQL sendiri. Semua akses data lewat tiga fungsi ini, dan parameter selalu memakai tanda tanya (<code>?</code>) agar aman dari SQL injection.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 11.30</p>
+    <h2>Step 8: Halaman Catatan dan Form</h2>
+<h3>File pada step ini</h3><ol><li><code>app/notes.tsx</code></li><li><code>app/note-form.tsx</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 8 · Halaman Catatan dan Form</p>
+    <h2>State dan efek</h2>
+<ul><li><code>useState</code> menyimpan data yang jika berubah menggambar ulang tampilan.</li><li><code>useEffect</code> menjalankan kode saat halaman muncul, misalnya memuat data.</li><li><code>useFocusEffect</code> memuat ulang data setiap halaman kembali tampil, sehingga daftar selalu segar.</li><li><code>FlatList</code> menampilkan daftar panjang secara efisien.</li></ul><pre><code>const [judul, setJudul] = useState('');</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 8 · Halaman Catatan dan Form</p>
+    <h2>app/notes.tsx<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app/notes.tsx</span></div>
+<div class="instr"><p>Buat file <code>app/notes.tsx</code>:</p></div>
+<pre><code>import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { Alert, FlatList, Pressable, Text, View } from 'react-native';
+import { Tombol } from '../src/components/Tombol';
+import { hapusCatatan, semuaCatatan } from '../src/data/noteRepository';
+import { Note } from '../src/models/note';
+import { gaya } from '../src/ui';
+
+export default function Catatan() {
+  const router = useRouter();
+  const [data, setData] = useState&lt;Note[]&gt;([]);
+
+  const muat = useCallback(async () =&gt; setData(await semuaCatatan()), []);
+  useFocusEffect(useCallback(() =&gt; { muat(); }, [muat]));
+
+  const hapus = (n: Note) =&gt;
+    Alert.alert('Hapus catatan?', n.title, [
+      { text: 'Batal', style: 'cancel' },
+      { text: 'Hapus', style: 'destructive', onPress: async () =&gt; { await hapusCatatan(n.id!); muat(); } },
+    ]);
+
+  return (
+    &lt;View style={gaya.layar}&gt;
+      &lt;Tombol label="Tambah Catatan" onPress={() =&gt; router.push('/note-form')} /&gt;
+      &lt;FlatList
+        data={data}
+        keyExtractor={(n) =&gt; String(n.id)}
+        ListEmptyComponent={&lt;Text style={gaya.abu}&gt;Belum ada catatan.&lt;/Text&gt;}
+        renderItem={({ item }) =&gt; (
+          &lt;Pressable
+            style={gaya.kartu}
+            onPress={() =&gt; router.push({ pathname: '/note-form', params: { id: String(item.id) } })}
+            onLongPress={() =&gt; hapus(item)}
+          &gt;
+            &lt;Text style={gaya.judul}&gt;{item.title}&lt;/Text&gt;
+            &lt;Text style={gaya.teks} numberOfLines={2}&gt;{item.content}&lt;/Text&gt;
+            &lt;Text style={gaya.abu}&gt;Status sinkron: {item.syncStatus} · tahan lama untuk menghapus&lt;/Text&gt;
+          &lt;/Pressable&gt;
+        )}
+      /&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 8 · Halaman Catatan dan Form</p>
+    <h2>app/note-form.tsx<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app/note-form.tsx</span></div>
+<div class="instr"><p>Buat file <code>app/note-form.tsx</code>:</p></div>
+<pre><code>import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
+import { Text, TextInput, View } from 'react-native';
+import { Tombol } from '../src/components/Tombol';
+import { semuaCatatan, simpanCatatan } from '../src/data/noteRepository';
+import { Note, noteBaru, validasiJudul } from '../src/models/note';
+import { gaya } from '../src/ui';
+
+export default function FormCatatan() {
+  const { id } = useLocalSearchParams&lt;{ id?: string }&gt;();
+  const router = useRouter();
+  const [lama, setLama] = useState&lt;Note | null&gt;(null);
+  const [judul, setJudul] = useState('');
+  const [isi, setIsi] = useState('');
+  const [error, setError] = useState&lt;string | null&gt;(null);
+
+  useEffect(() =&gt; {
+    if (!id) return;
+    semuaCatatan().then((semua) =&gt; {
+      const n = semua.find((x) =&gt; String(x.id) === id);
+      if (n) { setLama(n); setJudul(n.title); setIsi(n.content); }
+    });
+  }, [id]);
+
+  const simpan = async () =&gt; {
+    const pesan = validasiJudul(judul);
+    if (pesan) return setError(pesan);
+    const n = lama
+      ? { ...lama, title: judul.trim(), content: isi.trim() }
+      : noteBaru(judul.trim(), isi.trim());
+    await simpanCatatan(n);
+    router.back();
+  };
+
+  return (
+    &lt;View style={gaya.layar}&gt;
+      &lt;TextInput testID="input-judul" style={gaya.input} placeholder="Judul" value={judul} onChangeText={(t) =&gt; { setJudul(t); setError(null); }} /&gt;
+      &lt;TextInput testID="input-isi" style={[gaya.input, { height: 140, textAlignVertical: 'top' }]} placeholder="Isi catatan" multiline value={isi} onChangeText={setIsi} /&gt;
+      {error &amp;&amp; &lt;Text style={gaya.error}&gt;{error}&lt;/Text&gt;}
+      &lt;Tombol label="Simpan" onPress={simpan} testID="tombol-simpan" /&gt;
+    &lt;/View&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 8 · Halaman Catatan dan Form</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>app/notes.tsx</code></h3><ul><li><code>useFocusEffect</code> memuat ulang saat halaman tampil.</li><li>Tekan lama memunculkan konfirmasi hapus.</li></ul></div><div class="card"><h3><code>app/note-form.tsx</code></h3><ul><li>Mode tambah bila tanpa <code>id</code>, mode ubah bila ada <code>id</code>.</li><li>Judul divalidasi sebelum disimpan.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 8 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Uji: tambah catatan, tutup aplikasi sepenuhnya, lalu buka lagi. Catatan harus tetap ada karena tersimpan di SQLite. Tahan lama sebuah catatan untuk menghapusnya.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 13.00</p>
+    <h2>Step 9: Layanan Lokasi dan Jarak</h2>
+<h3>File pada step ini</h3><ol><li><code>src/services/distance.ts</code></li><li><code>src/services/locationService.ts</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 9 · Layanan Lokasi dan Jarak</p>
+    <h2>GPS dan izin lokasi</h2>
+<ul><li>Lokasi diambil dari GPS, jaringan seluler, dan Wi-Fi. Akurasi tinggi memakai lebih banyak baterai.</li><li>Izin diminta <strong>saat dibutuhkan</strong> (<code>requestForegroundPermissionsAsync</code>), bukan saat aplikasi dibuka.</li><li>Selalu tangani penolakan izin dan GPS yang mati dengan pesan yang jelas.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 9 · Layanan Lokasi dan Jarak</p>
+    <h2>Jarak Haversine</h2>
+<ul><li>Bumi bulat, jadi jarak dua koordinat dihitung sepanjang lengkung (lingkaran besar).</li><li>Rumus Haversine memakai sinus setengah selisih lintang dan bujur, dengan jari-jari bumi 6.371 km.</li><li>Fungsi ini murni, jadi diuji dengan Bandung ke Jakarta (sekitar 116 km).</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 9 · Layanan Lokasi dan Jarak</p>
+    <h2>src/services/distance.ts<span class="part">1 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/services/distance.ts</span></div>
+<div class="instr"><p>Buat file <code>src/services/distance.ts</code>:</p></div>
+<pre><code>const JARI_JARI_BUMI_METER = 6371000;
+const keRadian = (derajat: number) =&gt; (derajat * Math.PI) / 180;
+
+/** Jarak lingkaran besar (Haversine) antara dua koordinat, dalam meter. */
+export function jarakMeter(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const dLat = keRadian(lat2 - lat1);
+  const dLon = keRadian(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(keRadian(lat1)) * Math.cos(keRadian(lat2)) * Math.sin(dLon / 2) ** 2;
+  return 2 * JARI_JARI_BUMI_METER * Math.asin(Math.sqrt(a));
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 9 · Layanan Lokasi dan Jarak</p>
+    <h2>src/services/locationService.ts<span class="part">2 dari 2</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/services/locationService.ts</span></div>
+<div class="instr"><p>Buat file <code>src/services/locationService.ts</code>:</p></div>
+<pre><code>import * as Location from 'expo-location';
+
+export type Posisi = { latitude: number; longitude: number; akurasi: number | null };
+
+/** Meminta izin saat aplikasi dipakai, lalu membaca posisi sekarang. */
+export async function posisiSekarang(): Promise&lt;Posisi&gt; {
+  const { status } = await Location.requestForegroundPermissionsAsync();
+  if (status !== 'granted') throw new Error('Izin lokasi ditolak.');
+  if (!(await Location.hasServicesEnabledAsync())) throw new Error('Aktifkan GPS terlebih dahulu.');
+  const p = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.High });
+  return { latitude: p.coords.latitude, longitude: p.coords.longitude, akurasi: p.coords.accuracy };
+}
+
+export async function alamatDari(latitude: number, longitude: number): Promise&lt;string&gt; {
+  const hasil = await Location.reverseGeocodeAsync({ latitude, longitude });
+  const a = hasil[0];
+  if (!a) return 'Alamat tidak ditemukan';
+  return [a.street, a.district, a.city, a.region].filter(Boolean).join(', ');
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 9 · Layanan Lokasi dan Jarak</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/services/distance.ts</code></h3><ul><li><code>jarakMeter</code> menghitung jarak Haversine dalam meter.</li><li>Fungsi murni tanpa ketergantungan perangkat.</li></ul></div><div class="card"><h3><code>src/services/locationService.ts</code></h3><ul><li><code>posisiSekarang</code> meminta izin, memeriksa GPS, lalu membaca posisi.</li><li><code>alamatDari</code> mengubah koordinat menjadi alamat.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 9 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Aplikasi meminta izin lokasi saat tombol ditekan, bukan saat aplikasi dibuka. Itu prinsip izin sesuai kebutuhan.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 14.00</p>
+    <h2>Step 10: Peta dan Halaman Lokasi</h2>
+<h3>File pada step ini</h3><ol><li><code>src/services/petaHtml.ts</code></li><li><code>src/components/LeafletMap.tsx</code></li><li><code>app/location.tsx</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 10 · Peta dan Halaman Lokasi</p>
+    <h2>Peta tanpa API key</h2>
+<ul><li><strong>OpenStreetMap</strong> adalah peta terbuka. <strong>Leaflet</strong> adalah pustaka JavaScript untuk menampilkannya.</li><li><code>WebView</code> menampilkan halaman web di dalam aplikasi, jadi peta cukup berupa HTML.</li><li>HTML dibuat oleh fungsi biasa (<code>buatHtmlPeta</code>) sehingga bisa diuji tanpa perangkat.</li><li>Peta butuh internet untuk mengunduh ubin gambar.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 10 · Peta dan Halaman Lokasi</p>
+    <h2>src/services/petaHtml.ts<span class="part">1 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/services/petaHtml.ts</span></div>
+<div class="instr"><p>Buat file <code>src/services/petaHtml.ts</code>:</p></div>
+<pre><code>export type TitikPeta = { latitude: number; longitude: number; judul?: string };
+
+/** HTML peta OpenStreetMap (Leaflet) yang dimuat di WebView, tanpa API key. */
+export function buatHtmlPeta({ latitude, longitude, judul }: TitikPeta): string {
+  const teks = JSON.stringify(judul ?? 'Posisi Anda');
+  return `&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"&gt;
+&lt;style&gt;html,body,#m{height:100%;margin:0}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div id="m"&gt;&lt;/div&gt;
+&lt;script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+var map = L.map('m').setView([${latitude}, ${longitude}], 16);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19, attribution: '&amp;copy; OpenStreetMap contributors'
+}).addTo(map);
+L.marker([${latitude}, ${longitude}]).addTo(map).bindPopup(${teks}).openPopup();
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;`;
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 10 · Peta dan Halaman Lokasi</p>
+    <h2>src/components/LeafletMap.tsx<span class="part">2 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>src/components/LeafletMap.tsx</span></div>
+<div class="instr"><p>Buat file <code>src/components/LeafletMap.tsx</code>:</p></div>
+<pre><code>import { WebView } from 'react-native-webview';
+import { buatHtmlPeta, TitikPeta } from '../services/petaHtml';
+
+export function LeafletMap(props: TitikPeta) {
+  return (
+    &lt;WebView
+      originWhitelist={['*']}
+      source={{ html: buatHtmlPeta(props) }}
+      style={{ flex: 1, minHeight: 280 }}
+    /&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 10 · Peta dan Halaman Lokasi</p>
+    <h2>app/location.tsx<span class="part">3 dari 3</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>app/location.tsx</span></div>
+<div class="instr"><p>Buat file <code>app/location.tsx</code>:</p></div>
+<pre><code>import { useState } from 'react';
+import { ScrollView, Text, View } from 'react-native';
+import { LeafletMap } from '../src/components/LeafletMap';
+import { Tombol } from '../src/components/Tombol';
+import { jarakMeter } from '../src/services/distance';
+import { alamatDari, Posisi, posisiSekarang } from '../src/services/locationService';
+import { gaya } from '../src/ui';
+
+// Titik acuan: Graha Pos Bandung (perkiraan)
+const ACUAN = { latitude: -6.9175, longitude: 107.6107 };
+
+export default function Lokasi() {
+  const [pos, setPos] = useState&lt;Posisi | null&gt;(null);
+  const [alamat, setAlamat] = useState('');
+  const [error, setError] = useState&lt;string | null&gt;(null);
+
+  const ambil = async () =&gt; {
+    try {
+      setError(null);
+      const p = await posisiSekarang();
+      setPos(p);
+      setAlamat(await alamatDari(p.latitude, p.longitude).catch(() =&gt; 'Alamat tidak tersedia'));
+    } catch (e) {
+      setError((e as Error).message);
+    }
+  };
+
+  return (
+    &lt;ScrollView style={gaya.layar}&gt;
+      &lt;Tombol label="Ambil Posisi Saya" onPress={ambil} /&gt;
+      {error &amp;&amp; &lt;Text style={gaya.error}&gt;{error}&lt;/Text&gt;}
+      {pos &amp;&amp; (
+        &lt;View&gt;
+          &lt;View style={gaya.kartu}&gt;
+            &lt;Text style={gaya.teks}&gt;Lat: {pos.latitude.toFixed(5)}, Lon: {pos.longitude.toFixed(5)}&lt;/Text&gt;
+            &lt;Text style={gaya.abu}&gt;Akurasi: {pos.akurasi?.toFixed(0) ?? '-'} m&lt;/Text&gt;
+            &lt;Text style={gaya.teks}&gt;Alamat: {alamat}&lt;/Text&gt;
+            &lt;Text style={gaya.teks}&gt;
+              Jarak ke titik acuan: {(jarakMeter(pos.latitude, pos.longitude, ACUAN.latitude, ACUAN.longitude) / 1000).toFixed(2)} km
+            &lt;/Text&gt;
+          &lt;/View&gt;
+          &lt;View style={{ height: 320 }}&gt;
+            &lt;LeafletMap latitude={pos.latitude} longitude={pos.longitude} /&gt;
+          &lt;/View&gt;
+        &lt;/View&gt;
+      )}
+    &lt;/ScrollView&gt;
+  );
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 10 · Peta dan Halaman Lokasi</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>src/services/petaHtml.ts</code></h3><ul><li>Membuat HTML Leaflet dengan koordinat yang diberikan.</li><li><code>JSON.stringify</code> mengamankan teks judul di dalam skrip.</li></ul></div><div class="card"><h3><code>src/components/LeafletMap.tsx</code></h3><ul><li><code>WebView</code> menampilkan HTML peta.</li><li>Dipisah dari pembuat HTML agar HTML dapat diuji.</li></ul></div><div class="card"><h3><code>app/location.tsx</code></h3><ul><li>Tombol mengambil posisi, alamat, dan jarak ke titik acuan.</li><li>Kesalahan izin ditampilkan sebagai pesan.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 10 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Peta memakai OpenStreetMap lewat Leaflet di dalam <code>WebView</code>, sehingga tidak perlu API key. Ubah <code>ACUAN</code> bila ingin jarak ke tempat lain.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide opener">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 14.30</p>
+    <h2>Step 11: Pengujian Hari 1</h2>
+<h3>File pada step ini</h3><ol><li><code>__tests__/distance.test.ts</code></li><li><code>__tests__/note.test.ts</code></li><li><code>__tests__/map.test.ts</code></li><li><code>Terminal</code></li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 11 · Pengujian Hari 1</p>
+    <h2>Pengujian otomatis</h2>
+<ul><li><strong>jest</strong> menjalankan pengujian. <code>describe</code> mengelompokkan, <code>it</code> satu kasus, <code>expect</code> memeriksa hasil.</li><li><code>tsc --noEmit</code> memeriksa tipe tanpa membuat file.</li><li>Uji fungsi murni lebih dulu: jarak, validasi, pembuat HTML.</li></ul><pre><code>expect(validasiJudul('')).toBe('Judul wajib diisi.');</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 11 · Pengujian Hari 1</p>
+    <h2>__tests__/distance.test.ts<span class="part">1 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>__tests__/distance.test.ts</span></div>
+<div class="instr"><p>Buat file <code>__tests__/distance.test.ts</code>:</p></div>
+<pre><code>import { jarakMeter } from '../src/services/distance';
+
+describe('jarakMeter (Haversine)', () =&gt; {
+  it('bernilai 0 untuk titik yang sama', () =&gt; {
+    expect(jarakMeter(-6.9, 107.6, -6.9, 107.6)).toBeCloseTo(0, 5);
+  });
+  it('Bandung ke Jakarta sekitar 116 km', () =&gt; {
+    const km = jarakMeter(-6.9175, 107.6191, -6.2088, 106.8456) / 1000;
+    expect(km).toBeGreaterThan(110);
+    expect(km).toBeLessThan(125);
+  });
+  it('simetris', () =&gt; {
+    expect(jarakMeter(0, 0, 1, 1)).toBeCloseTo(jarakMeter(1, 1, 0, 0), 6);
+  });
+});</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 11 · Pengujian Hari 1</p>
+    <h2>__tests__/note.test.ts<span class="part">2 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>__tests__/note.test.ts</span></div>
+<div class="instr"><p>Buat file <code>__tests__/note.test.ts</code>:</p></div>
+<pre><code>import { noteBaru, validasiJudul } from '../src/models/note';
+
+describe('catatan', () =&gt; {
+  it('judul kosong atau spasi ditolak', () =&gt; {
+    expect(validasiJudul('')).toBe('Judul wajib diisi.');
+    expect(validasiJudul('   ')).toBe('Judul wajib diisi.');
+  });
+  it('judul lebih dari 100 karakter ditolak', () =&gt; {
+    expect(validasiJudul('a'.repeat(101))).toBe('Judul maksimal 100 karakter.');
+  });
+  it('judul normal diterima', () =&gt; expect(validasiJudul('Belanja')).toBeNull());
+  it('catatan baru berstatus PENDING', () =&gt; {
+    const n = noteBaru('a', 'b');
+    expect(n.syncStatus).toBe('PENDING');
+    expect(n.id).toBeUndefined();
+  });
+});</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 11 · Pengujian Hari 1</p>
+    <h2>__tests__/map.test.ts<span class="part">3 dari 4</span></h2>
+<div class="filebar"><b>SALIN KE FILE</b><span>__tests__/map.test.ts</span></div>
+<div class="instr"><p>Buat file <code>__tests__/map.test.ts</code>:</p></div>
+<pre><code>import { buatHtmlPeta } from '../src/services/petaHtml';
+
+it('HTML peta memuat koordinat dan tile OpenStreetMap', () =&gt; {
+  const h = buatHtmlPeta({ latitude: -6.9, longitude: 107.6, judul: 'Tes' });
+  expect(h).toContain('[-6.9, 107.6]');
+  expect(h).toContain('tile.openstreetmap.org');
+});</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik · Step 11 · Pengujian Hari 1</p>
+    <h2>Terminal<span class="part">4 dari 4</span></h2>
+<div class="filebar"><b>JALANKAN DI TERMINAL</b><span>Terminal</span></div>
+<div class="instr"><p>Jalankan pengujian:</p></div>
+<pre><code>npm test
+npm run typecheck</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide teori">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Teori · Step 11 · Pengujian Hari 1</p>
+    <h2>Penjelasan Kode</h2>
+<div class="cards"><div class="card"><h3><code>__tests__/distance.test.ts</code></h3><ul><li>Titik sama, Bandung ke Jakarta, dan simetri.</li><li><code>toBeCloseTo</code> untuk angka desimal.</li></ul></div><div class="card"><h3><code>__tests__/note.test.ts</code></h3><ul><li>Judul kosong, terlalu panjang, dan normal.</li><li>Catatan baru berstatus PENDING.</li></ul></div><div class="card"><h3><code>__tests__/map.test.ts</code></h3><ul><li>Memeriksa HTML memuat koordinat dan sumber ubin OpenStreetMap.</li></ul></div></div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Step 11 · cek hasil</p>
+    <h2>Uji dan Periksa</h2>
+<p>Semua pengujian harus lulus dan <code>tsc</code> tidak menampilkan error.</p>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 15.00</p>
+    <h2>Latihan Mandiri</h2>
+<ol><li>Tambahkan tombol <strong>Simpan lokasi</strong> pada form catatan, isi <code>latitude</code> dan <code>longitude</code> dari <code>posisiSekarang()</code>.</li><li>Tampilkan jarak dari posisi pengguna pada setiap kartu catatan yang punya koordinat.</li><li>Tambahkan pencarian judul pada halaman catatan dengan <code>TextInput</code> dan <code>filter</code>.</li><li>Tulis satu pengujian tambahan untuk <code>validasiJudul</code> dengan judul tepat 100 karakter.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1</p>
+    <h2>Ringkasan File</h2>
+<table><tr><th>File</th><th>Fungsi</th></tr><tr><td><code>app.json</code>, <code>tsconfig.json</code></td><td>Konfigurasi aplikasi dan TypeScript</td></tr><tr><td><code>app/_layout.tsx</code>, <code>app/index.tsx</code></td><td>Navigasi dan beranda</td></tr><tr><td><code>src/models/note.ts</code></td><td>Tipe catatan dan validasi</td></tr><tr><td><code>src/data/database.ts</code>, <code>src/data/noteRepository.ts</code></td><td>SQLite dan akses data</td></tr><tr><td><code>app/notes.tsx</code>, <code>app/note-form.tsx</code></td><td>Daftar dan form catatan</td></tr><tr><td><code>src/services/distance.ts</code>, <code>src/services/locationService.ts</code></td><td>Jarak Haversine dan GPS</td></tr><tr><td><code>src/services/petaHtml.ts</code>, <code>src/components/LeafletMap.tsx</code>, <code>app/location.tsx</code></td><td>Peta dan halaman lokasi</td></tr><tr><td><code>__tests__/*.test.ts</code></td><td>Pengujian otomatis</td></tr></table>
+    </div></div><!--/split-->
+    <p class="ref">Sumber: <a href="../docs/hands-on/hari-1.md">docs/hands-on/hari-1.md</a></p>
+  </section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Daftar</a>
+  <button id="prev" type="button">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next" type="button">Berikutnya</button>
+</div>
+
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

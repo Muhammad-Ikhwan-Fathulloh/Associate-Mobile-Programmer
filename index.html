@@ -3,237 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Associate Mobile Programmer (Flutter): Daftar Materi</title>
+  <title>Associate Mobile Programmer: Flutter dan React Native</title>
   <style>
-    :root {
-      --bg: #f7f7fb;
-      --panel: #ffffff;
-      --text: #1d1d27;
-      --muted: #5b5b6b;
-      --accent: #3f51b5;
-      --line: #e3e3ee;
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #14141c;
-        --panel: #1d1d28;
-        --text: #ececf4;
-        --muted: #a4a4b8;
-        --accent: #9fa8ff;
-        --line: #2d2d3c;
-      }
-    }
+    :root { --ink: #1b1f27; }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 40px 20px 64px;
-    }
-    header h1 { margin: 0 0 8px; font-size: 1.9rem; }
-    header p { margin: 4px 0; color: var(--muted); }
-    h2 {
-      margin: 40px 0 12px;
-      font-size: 1.25rem;
-      color: var(--accent);
-    }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-    .meta span {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 4px 12px;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    th, td {
-      text-align: left;
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--line);
-      vertical-align: top;
-    }
-    th { font-size: 0.85rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
-    tr:last-child td { border-bottom: none; }
-    td.waktu { white-space: nowrap; color: var(--muted); width: 130px; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .links a { margin-right: 12px; white-space: nowrap; }
-    .note {
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    ul.bahan { margin: 0; padding-left: 18px; }
-    ul.bahan li { margin: 4px 0; }
-    code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 0.9em;
-    }
-    footer {
-      margin-top: 48px;
-      color: var(--muted);
-      font-size: 0.9rem;
-      border-top: 1px solid var(--line);
-      padding-top: 16px;
-    }
-    @media (max-width: 640px) {
-      th:nth-child(2), td:nth-child(2) { display: none; }
-      td.waktu { width: auto; }
-    }
+    body { margin: 0; font-family: system-ui, "Segoe UI", Roboto, sans-serif; color: #fff; min-height: 100vh;
+      background: linear-gradient(135deg, #0d1b3d, #1a237e 55%, #004d40); }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 56px 24px 72px; }
+    .kicker { letter-spacing: .12em; text-transform: uppercase; font-size: .85rem; opacity: .8; margin: 0; }
+    h1 { font-size: clamp(2rem, 5vw, 3.4rem); margin: .3rem 0 .6rem; }
+    .lead { font-size: 1.15rem; opacity: .9; max-width: 46rem; line-height: 1.6; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 34px; }
+    .card { background: #fff; color: var(--ink); border-radius: 20px; padding: 26px 28px 30px; box-shadow: 0 18px 50px rgba(0,0,0,.35); }
+    .card h2 { margin: 0 0 4px; font-size: 1.8rem; }
+    .card.fl h2 { color: #0277bd; }
+    .card.rn h2 { color: #00838f; }
+    .card p { margin: 0 0 14px; color: #4b5563; line-height: 1.5; }
+    .card ul { list-style: none; padding: 0; margin: 0; }
+    .card li a { display: block; padding: 10px 12px; margin: 0 -12px; border-radius: 10px; color: var(--ink); text-decoration: none; font-weight: 600; }
+    .card li a:hover { background: #eef3fb; }
+    .card li small { display: block; font-weight: 400; color: #6b7280; }
+    .note { margin-top: 28px; font-size: .95rem; opacity: .85; line-height: 1.6; }
+    .note a { color: #80deea; }
   </style>
 </head>
 <body>
-<main>
+  <div class="wrap">
+    <p class="kicker">Pelatihan dua hari · persiapan sertifikasi BNSP</p>
+    <h1>Associate Mobile Programmer</h1>
+    <p class="lead">Materi yang sama dalam dua teknologi. Pilih satu jalur: modul, slide, panduan praktik, dan aplikasi contoh tersedia lengkap di setiap folder.</p>
 
-  <header>
-    <h1>Associate Mobile Programmer (Flutter)</h1>
-    <p>Materi pelatihan 2 hari, offline, Graha Pos Bandung</p>
-    <p>25 to 26 November 2026</p>
-    <div class="meta">
-      <span>Flutter dan Dart</span>
-      <span>Hari 1: Dasar, data, dan lokasi</span>
-      <span>Hari 2: Jaringan, sensor, dan keamanan</span>
+    <div class="grid">
+      <div class="card fl">
+        <h2>Flutter</h2>
+        <p>Bahasa Dart, Material 3, aplikasi di <code>flutter/app</code>.</p>
+        <ul>
+          <li><a href="flutter/slides/index.html">Slide per modul dan praktik<small>Hari 1 dan Hari 2, kode siap salin</small></a></li>
+          <li><a href="flutter/slides/sertifikasi-bnsp.html">Panduan sertifikasi BNSP<small>Tujuh unit kompetensi dan latihan soal</small></a></li>
+          <li><a href="flutter/docs/instalasi-dart-flutter.md">Instalasi Dart dan Flutter</a></li>
+          <li><a href="flutter/README.md">README Flutter</a></li>
+        </ul>
+      </div>
+      <div class="card rn">
+        <h2>React Native</h2>
+        <p>Expo dan TypeScript, aplikasi di <code>reactnative/app</code>.</p>
+        <ul>
+          <li><a href="reactnative/slides/index.html">Slide per modul dan praktik<small>Hari 1 dan Hari 2, kode siap salin</small></a></li>
+          <li><a href="reactnative/docs/sertifikasi-bnsp.md">Bukti BNSP untuk React Native<small>Padanan istilah dan peta bukti</small></a></li>
+          <li><a href="reactnative/docs/instalasi-node-expo.md">Instalasi Node.js dan Expo</a></li>
+          <li><a href="reactnative/README.md">README React Native</a></li>
+        </ul>
+      </div>
     </div>
-  </header>
 
-  <h2>Rangkuman Aplikasi</h2>
-  <p>
-    Folder <code>app/</code> berisi proyek Flutter lengkap yang dibangun dari panduan hands-on.
-    Proyek ini dipakai sebagai contoh jadi untuk setiap modul.
-  </p>
-  <ul class="bahan">
-    <li><a href="slides/praktik-hari-1.html">Slide praktik Hari 1 (kode siap salin)</a></li>
-    <li><a href="slides/praktik-hari-2.html">Slide praktik Hari 2 (kode siap salin)</a></li>
-    <li><a href="app/">Kode aplikasi (app/)</a></li>
-    <li><a href="app/pubspec.yaml">Dependensi (pubspec.yaml)</a></li>
-    <li><a href="app/lib/router/app_router.dart">Router (app_router.dart)</a></li>
-    <li><a href="app/test/">Unit dan widget test (app/test/)</a></li>
-  </ul>
-
-  <h2>Hari 1: Dasar, Data, dan Lokasi</h2>
-  <table>
-    <thead>
-      <tr><th>Waktu</th><th>Modul</th><th>Bahan</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="waktu">09.00 to 10.00</td>
-        <td>Modul 1: Platform OS dan Bahasa Pemrograman Mobile</td>
-        <td class="links">
-          <a href="slides/hari-1-modul-1-platform-dan-bahasa.html">Slide</a>
-          <a href="docs/hari-1/01-platform-dan-bahasa.md">Materi</a>
-          <a href="docs/hands-on/hari-1.md">Hands-on Step 0 to 3</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="waktu">10.00 to 12.00</td>
-        <td>Modul 2: Perancangan Mobile Interface</td>
-        <td class="links">
-          <a href="slides/hari-1-modul-2-mobile-interface.html">Slide</a>
-          <a href="docs/hari-1/02-mobile-interface.md">Materi</a>
-          <a href="docs/hands-on/hari-1.md">Hands-on Step 4</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="waktu">13.00 to 15.00</td>
-        <td>Modul 3: Perancangan Database dan Data Persistence</td>
-        <td class="links">
-          <a href="slides/hari-1-modul-3-database-persistence.html">Slide</a>
-          <a href="docs/hari-1/03-database-persistence.md">Materi</a>
-          <a href="docs/hands-on/hari-1.md">Hands-on Step 5 to 7</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="waktu">15.00 to 17.00</td>
-        <td>Modul 4: Mobile Location Based Service, GPS, dan Navigasi</td>
-        <td class="links">
-          <a href="slides/hari-1-modul-4-lokasi-gps-navigasi.html">Slide</a>
-          <a href="docs/hari-1/04-lokasi-gps-navigasi.md">Materi</a>
-          <a href="docs/hands-on/hari-1.md">Hands-on Step 8 to 10</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="note">Modul 4 di <code>docs/</code> memakai google_maps_flutter. Kode di <code>app/</code> dan hands-on memakai flutter_map tanpa API key.</p>
-
-  <h2>Hari 2: Jaringan, Sensor, dan Keamanan</h2>
-  <table>
-    <thead>
-      <tr><th>Waktu</th><th>Modul</th><th>Bahan</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="waktu">09.00 to 10.00</td>
-        <td>Modul 5: Mobile Cellular Network</td>
-        <td class="links">
-          <a href="slides/hari-2-modul-5-mobile-cellular-network.html">Slide</a>
-          <a href="docs/hari-2/05-mobile-cellular-network.md">Materi</a>
-          <a href="docs/hands-on/hari-2.md">Hands-on Step 1 dan 6</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="waktu">10.00 to 12.00</td>
-        <td>Modul 6: Mobile Sensor dan Spesifikasi Teknis Mobile Computing</td>
-        <td class="links">
-          <a href="slides/hari-2-modul-6-mobile-sensor-spesifikasi.html">Slide</a>
-          <a href="docs/hari-2/06-mobile-sensor-spesifikasi.md">Materi</a>
-          <a href="docs/hands-on/hari-2.md">Hands-on Step 2 dan 3</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="waktu">13.00 to 15.00</td>
-        <td>Modul 7: Dasar-Dasar Mobile Communication Security</td>
-        <td class="links">
-          <a href="slides/hari-2-modul-7-keamanan-komunikasi-mobile.html">Slide</a>
-          <a href="docs/hari-2/07-keamanan-komunikasi-mobile.md">Materi</a>
-          <a href="docs/hands-on/hari-2.md">Hands-on Step 4 dan 5</a>
-        </td>
-      </tr>
-      <tr>
-        <td class="waktu">15.00 to 17.00</td>
-        <td>Modul 8: Latihan Uji Kompetensi dan Pembahasan</td>
-        <td class="links">
-          <a href="slides/hari-2-modul-8-latihan-uji-kompetensi.html">Slide</a>
-          <a href="docs/hari-2/08-latihan-uji-kompetensi.md">Materi</a>
-          <a href="docs/hands-on/hari-2.md">Hands-on Step 7 dan 8</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <p class="note">Jadwal Hari 2 mengikuti silabus resmi penyelenggara.</p>
-
-  <h2>Panduan dan Tautan</h2>
-  <ul class="bahan">
-    <li><a href="slides/index.html">Indeks slide per modul</a></li>
-    <li><a href="docs/hands-on/hari-1.md">Panduan hands-on Hari 1</a></li>
-    <li><a href="docs/hands-on/hari-2.md">Panduan hands-on Hari 2</a></li>
-    <li><a href="docs/links.md">Daftar tautan (instalasi, paket, API publik, dan publikasi)</a></li>
-    <li><a href="README.md">README repositori</a></li>
-  </ul>
-
-  <footer>
-    Repositori: <a href="https://github.com/Muhammad-Ikhwan-Fathulloh/Associate-Mobile-Programmer-Flutter">github.com/Muhammad-Ikhwan-Fathulloh/Associate-Mobile-Programmer-Flutter</a>
-  </footer>
-
-</main>
+    <p class="note">Skema sertifikasi, tujuh unit kompetensi, dan bank soal berlaku untuk kedua jalur dan tersimpan di <a href="flutter/docs/sertifikasi-bnsp/00-panduan-sertifikasi.md">flutter/docs/sertifikasi-bnsp</a>. Aset slide bersama ada di <code>shared/assets</code>.</p>
+  </div>
 </body>
 </html>

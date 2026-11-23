@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 8: Latihan dan Persiapan Uji Kompetensi</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 15.00 to 17.00 · React Native</p>
+    <h1>Modul 8: Latihan dan Uji</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjalankan seluruh fitur aplikasi</li><li>Menjalankan pengujian otomatis</li><li>Menyiapkan bukti kompetensi untuk BNSP</li><li>Mengerjakan latihan soal</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-2/08-latihan-uji-kompetensi.md">docs/hari-2/08-latihan-uji-kompetensi.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: Semua unit</h2>
+<h3>Latihan dan Persiapan Uji Kompetensi</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Seluruh elemen tujuh unit kompetensi</li></ol><p><strong>Bukti pada pelatihan ini:</strong> aplikasi berjalan, <code>npm test</code> lulus, <code>npm run typecheck</code> bersih, hasil latihan soal</p>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Daftar periksa aplikasi</h2>
+<ul><li>Catatan: tambah, ubah, hapus, data tetap ada setelah aplikasi ditutup.</li><li>Lokasi: izin diminta saat tombol ditekan, peta dan jarak tampil.</li><li>Jaringan: label sesuai kondisi, aplikasi tetap berfungsi offline.</li><li>Sensor dan perangkat: angka tampil, langganan dihentikan.</li><li>Keamanan: HTTP ditolak, token tersimpan aman.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Pengujian otomatis</h2>
+<p>Menguji jalur berhasil dan gagal tanpa internet memakai <code>fetch</code> palsu.</p><p class="ref"><code>__tests__/https.test.ts</code></p><pre><code>import { ambilJson, periksaUrlAman } from '../src/services/httpsService';
+
+const fakeFetch = (status: number, body: unknown) =&gt;
+  (async () =&gt; ({ status, json: async () =&gt; body })) as unknown as typeof fetch;
+
+describe('periksaUrlAman', () =&gt; {
+  it('menolak http', () =&gt; expect(periksaUrlAman('http://a.com')).toBe('Gunakan HTTPS (https://).'));
+  it('menolak teks bukan URL', () =&gt; expect(periksaUrlAman('bukan url')).toBe('URL tidak valid.'));
+  it('menerima https', () =&gt; expect(periksaUrlAman('https://a.com/x')).toBeNull());
+});
+
+describe('ambilJson', () =&gt; {
+  it('mengembalikan JSON saat status 200', async () =&gt; {
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Menyiapkan bukti BNSP</h2>
+<ul><li>Siapkan aplikasi yang berjalan di perangkat atau emulator.</li><li>Tunjukkan file kode yang menjadi bukti tiap unit (lihat peta kompetensi).</li><li>Jalankan <code>npm test</code> dan <code>npm run typecheck</code> sebagai bukti kualitas.</li><li>Latih penjelasan lisan: apa yang dibuat, mengapa, dan bagaimana mengujinya.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan dan Coba</p>
+    <h2>Tugas Modul 8</h2>
+<ol><li>Kerjakan latihan soal BNSP di <code>flutter/slides/latihan-soal-bnsp.html</code> (soal konseptual berlaku untuk kedua teknologi).</li><li>Jalankan seluruh aplikasi dari awal tanpa melihat catatan.</li><li>Jelaskan satu fitur kepada teman dalam dua menit.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 6 sampai 8</a> · Materi: <a href="../docs/hari-2/08-latihan-uji-kompetensi.md">docs/hari-2/08-latihan-uji-kompetensi.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

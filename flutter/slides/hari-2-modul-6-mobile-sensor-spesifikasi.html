@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 6: Mobile Sensor dan Spesifikasi Teknis</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 10.00 to 12.00</p>
+    <h1>Modul 6: Mobile Sensor dan Spesifikasi Teknis Mobile Computing</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Menyebutkan jenis sensor dan kegunaannya.</li>
+      <li>Menjelaskan spesifikasi teknis perangkat mobile.</li>
+      <li>Membaca data sensor dan informasi perangkat di Flutter.</li>
+    </ol>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><g transform="rotate(-12 240 110)"><rect class="phone" x="200" y="40" width="80" height="140" rx="12"/><rect class="box" x="210" y="56" width="60" height="100" rx="6"/></g><line class="arrow" x1="240" y1="118" x2="380" y2="118" marker-end="url(#ah15)"/><text class="txtb" x="396" y="123">X</text><line class="arrow" x1="240" y1="118" x2="240" y2="14" marker-end="url(#ah15)"/><text class="txtb" x="240" y="10">Y</text><line class="arrow" x1="240" y1="118" x2="170" y2="188" marker-end="url(#ah15)"/><text class="txtb" x="158" y="204">Z</text><text class="subl" x="14" y="40">Accelerometer</text><text class="subl" x="14" y="55">mengukur</text><text class="subl" x="14" y="70">percepatan (m/s²)</text><text class="subl" x="14" y="85">di tiga sumbu</text></svg><figcaption>Sumbu accelerometer</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Pegang perangkat dan bayangkan tiga sumbu X, Y, Z.</li><li>Tambahkan <code>sensors_plus</code> dan <code>device_info_plus</code>.</li><li>Buat halaman sensor dan halaman perangkat.</li><li>Ikuti hands-on Step 2 dan 3.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">docs/hari-2/06-mobile-sensor-spesifikasi.md</a></p>
+  </section>
+
+<!--bnsp-peta-start-->
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.022.01</h2>
+<h3>Mobile Sensor dan Spesifikasi Teknis untuk Mobile Computing</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menunjukkan node sensor pada mobile computing</li><li>Menunjukkan desain hardware sensor</li><li>Menunjukkan desain protokol</li><li>Menunjukkan aspek keamanan pada mobile sensor</li></ol><p><strong>Bukti pada pelatihan ini:</strong> Daftar sensor, diagram alur sensor ke aplikasi, <code>sensor_page.dart</code>, <code>device_page.dart</code></p>
+    </div></div><!--/split-->
+  </section>
+<!--bnsp-peta-end-->
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sensor</p>
+    <h2>Jenis Sensor</h2>
+    <table>
+      <tr><th>Sensor</th><th>Mengukur</th><th>Contoh</th></tr>
+      <tr><td>Accelerometer</td><td>Percepatan x, y, z</td><td>Orientasi, deteksi goyangan</td></tr>
+      <tr><td>Gyroscope</td><td>Kecepatan rotasi</td><td>Permainan, kamera stabil</td></tr>
+      <tr><td>Magnetometer</td><td>Medan magnet</td><td>Kompas</td></tr>
+      <tr><td>Proximity</td><td>Jarak objek</td><td>Layar mati saat dekat telinga</td></tr>
+      <tr><td>Light</td><td>Intensitas cahaya</td><td>Kecerahan otomatis</td></tr>
+    </table>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="20" y="10" width="440" height="44" rx="10"/><text class="txtl" x="36" y="37">Accelerometer</text><text class="subr" x="444" y="37">percepatan</text><rect class="box3" x="20" y="62" width="440" height="44" rx="10"/><text class="txtl" x="36" y="89">Gyroscope</text><text class="subr" x="444" y="89">rotasi</text><rect class="box2" x="20" y="114" width="440" height="44" rx="10"/><text class="txtl" x="36" y="141">Magnetometer</text><text class="subr" x="444" y="141">medan magnet (kompas)</text><rect class="box4" x="20" y="166" width="440" height="44" rx="10"/><text class="txtl" x="36" y="193">Proximity</text><text class="subr" x="444" y="193">jarak objek</text><rect class="box" x="20" y="218" width="440" height="44" rx="10"/><text class="txtl" x="36" y="245">Light</text><text class="subr" x="444" y="245">cahaya</text></svg><figcaption>Sensor umum di perangkat mobile</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Daftar sensor yang dibutuhkan fitur Anda.</li><li>Periksa ketersediaannya di perangkat target.</li><li>Pilih package yang sesuai.</li><li>Siapkan alternatif bila sensor tidak ada.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">Bagian 1. Jenis Sensor pada Perangkat Mobile</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Spesifikasi</p>
+    <h2>Spesifikasi untuk Mobile Computing</h2>
+    <table>
+      <tr><th>Komponen</th><th>Dampak pada aplikasi</th></tr>
+      <tr><td>Prosesor</td><td>Kecepatan animasi dan pengolahan data</td></tr>
+      <tr><td>Memori (RAM)</td><td>Jumlah proses dan ukuran data di memori</td></tr>
+      <tr><td>Layar</td><td>Tata letak responsif dan kehalusan animasi</td></tr>
+      <tr><td>Baterai</td><td>Frekuensi pembacaan sensor dan GPS</td></tr>
+      <tr><td>Konektivitas</td><td>Layanan yang dapat dipakai</td></tr>
+    </table>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 176" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah16" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="190" y="8" width="100" height="34" rx="10"/><text class="txt" x="240" y="30">Perangkat</text><line class="arrow" x1="240" y1="44" x2="60.0" y2="82" marker-end="url(#ah16)"/><rect class="box3" x="5.0" y="84" width="110" height="34" rx="10"/><text class="txt" x="60.0" y="106">Prosesor</text><line class="arrow" x1="60.0" y1="120" x2="60.0" y2="134" marker-end="url(#ah16)"/><rect class="box2" x="10.0" y="134" width="100" height="28" rx="8"/><text class="txt" x="60.0" y="153">animasi</text><line class="arrow" x1="240" y1="44" x2="180.0" y2="82" marker-end="url(#ah16)"/><rect class="box3" x="125.0" y="84" width="110" height="34" rx="10"/><text class="txt" x="180.0" y="106">RAM</text><line class="arrow" x1="180.0" y1="120" x2="180.0" y2="134" marker-end="url(#ah16)"/><rect class="box2" x="130.0" y="134" width="100" height="28" rx="8"/><text class="txt" x="180.0" y="153">proses</text><line class="arrow" x1="240" y1="44" x2="300.0" y2="82" marker-end="url(#ah16)"/><rect class="box3" x="245.0" y="84" width="110" height="34" rx="10"/><text class="txt" x="300.0" y="106">Layar</text><line class="arrow" x1="300.0" y1="120" x2="300.0" y2="134" marker-end="url(#ah16)"/><rect class="box2" x="250.0" y="134" width="100" height="28" rx="8"/><text class="txt" x="300.0" y="153">responsif</text><line class="arrow" x1="240" y1="44" x2="420.0" y2="82" marker-end="url(#ah16)"/><rect class="box3" x="365.0" y="84" width="110" height="34" rx="10"/><text class="txt" x="420.0" y="106">Baterai</text><line class="arrow" x1="420.0" y1="120" x2="420.0" y2="134" marker-end="url(#ah16)"/><rect class="box2" x="370.0" y="134" width="100" height="28" rx="8"/><text class="txt" x="420.0" y="153">sensor, GPS</text></svg><figcaption>Spesifikasi dan dampaknya</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Catat spesifikasi perangkat uji: prosesor, RAM, layar, baterai.</li><li>Hubungkan tiap komponen dengan keputusan desain.</li><li>Uji aplikasi pada perangkat berspesifikasi rendah.</li><li>Sesuaikan animasi dan frekuensi sensor.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">Bagian 2. Spesifikasi Teknis</a></p>
+  </section>
+
+  <section class="slide" data-sim="accel">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode</p>
+    <h2>Membaca Accelerometer</h2>
+    <pre><code>import 'package:sensors_plus/sensors_plus.dart';
+
+final langganan = accelerometerEventStream().listen((event) {
+  // event.x, event.y, event.z dalam m/s2
+});
+
+// Wajib dibatalkan saat layar ditutup
+langganan.cancel();</code></pre>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 168" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah17" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="25.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="80.0" y="26">Sensor</text><line class="life" x1="80.0" y1="38" x2="80.0" y2="162"/><rect class="box" x="185.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="240.0" y="26">Stream</text><line class="life" x1="240.0" y1="38" x2="240.0" y2="162"/><rect class="box" x="345.0" y="6" width="110" height="30" rx="10"/><text class="txt" x="400.0" y="26">UI</text><line class="life" x1="400.0" y1="38" x2="400.0" y2="162"/><line class="arrow" x1="84.0" y1="66" x2="236.0" y2="66" marker-end="url(#ah17)"/><text class="sub" x="160.0" y="59">event x, y, z</text><line class="arrow" x1="244.0" y1="102" x2="396.0" y2="102" marker-end="url(#ah17)"/><text class="sub" x="320.0" y="95">setState</text><line class="arrow dash" x1="396.0" y1="138" x2="244.0" y2="138" marker-end="url(#ah17)"/><text class="sub" x="320.0" y="131">cancel() di dispose</text></svg><figcaption>Alur pembacaan accelerometer</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Panggil <code>accelerometerEventStream().listen(...)</code> di <code>initState</code>.</li><li>Simpan event terakhir di State dan panggil <code>setState</code>.</li><li>Hitung besar percepatan dengan <code>sqrt(x² + y² + z²)</code>.</li><li>Wajib <code>cancel()</code> langganan di <code>dispose()</code>.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">Bagian 3. Membaca Data Sensor di Flutter</a> · Implementasi: <a href="../app/lib/pages/sensor_page.dart">app/lib/pages/sensor_page.dart</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode</p>
+    <h2>Informasi Perangkat</h2>
+    <pre><code>import 'package:device_info_plus/device_info_plus.dart';
+
+final info = await DeviceInfoPlugin().androidInfo;
+print(info.brand);           // contoh: samsung
+print(info.model);           // contoh: SM-A057G
+print(info.version.release); // versi Android
+print(info.version.sdkInt);  // API level</code></pre>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="th" x="20.0" y="10" width="220.0" height="30" rx="0"/><text class="txt" x="130.0" y="30">Properti</text><rect class="th" x="240.0" y="10" width="220.0" height="30" rx="0"/><text class="txt" x="350.0" y="30">Contoh nilai</text><rect class="cell" x="20.0" y="40" width="220.0" height="30" rx="0"/><text class="sub2" x="130.0" y="60">brand</text><rect class="cell" x="240.0" y="40" width="220.0" height="30" rx="0"/><text class="sub2" x="350.0" y="60">samsung</text><rect class="cell" x="20.0" y="70" width="220.0" height="30" rx="0"/><text class="sub2" x="130.0" y="90">model</text><rect class="cell" x="240.0" y="70" width="220.0" height="30" rx="0"/><text class="sub2" x="350.0" y="90">SM-A057G</text><rect class="cell" x="20.0" y="100" width="220.0" height="30" rx="0"/><text class="sub2" x="130.0" y="120">version.release</text><rect class="cell" x="240.0" y="100" width="220.0" height="30" rx="0"/><text class="sub2" x="350.0" y="120">14</text><rect class="cell" x="20.0" y="130" width="220.0" height="30" rx="0"/><text class="sub2" x="130.0" y="150">version.sdkInt</text><rect class="cell" x="240.0" y="130" width="220.0" height="30" rx="0"/><text class="sub2" x="350.0" y="150">34</text><rect class="cell" x="20.0" y="160" width="220.0" height="30" rx="0"/><text class="sub2" x="130.0" y="180">supportedAbis</text><rect class="cell" x="240.0" y="160" width="220.0" height="30" rx="0"/><text class="sub2" x="350.0" y="180">arm64-v8a</text></svg><figcaption>Contoh data dari device_info_plus</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Buat <code>DeviceInfoPlugin()</code>.</li><li>Panggil <code>androidInfo</code> atau <code>iosInfo</code> sesuai <code>Platform</code>.</li><li>Susun hasil menjadi <code>Map&lt;String, String&gt;</code>.</li><li>Tampilkan dengan <code>FutureBuilder</code> dan <code>ListView</code>.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">Bagian 4. Informasi Perangkat di Flutter</a> · Implementasi: <a href="../app/lib/pages/device_page.dart">app/lib/pages/device_page.dart</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Desain</p>
+    <h2>Dampak pada Desain Aplikasi</h2>
+    <ul>
+      <li>Gunakan <code>LayoutBuilder</code> dan <code>MediaQuery</code> agar tampilan menyesuaikan layar.</li>
+      <li>Periksa ketersediaan sensor sebelum fitur yang memakainya ditampilkan.</li>
+      <li>Batalkan langganan sensor saat tidak diperlukan untuk menghemat baterai.</li>
+    </ul>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 110" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="10" y="8" width="225" height="98" rx="10"/><text class="txt" x="122" y="32">Layar kecil</text><line class="rule" x1="22" y1="42" x2="223" y2="42"/><text class="txtl" x="26" y="66">• 1 kolom</text><text class="txtl" x="26" y="92">• teks cukup besar</text><rect class="box3" x="245" y="8" width="225" height="98" rx="10"/><text class="txt" x="357" y="32">Perangkat lemah</text><line class="rule" x1="257" y1="42" x2="458" y2="42"/><text class="txtl" x="261" y="66">• animasi ringan</text><text class="txtl" x="261" y="92">• data seperlunya</text></svg><figcaption>Desain mengikuti perangkat</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Pakai <code>LayoutBuilder</code> atau <code>MediaQuery</code> untuk ukuran layar.</li><li>Kurangi animasi berat pada perangkat lemah.</li><li>Periksa sensor sebelum menampilkan fiturnya.</li><li>Simpan hanya data sensor yang perlu.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">Bagian 5. Dampak pada Desain Aplikasi</a></p>
+  </section>
+
+<!--bnsp-start-->
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Alur Sensor ke Aplikasi</h2>
+<ol><li>Transducer: besaran fisik menjadi sinyal listrik</li><li>ADC: sinyal menjadi angka digital</li><li>Prosesor atau sensor hub: menyaring dan menggabungkan data</li><li>Driver dan API sistem operasi</li><li>Aplikasi berlangganan stream dan memprosesnya</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Protokol Sensor</h2>
+<table><tr><th>Lingkup</th><th>Protokol</th></tr><tr><td>Di dalam perangkat</td><td>I2C, SPI</td></tr><tr><td>Nirkabel jarak dekat</td><td>Bluetooth Low Energy</td></tr><tr><td>Jaringan sensor</td><td>Zigbee</td></tr><tr><td>Ke server</td><td>HTTPS, MQTT</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Keamanan Sensor</h2>
+<table><tr><th>Risiko</th><th>Perlindungan</th></tr><tr><td>Privasi: mikrofon, kamera, lokasi</td><td>Izin eksplisit dan tujuan jelas</td></tr><tr><td>Data dikirim tanpa enkripsi</td><td>HTTPS atau TLS</td></tr><tr><td>Dibaca di latar belakang</td><td>Pakai seperlunya, batalkan langganan</td></tr><tr><td>Data palsu</td><td>Validasi di server</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--bnsp-end-->
+
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Membaca akselerometer secara langsung</li><li>Mendeteksi guncangan</li><li>Menampilkan spesifikasi perangkat</li></ul><p><strong>Hasil akhir:</strong> Halaman sensor dengan penghitung guncangan dan halaman info perangkat. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>flutter create latihan_sensor
+cd latihan_sensor
+flutter pub add sensors_plus device_info_plus</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Langkah 1 dari 3</p>
+    <h2>Baca Akselerometer</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan di ponsel, atau emulator (Extended controls, Virtual sensors).</li><li>Gerakkan perangkat dan amati x, y, z.</li></ol><pre><code>import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+
+void main() =&gt; runApp(const MaterialApp(home: SensorPage()));
+
+class SensorPage extends StatefulWidget {
+  const SensorPage({super.key});
+
+  @override
+  State&lt;SensorPage&gt; createState() =&gt; _SensorPageState();
+}
+
+class _SensorPageState extends State&lt;SensorPage&gt; {
+  AccelerometerEvent? _e;
+  StreamSubscription&lt;AccelerometerEvent&gt;? _sub;
+
+  @override
+  void initState() {
+    super.initState();
+    _sub = accelerometerEventStream().listen((e) {
+      setState(() =&gt; _e = e);
+    });
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final e = _e;
+    return Scaffold(
+      appBar: AppBar(title: const Text('Akselerometer')),
+      body: Center(
+        child: Text(
+          e == null
+              ? 'Menunggu data'
+              : 'x: ${e.x.toStringAsFixed(2)}\n'
+                  'y: ${e.y.toStringAsFixed(2)}\n'
+                  'z: ${e.z.toStringAsFixed(2)}',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Saat diam di meja, z mendekati 9,8 (gravitasi). Nilai berubah saat digerakkan.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Langkah 2 dari 3</p>
+    <h2>Deteksi Guncangan</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>lib/main.dart (ubah listener dan tampilan)</span></div><ol class="mini"><li>Tambahkan <code>import 'dart:math';</code> dan variabel <code>int _goyang = 0;</code>.</li><li>Ganti isi <code>listen</code> dengan kode di bawah.</li><li>Tampilkan <code>$_goyang</code> pada <code>Text</code>.</li></ol><pre><code>    _sub = accelerometerEventStream().listen((e) {
+      final total = sqrt(e.x * e.x + e.y * e.y + e.z * e.z);
+      setState(() {
+        _e = e;
+        if (total &gt; 15) _goyang++;
+      });
+    });</code></pre><div class="hasil"><b>Hasil yang benar</b> Guncangan keras menaikkan penghitung. Ambang 15 m/s² di atas gravitasi (9,8).</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Langkah 3 dari 3</p>
+    <h2>Info Perangkat</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/info.dart (halaman baru)</span></div><ol class="mini"><li>Buat <code>lib/info.dart</code>, tempel kode.</li><li>Di <code>main.dart</code> ubah <code>home</code> menjadi <code>const InfoPage()</code> dan tambahkan <code>import 'info.dart';</code>.</li><li>Jalankan di perangkat Android.</li></ol><pre><code>import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/material.dart';
+
+class InfoPage extends StatelessWidget {
+  const InfoPage({super.key});
+
+  Future&lt;String&gt; _ambil() async {
+    final info = await DeviceInfoPlugin().androidInfo;
+    return '${info.brand} ${info.model}\n'
+        'Android ${info.version.release} (API ${info.version.sdkInt})';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Info Perangkat')),
+      body: Center(
+        child: FutureBuilder&lt;String&gt;(
+          future: _ambil(),
+          builder: (context, snap) {
+            if (!snap.hasData) return const CircularProgressIndicator();
+            return Text(snap.data!, textAlign: TextAlign.center);
+          },
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Merek, model, dan versi Android perangkat tampil. Kode ini khusus Android.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tambahkan debounce agar satu guncangan hanya dihitung sekali (simpan waktu terakhir dan beri jeda 500 ms).</li><li>Tampilkan bar indikator <code>LinearProgressIndicator</code> sesuai besar percepatan.</li><li>Tambahkan <code>Platform.isIOS</code> agar halaman info tidak gagal di iOS.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Nilai x, y, z berubah saat digerakkan</li><li>Langganan sensor dibatalkan di <code>dispose</code></li><li>Penghitung guncangan bekerja</li><li>Info perangkat tampil di Android</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 6 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Nilai tidak berubah di emulator</td><td>Gunakan Extended controls, Virtual sensors, lalu gerakkan perangkat virtual.</td></tr><tr><td>Baterai cepat habis</td><td>Pastikan <code>cancel()</code> dipanggil di <code>dispose</code>.</td></tr><tr><td><code>androidInfo</code> gagal di iOS</td><td>Gunakan <code>iosInfo</code> pada iOS atau periksa <code>Platform.isAndroid</code>.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik</p>
+    <h2>Latihan Modul 6</h2>
+    <ol>
+      <li>Tambahkan teks "Perangkat bergerak" jika besar percepatan lebih dari 12 m/s2.</li>
+      <li>Ubah halaman perangkat agar menampilkan versi Android dalam format "Android 14 (API 34)".</li>
+    </ol>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 134" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="20" y="10" width="440" height="32" rx="8"/><rect class="chk" x="32" y="18" width="16" height="16" rx="3"/><text class="txtl" x="60" y="31">Tampilkan "Perangkat bergerak" bila percepatan &gt; 12</text><rect class="box3" x="20" y="50" width="440" height="32" rx="8"/><rect class="chk" x="32" y="58" width="16" height="16" rx="3"/><text class="txtl" x="60" y="71">Format versi: Android 14 (API 34)</text><rect class="box2" x="20" y="90" width="440" height="32" rx="8"/><rect class="chk" x="32" y="98" width="16" height="16" rx="3"/><text class="txtl" x="60" y="111">Tampilkan jumlah sensor tersedia</text></svg><figcaption>Daftar tugas modul 6</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Gunakan perangkat fisik; emulator sensornya terbatas.</li><li>Goyangkan perangkat dan lihat angka berubah.</li><li>Bandingkan info perangkat dengan menu Tentang Ponsel.</li><li>Jalankan <code>flutter analyze</code>.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 2 dan Step 3</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

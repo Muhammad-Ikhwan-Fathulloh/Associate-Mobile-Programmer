@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 2: Merancang Mobile Interface</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 10.00 to 12.00 · React Native</p>
+    <h1>Modul 2: Mobile Interface</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menyusun layar dari komponen dasar</li><li>Menata tampilan dengan flexbox dan StyleSheet</li><li>Membuat navigasi antarhalaman dengan expo-router</li><li>Membuat form dengan validasi</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-1/02-mobile-interface.md">docs/hari-1/02-mobile-interface.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.007.01</h2>
+<h3>Merancang Mobile Interface</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menentukan alat perancangan antarmuka</li><li>Memilih informasi yang ditampilkan per layar</li><li>Membuat aksi dan desain estetis per layar</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>app/index.tsx</code>, <code>app/note-form.tsx</code>, <code>src/ui.ts</code>, navigasi <code>app/_layout.tsx</code></p>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Langkah merancang antarmuka</h2>
+<ul><li>Kenali kebutuhan pengguna dan tugas utamanya.</li><li>Daftar layar dan isi tiap layar, lalu buat **wireframe** (kertas atau Figma).</li><li>Buat prototipe yang dapat diklik, uji ke pengguna, lalu implementasikan.</li><li>Satu layar, satu tujuan utama. Aksi utama harus paling menonjol.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Komponen dasar</h2>
+<table><tr><th>Komponen</th><th>Fungsi</th></tr><tr><td><code>View</code></td><td>Wadah tata letak (seperti div)</td></tr><tr><td><code>Text</code></td><td>Menampilkan teks</td></tr><tr><td><code>Pressable</code></td><td>Area yang dapat diketuk</td></tr><tr><td><code>TextInput</code></td><td>Kolom isian</td></tr><tr><td><code>FlatList</code></td><td>Daftar panjang yang efisien</td></tr><tr><td><code>ScrollView</code></td><td>Konten yang bisa digulir</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Flexbox dan gaya</h2>
+<ul><li><code>flex: 1</code> membuat elemen mengisi ruang yang tersedia.</li><li><code>flexDirection</code> (default <code>column</code>) mengatur arah susunan anak.</li><li><code>padding</code> di dalam, <code>margin</code> di luar. Satuan dalam dp (tanpa tulisan px).</li><li><code>StyleSheet.create</code> mengumpulkan gaya di satu tempat.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Navigasi expo-router</h2>
+<p>Nama file di <code>app/</code> menjadi alamat halaman. <code>Stack</code> menambahkan tombol kembali.</p><p class="ref"><code>app/_layout.tsx</code></p><pre><code>import { Stack } from 'expo-router';
+
+export default function RootLayout() {
+  return (
+    &lt;Stack screenOptions={{ headerStyle: { backgroundColor: '#1565c0' }, headerTintColor: '#fff' }}&gt;
+      &lt;Stack.Screen name="index" options={{ title: 'Associate Mobile App' }} /&gt;
+      &lt;Stack.Screen name="notes" options={{ title: 'Catatan' }} /&gt;
+      &lt;Stack.Screen name="note-form" options={{ title: 'Form Catatan' }} /&gt;
+      &lt;Stack.Screen name="location" options={{ title: 'Lokasi dan Peta' }} /&gt;
+      &lt;Stack.Screen name="network" options={{ title: 'Jaringan Seluler' }} /&gt;
+      &lt;Stack.Screen name="sensor" options={{ title: 'Sensor' }} /&gt;
+      &lt;Stack.Screen name="device" options={{ title: 'Info Perangkat' }} /&gt;
+      &lt;Stack.Screen name="keamanan" options={{ title: 'Keamanan' }} /&gt;
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Form dan validasi</h2>
+<p>State <code>judul</code>, <code>isi</code>, <code>error</code>. Validasi dilakukan sebelum menyimpan.</p><p class="ref"><code>app/note-form.tsx</code></p><pre><code>  const simpan = async () =&gt; {
+    const pesan = validasiJudul(judul);
+    if (pesan) return setError(pesan);
+    const n = lama
+      ? { ...lama, title: judul.trim(), content: isi.trim() }
+      : noteBaru(judul.trim(), isi.trim());
+    await simpanCatatan(n);
+    router.back();
+  };
+
+  return (
+    &lt;View style={gaya.layar}&gt;
+      &lt;TextInput testID="input-judul" style={gaya.input} placeholder="Judul" value={judul} onChangeText={(t) =&gt; { setJudul(t); setError(null); }} /&gt;
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan dan Coba</p>
+    <h2>Tugas Modul 2</h2>
+<ol><li>Tambahkan menu baru pada <code>src/menu.ts</code> yang menuju halaman kosong.</li><li>Ubah warna utama pada <code>src/ui.ts</code> dan amati semua halaman.</li><li>Tambahkan batas 500 karakter pada isi catatan beserta pesan error.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 3, 4, dan 8</a> · Materi: <a href="../docs/hari-1/02-mobile-interface.md">docs/hari-1/02-mobile-interface.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

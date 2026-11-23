@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Associate Mobile App",
+    "slug": "associate-mobile-app",
+    "version": "1.0.0",
+    "scheme": "associatemobile",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      [
+        "expo-location",
+        { "locationWhenInUsePermission": "Aplikasi memakai lokasi untuk menandai catatan." }
+      ],
+      "expo-secure-store"
+    ],
+    "android": {
+      "package": "id.ac.associate.mobileapp",
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION", "ACCESS_NETWORK_STATE"]
+    },
+    "ios": { "bundleIdentifier": "id.ac.associate.mobileapp" }
+  }
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 1: Platform Operating System dan Bahasa Pemrograman</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 09.00 to 10.00 · React Native</p>
+    <h1>Modul 1: Platform dan Bahasa</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjelaskan perbedaan platform Android dan iOS</li><li>Memilih pendekatan native atau cross-platform sesuai kebutuhan</li><li>Menulis TypeScript dasar</li><li>Membuat dan menjalankan proyek React Native dengan Expo</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.001.01</h2>
+<h3>Platform Operating System dan Bahasa Pemrograman</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mengenali jenis platform OS mobile</li><li>Menentukan platform OS sesuai kebutuhan pengguna</li><li>Menjelaskan bahasa pemrograman mobile</li></ol><p><strong>Bukti pada pelatihan ini:</strong> tabel platform, <code>src/models/note.ts</code>, aplikasi berjalan di Expo Go</p>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Android dan iOS</h2>
+<table><tr><th>Aspek</th><th>Android</th><th>iOS</th></tr><tr><td>Pengembang</td><td>Google (open source: AOSP)</td><td>Apple (tertutup)</td></tr><tr><td>Bahasa native</td><td>Kotlin, Java</td><td>Swift, Objective-C</td></tr><tr><td>Alat resmi</td><td>Android Studio</td><td>Xcode (hanya di macOS)</td></tr><tr><td>Distribusi</td><td>Google Play, APK</td><td>App Store</td></tr><tr><td>Variasi perangkat</td><td>Sangat banyak</td><td>Terbatas</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Native atau cross-platform</h2>
+<table><tr><th>Pilihan</th><th>Kelebihan</th><th>Keterbatasan</th></tr><tr><td>Native</td><td>Akses penuh, kinerja terbaik</td><td>Basis kode terpisah per platform</td></tr><tr><td>React Native</td><td>Satu basis kode JavaScript/TypeScript, komponen tampil native</td><td>Fitur khusus butuh modul native</td></tr><tr><td>Flutter</td><td>Satu basis kode Dart, UI digambar sendiri</td><td>Bahasa Dart perlu dipelajari</td></tr><tr><td>PWA</td><td>Tanpa toko aplikasi</td><td>Akses perangkat terbatas</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Cara kerja React Native</h2>
+<ul><li>Kode ditulis dengan **komponen React** dan bahasa **TypeScript**.</li><li>JavaScript berjalan di mesin JS dalam aplikasi, lalu memerintahkan pembuatan **view native** (Text menjadi teks Android/iOS asli).</li><li>**Expo** menyediakan alat build dan modul siap pakai (SQLite, lokasi, sensor).</li><li>**Expo Go** memungkinkan menjalankan proyek di ponsel dengan memindai kode QR.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Contoh Kode</p>
+    <h2>TypeScript dasar</h2>
+<pre><code>type Mahasiswa = { nama: string; nilai: number };
+
+const daftar: Mahasiswa[] = [
+  { nama: 'Ani', nilai: 90 },
+  { nama: 'Budi', nilai: 72 },
+];
+
+const lulus = daftar.filter((m) =&gt; m.nilai &gt;= 75);
+console.log(lulus.map((m) =&gt; m.nama)); // ['Ani']
+
+async function ambil(url: string): Promise&lt;unknown&gt; {
+  const res = await fetch(url);
+  return res.json();
+}</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Komponen pertama</h2>
+<p>Komponen dengan props <code>label</code>, <code>onPress</code>, dan <code>bahaya</code>.</p><p class="ref"><code>src/components/Tombol.tsx</code></p><pre><code>import { Pressable, Text } from 'react-native';
+import { gaya, warna } from '../ui';
+
+type Props = { label: string; onPress: () =&gt; void; bahaya?: boolean; testID?: string };
+
+export function Tombol({ label, onPress, bahaya, testID }: Props) {
+  return (
+    &lt;Pressable
+      testID={testID}
+      accessibilityRole="button"
+      onPress={onPress}
+      style={[gaya.tombol, bahaya &amp;&amp; { backgroundColor: warna.bahaya }]}
+    &gt;
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan dan Coba</p>
+    <h2>Tugas Modul 1</h2>
+<ol><li>Pasang Node.js, Expo Go, dan jalankan <code>npx expo start</code>.</li><li>Ubah teks pada <code>app/index.tsx</code> dan lihat perubahan langsung (Fast Refresh).</li><li>Tulis fungsi TypeScript yang menghitung rata-rata nilai dari array.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 0 sampai 4</a> · Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

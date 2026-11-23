@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 5: Mobile Cellular Network</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 09.00 to 10.00 · React Native</p>
+    <h1>Modul 5: Jaringan Seluler</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjelaskan generasi jaringan seluler</li><li>Menjelaskan komponen jaringan GSM dan konsep Mobile IP</li><li>Mendeteksi jenis koneksi di aplikasi</li><li>Merancang aplikasi yang tetap berguna saat offline</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">docs/hari-2/05-mobile-cellular-network.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.025.01</h2>
+<h3>Mobile Cellular Network</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Memahami arsitektur jaringan seluler</li><li>Memahami protokol dan Mobile IP</li><li>Mengakses jaringan dari aplikasi</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/services/networkService.ts</code>, <code>app/network.tsx</code>, perilaku saat offline</p>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Generasi jaringan seluler</h2>
+<table><tr><th>Generasi</th><th>Ciri utama</th></tr><tr><td>2G (GSM)</td><td>Suara digital dan SMS, data sangat terbatas</td></tr><tr><td>3G (UMTS)</td><td>Data seluler dan internet bergerak</td></tr><tr><td>4G (LTE)</td><td>Data cepat, berbasis IP penuh</td></tr><tr><td>5G</td><td>Kecepatan lebih tinggi dan latensi rendah</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Komponen jaringan GSM</h2>
+<table><tr><th>Komponen</th><th>Peran</th></tr><tr><td>MS (Mobile Station)</td><td>Ponsel beserta kartu SIM</td></tr><tr><td>BTS (Base Transceiver Station)</td><td>Menara pemancar yang melayani satu sel</td></tr><tr><td>BSC (Base Station Controller)</td><td>Mengatur beberapa BTS</td></tr><tr><td>MSC (Mobile Switching Center)</td><td>Pusat penyambungan panggilan</td></tr><tr><td>HLR dan VLR</td><td>Basis data pelanggan tetap dan pelanggan yang sedang berkunjung</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Handover dan Mobile IP</h2>
+<ul><li>**Handover**: sambungan berpindah ke menara lain saat pengguna bergerak.</li><li>**Mobile IP**: perangkat tetap dapat dijangkau dengan alamat yang sama saat berpindah jaringan.</li><li>Peran utama: *home agent* di jaringan asal dan *foreign agent* di jaringan yang dikunjungi.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Mendeteksi jenis koneksi</h2>
+<p><code>labelJaringan</code> menerjemahkan status mentah menjadi label.</p><p class="ref"><code>src/services/networkService.ts</code></p><pre><code>import * as Network from 'expo-network';
+
+export type JenisJaringan = 'Seluler' | 'Wi-Fi' | 'Tidak ada koneksi' | 'Lainnya';
+
+/** Menerjemahkan hasil expo-network menjadi label bahasa Indonesia. */
+export function labelJaringan(s: Network.NetworkState): JenisJaringan {
+  if (!s.isConnected) return 'Tidak ada koneksi';
+  if (s.type === Network.NetworkStateType.CELLULAR) return 'Seluler';
+  if (s.type === Network.NetworkStateType.WIFI) return 'Wi-Fi';
+  return 'Lainnya';
+}
+
+export async function cekJaringan() {
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Merancang untuk jaringan buruk</h2>
+<ul><li>Tampilkan data tersimpan lebih dulu (**offline-first**).</li><li>Pakai **timeout** dan pesan error yang jelas.</li><li>Tunda unduhan besar sampai Wi-Fi bila pengguna memakai data seluler.</li><li>Coba lagi secara bertahap, jangan terus-menerus.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan dan Coba</p>
+    <h2>Tugas Modul 5</h2>
+<ol><li>Tampilkan peringatan saat jenis jaringan seluler.</li><li>Matikan Wi-Fi dan data lalu amati halaman jaringan.</li><li>Jelaskan urutan komponen GSM dari ponsel sampai tujuan panggilan.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 0 dan 1</a> · Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">docs/hari-2/05-mobile-cellular-network.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

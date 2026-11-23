@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 3: Database dan Data Persistence</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="tsx">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 13.00 to 15.00 · React Native</p>
+    <h1>Modul 3: Database</h1><h2>Tujuan Pembelajaran</h2><ol><li>Memilih metode penyimpanan lokal yang sesuai</li><li>Merancang tabel untuk aplikasi mobile</li><li>Mengimplementasikan CRUD dengan expo-sqlite</li><li>Memahami offline-first dan sinkronisasi</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.003.01</h2>
+<h3>Database dan Data Persistence</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mendesain internal storage</li><li>Mendesain external storage</li><li>Mendesain database SQLite</li><li>Mendesain database mobile dengan model berlapis</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/data/database.ts</code>, <code>src/data/noteRepository.ts</code>, data bertahan setelah aplikasi ditutup</p>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Pilihan penyimpanan lokal</h2>
+<table><tr><th>Metode</th><th>Modul</th><th>Contoh penggunaan</th></tr><tr><td>Key-value</td><td><code>@react-native-async-storage/async-storage</code></td><td>Tema, status onboarding</td></tr><tr><td>Penyimpanan aman</td><td><code>expo-secure-store</code></td><td>Token akses</td></tr><tr><td>SQLite</td><td><code>expo-sqlite</code></td><td>Data terstruktur dengan relasi dan kueri</td></tr><tr><td>Berkas</td><td><code>expo-file-system</code></td><td>Gambar, cache, dokumen</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Contoh Kode</p>
+    <h2>Rancangan tabel notes</h2>
+<pre><code>CREATE TABLE notes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  content TEXT NOT NULL,
+  latitude REAL,
+  longitude REAL,
+  updated_at INTEGER NOT NULL,
+  sync_status TEXT NOT NULL DEFAULT 'PENDING'
+);</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Membuka database</h2>
+<p>Koneksi dibuka sekali. Tabel dibuat bila belum ada.</p><p class="ref"><code>src/data/database.ts</code></p><pre><code>import * as SQLite from 'expo-sqlite';
+
+let dbPromise: Promise&lt;SQLite.SQLiteDatabase&gt; | null = null;
+
+/** Membuka database sekali, lalu memakai koneksi yang sama. */
+export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
+  if (!dbPromise) {
+    dbPromise = (async () =&gt; {
+      const db = await SQLite.openDatabaseAsync('associate_mobile.db');
+      await db.execAsync(`
+        PRAGMA foreign_keys = ON;
+        CREATE TABLE IF NOT EXISTS notes (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide code">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode di Aplikasi</p>
+    <h2>Repository dan CRUD</h2>
+<p>Tiga fungsi: baca semua, simpan (tambah atau ubah), hapus. Parameter memakai tanda tanya.</p><p class="ref"><code>src/data/noteRepository.ts</code></p><pre><code>export async function simpanCatatan(n: Note): Promise&lt;void&gt; {
+  const db = await getDb();
+  if (n.id == null) {
+    await db.runAsync(
+      'INSERT INTO notes (title, content, latitude, longitude, updated_at, sync_status) VALUES (?, ?, ?, ?, ?, ?)',
+      [n.title, n.content, n.latitude, n.longitude, n.updatedAt, n.syncStatus],
+    );
+  } else {
+    await db.runAsync(
+      "UPDATE notes SET title = ?, content = ?, latitude = ?, longitude = ?, updated_at = ?, sync_status = 'PENDING' WHERE id = ?",
+      [n.title, n.content, n.latitude, n.longitude, Date.now(), n.id],
+    );
+  }
+// ... selengkapnya di berkas ini</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Model berlapis dan sinkronisasi</h2>
+<ul><li>**Lapisan**: tampilan (halaman) memanggil repository, repository memanggil SQLite.</li><li>**Offline-first**: simpan ke SQLite dahulu, kirim ke server saat ada koneksi.</li><li>Kolom <code>sync_status</code> menandai data **PENDING** (belum dikirim) atau **SYNCED**.</li><li>Konflik sinkronisasi biasanya diselesaikan dengan <code>updated_at</code> terbaru.</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan dan Coba</p>
+    <h2>Tugas Modul 3</h2>
+<ol><li>Tambahkan kolom <code>kategori</code> dan pikirkan cara memigrasikan data lama.</li><li>Tambahkan pencarian judul dengan <code>LIKE</code>.</li><li>Uji: tambah catatan, tutup aplikasi, buka kembali.</li></ol>
+    </div></div><!--/split-->
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 5 sampai 8</a> · Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

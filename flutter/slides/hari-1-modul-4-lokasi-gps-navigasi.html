@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 4: Location Based Service, GPS, dan Navigasi</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body>
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 15.00 to 17.00</p>
+    <h1>Modul 4: Location Based Service, GPS, dan Navigasi</h1>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Menjelaskan sumber data lokasi pada perangkat mobile.</li>
+      <li>Meminta izin lokasi dengan benar di Android dan iOS.</li>
+      <li>Membaca posisi pengguna secara berkelanjutan.</li>
+      <li>Menampilkan posisi pada peta dan menghitung jarak.</li>
+    </ol>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><line class="grid" x1="20" y1="10" x2="20" y2="200"/><line class="grid" x1="64" y1="10" x2="64" y2="200"/><line class="grid" x1="108" y1="10" x2="108" y2="200"/><line class="grid" x1="152" y1="10" x2="152" y2="200"/><line class="grid" x1="196" y1="10" x2="196" y2="200"/><line class="grid" x1="240" y1="10" x2="240" y2="200"/><line class="grid" x1="284" y1="10" x2="284" y2="200"/><line class="grid" x1="328" y1="10" x2="328" y2="200"/><line class="grid" x1="372" y1="10" x2="372" y2="200"/><line class="grid" x1="416" y1="10" x2="416" y2="200"/><line class="grid" x1="460" y1="10" x2="460" y2="200"/><line class="grid" x1="20" y1="10.0" x2="460" y2="10.0"/><line class="grid" x1="20" y1="57.5" x2="460" y2="57.5"/><line class="grid" x1="20" y1="105.0" x2="460" y2="105.0"/><line class="grid" x1="20" y1="152.5" x2="460" y2="152.5"/><line class="grid" x1="20" y1="200.0" x2="460" y2="200.0"/><path class="road" d="M20 150 C130 120 200 170 300 110 S420 60 460 40" fill="none"/><circle class="acc" cx="270" cy="100" r="46"/><path class="pin" d="M270 128 C256 106 250 98 250 88 a20 20 0 1 1 40 0 C290 98 284 106 270 128z"/><circle cx="270" cy="88" r="7" fill="#fff"/><text class="subl" x="334" y="40">lingkaran = akurasi</text><text class="subl" x="334" y="55">(radius ketidakpastian)</text><text class="subl" x="30" y="40">TileLayer</text><text class="subl" x="30" y="55">(OpenStreetMap)</text><text class="subl" x="188" y="192">MarkerLayer</text></svg><figcaption>Lokasi pada peta</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Siapkan paket <code>geolocator</code>, <code>flutter_map</code>, <code>latlong2</code>.</li><li>Tambahkan izin lokasi di Android dan iOS.</li><li>Ambil posisi pengguna.</li><li>Tampilkan sebagai penanda di peta.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">docs/hari-1/04-lokasi-gps-navigasi.md</a></p>
+  </section>
+
+<!--bnsp-peta-start-->
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.006.01</h2>
+<h3>Mobile Location Based Service, GPS dan Mobile Navigation</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menentukan lokasi dengan perangkat mobile</li><li>Menentukan lokasi pengguna dengan LBS</li><li>Menentukan lokasi pengguna dengan GPS</li><li>Menerapkan mobile navigation</li></ol><p><strong>Bukti pada pelatihan ini:</strong> Alur izin, posisi <code>geolocator</code>, reverse geocoding, peta dan jarak Haversine</p>
+    </div></div><!--/split-->
+  </section>
+<!--bnsp-peta-end-->
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Sumber Data Lokasi</h2>
+    <table>
+      <tr><th>Sumber</th><th>Akurasi tipikal</th><th>Keterangan</th></tr>
+      <tr><td>GPS</td><td>3 hingga 10 meter (area terbuka)</td><td>Sinyal satelit, butuh waktu untuk <em>fix</em> pertama</td></tr>
+      <tr><td>Wi-Fi</td><td>20 hingga 50 meter</td><td>Berdasarkan database titik akses</td></tr>
+      <tr><td>Jaringan seluler</td><td>100 meter hingga beberapa km</td><td>Berdasarkan menara seluler</td></tr>
+      <tr><td>Sensor inersia</td><td>Relatif</td><td>Estimasi pergerakan jangka pendek</td></tr>
+    </table>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 222" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="10.0" y="146.0" width="90" height="50.0" rx="8"/><text class="txtb" x="55.0" y="174.0">Seluler</text><text class="sub" x="55.0" y="214">kasar</text><rect class="box3" x="195.0" y="86.0" width="90" height="110.0" rx="8"/><text class="txtb" x="240.0" y="114.0">Wi-Fi</text><text class="sub" x="240.0" y="214">sedang</text><rect class="box2" x="380.0" y="26.0" width="90" height="170.0" rx="8"/><text class="txtb" x="425.0" y="54.0">GPS</text><text class="sub" x="425.0" y="214">akurat</text><line class="rule" x1="6" y1="196" x2="474" y2="196"/></svg><figcaption>Sumber lokasi dan akurasinya</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Tentukan kebutuhan akurasi fitur Anda.</li><li>Navigasi butuh GPS, cek-in kasar cukup jaringan.</li><li>Pilih <code>LocationAccuracy</code> sesuai kebutuhan.</li><li>Ingat: akurasi tinggi berarti baterai lebih boros.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">Bagian 1. Sumber Data Lokasi</a></p>
+  </section>
+
+  <section class="slide" data-sim="permission">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Izin</p>
+    <h2>Izin dan Privasi</h2>
+    <table>
+      <tr><th>Platform</th><th>Konfigurasi</th><th>Keterangan</th></tr>
+      <tr><td>Android</td><td><code>ACCESS_COARSE_LOCATION</code></td><td>Lokasi perkiraan</td></tr>
+      <tr><td>Android</td><td><code>ACCESS_FINE_LOCATION</code></td><td>Lokasi presisi</td></tr>
+      <tr><td>Android</td><td><code>ACCESS_BACKGROUND_LOCATION</code></td><td>Di latar belakang, perlu justifikasi di Google Play</td></tr>
+      <tr><td>iOS</td><td><code>NSLocationWhenInUseUsageDescription</code></td><td>Teks penjelasan saat izin diminta</td></tr>
+    </table>
+    <ul>
+      <li>Minta izin sesuai kebutuhan, dan jelaskan alasannya sebelum meminta izin.</li>
+      <li>Kumpulkan lokasi seminimal mungkin.</li>
+    </ul>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="10.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="54.8" y="35.0">Layanan lokasi</text><text class="txt" x="54.8" y="50.0">aktif?</text><line class="arrow" x1="102.5" y1="37.0" x2="130.5" y2="37.0" marker-end="url(#ah10)"/><rect class="box3" x="133.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="178.2" y="42.0">Cek izin</text><line class="arrow" x1="226.0" y1="37.0" x2="254.0" y2="37.0" marker-end="url(#ah10)"/><rect class="box2" x="257.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="301.8" y="42.0">Minta izin</text><line class="arrow" x1="349.5" y1="37.0" x2="377.5" y2="37.0" marker-end="url(#ah10)"/><rect class="box4" x="380.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="425.2" y="42.0">Ambil posisi</text></svg><figcaption>Alur izin lokasi</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Cek <code>Geolocator.isLocationServiceEnabled()</code>.</li><li>Cek <code>checkPermission()</code>; bila <code>denied</code>, panggil <code>requestPermission()</code>.</li><li>Bila <code>deniedForever</code>, arahkan ke pengaturan aplikasi.</li><li>Baru setelah itu panggil <code>getCurrentPosition()</code>.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">Bagian 2. Izin dan Privasi</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Layanan</p>
+    <h2>Layanan Lokasi dengan geolocator</h2>
+    <pre><code>Future&lt;bool&gt; pastikanIzin() async {
+  if (!await Geolocator.isLocationServiceEnabled()) return false;
+
+  var izin = await Geolocator.checkPermission();
+  if (izin == LocationPermission.denied) {
+    izin = await Geolocator.requestPermission();
+  }
+  return izin == LocationPermission.whileInUse ||
+      izin == LocationPermission.always;
+}
+
+Stream&lt;Position&gt; pantauPosisi({int jarakMinimalMeter = 5}) {
+  return Geolocator.getPositionStream(
+    locationSettings: LocationSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: jarakMinimalMeter,
+    ),
+  );
+}</code></pre>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><rect class="box" x="10.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="54.8" y="42.0">pastikanIzin()</text><line class="arrow" x1="102.5" y1="37.0" x2="130.5" y2="37.0" marker-end="url(#ah11)"/><rect class="box3" x="133.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="178.2" y="42.0">getCurrentPosition()</text><line class="arrow" x1="226.0" y1="37.0" x2="254.0" y2="37.0" marker-end="url(#ah11)"/><rect class="box2" x="257.0" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="301.8" y="35.0">Position</text><text class="txt" x="301.8" y="50.0">lat, lon</text><line class="arrow" x1="349.5" y1="37.0" x2="377.5" y2="37.0" marker-end="url(#ah11)"/><rect class="box4" x="380.5" y="12" width="89.5" height="50" rx="10"/><text class="txt" x="425.2" y="35.0">Tampilkan</text><text class="txt" x="425.2" y="50.0">di UI</text></svg><figcaption>Alur layanan lokasi</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Buat <code>LocationService</code> dengan method <code>pastikanIzin</code>.</li><li>Tambah <code>ambilPosisi()</code> yang memanggil <code>getCurrentPosition</code>.</li><li>Untuk pembaruan berkelanjutan, pakai <code>getPositionStream</code>.</li><li>Tangkap <code>LocationException</code> dan tampilkan pesan.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">Bagian 4. Layanan Lokasi</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Peta</p>
+    <h2>Peta dan Penanda</h2>
+    <pre><code>FlutterMap(
+  options: const MapOptions(
+    initialCenter: LatLng(-6.9175, 107.6191),
+    initialZoom: 13,
+  ),
+  children: [
+    TileLayer(
+      urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      userAgentPackageName: 'id.ac.associate.mobile',
+    ),
+    MarkerLayer(
+      markers: [
+        Marker(
+          point: LatLng(posisi.latitude, posisi.longitude),
+          width: 40,
+          height: 40,
+          child: const Icon(Icons.location_on, color: Colors.red),
+        ),
+      ],
+    ),
+    const RichAttributionWidget(
+      attributions: [TextSourceAttribution('OpenStreetMap contributors')],
+    ),
+  ],
+);</code></pre>
+    <ul>
+      <li>Aplikasi di <code>app/</code> memakai <code>flutter_map</code> dengan OpenStreetMap, sehingga tidak memerlukan API key.</li>
+    </ul>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 210" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><line class="grid" x1="20" y1="10" x2="20" y2="200"/><line class="grid" x1="64" y1="10" x2="64" y2="200"/><line class="grid" x1="108" y1="10" x2="108" y2="200"/><line class="grid" x1="152" y1="10" x2="152" y2="200"/><line class="grid" x1="196" y1="10" x2="196" y2="200"/><line class="grid" x1="240" y1="10" x2="240" y2="200"/><line class="grid" x1="284" y1="10" x2="284" y2="200"/><line class="grid" x1="328" y1="10" x2="328" y2="200"/><line class="grid" x1="372" y1="10" x2="372" y2="200"/><line class="grid" x1="416" y1="10" x2="416" y2="200"/><line class="grid" x1="460" y1="10" x2="460" y2="200"/><line class="grid" x1="20" y1="10.0" x2="460" y2="10.0"/><line class="grid" x1="20" y1="57.5" x2="460" y2="57.5"/><line class="grid" x1="20" y1="105.0" x2="460" y2="105.0"/><line class="grid" x1="20" y1="152.5" x2="460" y2="152.5"/><line class="grid" x1="20" y1="200.0" x2="460" y2="200.0"/><path class="road" d="M20 150 C130 120 200 170 300 110 S420 60 460 40" fill="none"/><circle class="acc" cx="270" cy="100" r="46"/><path class="pin" d="M270 128 C256 106 250 98 250 88 a20 20 0 1 1 40 0 C290 98 284 106 270 128z"/><circle cx="270" cy="88" r="7" fill="#fff"/><text class="subl" x="334" y="40">lingkaran = akurasi</text><text class="subl" x="334" y="55">(radius ketidakpastian)</text><text class="subl" x="30" y="40">TileLayer</text><text class="subl" x="30" y="55">(OpenStreetMap)</text><text class="subl" x="188" y="192">MarkerLayer</text></svg><figcaption>Marker dan lapisan peta</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Pasang <code>FlutterMap</code> dengan <code>MapOptions(initialCenter, initialZoom)</code>.</li><li>Tambahkan <code>TileLayer</code> dengan URL OpenStreetMap.</li><li>Tambahkan <code>MarkerLayer</code> berisi <code>Marker(point: LatLng(...))</code>.</li><li>Sertakan <code>RichAttributionWidget</code> sesuai ketentuan OSM.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">Bagian 6. Peta dan Penanda</a> · Implementasi: <a href="../app/lib/pages/location_page.dart">app/lib/pages/location_page.dart</a></p>
+  </section>
+
+  <section class="slide" data-sim="haversine">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Jarak</p>
+    <h2>Menghitung Jarak (Haversine)</h2>
+    <pre><code>double jarakMeter(double lat1, double lon1, double lat2, double lon2) {
+  final dLat = _keRadian(lat2 - lat1);
+  final dLon = _keRadian(lon2 - lon1);
+
+  final sinLat = sin(dLat / 2);
+  final sinLon = sin(dLon / 2);
+
+  final a = sinLat * sinLat +
+      cos(_keRadian(lat1)) * cos(_keRadian(lat2)) * sinLon * sinLon;
+
+  return 2 * _jariJariBumiMeter * asin(sqrt(a));
+}</code></pre>
+    <ul>
+      <li>Hasil dalam meter. Package <code>geolocator</code> juga menyediakan <code>Geolocator.distanceBetween</code>.</li>
+    </ul>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><defs><marker id="ah12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#3f51b5"/></marker></defs><circle class="globe" cx="240" cy="190" r="140"/><path class="arc" d="M160 82 Q240 40 330 78" fill="none"/><circle class="pt" cx="160" cy="82" r="8"/><text class="txt" x="160" y="68">A (lat1, lon1)</text><circle class="pt" cx="330" cy="78" r="8"/><text class="txt" x="334" y="64">B (lat2, lon2)</text><text class="txt" x="245" y="36">d = jarak di permukaan bumi</text><text class="sub" x="240" y="150">R = 6.371.000 m</text></svg><figcaption>Jarak dua titik di bumi</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Ubah derajat ke radian.</li><li>Hitung selisih lintang dan bujur.</li><li>Terapkan rumus Haversine dengan jari-jari bumi 6.371.000 m.</li><li>Tulis fungsi <code>jarakMeter(lat1, lon1, lat2, lon2)</code> dan uji dengan <code>flutter test</code>.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">Bagian 7. Menghitung Jarak</a> · Implementasi: <a href="../app/lib/services/distance.dart">app/lib/services/distance.dart</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Akurasi</p>
+    <h2>Akurasi dan Konsumsi Baterai</h2>
+    <table>
+      <tr><th>LocationAccuracy</th><th>Keterangan</th><th>Penggunaan</th></tr>
+      <tr><td><code>bestForNavigation</code></td><td>Presisi tertinggi, konsumsi tertinggi</td><td>Navigasi belokan demi belokan</td></tr>
+      <tr><td><code>high</code></td><td>Akurasi tinggi</td><td>Pelacakan perjalanan</td></tr>
+      <tr><td><code>medium</code></td><td>Akurasi sedang</td><td>Absensi lokasi</td></tr>
+      <tr><td><code>low</code></td><td>Akurasi rendah</td><td>Konten berbasis wilayah</td></tr>
+    </table>
+    <ul>
+      <li>Batalkan stream dengan <code>cancel()</code> di <code>dispose</code>.</li>
+      <li>Gunakan <code>distanceFilter</code> agar pembaruan tidak terlalu sering.</li>
+    </ul>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 136" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="10" y="8" width="225" height="124" rx="10"/><text class="txt" x="122" y="32">Akurasi tinggi</text><line class="rule" x1="22" y1="42" x2="223" y2="42"/><text class="txtl" x="26" y="66">• GPS aktif</text><text class="txtl" x="26" y="92">• baterai boros</text><text class="txtl" x="26" y="118">• cocok untuk navigasi</text><rect class="box3" x="245" y="8" width="225" height="124" rx="10"/><text class="txt" x="357" y="32">Akurasi rendah</text><line class="rule" x1="257" y1="42" x2="458" y2="42"/><text class="txtl" x="261" y="66">• jaringan seluler/Wi-Fi</text><text class="txtl" x="261" y="92">• hemat baterai</text><text class="txtl" x="261" y="118">• cocok untuk cek-in</text></svg><figcaption>Menyeimbangkan akurasi dan baterai</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Mulai dari akurasi sedang.</li><li>Naikkan hanya saat dibutuhkan.</li><li>Atur <code>distanceFilter</code> agar pembaruan tidak terlalu sering.</li><li>Hentikan stream saat layar ditutup.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">Bagian 8. Akurasi dan Konsumsi Baterai</a></p>
+  </section>
+
+<!--bnsp-start-->
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Sumber Lokasi</h2>
+<table><tr><th>Sumber</th><th>Cara kerja</th><th>Akurasi dan daya</th></tr><tr><td>GPS</td><td>Sinyal satelit</td><td>Akurat di luar ruangan, boros baterai</td></tr><tr><td>Wi-Fi</td><td>Daftar jaringan sekitar</td><td>Baik di dalam ruangan</td></tr><tr><td>Cell-ID</td><td>Menara terdekat</td><td>Kasar, hemat baterai</td></tr><tr><td>Gabungan</td><td>Sistem memilih terbaik</td><td>Seimbang</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Komponen Aplikasi Navigasi</h2>
+<ol><li>Posisi pengguna (GPS atau sumber lain)</li><li>Tujuan: koordinat atau alamat (geocoding)</li><li>Rute dari layanan routing</li><li>Panduan belok dan pembaruan posisi berkala (<code>getPositionStream</code>)</li><li>Privasi: izin seperlunya dan persetujuan pengguna</li></ol>
+    </div></div><!--/split-->
+  </section>
+<!--bnsp-end-->
+
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Meminta izin lokasi dengan benar</li><li>Mengambil posisi pengguna</li><li>Menghitung jarak dengan Haversine</li></ul><p><strong>Hasil akhir:</strong> Halaman yang menampilkan koordinat dan jarak ke titik acuan. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>flutter create latihan_lokasi
+cd latihan_lokasi
+flutter pub add geolocator</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Langkah 1 dari 4</p>
+    <h2>Izin Android</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>android/app/src/main/AndroidManifest.xml</span></div><ol class="mini"><li>Buka <code>AndroidManifest.xml</code>.</li><li>Tambahkan dua izin di dalam <code>&lt;manifest&gt;</code>, sebelum <code>&lt;application&gt;</code>.</li><li>Simpan.</li></ol><pre><code>&lt;uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /&gt;</code></pre><div class="hasil"><b>Hasil yang benar</b> File XML tersimpan tanpa kesalahan format. Tanpa izin ini aplikasi tidak dapat meminta lokasi.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Langkah 2 dari 4</p>
+    <h2>Haversine Murni (Tanpa Perangkat)</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>haversine.dart (di folder latihan_lokasi)</span></div><ol class="mini"><li>Buat file <code>haversine.dart</code>.</li><li>Salin kode, simpan.</li><li>Jalankan <code>dart run haversine.dart</code>.</li></ol><pre><code>import 'dart:math';
+
+double _rad(double d) =&gt; d * pi / 180;
+
+double jarakMeter(double lat1, double lon1, double lat2, double lon2) {
+  const r = 6371000.0;
+  final dLat = _rad(lat2 - lat1);
+  final dLon = _rad(lon2 - lon1);
+  final a = pow(sin(dLat / 2), 2) +
+      cos(_rad(lat1)) * cos(_rad(lat2)) * pow(sin(dLon / 2), 2);
+  return 2 * r * asin(sqrt(a));
+}
+
+void main() {
+  // Monas (Jakarta) ke Gedung Sate (Bandung), koordinat perkiraan
+  final m = jarakMeter(-6.1754, 106.8272, -6.9025, 107.6186);
+  print('${(m / 1000).toStringAsFixed(1)} km');
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Keluaran sekitar 119.1 km.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Langkah 3 dari 4</p>
+    <h2>Ambil Posisi Pengguna</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan di emulator atau ponsel.</li><li>Tekan tombol dan setujui dialog izin.</li></ol><pre><code>import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
+void main() =&gt; runApp(const MaterialApp(home: LokasiPage()));
+
+class LokasiPage extends StatefulWidget {
+  const LokasiPage({super.key});
+
+  @override
+  State&lt;LokasiPage&gt; createState() =&gt; _LokasiPageState();
+}
+
+class _LokasiPageState extends State&lt;LokasiPage&gt; {
+  String _teks = 'Belum ada posisi';
+
+  Future&lt;void&gt; _ambil() async {
+    if (!await Geolocator.isLocationServiceEnabled()) {
+      setState(() =&gt; _teks = 'GPS tidak aktif');
+      return;
+    }
+    var izin = await Geolocator.checkPermission();
+    if (izin == LocationPermission.denied) {
+      izin = await Geolocator.requestPermission();
+    }
+    if (izin == LocationPermission.denied ||
+        izin == LocationPermission.deniedForever) {
+      setState(() =&gt; _teks = 'Izin lokasi ditolak');
+      return;
+    }
+    final p = await Geolocator.getCurrentPosition();
+    setState(() =&gt; _teks = '${p.latitude}, ${p.longitude}');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Lokasi')),
+      body: Center(child: Text(_teks, textAlign: TextAlign.center)),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _ambil,
+        icon: const Icon(Icons.my_location),
+        label: const Text('Ambil lokasi'),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Koordinat tampil. Di emulator, atur lokasi lewat Extended controls, menu Location.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Langkah 4 dari 4</p>
+    <h2>Jarak ke Titik Acuan</h2>
+<div class="filebar"><b>LANGKAH 4</b><span>lib/jarak.dart dan lib/main.dart</span></div><ol class="mini"><li>Salin fungsi <code>jarakMeter</code> (tanpa <code>main</code>) ke file baru <code>lib/jarak.dart</code>.</li><li>Di <code>main.dart</code> tambahkan <code>import 'jarak.dart';</code>.</li><li>Ganti dua baris terakhir <code>_ambil</code> dengan kode di bawah.</li></ol><pre><code>    final p = await Geolocator.getCurrentPosition();
+    // Titik acuan: Gedung Sate, Bandung (perkiraan)
+    final m = jarakMeter(p.latitude, p.longitude, -6.9025, 107.6186);
+    setState(() =&gt; _teks = 'Jarak ke Gedung Sate: ${(m / 1000).toStringAsFixed(2)} km');</code></pre><div class="hasil"><b>Hasil yang benar</b> Jarak tampil dalam km. Bandingkan dengan <code>Geolocator.distanceBetween(...)</code>, hasilnya hampir sama.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tampilkan jarak dalam meter bila kurang dari 1 km.</li><li>Ganti titik acuan dengan lokasi Graha Pos Bandung.</li><li>Gunakan <code>Geolocator.getPositionStream</code> untuk memperbarui jarak saat bergerak.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Dialog izin muncul saat pertama kali</li><li>Penolakan izin ditangani dengan pesan jelas</li><li>Jarak Haversine mendekati <code>distanceBetween</code></li><li>Fungsi jarak berada di file terpisah</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 4 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Izin tidak pernah muncul</td><td>Periksa izin di <code>AndroidManifest.xml</code>, lalu pasang ulang aplikasi.</td></tr><tr><td><code>getCurrentPosition</code> menggantung</td><td>Aktifkan GPS dan atur lokasi emulator.</td></tr><tr><td><code>deniedForever</code></td><td>Pengguna harus mengizinkan lewat Pengaturan aplikasi. Buka dengan <code>Geolocator.openAppSettings()</code>.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan</p>
+    <h2>Latihan Modul 4</h2>
+    <ol>
+      <li>Buat aplikasi catatan yang menyimpan koordinat saat catatan dibuat.</li>
+      <li>Tampilkan jarak setiap catatan dari posisi pengguna saat ini.</li>
+      <li>Tampilkan peta dengan penanda pada koordinat catatan.</li>
+      <li>Pastikan izin diminta sebelum fitur lokasi digunakan.</li>
+    </ol>
+    </div>
+    <div class="extra">
+      <figure class="fig"><svg viewBox="0 0 480 174" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi"><rect class="box" x="20" y="10" width="440" height="32" rx="8"/><rect class="chk" x="32" y="18" width="16" height="16" rx="3"/><text class="txtl" x="60" y="31">Tampilkan alamat dari koordinat (Nominatim)</text><rect class="box3" x="20" y="50" width="440" height="32" rx="8"/><rect class="chk" x="32" y="58" width="16" height="16" rx="3"/><text class="txtl" x="60" y="71">Tampilkan jarak catatan dari posisi saya</text><rect class="box2" x="20" y="90" width="440" height="32" rx="8"/><rect class="chk" x="32" y="98" width="16" height="16" rx="3"/><text class="txtl" x="60" y="111">Tangani izin ditolak dengan pesan jelas</text><rect class="box4" x="20" y="130" width="440" height="32" rx="8"/><rect class="chk" x="32" y="138" width="16" height="16" rx="3"/><text class="txtl" x="60" y="151">Hentikan stream di dispose</text></svg><figcaption>Daftar tugas modul 4</figcaption></figure>
+      <div class="steps"><h3>Tata cara membuat</h3><ol><li>Uji di perangkat fisik agar GPS nyata.</li><li>Hormati batas Nominatim: sekitar 1 permintaan per detik.</li><li>Cantumkan User-Agent pada permintaan.</li><li>Commit hasil kerja.</li></ol></div>
+    </div></div><!--/split-->
+
+    <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 8 to 10</a> · Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">docs/hari-1/04-lokasi-gps-navigasi.md</a></p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>
