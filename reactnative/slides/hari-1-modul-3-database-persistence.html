@@ -15,6 +15,7 @@
     <h1>Modul 3: Database</h1><h2>Tujuan Pembelajaran</h2><ol><li>Memilih metode penyimpanan lokal yang sesuai</li><li>Merancang tabel untuk aplikasi mobile</li><li>Mengimplementasikan CRUD dengan expo-sqlite</li><li>Memahami offline-first dan sinkronisasi</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
+    <aside class="notes">Aplikasi yang melupakan semua data begitu ditutup tidak berguna. Modul ini menjawab bagaimana data disimpan di ponsel. Kita membandingkan pilihan penyimpanan, merancang satu tabel, lalu membuat operasi tambah, baca, ubah, dan hapus. Di akhir, peserta menutup aplikasi, membukanya lagi, dan melihat datanya masih ada. Itu momen yang membuat konsep persistensi terasa nyata.</aside>
   </section>
 
   <section class="slide">
@@ -23,6 +24,7 @@
     <h2>Peta Kompetensi: J.612000.003.01</h2>
 <h3>Database dan Data Persistence</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mendesain internal storage</li><li>Mendesain external storage</li><li>Mendesain database SQLite</li><li>Mendesain database mobile dengan model berlapis</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/data/database.ts</code>, <code>src/data/noteRepository.ts</code>, data bertahan setelah aplikasi ditutup</p>
     </div></div><!--/split-->
+    <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
   </section>
 
   <section class="slide">
@@ -31,6 +33,7 @@
     <h2>Pilihan penyimpanan lokal</h2>
 <table><tr><th>Metode</th><th>Modul</th><th>Contoh penggunaan</th></tr><tr><td>Key-value</td><td><code>@react-native-async-storage/async-storage</code></td><td>Tema, status onboarding</td></tr><tr><td>Penyimpanan aman</td><td><code>expo-secure-store</code></td><td>Token akses</td></tr><tr><td>SQLite</td><td><code>expo-sqlite</code></td><td>Data terstruktur dengan relasi dan kueri</td></tr><tr><td>Berkas</td><td><code>expo-file-system</code></td><td>Gambar, cache, dokumen</td></tr></table>
     </div></div><!--/split-->
+    <aside class="notes">Pilih alat sesuai bentuk data. Pengaturan kecil cukup key-value. Rahasia masuk penyimpanan aman. Data terstruktur yang perlu dicari dan diurutkan cocok untuk SQLite. Berkas besar seperti gambar disimpan sebagai berkas. Tanyakan: di mana Anda menyimpan token login, dan mengapa bukan di SQLite?</aside>
   </section>
 
   <section class="slide">
@@ -47,6 +50,7 @@
   sync_status TEXT NOT NULL DEFAULT 'PENDING'
 );</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Baca tabel ini seperti membaca formulir. Id adalah nomor unik, title dan content wajib terisi, latitude dan longitude boleh kosong karena tidak semua catatan punya lokasi. Kolom sync_status adalah siasat untuk nanti: ia menandai catatan yang belum dikirim ke server.</aside>
   </section>
 
   <section class="slide code">
@@ -68,6 +72,7 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
 // ... selengkapnya di berkas ini</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Dua hal yang perlu dipahami. Pertama, koneksi dibuka sekali lalu dipakai ulang agar tidak boros. Kedua, perintah CREATE TABLE IF NOT EXISTS aman dijalankan berkali-kali karena hanya membuat tabel bila belum ada. Itu yang membuat aplikasi aman dibuka berulang.</aside>
   </section>
 
   <section class="slide code" data-sim="crud">
@@ -89,6 +94,7 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
   }
 // ... selengkapnya di berkas ini</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Repository adalah satu-satunya tempat yang boleh menulis SQL. Halaman hanya memanggil fungsi seperti simpanCatatan. Perhatikan tanda tanya pada perintah SQL: nilai dikirim terpisah dari perintah, sehingga pengguna tidak bisa menyisipkan SQL berbahaya lewat isian. Buka simulasi CRUD dan lakukan tambah, ubah, hapus.</aside>
   </section>
 
   <section class="slide" data-sim="offline">
@@ -97,6 +103,7 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
     <h2>Model berlapis dan sinkronisasi</h2>
 <ul><li>**Lapisan**: tampilan (halaman) memanggil repository, repository memanggil SQLite.</li><li>**Offline-first**: simpan ke SQLite dahulu, kirim ke server saat ada koneksi.</li><li>Kolom <code>sync_status</code> menandai data **PENDING** (belum dikirim) atau **SYNCED**.</li><li>Konflik sinkronisasi biasanya diselesaikan dengan <code>updated_at</code> terbaru.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Gambarkan tiga lapis di papan: tampilan, repository, penyimpanan. Tiap lapis hanya berbicara dengan lapis di bawahnya. Lalu jelaskan offline-first: simpan lokal dulu agar aplikasi cepat dan tetap jalan tanpa sinyal, kirim ke server saat ada koneksi. Buka simulasi offline untuk melihat status PENDING berubah menjadi SYNCED.</aside>
   </section>
 
   <section class="slide">
@@ -106,6 +113,7 @@ export function getDb(): Promise&lt;SQLite.SQLiteDatabase&gt; {
 <ol><li>Tambahkan kolom <code>kategori</code> dan pikirkan cara memigrasikan data lama.</li><li>Tambahkan pencarian judul dengan <code>LIKE</code>.</li><li>Uji: tambah catatan, tutup aplikasi, buka kembali.</li></ol>
     </div></div><!--/split-->
     <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 5 sampai 8</a> · Materi: <a href="../docs/hari-1/03-database-persistence.md">docs/hari-1/03-database-persistence.md</a></p>
+    <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 
 </div>

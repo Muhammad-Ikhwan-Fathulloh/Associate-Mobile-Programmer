@@ -15,6 +15,7 @@
     <h1>Modul 4: Lokasi dan GPS</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjelaskan cara kerja GPS dan izin lokasi</li><li>Mengambil posisi dengan expo-location</li><li>Menghitung jarak dengan rumus Haversine</li><li>Menampilkan posisi di peta OpenStreetMap</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">docs/hari-1/04-lokasi-gps-navigasi.md</a></p>
+    <aside class="notes">Peta dan lokasi adalah fitur yang paling mudah membuat peserta bersemangat, sekaligus yang paling banyak jebakannya: izin, GPS mati, dan akurasi yang berubah-ubah. Kita bahas dari mana lokasi berasal, bagaimana meminta izin dengan sopan, bagaimana menghitung jarak dua titik, dan bagaimana menampilkannya di peta. Tekankan bahwa kode yang baik selalu menangani kasus gagal.</aside>
   </section>
 
   <section class="slide">
@@ -23,6 +24,7 @@
     <h2>Peta Kompetensi: J.612000.006.01</h2>
 <h3>Location Based Service, GPS, dan Navigasi</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menentukan komponen LBS</li><li>Mengimplementasikan GPS dan navigasi</li><li>Menampilkan peta dan posisi pengguna</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/services/locationService.ts</code>, <code>src/services/distance.ts</code>, <code>app/location.tsx</code>, peta tampil</p>
     </div></div><!--/split-->
+    <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
   </section>
 
   <section class="slide">
@@ -31,6 +33,7 @@
     <h2>Sumber lokasi</h2>
 <table><tr><th>Sumber</th><th>Akurasi</th><th>Baterai</th></tr><tr><td>GPS (satelit)</td><td>Tinggi, terbaik di luar ruangan</td><td>Boros</td></tr><tr><td>Wi-Fi</td><td>Sedang, di dalam ruangan</td><td>Hemat</td></tr><tr><td>Menara seluler</td><td>Rendah</td><td>Hemat</td></tr></table>
     </div></div><!--/split-->
+    <aside class="notes">Lokasi tidak selalu berasal dari satelit. GPS paling akurat di luar ruangan tetapi boros baterai. Di dalam gedung, Wi-Fi dan menara seluler memberi perkiraan kasar. Karena itu hasil lokasi selalu punya angka akurasi, dan aplikasi yang baik menampilkannya.</aside>
   </section>
 
   <section class="slide" data-sim="permission">
@@ -39,6 +42,7 @@
     <h2>Izin lokasi</h2>
 <ul><li>Minta izin **saat dibutuhkan**, bukan saat aplikasi dibuka.</li><li>Tangani tiga kasus: izin ditolak, GPS mati, dan berhasil.</li><li>Jelaskan alasan izin dengan bahasa yang mudah dipahami.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Izin adalah percakapan dengan pengguna. Minta saat dibutuhkan, bukan saat aplikasi dibuka, dan jelaskan alasannya. Buka simulasi izin dan coba tiga skenario: diizinkan, ditolak, dan GPS mati. Pastikan peserta melihat bahwa aplikasi tetap menampilkan pesan yang jelas untuk setiap kasus.</aside>
   </section>
 
   <section class="slide code">
@@ -60,6 +64,7 @@ export async function posisiSekarang(): Promise&lt;Posisi&gt; {
 
 // ... selengkapnya di berkas ini</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Baca urutannya: minta izin, periksa apakah layanan lokasi menyala, baru ambil posisi. Setiap tahap bisa gagal, dan setiap kegagalan dilempar sebagai pesan yang bisa ditampilkan. Ini contoh bagus bagaimana kode menangani jalur gagal, bukan hanya jalur berhasil.</aside>
   </section>
 
   <section class="slide code" data-sim="haversine">
@@ -79,6 +84,7 @@ export function jarakMeter(lat1: number, lon1: number, lat2: number, lon2: numbe
   return 2 * JARI_JARI_BUMI_METER * Math.asin(Math.sqrt(a));
 }</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Bumi bulat, sehingga jarak dua koordinat tidak bisa dihitung dengan garis lurus di peta datar. Rumus Haversine menghitung jarak sepanjang lengkung bumi. Jangan minta peserta menghafal rumusnya. Yang penting: fungsinya murni, mudah diuji, dan hasilnya masuk akal. Buka simulasi, pilih dua kota, dan bandingkan hasilnya dengan perkiraan Anda.</aside>
   </section>
 
   <section class="slide">
@@ -87,6 +93,7 @@ export function jarakMeter(lat1: number, lon1: number, lat2: number, lon2: numbe
     <h2>Peta OpenStreetMap</h2>
 <ul><li>**OpenStreetMap** adalah peta terbuka, **Leaflet** pustaka untuk menampilkannya.</li><li><code>WebView</code> memuat HTML peta di dalam aplikasi, sehingga tidak butuh API key.</li><li>Alamat didapat dari **reverse geocoding**: koordinat menjadi nama jalan.</li><li>Navigasi: tampilkan tujuan dan jarak, atau buka aplikasi peta lewat <code>Linking</code>.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Peta kita memakai OpenStreetMap dan Leaflet di dalam WebView, jadi tidak memerlukan kunci API berbayar. Peta butuh internet untuk mengunduh ubin gambar, sehingga di ruang tanpa sinyal peta bisa kosong. Sampaikan itu sejak awal agar peserta tidak mengira kodenya salah.</aside>
   </section>
 
   <section class="slide">
@@ -96,6 +103,7 @@ export function jarakMeter(lat1: number, lon1: number, lat2: number, lon2: numbe
 <ol><li>Ubah titik acuan pada <code>app/location.tsx</code> ke alamat Anda.</li><li>Tampilkan akurasi posisi dalam meter.</li><li>Tambahkan tombol yang membuka aplikasi peta dengan <code>Linking.openURL</code>.</li></ol>
     </div></div><!--/split-->
     <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 9 dan 10</a> · Materi: <a href="../docs/hari-1/04-lokasi-gps-navigasi.md">docs/hari-1/04-lokasi-gps-navigasi.md</a></p>
+    <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 
 </div>

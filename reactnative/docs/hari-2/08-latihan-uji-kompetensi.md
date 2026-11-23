@@ -4,6 +4,10 @@
 
 **Unit kompetensi BNSP:** Semua unit
 
+## Pengantar
+
+Ini sesi penutup dan persiapan uji kompetensi. Kita menjalankan seluruh aplikasi seperti pengguna baru, menjalankan pengujian otomatis, dan menyiapkan bukti untuk tiap unit kompetensi. Beri waktu peserta berlatih menjelaskan hasil kerjanya dengan kata-kata sendiri, karena asesor biasanya meminta peserta menjelaskan, bukan hanya menunjukkan.
+
 ## Tujuan Pembelajaran
 
 1. Menjalankan seluruh fitur aplikasi.
@@ -18,6 +22,8 @@
 - Jaringan: label sesuai kondisi, aplikasi tetap berfungsi offline.
 - Sensor dan perangkat: angka tampil, langganan dihentikan.
 - Keamanan: HTTP ditolak, token tersimpan aman.
+
+> **Narasi pengajar:** Gunakan daftar ini seperti pengguna baru: buka setiap menu, coba jalur normal, lalu coba jalur gagal seperti menolak izin dan mematikan internet. Peserta mencentang satu per satu. Yang gagal dicatat dan diperbaiki sebelum lanjut.
 
 ## 2. Pengujian otomatis
 
@@ -55,12 +61,16 @@ describe('ambilJson', () => {
 });
 ```
 
+> **Narasi pengajar:** Pengujian otomatis adalah jaring pengaman. Buka simulasi: sisipkan bug lupa memangkas spasi, jalankan npm test, dan lihat tes menjadi merah dengan pesan yang menunjuk tepat ke kegagalan. Pesan ini menghemat jam-jam mencari kesalahan. Ingatkan juga bahwa uji yang baik mencakup jalur berhasil dan jalur gagal.
+
 ## 3. Menyiapkan bukti BNSP
 
 - Siapkan aplikasi yang berjalan di perangkat atau emulator.
 - Tunjukkan file kode yang menjadi bukti tiap unit (lihat peta kompetensi).
 - Jalankan `npm test` dan `npm run typecheck` sebagai bukti kualitas.
 - Latih penjelasan lisan: apa yang dibuat, mengapa, dan bagaimana mengujinya.
+
+> **Narasi pengajar:** Asesor ingin melihat dua hal: aplikasi berjalan, dan peserta paham yang dibuatnya. Siapkan satu file bukti untuk setiap unit dan latih penjelasan dua menit: apa yang dibuat, mengapa dipilih, dan bagaimana mengujinya. Jalankan npm test sebagai bukti kualitas.
 
 ## Latihan
 

@@ -4,6 +4,10 @@
 
 **Unit kompetensi BNSP:** J.612000.006.01
 
+## Pengantar
+
+Peta dan lokasi adalah fitur yang paling mudah membuat peserta bersemangat, sekaligus yang paling banyak jebakannya: izin, GPS mati, dan akurasi yang berubah-ubah. Kita bahas dari mana lokasi berasal, bagaimana meminta izin dengan sopan, bagaimana menghitung jarak dua titik, dan bagaimana menampilkannya di peta. Tekankan bahwa kode yang baik selalu menangani kasus gagal.
+
 ## Tujuan Pembelajaran
 
 1. Menjelaskan cara kerja GPS dan izin lokasi.
@@ -19,11 +23,15 @@
 | Wi-Fi | Sedang, di dalam ruangan | Hemat |
 | Menara seluler | Rendah | Hemat |
 
+> **Narasi pengajar:** Lokasi tidak selalu berasal dari satelit. GPS paling akurat di luar ruangan tetapi boros baterai. Di dalam gedung, Wi-Fi dan menara seluler memberi perkiraan kasar. Karena itu hasil lokasi selalu punya angka akurasi, dan aplikasi yang baik menampilkannya.
+
 ## 2. Izin lokasi
 
 - Minta izin **saat dibutuhkan**, bukan saat aplikasi dibuka.
 - Tangani tiga kasus: izin ditolak, GPS mati, dan berhasil.
 - Jelaskan alasan izin dengan bahasa yang mudah dipahami.
+
+> **Narasi pengajar:** Izin adalah percakapan dengan pengguna. Minta saat dibutuhkan, bukan saat aplikasi dibuka, dan jelaskan alasannya. Buka simulasi izin dan coba tiga skenario: diizinkan, ditolak, dan GPS mati. Pastikan peserta melihat bahwa aplikasi tetap menampilkan pesan yang jelas untuk setiap kasus.
 
 ## 3. Mengambil posisi
 
@@ -51,6 +59,8 @@ export async function alamatDari(latitude: number, longitude: number): Promise<s
 }
 ```
 
+> **Narasi pengajar:** Baca urutannya: minta izin, periksa apakah layanan lokasi menyala, baru ambil posisi. Setiap tahap bisa gagal, dan setiap kegagalan dilempar sebagai pesan yang bisa ditampilkan. Ini contoh bagus bagaimana kode menangani jalur gagal, bukan hanya jalur berhasil.
+
 ## 4. Jarak Haversine
 
 Jarak lengkung bumi dalam meter. Fungsi murni, mudah diuji. Berkas `src/services/distance.ts`:
@@ -70,12 +80,16 @@ export function jarakMeter(lat1: number, lon1: number, lat2: number, lon2: numbe
 }
 ```
 
+> **Narasi pengajar:** Bumi bulat, sehingga jarak dua koordinat tidak bisa dihitung dengan garis lurus di peta datar. Rumus Haversine menghitung jarak sepanjang lengkung bumi. Jangan minta peserta menghafal rumusnya. Yang penting: fungsinya murni, mudah diuji, dan hasilnya masuk akal. Buka simulasi, pilih dua kota, dan bandingkan hasilnya dengan perkiraan Anda.
+
 ## 5. Peta OpenStreetMap
 
 - **OpenStreetMap** adalah peta terbuka, **Leaflet** pustaka untuk menampilkannya.
 - `WebView` memuat HTML peta di dalam aplikasi, sehingga tidak butuh API key.
 - Alamat didapat dari **reverse geocoding**: koordinat menjadi nama jalan.
 - Navigasi: tampilkan tujuan dan jarak, atau buka aplikasi peta lewat `Linking`.
+
+> **Narasi pengajar:** Peta kita memakai OpenStreetMap dan Leaflet di dalam WebView, jadi tidak memerlukan kunci API berbayar. Peta butuh internet untuk mengunduh ubin gambar, sehingga di ruang tanpa sinyal peta bisa kosong. Sampaikan itu sejak awal agar peserta tidak mengira kodenya salah.
 
 ## Latihan
 

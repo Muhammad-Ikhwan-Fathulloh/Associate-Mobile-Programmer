@@ -10,6 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from modul_data import MODUL  # noqa: E402
+from narasi_data import NARASI, NARASI_UMUM, PEMBUKA  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 APP = ROOT / "app"
@@ -40,10 +41,11 @@ def md_table(head, rows):
 
 
 def md_modul(m):
-    L = [f"# Modul {m['n']}: {m['judul']}", "", f"**Durasi:** {m['waktu']}", "", f"**Unit kompetensi BNSP:** {m['unit']}", "", "## Tujuan Pembelajaran", ""]
+    L = [f"# Modul {m['n']}: {m['judul']}", "", f"**Durasi:** {m['waktu']}", "", f"**Unit kompetensi BNSP:** {m['unit']}", "", "## Pengantar", "", PEMBUKA[m["n"]], "", "## Tujuan Pembelajaran", ""]
     L += [f"{i}. {t}." for i, t in enumerate(m["tujuan"], 1)]
     for i, (judul, jenis, isi) in enumerate(m["konsep"], 1):
         L += ["", f"## {i}. {judul}", ""]
+        nar = NARASI[m["n"]].get(judul)
         if jenis == "bullets":
             L += [f"- {b}" for b in isi]
         elif jenis == "table":
@@ -52,6 +54,8 @@ def md_modul(m):
             L += [f"```{isi[0]}", isi[1], "```"]
         elif jenis == "code":
             L += [f"{isi[1]} Berkas `{isi[0]}`:", "", f"```{lang_of(isi[0])}", baca(isi[0]), "```"]
+        if nar:
+            L += ["", f"> **Narasi pengajar:** {nar}"]
     L += ["", "## Latihan", ""] + [f"{i}. {t}" for i, t in enumerate(m["tugas"], 1)]
     L += ["", "## Peta Kompetensi BNSP", "", f"Unit **{m['unit']}**. Elemen yang dinilai:", ""] + [f"- {e}" for e in m["elemen"]]
     L += ["", f"Bukti pada pelatihan ini: {m['bukti']}.", "", f"Praktik langkah demi langkah: [hands-on {m['praktik']}](../hands-on/hari-{m['hari']}.md)."]
@@ -59,14 +63,18 @@ def md_modul(m):
 
 
 # ---------------------------------------------------------------------- HTML
-def sec(kicker, title, body, cls="", ref="", sim=None):
+def notes(teks):
+    return f'\n    <aside class="notes">{inline(teks)}</aside>' if teks else ""
+
+
+def sec(kicker, title, body, cls="", ref="", sim=None, narasi=None):
     ref_html = f'\n    <p class="ref">{ref}</p>' if ref else ""
     c = f"slide {cls}".strip()
     sim_attr = f' data-sim="{sim}"' if sim else ""
     return (
         f'  <section class="{c}"{sim_attr}>\n    <!--split--><div class="split"><div class="main">\n'
         f'    <p class="kicker">{esc(kicker)}</p>\n    <h2>{title}</h2>\n{body}\n'
-        f"    </div></div><!--/split-->{ref_html}\n  </section>\n"
+        f"    </div></div><!--/split-->{ref_html}{notes(narasi)}\n  </section>\n"
     )
 
 
@@ -95,23 +103,24 @@ def html_modul(m):
     s.append(
         '  <section class="slide">\n    <!--split--><div class="split"><div class="main">\n'
         f'    <p class="kicker">{esc(kick)} · React Native</p>\n    {hero}\n'
-        f'    </div></div><!--/split-->\n    <p class="ref">{md_ref}</p>\n  </section>\n'
+        f'    </div></div><!--/split-->\n    <p class="ref">{md_ref}</p>{notes(PEMBUKA[m["n"]])}\n  </section>\n'
     )
     peta = (
         f"<h3>{esc(m['judul'])}</h3><p><strong>Elemen yang dinilai:</strong></p><ol>"
         + "".join(f"<li>{inline(e)}</li>" for e in m["elemen"])
         + f"</ol><p><strong>Bukti pada pelatihan ini:</strong> {inline(m['bukti'])}</p>"
     )
-    s.append(sec("Sertifikasi BNSP", f"Peta Kompetensi: {esc(m['unit'])}", peta))
+    s.append(sec("Sertifikasi BNSP", f"Peta Kompetensi: {esc(m['unit'])}", peta, narasi=NARASI_UMUM["peta"]))
     for judul, jenis, isi in m["konsep"]:
         sim = m.get("sim", {}).get(judul)
+        nar = NARASI[m["n"]].get(judul)
         if jenis == "bullets":
             body = "<ul>" + "".join(f"<li>{inline(b)}</li>" for b in isi) + "</ul>"
-            s.append(sec(KONSEP_KICK(sim), esc(judul), body, sim=sim))
+            s.append(sec(KONSEP_KICK(sim), esc(judul), body, sim=sim, narasi=nar))
         elif jenis == "table":
-            s.append(sec(KONSEP_KICK(sim), esc(judul), html_table(*isi), sim=sim))
+            s.append(sec(KONSEP_KICK(sim), esc(judul), html_table(*isi), sim=sim, narasi=nar))
         elif jenis == "snippet":
-            s.append(sec("Contoh Kode", esc(judul), f"<pre><code>{esc(isi[1])}</code></pre>", sim=sim))
+            s.append(sec("Contoh Kode", esc(judul), f"<pre><code>{esc(isi[1])}</code></pre>", sim=sim, narasi=nar))
         elif jenis == "code":
             baris = baca(isi[0]).split("\n")
             if len(isi) > 2:  # mulai dari baris yang memuat penanda
@@ -119,10 +128,10 @@ def html_modul(m):
             if len(baris) > MAKS_BARIS:
                 baris = baris[:MAKS_BARIS] + ["// ... selengkapnya di berkas ini"]
             body = f"<p>{inline(isi[1])}</p><p class=\"ref\"><code>{esc(isi[0])}</code></p><pre><code>{esc(chr(10).join(baris))}</code></pre>"
-            s.append(sec(KODE_KICK(sim), esc(judul), body, "code", sim=sim))
+            s.append(sec(KODE_KICK(sim), esc(judul), body, "code", sim=sim, narasi=nar))
     tugas = "<ol>" + "".join(f"<li>{inline(t)}</li>" for t in m["tugas"]) + "</ol>"
     praktik_ref = f'Praktik: <a href="../docs/hands-on/hari-{m["hari"]}.md">hands-on {m["praktik"]}</a> · ' + md_ref
-    s.append(sec("Latihan dan Coba", "Tugas Modul " + str(m["n"]), tugas, "", praktik_ref))
+    s.append(sec("Latihan dan Coba", "Tugas Modul " + str(m["n"]), tugas, "", praktik_ref, narasi=NARASI_UMUM["latihan"]))
     return s
 
 

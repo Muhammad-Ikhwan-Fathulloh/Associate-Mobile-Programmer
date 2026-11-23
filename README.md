@@ -1,5 +1,7 @@
 # Associate Mobile Programmer
 
+by [Muhammad Ikhwan Fathulloh](https://one.nocturnailed.com/)
+
 Materi pelatihan **Associate Mobile Programmer** (dua hari, persiapan sertifikasi BNSP) dalam dua teknologi dengan modul yang sama. Pilih satu jalur.
 
 | Jalur | Teknologi | Mulai dari |

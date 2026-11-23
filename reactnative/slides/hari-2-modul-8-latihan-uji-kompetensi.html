@@ -15,6 +15,7 @@
     <h1>Modul 8: Latihan dan Uji</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjalankan seluruh fitur aplikasi</li><li>Menjalankan pengujian otomatis</li><li>Menyiapkan bukti kompetensi untuk BNSP</li><li>Mengerjakan latihan soal</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-2/08-latihan-uji-kompetensi.md">docs/hari-2/08-latihan-uji-kompetensi.md</a></p>
+    <aside class="notes">Ini sesi penutup dan persiapan uji kompetensi. Kita menjalankan seluruh aplikasi seperti pengguna baru, menjalankan pengujian otomatis, dan menyiapkan bukti untuk tiap unit kompetensi. Beri waktu peserta berlatih menjelaskan hasil kerjanya dengan kata-kata sendiri, karena asesor biasanya meminta peserta menjelaskan, bukan hanya menunjukkan.</aside>
   </section>
 
   <section class="slide">
@@ -23,6 +24,7 @@
     <h2>Peta Kompetensi: Semua unit</h2>
 <h3>Latihan dan Persiapan Uji Kompetensi</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Seluruh elemen tujuh unit kompetensi</li></ol><p><strong>Bukti pada pelatihan ini:</strong> aplikasi berjalan, <code>npm test</code> lulus, <code>npm run typecheck</code> bersih, hasil latihan soal</p>
     </div></div><!--/split-->
+    <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
   </section>
 
   <section class="slide">
@@ -31,6 +33,7 @@
     <h2>Daftar periksa aplikasi</h2>
 <ul><li>Catatan: tambah, ubah, hapus, data tetap ada setelah aplikasi ditutup.</li><li>Lokasi: izin diminta saat tombol ditekan, peta dan jarak tampil.</li><li>Jaringan: label sesuai kondisi, aplikasi tetap berfungsi offline.</li><li>Sensor dan perangkat: angka tampil, langganan dihentikan.</li><li>Keamanan: HTTP ditolak, token tersimpan aman.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Gunakan daftar ini seperti pengguna baru: buka setiap menu, coba jalur normal, lalu coba jalur gagal seperti menolak izin dan mematikan internet. Peserta mencentang satu per satu. Yang gagal dicatat dan diperbaiki sebelum lanjut.</aside>
   </section>
 
   <section class="slide code" data-sim="rn_tests">
@@ -52,6 +55,7 @@ describe('ambilJson', () =&gt; {
   it('mengembalikan JSON saat status 200', async () =&gt; {
 // ... selengkapnya di berkas ini</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Pengujian otomatis adalah jaring pengaman. Buka simulasi: sisipkan bug lupa memangkas spasi, jalankan npm test, dan lihat tes menjadi merah dengan pesan yang menunjuk tepat ke kegagalan. Pesan ini menghemat jam-jam mencari kesalahan. Ingatkan juga bahwa uji yang baik mencakup jalur berhasil dan jalur gagal.</aside>
   </section>
 
   <section class="slide">
@@ -60,6 +64,7 @@ describe('ambilJson', () =&gt; {
     <h2>Menyiapkan bukti BNSP</h2>
 <ul><li>Siapkan aplikasi yang berjalan di perangkat atau emulator.</li><li>Tunjukkan file kode yang menjadi bukti tiap unit (lihat peta kompetensi).</li><li>Jalankan <code>npm test</code> dan <code>npm run typecheck</code> sebagai bukti kualitas.</li><li>Latih penjelasan lisan: apa yang dibuat, mengapa, dan bagaimana mengujinya.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Asesor ingin melihat dua hal: aplikasi berjalan, dan peserta paham yang dibuatnya. Siapkan satu file bukti untuk setiap unit dan latih penjelasan dua menit: apa yang dibuat, mengapa dipilih, dan bagaimana mengujinya. Jalankan npm test sebagai bukti kualitas.</aside>
   </section>
 
   <section class="slide">
@@ -69,6 +74,7 @@ describe('ambilJson', () =&gt; {
 <ol><li>Kerjakan latihan soal BNSP di <code>flutter/slides/latihan-soal-bnsp.html</code> (soal konseptual berlaku untuk kedua teknologi).</li><li>Jalankan seluruh aplikasi dari awal tanpa melihat catatan.</li><li>Jelaskan satu fitur kepada teman dalam dua menit.</li></ol>
     </div></div><!--/split-->
     <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 6 sampai 8</a> · Materi: <a href="../docs/hari-2/08-latihan-uji-kompetensi.md">docs/hari-2/08-latihan-uji-kompetensi.md</a></p>
+    <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 
 </div>

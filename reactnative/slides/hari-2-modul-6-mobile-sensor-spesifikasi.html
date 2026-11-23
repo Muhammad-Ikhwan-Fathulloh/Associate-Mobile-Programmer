@@ -15,6 +15,7 @@
     <h1>Modul 6: Sensor dan Perangkat</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menyebutkan jenis sensor ponsel dan fungsinya</li><li>Membaca akselerometer dengan expo-sensors</li><li>Membaca informasi perangkat</li><li>Menghentikan langganan sensor dengan benar</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">docs/hari-2/06-mobile-sensor-spesifikasi.md</a></p>
+    <aside class="notes">Ponsel bukan hanya layar dan prosesor. Di dalamnya ada sensor yang merasakan gerakan, cahaya, arah, dan tekanan. Modul ini memperkenalkan jenis sensor dan cara aplikasi membacanya, lalu bagaimana membaca spesifikasi perangkat. Satu pelajaran penting: sensor menguras baterai bila tidak dihentikan, jadi berhenti membaca saat tidak diperlukan.</aside>
   </section>
 
   <section class="slide">
@@ -23,6 +24,7 @@
     <h2>Peta Kompetensi: J.612000.022.01</h2>
 <h3>Mobile Sensor dan Spesifikasi Perangkat</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Mengenali jenis sensor</li><li>Menggunakan data sensor pada aplikasi</li><li>Menentukan spesifikasi perangkat</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>app/sensor.tsx</code>, <code>app/device.tsx</code>, langganan dihentikan saat halaman ditutup</p>
     </div></div><!--/split-->
+    <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
   </section>
 
   <section class="slide" data-sim="accel">
@@ -31,6 +33,7 @@
     <h2>Jenis sensor</h2>
 <table><tr><th>Sensor</th><th>Mengukur</th><th>Contoh penggunaan</th></tr><tr><td>Akselerometer</td><td>Percepatan</td><td>Hitung langkah, deteksi guncangan</td></tr><tr><td>Giroskop</td><td>Laju putaran</td><td>Game, stabilisasi</td></tr><tr><td>Magnetometer</td><td>Medan magnet</td><td>Kompas</td></tr><tr><td>Sensor cahaya</td><td>Kecerahan</td><td>Kecerahan layar otomatis</td></tr><tr><td>Sensor jarak</td><td>Dekat atau jauh</td><td>Layar mati saat telepon ke telinga</td></tr><tr><td>Barometer</td><td>Tekanan udara</td><td>Perkiraan ketinggian</td></tr></table>
     </div></div><!--/split-->
+    <aside class="notes">Ajak peserta mengeluarkan ponsel dan menebak sensor mana yang aktif saat layar otomatis menjadi lebih terang, atau saat layar mati ketika ponsel ditempelkan ke telinga. Buka simulasi akselerometer, geser nilai sumbu X, Y, dan Z, dan lihat besar percepatan totalnya. Simulasi memakai satuan m/s², sedangkan expo-sensors melaporkan dalam g. Diam di meja, nilainya sekitar 9,8 m/s² atau 1 g.</aside>
   </section>
 
   <section class="slide">
@@ -39,6 +42,7 @@
     <h2>Rantai sensor</h2>
 <ul><li>Sensor mengukur besaran fisik, lalu diubah menjadi sinyal listrik.</li><li>Konverter analog ke digital (ADC) menghasilkan angka.</li><li>Prosesor dan sistem operasi menyediakan angka itu bagi aplikasi.</li><li>Protokol antarmuka umum ke chip sensor: **I2C** dan **SPI**.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Sensor mengukur besaran fisik, lalu diubah menjadi sinyal listrik, didigitalkan oleh ADC, diproses prosesor, dan akhirnya sampai ke aplikasi. Protokol I2C dan SPI adalah jalur chip sensor berbicara dengan prosesor. Cukup kenali namanya dan perannya.</aside>
   </section>
 
   <section class="slide code" data-sim="rn_effect">
@@ -60,6 +64,7 @@
   return (
 // ... selengkapnya di berkas ini</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Inti slide ini ada di dua baris: addListener untuk mulai berlangganan dan remove untuk berhenti. Buka simulasi useEffect: matikan cleanup, buka halaman, lalu tekan render ulang beberapa kali. Perhatikan jumlah pendengar menumpuk. Itulah kebocoran yang menguras baterai, dan itu sebabnya cleanup wajib ditulis.</aside>
   </section>
 
   <section class="slide code">
@@ -81,6 +86,7 @@ export default function Perangkat() {
   return (
 // ... selengkapnya di berkas ini</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Informasi perangkat membantu kita menyesuaikan aplikasi dan membaca laporan bug. Perhatikan penanganan nilai kosong: di emulator beberapa nilai tidak tersedia, jadi kita beri tanda hubung. Sampaikan pula soal privasi: kumpulkan hanya yang benar-benar diperlukan.</aside>
   </section>
 
   <section class="slide">
@@ -89,6 +95,7 @@ export default function Perangkat() {
     <h2>Praktik baik penggunaan sensor</h2>
 <ul><li>Periksa ketersediaan sensor sebelum memakai.</li><li>Pilih interval pembaruan secukupnya agar baterai hemat.</li><li>Hentikan langganan saat halaman ditutup.</li><li>Kumpulkan data perangkat seperlunya demi privasi.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Empat kebiasaan: periksa dulu apakah sensor ada, pilih interval secukupnya, hentikan langganan saat halaman ditutup, dan kumpulkan data seperlunya. Minta peserta memilih satu yang paling sering dilupakan, lalu jelaskan dampaknya pada baterai.</aside>
   </section>
 
   <section class="slide">
@@ -98,6 +105,7 @@ export default function Perangkat() {
 <ol><li>Ubah interval sensor dan amati perubahan angka.</li><li>Deteksi guncangan: tampilkan pesan saat besar total lebih dari 2 g.</li><li>Tampilkan resolusi layar dengan <code>Dimensions</code>.</li></ol>
     </div></div><!--/split-->
     <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 2 dan 3</a> · Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">docs/hari-2/06-mobile-sensor-spesifikasi.md</a></p>
+    <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 
 </div>

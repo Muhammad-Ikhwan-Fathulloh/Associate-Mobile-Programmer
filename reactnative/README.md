@@ -1,5 +1,7 @@
 # Associate Mobile Programmer dengan React Native
 
+by [Muhammad Ikhwan Fathulloh](https://one.nocturnailed.com/)
+
 Materi pelatihan **Associate Mobile Programmer** (dua hari, persiapan sertifikasi BNSP) menggunakan **React Native dengan Expo dan TypeScript**. Struktur modul dan unit kompetensinya sama dengan [jalur Flutter](../flutter/README.md).
 
 ## Isi
@@ -28,6 +30,10 @@ Setiap deck modul punya simulasi yang dibuka dengan tombol **Simulasi** atau tom
 | 6 | Akselerometer, `useEffect` dan cleanup langganan sensor |
 | 7 | TLS, pemeriksaan URL HTTPS, penyimpanan aman, autentikasi |
 | 8 | `npm test`: sisipkan bug, lihat tes menjadi merah |
+
+## Narasi pengajar
+
+Setiap slide modul punya narasi pengajar. Tekan **N** (atau tombol Narasi) untuk menampilkannya di bawah slide. Teks yang sama ada di dokumen modul sebagai bagian Pengantar dan kutipan "Narasi pengajar". Untuk jalur Flutter, narasi pembuka modul tersedia pada slide pertama setiap deck.
 
 ## Jadwal
 

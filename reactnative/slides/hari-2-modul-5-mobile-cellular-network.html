@@ -15,6 +15,7 @@
     <h1>Modul 5: Jaringan Seluler</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menjelaskan generasi jaringan seluler</li><li>Menjelaskan komponen jaringan GSM dan konsep Mobile IP</li><li>Mendeteksi jenis koneksi di aplikasi</li><li>Merancang aplikasi yang tetap berguna saat offline</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">docs/hari-2/05-mobile-cellular-network.md</a></p>
+    <aside class="notes">Ponsel adalah perangkat yang berpindah-pindah, dan jaringannya ikut berubah: Wi-Fi, seluler, bahkan tanpa sinyal. Modul ini memberi gambaran besar jaringan seluler, dari generasi 2G sampai 5G dan dari menara pemancar sampai pusat penyambungan, lalu menurunkannya menjadi keputusan di aplikasi. Pertanyaan kuncinya: apa yang dilakukan aplikasi kita saat koneksi buruk?</aside>
   </section>
 
   <section class="slide">
@@ -23,6 +24,7 @@
     <h2>Peta Kompetensi: J.612000.025.01</h2>
 <h3>Mobile Cellular Network</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Memahami arsitektur jaringan seluler</li><li>Memahami protokol dan Mobile IP</li><li>Mengakses jaringan dari aplikasi</li></ol><p><strong>Bukti pada pelatihan ini:</strong> <code>src/services/networkService.ts</code>, <code>app/network.tsx</code>, perilaku saat offline</p>
     </div></div><!--/split-->
+    <aside class="notes">Slide ini menghubungkan materi dengan sertifikasi. Setiap modul sesuai satu unit kompetensi, dan setiap unit punya elemen yang dinilai. Baca elemennya satu per satu, lalu tunjukkan di bagian bukti file mana yang akan menjadi bahan tunjukan saat asesmen.</aside>
   </section>
 
   <section class="slide">
@@ -31,6 +33,7 @@
     <h2>Generasi jaringan seluler</h2>
 <table><tr><th>Generasi</th><th>Ciri utama</th></tr><tr><td>2G (GSM)</td><td>Suara digital dan SMS, data sangat terbatas</td></tr><tr><td>3G (UMTS)</td><td>Data seluler dan internet bergerak</td></tr><tr><td>4G (LTE)</td><td>Data cepat, berbasis IP penuh</td></tr><tr><td>5G</td><td>Kecepatan lebih tinggi dan latensi rendah</td></tr></table>
     </div></div><!--/split-->
+    <aside class="notes">Ceritakan perjalanannya: 2G membawa suara digital dan SMS, 3G membuka internet bergerak, 4G membuat data cepat, dan 5G menambah kecepatan serta mengurangi jeda. Hubungkan dengan pengalaman peserta: kapan terakhir sinyal mereka turun ke 3G atau E, dan apa yang terjadi pada aplikasi mereka?</aside>
   </section>
 
   <section class="slide">
@@ -39,6 +42,7 @@
     <h2>Komponen jaringan GSM</h2>
 <table><tr><th>Komponen</th><th>Peran</th></tr><tr><td>MS (Mobile Station)</td><td>Ponsel beserta kartu SIM</td></tr><tr><td>BTS (Base Transceiver Station)</td><td>Menara pemancar yang melayani satu sel</td></tr><tr><td>BSC (Base Station Controller)</td><td>Mengatur beberapa BTS</td></tr><tr><td>MSC (Mobile Switching Center)</td><td>Pusat penyambungan panggilan</td></tr><tr><td>HLR dan VLR</td><td>Basis data pelanggan tetap dan pelanggan yang sedang berkunjung</td></tr></table>
     </div></div><!--/split-->
+    <aside class="notes">Telusuri jalur sebuah panggilan: ponsel berbicara dengan BTS, BTS dikendalikan BSC, BSC tersambung ke MSC yang menyambungkan panggilan, dan HLR serta VLR menyimpan data pelanggan. Gambar rantainya di papan dan minta peserta menyebutkannya berurutan. Ini bahan yang sering muncul pada ujian.</aside>
   </section>
 
   <section class="slide" data-sim="handover">
@@ -47,6 +51,7 @@
     <h2>Handover dan Mobile IP</h2>
 <ul><li>**Handover**: sambungan berpindah ke menara lain saat pengguna bergerak.</li><li>**Mobile IP**: perangkat tetap dapat dijangkau dengan alamat yang sama saat berpindah jaringan.</li><li>Peran utama: *home agent* di jaringan asal dan *foreign agent* di jaringan yang dikunjungi.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Saat Anda berjalan atau naik kendaraan, ponsel berpindah dari satu menara ke menara lain tanpa memutus panggilan. Itu handover. Mobile IP menjawab masalah lain: bagaimana perangkat tetap dapat dijangkau dengan alamat yang sama saat berpindah jaringan. Buka simulasi handover dan geser posisi ponsel.</aside>
   </section>
 
   <section class="slide code" data-sim="network">
@@ -68,6 +73,7 @@ export function labelJaringan(s: Network.NetworkState): JenisJaringan {
 export async function cekJaringan() {
 // ... selengkapnya di berkas ini</code></pre>
     </div></div><!--/split-->
+    <aside class="notes">Kodenya sederhana, tetapi gunanya besar. Dengan mengetahui jenis koneksi, aplikasi bisa memutuskan: unduh sekarang atau tunggu Wi-Fi. Buka simulasi jaringan dan ganti jenis koneksi untuk melihat label dan pesan berubah.</aside>
   </section>
 
   <section class="slide">
@@ -76,6 +82,7 @@ export async function cekJaringan() {
     <h2>Merancang untuk jaringan buruk</h2>
 <ul><li>Tampilkan data tersimpan lebih dulu (**offline-first**).</li><li>Pakai **timeout** dan pesan error yang jelas.</li><li>Tunda unduhan besar sampai Wi-Fi bila pengguna memakai data seluler.</li><li>Coba lagi secara bertahap, jangan terus-menerus.</li></ul>
     </div></div><!--/split-->
+    <aside class="notes">Anggap jaringan buruk sebagai kondisi normal, bukan pengecualian. Tampilkan data tersimpan lebih dulu, beri batas waktu pada permintaan, jelaskan kegagalan dengan bahasa manusia, dan coba lagi secara bertahap. Minta peserta menyebut satu aplikasi yang menanganinya dengan baik dan satu yang buruk.</aside>
   </section>
 
   <section class="slide">
@@ -85,6 +92,7 @@ export async function cekJaringan() {
 <ol><li>Tampilkan peringatan saat jenis jaringan seluler.</li><li>Matikan Wi-Fi dan data lalu amati halaman jaringan.</li><li>Jelaskan urutan komponen GSM dari ponsel sampai tujuan panggilan.</li></ol>
     </div></div><!--/split-->
     <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 0 dan 1</a> · Materi: <a href="../docs/hari-2/05-mobile-cellular-network.md">docs/hari-2/05-mobile-cellular-network.md</a></p>
+    <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
   </section>
 
 </div>

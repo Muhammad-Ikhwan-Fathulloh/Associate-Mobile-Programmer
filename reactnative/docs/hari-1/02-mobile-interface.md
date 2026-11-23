@@ -4,6 +4,10 @@
 
 **Unit kompetensi BNSP:** J.612000.007.01
 
+## Pengantar
+
+Pengguna menilai aplikasi dari tampilannya, jadi antarmuka adalah kesan pertama. Di modul ini kita belajar berpikir seperti perancang: mulai dari kebutuhan pengguna, lalu layar, lalu komponen. Setelah itu baru menulis kode untuk tata letak, navigasi antarhalaman, dan form yang memeriksa isian. Ajak peserta membandingkan hasil di layar dengan sketsa yang mereka buat di awal.
+
 ## Tujuan Pembelajaran
 
 1. Menyusun layar dari komponen dasar.
@@ -18,6 +22,8 @@
 - Buat prototipe yang dapat diklik, uji ke pengguna, lalu implementasikan.
 - Satu layar, satu tujuan utama. Aksi utama harus paling menonjol.
 
+> **Narasi pengajar:** Sebelum menulis kode, gambar dulu. Minta peserta menggambar layar catatan di kertas dalam dua menit: apa yang paling penting di layar ini? Biasanya tombol tambah dan daftar. Prinsip yang kita pegang: satu layar punya satu tujuan utama, dan aksi utama harus paling menonjol.
+
 ## 2. Komponen dasar
 
 | Komponen | Fungsi |
@@ -29,12 +35,16 @@
 | `FlatList` | Daftar panjang yang efisien |
 | `ScrollView` | Konten yang bisa digulir |
 
+> **Narasi pengajar:** Ini kotak peralatan kita. View sebagai wadah, Text untuk teks, Pressable untuk apa pun yang bisa diketuk, TextInput untuk isian, FlatList untuk daftar panjang. Tekankan bahwa semua teks wajib berada di dalam Text, kesalahan yang hampir pasti dialami peserta di awal.
+
 ## 3. Flexbox dan gaya
 
 - `flex: 1` membuat elemen mengisi ruang yang tersedia.
 - `flexDirection` (default `column`) mengatur arah susunan anak.
 - `padding` di dalam, `margin` di luar. Satuan dalam dp (tanpa tulisan px).
 - `StyleSheet.create` mengumpulkan gaya di satu tempat.
+
+> **Narasi pengajar:** Flexbox adalah cara kita menata layar. Buka simulasinya dan minta peserta mengubah flexDirection dari column ke row, lalu justifyContent ke space-between. Bandingkan tampilan dengan kode StyleSheet yang muncul di bawahnya. Ingatkan perbedaan dengan web: arah bawaan di React Native adalah column.
 
 ## 4. Navigasi expo-router
 
@@ -58,6 +68,8 @@ export default function RootLayout() {
   );
 }
 ```
+
+> **Narasi pengajar:** Aturannya mudah diingat: nama file adalah alamat halaman. Buka simulasi navigasi, ketuk berkas, dan perhatikan tumpukan layar bertambah lalu berkurang saat kembali. Berkas _layout menjadi bingkai yang memberi judul dan tombol kembali pada semua halaman.
 
 ## 5. Form dan validasi
 
@@ -108,6 +120,8 @@ export default function FormCatatan() {
   );
 }
 ```
+
+> **Narasi pengajar:** Form yang baik memberi tahu pengguna apa yang salah, tepat saat itu. Perhatikan alurnya di kode: simpan nilai di state, periksa sebelum menyimpan, tampilkan pesan bila salah, dan hapus pesan saat pengguna mulai mengetik lagi. Coba simulasi form dengan isian kosong dan isian panjang.
 
 ## Latihan
 

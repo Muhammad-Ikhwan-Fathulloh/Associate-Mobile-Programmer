@@ -66,6 +66,26 @@
   }
   fsBtn.addEventListener('click', toggleFs);
 
+  /* ---- Byline pada slide pertama ---- */
+  (function () {
+    var head = slides[0] && slides[0].querySelector('.shead');
+    if (!head || head.querySelector('.byline')) return;
+    var p = document.createElement('p');
+    p.className = 'byline';
+    p.innerHTML = 'by <a href="https://one.nocturnailed.com/" target="_blank" rel="noopener">Muhammad Ikhwan Fathulloh</a>';
+    head.appendChild(p);
+  })();
+
+  /* ---- Narasi pengajar: aside.notes pada slide, tombol N ---- */
+  var notesBtn = document.createElement('button');
+  notesBtn.className = 'notesbtn';
+  notesBtn.textContent = 'Narasi (N)';
+  notesBtn.title = 'Tampilkan narasi pengajar (N)';
+  notesBtn.style.display = 'none';
+  nav.appendChild(notesBtn);
+  function toggleNotes() { document.body.classList.toggle('show-notes'); }
+  notesBtn.addEventListener('click', toggleNotes);
+
   /* ---- Ukuran huruf otomatis agar isi muat satu layar ---- */
   function fit(slide) {
     var panel = slide.querySelector('.panel');
@@ -107,6 +127,7 @@
     Array.prototype.forEach.call(dots.children, function (d, k) { d.classList.toggle('on', k === idx); });
     history.replaceState(null, '', '#' + (idx + 1));
     setView(parseInt(s.dataset.view, 10) || 0);
+    notesBtn.style.display = s.querySelector('aside.notes') ? '' : 'none';
     document.dispatchEvent(new CustomEvent('slidechange', { detail: { index: idx, slide: s } }));
   }
 
@@ -131,6 +152,7 @@
     else if (k === 'Home') { show(0, true); }
     else if (k === 'End') { show(slides.length - 1); }
     else if (k === 'f' || k === 'F') { toggleFs(); }
+    else if (k === 'n' || k === 'N') { toggleNotes(); }
   });
 
   window.addEventListener('hashchange', function () {

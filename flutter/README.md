@@ -1,5 +1,7 @@
 # Associate Mobile Programmer: Flutter
 
+by [Muhammad Ikhwan Fathulloh](https://one.nocturnailed.com/)
+
 Materi pelatihan Associate Mobile Programmer berbasis Flutter. Jalur lain dengan modul yang sama: [React Native](../reactnative/README.md). Aset slide bersama ada di `../shared/assets`, dan skrip pembuat slide memakainya otomatis.
 
 ## Tujuan Pelatihan

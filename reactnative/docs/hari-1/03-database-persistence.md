@@ -4,6 +4,10 @@
 
 **Unit kompetensi BNSP:** J.612000.003.01
 
+## Pengantar
+
+Aplikasi yang melupakan semua data begitu ditutup tidak berguna. Modul ini menjawab bagaimana data disimpan di ponsel. Kita membandingkan pilihan penyimpanan, merancang satu tabel, lalu membuat operasi tambah, baca, ubah, dan hapus. Di akhir, peserta menutup aplikasi, membukanya lagi, dan melihat datanya masih ada. Itu momen yang membuat konsep persistensi terasa nyata.
+
 ## Tujuan Pembelajaran
 
 1. Memilih metode penyimpanan lokal yang sesuai.
@@ -20,6 +24,8 @@
 | SQLite | `expo-sqlite` | Data terstruktur dengan relasi dan kueri |
 | Berkas | `expo-file-system` | Gambar, cache, dokumen |
 
+> **Narasi pengajar:** Pilih alat sesuai bentuk data. Pengaturan kecil cukup key-value. Rahasia masuk penyimpanan aman. Data terstruktur yang perlu dicari dan diurutkan cocok untuk SQLite. Berkas besar seperti gambar disimpan sebagai berkas. Tanyakan: di mana Anda menyimpan token login, dan mengapa bukan di SQLite?
+
 ## 2. Rancangan tabel notes
 
 ```sql
@@ -33,6 +39,8 @@ CREATE TABLE notes (
   sync_status TEXT NOT NULL DEFAULT 'PENDING'
 );
 ```
+
+> **Narasi pengajar:** Baca tabel ini seperti membaca formulir. Id adalah nomor unik, title dan content wajib terisi, latitude dan longitude boleh kosong karena tidak semua catatan punya lokasi. Kolom sync_status adalah siasat untuk nanti: ia menandai catatan yang belum dikirim ke server.
 
 ## 3. Membuka database
 
@@ -67,6 +75,8 @@ export function getDb(): Promise<SQLite.SQLiteDatabase> {
   return dbPromise;
 }
 ```
+
+> **Narasi pengajar:** Dua hal yang perlu dipahami. Pertama, koneksi dibuka sekali lalu dipakai ulang agar tidak boros. Kedua, perintah CREATE TABLE IF NOT EXISTS aman dijalankan berkali-kali karena hanya membuat tabel bila belum ada. Itu yang membuat aplikasi aman dibuka berulang.
 
 ## 4. Repository dan CRUD
 
@@ -123,12 +133,16 @@ export async function hapusCatatan(id: number): Promise<void> {
 }
 ```
 
+> **Narasi pengajar:** Repository adalah satu-satunya tempat yang boleh menulis SQL. Halaman hanya memanggil fungsi seperti simpanCatatan. Perhatikan tanda tanya pada perintah SQL: nilai dikirim terpisah dari perintah, sehingga pengguna tidak bisa menyisipkan SQL berbahaya lewat isian. Buka simulasi CRUD dan lakukan tambah, ubah, hapus.
+
 ## 5. Model berlapis dan sinkronisasi
 
 - **Lapisan**: tampilan (halaman) memanggil repository, repository memanggil SQLite.
 - **Offline-first**: simpan ke SQLite dahulu, kirim ke server saat ada koneksi.
 - Kolom `sync_status` menandai data **PENDING** (belum dikirim) atau **SYNCED**.
 - Konflik sinkronisasi biasanya diselesaikan dengan `updated_at` terbaru.
+
+> **Narasi pengajar:** Gambarkan tiga lapis di papan: tampilan, repository, penyimpanan. Tiap lapis hanya berbicara dengan lapis di bawahnya. Lalu jelaskan offline-first: simpan lokal dulu agar aplikasi cepat dan tetap jalan tanpa sinyal, kirim ke server saat ada koneksi. Buka simulasi offline untuk melihat status PENDING berubah menjadi SYNCED.
 
 ## Latihan
 

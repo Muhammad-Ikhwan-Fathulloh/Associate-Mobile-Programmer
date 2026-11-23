@@ -4,6 +4,10 @@
 
 **Unit kompetensi BNSP:** J.612000.008.01
 
+## Pengantar
+
+Aplikasi menyimpan dan mengirim data yang berharga, dan jaringan nirkabel mudah disadap. Modul ini membahas ancaman yang paling umum, lalu pertahanan yang bisa kita tulis sendiri: HTTPS, batas waktu, penyimpanan rahasia yang aman, dan validasi masukan. Pesannya: keamanan bukan fitur tambahan di akhir, melainkan kebiasaan sejak baris kode pertama.
+
 ## Tujuan Pembelajaran
 
 1. Menjelaskan ancaman pada komunikasi nirkabel.
@@ -19,6 +23,8 @@
 | Man-in-the-middle | Penyerang berada di tengah jalur | TLS dengan sertifikat valid |
 | Access point palsu | Wi-Fi tiruan menjebak pengguna | Verifikasi jaringan, pakai VPN |
 | Pencurian token | Rahasia dibaca dari penyimpanan biasa | Penyimpanan aman |
+
+> **Narasi pengajar:** Mulai dengan skenario: Anda memakai Wi-Fi gratis di kafe. Apa yang bisa dilihat orang lain di jaringan yang sama? Dari situ kita bahas penyadapan, man-in-the-middle, dan access point palsu. Buka simulasi TLS untuk melihat bedanya data terbuka dan data terenkripsi.
 
 ## 2. HTTPS dan timeout
 
@@ -62,6 +68,8 @@ export async function ambilJson(
 }
 ```
 
+> **Narasi pengajar:** Dua kebiasaan dalam satu fungsi. Pertama, tolak alamat selain HTTPS sebelum permintaan dikirim. Kedua, batasi waktu tunggu agar aplikasi tidak menggantung. Buka simulasi pemeriksa URL, ketik beberapa alamat, dan lihat mana yang ditolak.
+
 ## 3. Penyimpanan aman
 
 Token disimpan di Keystore Android atau Keychain iOS. Berkas `src/services/secureStorage.ts`:
@@ -76,6 +84,8 @@ export const bacaToken = () => SecureStore.getItemAsync(KUNCI);
 export const hapusToken = () => SecureStore.deleteItemAsync(KUNCI);
 ```
 
+> **Narasi pengajar:** Token dan kata sandi tidak boleh disimpan sebagai teks biasa. Secure store memakai Keystore di Android dan Keychain di iOS, yang dilindungi perangkat keras. Buka simulasinya: simpan, baca, hapus. Tekankan bahwa tempat ini untuk rahasia kecil, bukan untuk data besar.
+
 ## 4. Prinsip pengamanan aplikasi
 
 - Selalu **HTTPS**. Jangan menonaktifkan pemeriksaan sertifikat.
@@ -83,6 +93,8 @@ export const hapusToken = () => SecureStore.deleteItemAsync(KUNCI);
 - **Validasi masukan** di aplikasi dan di server.
 - Jangan menaruh API key rahasia di dalam kode aplikasi.
 - Minta **izin seperlunya** dan jelaskan alasannya.
+
+> **Narasi pengajar:** Rangkum dengan lima prinsip yang bisa dicek di kode: selalu HTTPS, rahasia di secure store, validasi masukan, jangan taruh kunci rahasia di dalam aplikasi, dan minta izin seperlunya. Buka simulasi autentikasi: login untuk mendapat token, lalu coba endpoint dengan dan tanpa token. Diskusikan mengapa token itu harus disimpan di secure store.
 
 ## Latihan
 

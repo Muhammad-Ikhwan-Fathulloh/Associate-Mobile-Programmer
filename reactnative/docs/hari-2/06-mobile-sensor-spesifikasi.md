@@ -4,6 +4,10 @@
 
 **Unit kompetensi BNSP:** J.612000.022.01
 
+## Pengantar
+
+Ponsel bukan hanya layar dan prosesor. Di dalamnya ada sensor yang merasakan gerakan, cahaya, arah, dan tekanan. Modul ini memperkenalkan jenis sensor dan cara aplikasi membacanya, lalu bagaimana membaca spesifikasi perangkat. Satu pelajaran penting: sensor menguras baterai bila tidak dihentikan, jadi berhenti membaca saat tidak diperlukan.
+
 ## Tujuan Pembelajaran
 
 1. Menyebutkan jenis sensor ponsel dan fungsinya.
@@ -22,12 +26,16 @@
 | Sensor jarak | Dekat atau jauh | Layar mati saat telepon ke telinga |
 | Barometer | Tekanan udara | Perkiraan ketinggian |
 
+> **Narasi pengajar:** Ajak peserta mengeluarkan ponsel dan menebak sensor mana yang aktif saat layar otomatis menjadi lebih terang, atau saat layar mati ketika ponsel ditempelkan ke telinga. Buka simulasi akselerometer, geser nilai sumbu X, Y, dan Z, dan lihat besar percepatan totalnya. Simulasi memakai satuan m/s², sedangkan expo-sensors melaporkan dalam g. Diam di meja, nilainya sekitar 9,8 m/s² atau 1 g.
+
 ## 2. Rantai sensor
 
 - Sensor mengukur besaran fisik, lalu diubah menjadi sinyal listrik.
 - Konverter analog ke digital (ADC) menghasilkan angka.
 - Prosesor dan sistem operasi menyediakan angka itu bagi aplikasi.
 - Protokol antarmuka umum ke chip sensor: **I2C** dan **SPI**.
+
+> **Narasi pengajar:** Sensor mengukur besaran fisik, lalu diubah menjadi sinyal listrik, didigitalkan oleh ADC, diproses prosesor, dan akhirnya sampai ke aplikasi. Protokol I2C dan SPI adalah jalur chip sensor berbicara dengan prosesor. Cukup kenali namanya dan perannya.
 
 ## 3. Membaca akselerometer
 
@@ -69,6 +77,8 @@ export default function Sensor() {
 }
 ```
 
+> **Narasi pengajar:** Inti slide ini ada di dua baris: addListener untuk mulai berlangganan dan remove untuk berhenti. Buka simulasi useEffect: matikan cleanup, buka halaman, lalu tekan render ulang beberapa kali. Perhatikan jumlah pendengar menumpuk. Itulah kebocoran yang menguras baterai, dan itu sebabnya cleanup wajib ditulis.
+
 ## 4. Informasi perangkat
 
 Model, OS, dan memori. Nilai kosong diganti tanda hubung. Berkas `app/device.tsx`:
@@ -98,12 +108,16 @@ export default function Perangkat() {
 }
 ```
 
+> **Narasi pengajar:** Informasi perangkat membantu kita menyesuaikan aplikasi dan membaca laporan bug. Perhatikan penanganan nilai kosong: di emulator beberapa nilai tidak tersedia, jadi kita beri tanda hubung. Sampaikan pula soal privasi: kumpulkan hanya yang benar-benar diperlukan.
+
 ## 5. Praktik baik penggunaan sensor
 
 - Periksa ketersediaan sensor sebelum memakai.
 - Pilih interval pembaruan secukupnya agar baterai hemat.
 - Hentikan langganan saat halaman ditutup.
 - Kumpulkan data perangkat seperlunya demi privasi.
+
+> **Narasi pengajar:** Empat kebiasaan: periksa dulu apakah sensor ada, pilih interval secukupnya, hentikan langganan saat halaman ditutup, dan kumpulkan data seperlunya. Minta peserta memilih satu yang paling sering dilupakan, lalu jelaskan dampaknya pada baterai.
 
 ## Latihan
 
