@@ -64,7 +64,7 @@ class _KompasPageState extends State<KompasPage> {
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
-            Text('Tujuan: Monumen Nasional, Jakarta'),
+            const Text('Tujuan: Monumen Nasional, Jakarta'),
             const SizedBox(height: 24),
             Transform.rotate(
               angle: relatif == null ? 0 : relatif * 3.14159265 / 180,

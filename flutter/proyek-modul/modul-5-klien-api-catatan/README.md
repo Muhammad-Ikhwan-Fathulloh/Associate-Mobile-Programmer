@@ -17,7 +17,7 @@ Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pub
 
 1. Pastikan Flutter terpasang: `flutter doctor`. Jika belum, ikuti [instalasi Dart dan Flutter](../../../flutter/docs/instalasi-dart-flutter.md).
 2. Masuk ke folder proyek.
-3. Tambahkan folder Android yang belum ada:
+3. Tambahkan folder Android yang belum ada. Lewati langkah ini jika folder `android/` sudah ada, lalu lanjut ke langkah 4:
 
 ```bash
 flutter create . --platforms android
@@ -42,7 +42,6 @@ Panduan HP dan emulator Android Studio: [menjalankan proyek](../../../shared/doc
 ## Menjalankan
 
 ```bash
-flutter create . --project-name modul_5_klien_api_catatan --platforms android,ios
 flutter pub get
 flutter run
 flutter test
