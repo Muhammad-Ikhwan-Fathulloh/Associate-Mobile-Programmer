@@ -27,7 +27,7 @@ Setiap modul punya proyek Flutter kecil yang bisa dijalankan sendiri. Indeksnya 
 
 ## Jadwal
 
-Agenda terbaru ditambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giroskop. Materi tambahannya ada di [docs/hands-on/tambahan-agenda-baru.md](docs/hands-on/tambahan-agenda-baru.md) (kode Dart belum dikompilasi) dan panduan bersama di [shared/docs](../shared/docs/design-figma-stitch.md).
+Agenda terbaru ditambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giroskop. Materi tambahannya ada di [docs/hands-on/tambahan-agenda-baru.md](docs/hands-on/tambahan-agenda-baru.md) dan panduan bersama di [shared/docs](../shared/docs/design-figma-stitch.md).
 
 ### Hari 1
 
@@ -53,7 +53,7 @@ Jadwal mengikuti silabus resmi penyelenggara.
 
 ## Proyek
 
-Brief proyek tiap modul dan proyek akhir ada di [shared/docs/proyek](../shared/docs/proyek/README.md) (netral teknologi, dengan petunjuk Flutter). Proyek dasar proyek akhir: [capstone-base](capstone-base/README.md) (kode Dart belum dikompilasi).
+Brief proyek tiap modul dan proyek akhir ada di [shared/docs/proyek](../shared/docs/proyek/README.md) (netral teknologi, dengan petunjuk Flutter). Proyek dasar proyek akhir: [capstone-base](capstone-base/README.md).
 
 ## Hands-On
 

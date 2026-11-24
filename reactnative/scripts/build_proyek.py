@@ -29,6 +29,26 @@ def md_rubrik(r):
     return ["| Aspek | Poin |", "|---|---|"] + [f"| {a} | {p} |" for a, p in r] + [f"| **Total** | **{sum(p for _, p in r)}** |"]
 
 
+# Gambar contoh hasil per modul (Flutter), sama dengan README dan slide modul Flutter.
+DEMO_FLUTTER = {
+    1: ["modul1_halaman1.png"],
+    2: ["modul2_halaman1.png", "modul2_halaman2.png"],
+    3: ["modul3_halaman1.png", "modul3_halaman2.png", "modul3_halaman3.png", "modul3_halaman4.png"],
+    4: ["modul4_halaman1.png", "modul4_halaman2.png", "modul4_halaman3.png", "modul4_halaman4.png", "modul4_halaman5.png"],
+    5: ["modul5_halaman1.png", "modul5_halaman2.png", "modul5_halaman3.png", "modul5_mockapi1.png", "modul5_mockapi2.png", "modul5_mockapi3.png", "modul5_mockapi4.png", "modul5_mockapi5.png", "modul5_mockapi6.png", "modul5_mockapi7.png"],
+    6: ["modul6_halaman1.png"],
+    7: ["modul7_halaman1.png"],
+    8: ["modul8_halaman1.png"],
+}
+
+
+def bagian_demo(n):
+    L = ["", "## Contoh hasil (Flutter)", "", f"Tangkapan layar hasil menjalankan proyek modul {n} (sama dengan README proyek dan slide).", ""]
+    for i, g in enumerate(DEMO_FLUTTER[n], 1):
+        L += [f"![Contoh hasil modul {n} {i}](../../../images/flutter/modul{n}/{g})", ""]
+    return L
+
+
 def md_proyek(n):
     p = PROYEK[n]
     m = next(x for x in MODUL if x["n"] == n)
@@ -40,6 +60,7 @@ def md_proyek(n):
     L += ["", "## Tantangan tambahan", ""] + [f"- {x}" for x in p["tantangan"]]
     L += ["", "## Rubrik (100 poin)", ""] + md_rubrik(p["rubrik"])
     L += ["", "## Hubungan dengan proyek akhir", "", f"Hasil proyek ini dapat dipakai sebagai bagian proyek akhir. Lihat [proyek akhir](capstone.md) dan matriks fitur di dalamnya.", ""]
+    L += bagian_demo(n)
     return "\n".join(L)
 
 
@@ -49,7 +70,7 @@ def md_capstone():
     L += [f"| {a} | {b} |" for a, b in c["tema"]]
     L += ["", "Anda boleh membuat tema sendiri selama memenuhi matriks fitur.", "", "## Proyek dasar (base)", "",
           "- React Native: `reactnative/capstone-base` (lihat `README.md` di dalamnya).",
-          "- Flutter: `flutter/capstone-base` (kode Dart belum dikompilasi, jalankan `flutter analyze` lebih dulu).",
+          "- Flutter: `flutter/capstone-base` (sudah diuji: `flutter analyze` dan `flutter test` lulus).",
           "", "Proyek dasar sudah berisi struktur berlapis, tema, SQLite, GPS, klien API, sinkronisasi, dan sensor. Ubah `proyek.config` untuk identitas aplikasi Anda, lalu kerjakan slot bertanda `TODO(peserta)`.", "",
           "## Matriks fitur wajib", "", "| Modul | Topik | Yang harus ada |", "|---|---|---|"]
     L += [f"| {a} | {b} | {d} |" for a, b, d in c["matriks"]]

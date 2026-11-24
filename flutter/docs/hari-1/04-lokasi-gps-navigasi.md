@@ -254,6 +254,20 @@ Praktik terbaik:
 - Gunakan `distanceFilter` agar pembaruan tidak terlalu sering.
 - Uji akurasi di lapangan, karena gedung tinggi dan ruangan tertutup memengaruhi sinyal GPS.
 
+## Contoh hasil
+
+Tangkapan layar hasil menjalankan proyek modul 4 (sama dengan README proyek dan slide).
+
+![Contoh hasil modul 4 1](../../../images/flutter/modul4/modul4_halaman1.png)
+
+![Contoh hasil modul 4 2](../../../images/flutter/modul4/modul4_halaman2.png)
+
+![Contoh hasil modul 4 3](../../../images/flutter/modul4/modul4_halaman3.png)
+
+![Contoh hasil modul 4 4](../../../images/flutter/modul4/modul4_halaman4.png)
+
+![Contoh hasil modul 4 5](../../../images/flutter/modul4/modul4_halaman5.png)
+
 ## Latihan
 
 1. Buat aplikasi catatan yang menyimpan koordinat lokasi saat catatan dibuat (menggabungkan Modul 3 dan Modul 4).

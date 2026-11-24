@@ -98,3 +98,10 @@ print(info.supportedAbis);    // arsitektur CPU, contoh: arm64-v8a
 - Panduan device_info_plus: https://pub.dev/packages/device_info_plus
 - Panduan hands-on: [docs/hands-on/hari-2.md](../hands-on/hari-2.md), Step 2 dan Step 3
 - Slide modul: [slides/hari-2-modul-6-mobile-sensor-spesifikasi.html](../../slides/hari-2-modul-6-mobile-sensor-spesifikasi.html)
+
+## Contoh hasil
+
+Tangkapan layar hasil menjalankan proyek modul 6 (sama dengan README proyek dan slide).
+
+![Contoh hasil modul 6 1](../../../images/flutter/modul6/modul6_halaman1.png)
+

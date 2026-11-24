@@ -79,6 +79,12 @@ Paket `connectivity_plus` memberi tahu aplikasi saat jenis koneksi berubah: Wi-F
 - Tolak HTTP ke alamat publik. `periksaUrlApi` di `api_client.dart` melakukannya sebelum permintaan dikirim.
 - Pasang batas waktu di setiap permintaan, seperti pada modul 5.
 
+## Contoh hasil
+
+Tangkapan layar hasil menjalankan proyek modul 7 (sama dengan README proyek dan slide).
+
+![Contoh hasil modul 7 1](../../../images/flutter/modul7/modul7_halaman1.png)
+
 ## Latihan
 
 1. Matikan server, buat dua catatan, lalu sinkronkan. Pastikan kedua catatan tetap `PENDING`.

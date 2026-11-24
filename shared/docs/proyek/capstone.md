@@ -22,7 +22,7 @@ Anda boleh membuat tema sendiri selama memenuhi matriks fitur.
 ## Proyek dasar (base)
 
 - React Native: `reactnative/capstone-base` (lihat `README.md` di dalamnya).
-- Flutter: `flutter/capstone-base` (kode Dart belum dikompilasi, jalankan `flutter analyze` lebih dulu).
+- Flutter: `flutter/capstone-base` (sudah diuji: `flutter analyze` dan `flutter test` lulus).
 
 Proyek dasar sudah berisi struktur berlapis, tema, SQLite, GPS, klien API, sinkronisasi, dan sensor. Ubah `proyek.config` untuk identitas aplikasi Anda, lalu kerjakan slot bertanda `TODO(peserta)`.
 

@@ -183,6 +183,12 @@ class AplikasiPertama extends StatelessWidget {
 }
 ```
 
+## Contoh hasil
+
+Tangkapan layar hasil menjalankan proyek modul 1 (sama dengan README proyek dan slide).
+
+![Contoh hasil modul 1 1](../../../images/flutter/modul1/modul1_halaman1.png)
+
 ## Latihan
 
 1. Jalankan aplikasi pada emulator atau perangkat fisik.

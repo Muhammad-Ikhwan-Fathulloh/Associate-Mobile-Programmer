@@ -69,3 +69,10 @@ Sumber yang dapat dipakai: dokumentasi resmi Flutter (https://docs.flutter.dev),
 
 - Soal pada bagian A dan B disusun dari modul 1 sampai 7. Sesuaikan jumlah dan bobot soal dengan daftar unit kompetensi resmi yang berlaku.
 - Pembahasan bagian C sebaiknya mengutamakan jawaban yang dijelaskan peserta sendiri, bukan hanya jawaban benar.
+
+## Contoh hasil
+
+Tangkapan layar hasil menjalankan proyek modul 8 (sama dengan README proyek dan slide).
+
+![Contoh hasil modul 8 1](../../../images/flutter/modul8/modul8_halaman1.png)
+

@@ -110,6 +110,14 @@ Card(
 - Setelah AI mengubah kode: jalankan `flutter analyze` dan `flutter test`, lalu lihat hasilnya di perangkat.
 - Jangan menempelkan rahasia (token, kata sandi) ke alat AI.
 
+## Contoh hasil
+
+Tangkapan layar hasil menjalankan proyek modul 2 (sama dengan README proyek dan slide).
+
+![Contoh hasil modul 2 1](../../../images/flutter/modul2/modul2_halaman1.png)
+
+![Contoh hasil modul 2 2](../../../images/flutter/modul2/modul2_halaman2.png)
+
 ## Latihan
 
 1. Buka berkas Figma contoh, ubah `warna/utama`, lalu samakan nilainya di `Tema.utama`.

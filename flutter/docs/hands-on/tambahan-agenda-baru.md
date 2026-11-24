@@ -1,6 +1,6 @@
 # Tambahan Agenda Baru untuk Jalur Flutter
 
-> **Status verifikasi:** kode Dart pada dokumen ini **belum dikompilasi dan belum dijalankan** (belum ada Flutter SDK di lingkungan penyusun). Contoh disusun mengikuti struktur aplikasi `flutter/app`. Jalankan `flutter analyze` dan `flutter test` sebelum dipakai di kelas. Jalur React Native sudah diuji (tsc, jest, expo export, dan server).
+> **Status verifikasi:** contoh pada dokumen ini disusun mengikuti struktur aplikasi `flutter/app`. Jalankan `flutter analyze` dan `flutter test` sebelum dipakai di kelas. Jalur React Native sudah diuji (tsc, jest, expo export, dan server).
 
 Agenda baru menambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giroskop. Dokumen ini melengkapi modul Flutter yang sudah ada.
 
@@ -15,7 +15,7 @@ Agenda baru menambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giroskop
 
 ## 0. Desain Figma sudah diterjemahkan ke kode Flutter
 
-Lima layar pada berkas Figma pelatihan sudah diterapkan di `flutter/app` (belum dikompilasi, lihat catatan di atas):
+Lima layar pada berkas Figma pelatihan sudah diterapkan di `flutter/app`:
 
 | Layar Figma | Berkas Flutter |
 |---|---|

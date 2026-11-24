@@ -54,3 +54,18 @@ Proyek dianggap selesai bila semua ini dapat didemonstrasikan:
 ## Hubungan dengan proyek akhir
 
 Hasil proyek ini dapat dipakai sebagai bagian proyek akhir. Lihat [proyek akhir](capstone.md) dan matriks fitur di dalamnya.
+
+
+## Contoh hasil (Flutter)
+
+Tangkapan layar hasil menjalankan proyek modul 4 (sama dengan README proyek dan slide).
+
+![Contoh hasil modul 4 1](../../../images/flutter/modul4/modul4_halaman1.png)
+
+![Contoh hasil modul 4 2](../../../images/flutter/modul4/modul4_halaman2.png)
+
+![Contoh hasil modul 4 3](../../../images/flutter/modul4/modul4_halaman3.png)
+
+![Contoh hasil modul 4 4](../../../images/flutter/modul4/modul4_halaman4.png)
+
+![Contoh hasil modul 4 5](../../../images/flutter/modul4/modul4_halaman5.png)
