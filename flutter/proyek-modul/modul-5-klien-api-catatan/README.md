@@ -2,15 +2,16 @@
 
 Proyek kecil untuk Modul 5 (API dan menghubungkan aplikasi mobile). Brief: [shared/docs/proyek/modul-5-klien-api-catatan.md](../../../shared/docs/proyek/modul-5-klien-api-catatan.md).
 
-Jalankan server latihan dulu di terminal lain:
+Latihan ini memakai [MockAPI](https://mockapi.io) untuk CRUD. Tidak perlu server lokal dan tidak ada login.
 
-```bash
-cd ../../../shared/server
-npm install
-npm start           # http://localhost:3000
-```
+## Siapkan MockAPI (sekali)
 
-Lalu di folder ini:
+1. Buat akun dan project di mockapi.io.
+2. Buat resource bernama `notes`. Field yang dipakai: `title` (teks), `content` (teks), `latitude` (angka, boleh kosong), `longitude` (angka, boleh kosong).
+3. Salin alamat resource, misalnya `https://64f0a1b2c3d4e5f6a7b8c9d0.mockapi.io/api/v1/notes`.
+4. Ganti `GANTI-ID` di `lib/config.dart` dengan ID project Anda. Tanpa langkah ini aplikasi tidak bisa mengambil data.
+
+## Menjalankan
 
 ```bash
 flutter create . --project-name modul_5_klien_api_catatan --platforms android,ios
@@ -20,6 +21,14 @@ flutter test
 flutter analyze
 ```
 
-- Akun latihan: `peserta@contoh.id` / `rahasia123`.
-- Alamat server ada di `lib/config.dart`. Emulator Android memakai `10.0.2.2`. Ponsel fisik memakai IP komputer.
-- Klien API ada di `lib/services/api_client.dart`. Galat ditampilkan lewat `pesanRamah` di `lib/services/pesan_error.dart`.
+Panduan lengkap untuk HP fisik dan emulator Android Studio: [shared/docs/menjalankan-proyek.md](../../../shared/docs/menjalankan-proyek.md).
+
+## Yang dilatih
+
+- **Read:** tombol "Muat ulang" mengambil daftar dengan `GET`.
+- **Create:** isi judul lalu tekan "Tambah" untuk `POST`.
+- **Update:** tekan ikon ubah pada catatan, ubah isinya, lalu simpan untuk `PUT`.
+- **Delete:** tekan ikon hapus untuk `DELETE`.
+- Galat ditampilkan dengan pesan yang ramah lewat `lib/services/pesan_error.dart`.
+
+Klien CRUD ada di `lib/services/api_client.dart`. Tes ada di `test/api_client_test.dart`.

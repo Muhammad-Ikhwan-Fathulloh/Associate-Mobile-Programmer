@@ -6,7 +6,7 @@ import 'database.dart';
 class EntriRepository implements PenyimpananEntri {
   Entri _dariBaris(Map<String, Object?> b) => Entri(
         id: b['id'] as int,
-        serverId: b['server_id'] as int?,
+        serverId: b['server_id'] as String?,
         judul: b['judul'] as String,
         catatan: b['catatan'] as String,
         kategori: (b['kategori'] as String?) ?? 'Kota',
@@ -65,13 +65,13 @@ class EntriRepository implements PenyimpananEntri {
   }
 
   @override
-  Future<void> tandaiSynced(int id, int serverId) async {
+  Future<void> tandaiSynced(int id, String serverId) async {
     final db = await AppDatabase.instance;
     await db.update('entri', {'sync_status': 'SYNCED', 'server_id': serverId}, where: 'id = ?', whereArgs: [id]);
   }
 
   @override
-  Future<bool> simpanDariServer(Entri e, int serverId) async {
+  Future<bool> simpanDariServer(Entri e, String serverId) async {
     final db = await AppDatabase.instance;
     final ada = await db.query('entri', columns: ['id'], where: 'server_id = ?', whereArgs: [serverId]);
     final nilai = {

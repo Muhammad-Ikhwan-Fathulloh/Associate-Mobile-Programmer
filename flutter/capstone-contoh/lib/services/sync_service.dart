@@ -3,14 +3,14 @@ import '../models/entri.dart';
 
 abstract class PenyimpananEntri {
   Future<List<Entri>> entriPending();
-  Future<void> tandaiSynced(int id, int serverId);
-  Future<bool> simpanDariServer(Entri e, int serverId);
+  Future<void> tandaiSynced(int id, String serverId);
+  Future<bool> simpanDariServer(Entri e, String serverId);
 }
 
 abstract class ApiSinkron {
-  Future<Map<String, dynamic>> buatEntri(String token, Map<String, Object?> badan);
-  Future<Map<String, dynamic>> ubahEntri(String token, int id, Map<String, Object?> badan);
-  Future<List<dynamic>> daftarEntri(String token);
+  Future<Map<String, dynamic>> buat(Map<String, Object?> badan);
+  Future<Map<String, dynamic>> ubah(String id, Map<String, Object?> badan);
+  Future<List<Map<String, dynamic>>> daftar();
 }
 
 class HasilSinkron {
@@ -25,8 +25,8 @@ class HasilSinkron {
 }
 
 /// PENDING dikirim (POST bila baru, PUT bila punya serverId), lalu ditandai SYNCED,
-/// lalu daftar dari server diambil. Satu kegagalan tidak menghentikan yang lain.
-Future<HasilSinkron> sinkronkan(PenyimpananEntri repo, ApiSinkron api, String token) async {
+/// lalu daftar dari MockAPI diambil. Satu kegagalan tidak menghentikan yang lain.
+Future<HasilSinkron> sinkronkan(PenyimpananEntri repo, ApiSinkron api) async {
   var terkirim = 0, gagal = 0, diterima = 0;
 
   for (final e in await repo.entriPending()) {
@@ -37,27 +37,29 @@ Future<HasilSinkron> sinkronkan(PenyimpananEntri repo, ApiSinkron api, String to
         'latitude': e.latitude,
         'longitude': e.longitude,
       };
-      final hasil = e.serverId == null
-          ? await api.buatEntri(token, badan)
-          : await api.ubahEntri(token, e.serverId!, badan);
-      await repo.tandaiSynced(e.id!, hasil['id'] as int);
+      final hasil = e.serverId == null ? await api.buat(badan) : await api.ubah(e.serverId!, badan);
+      await repo.tandaiSynced(e.id!, '${hasil['id']}');
       terkirim++;
     } catch (_) {
       gagal++;
     }
   }
 
-  for (final s in await api.daftarEntri(token)) {
-    final m = s as Map<String, dynamic>;
-    final e = Entri(
-      judul: m['title'] as String,
-      catatan: m['content'] as String,
-      latitude: (m['latitude'] as num?)?.toDouble(),
-      longitude: (m['longitude'] as num?)?.toDouble(),
-      updatedAt: m['updatedAt'] as int,
-      status: StatusSync.synced,
+  for (final s in await api.daftar()) {
+    final id = '${s['id']}';
+    final baru = await repo.simpanDariServer(
+      Entri(
+        serverId: id,
+        judul: '${s['title'] ?? ''}',
+        catatan: '${s['content'] ?? ''}',
+        latitude: (s['latitude'] as num?)?.toDouble(),
+        longitude: (s['longitude'] as num?)?.toDouble(),
+        updatedAt: DateTime.now().millisecondsSinceEpoch,
+        status: StatusSync.synced,
+      ),
+      id,
     );
-    if (await repo.simpanDariServer(e, m['id'] as int)) diterima++;
+    if (baru) diterima++;
   }
   return HasilSinkron(terkirim: terkirim, diterima: diterima, gagal: gagal);
 }

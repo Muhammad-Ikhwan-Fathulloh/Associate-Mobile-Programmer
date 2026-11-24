@@ -1,6 +1,4 @@
-// Alamat server latihan (shared/server). Emulator Android: 10.0.2.2. Ponsel fisik: IP komputer di Wi-Fi yang sama.
-const apiUrl = 'http://10.0.2.2:3000';
-
-// Akun latihan dari server latihan. Jangan dipakai untuk layanan lain.
-const akunEmail = 'peserta@contoh.id';
-const akunPassword = 'rahasia123';
+// Alamat resource CRUD di MockAPI (https://mockapi.io).
+// Buat project dan resource bernama "notes", lalu ganti GANTI-ID dengan ID project Anda.
+// Contoh: https://64f0a1b2c3d4e5f6a7b8c9d0.mockapi.io/api/v1/notes
+const apiUrl = 'https://GANTI-ID.mockapi.io/api/v1/notes';

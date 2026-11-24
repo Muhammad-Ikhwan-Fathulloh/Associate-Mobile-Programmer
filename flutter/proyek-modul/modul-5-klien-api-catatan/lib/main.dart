@@ -15,35 +15,38 @@ class AplikasiApi extends StatelessWidget {
       title: 'Klien API Catatan',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true, colorSchemeSeed: const Color(0xFF1565C0)),
-      home: const HalamanApi(),
+      home: const HalamanCrud(),
     );
   }
 }
 
-class HalamanApi extends StatefulWidget {
-  const HalamanApi({super.key});
+class HalamanCrud extends StatefulWidget {
+  const HalamanCrud({super.key});
 
   @override
-  State<HalamanApi> createState() => _HalamanApiState();
+  State<HalamanCrud> createState() => _HalamanCrudState();
 }
 
-class _HalamanApiState extends State<HalamanApi> {
+class _HalamanCrudState extends State<HalamanCrud> {
   final _api = ApiClient(apiUrl);
-  final _email = TextEditingController(text: akunEmail);
-  final _password = TextEditingController(text: akunPassword);
   final _judul = TextEditingController();
   final _isi = TextEditingController();
 
-  String? _token;
-  List<dynamic> _catatan = [];
+  List<Catatan> _daftar = [];
+  String? _editId;
   bool _memuat = false;
   String? _pesan;
 
   @override
+  void initState() {
+    super.initState();
+    _muatUlang();
+  }
+
+  @override
   void dispose() {
-    for (final c in [_email, _password, _judul, _isi]) {
-      c.dispose();
-    }
+    _judul.dispose();
+    _isi.dispose();
     super.dispose();
   }
 
@@ -62,57 +65,87 @@ class _HalamanApiState extends State<HalamanApi> {
     }
   }
 
-  Future<void> _masuk() => _jalankan(() async {
-        final t = await _api.login(_email.text, _password.text);
-        final daftar = await _api.daftarCatatan(t);
-        setState(() {
-          _token = t;
-          _catatan = daftar;
-        });
-      });
-
   Future<void> _muatUlang() => _jalankan(() async {
-        final daftar = await _api.daftarCatatan(_token!);
-        setState(() => _catatan = daftar);
+        final daftar = await _api.daftar();
+        setState(() => _daftar = daftar);
       });
 
-  Future<void> _kirim() => _jalankan(() async {
-        final baru = await _api.buatCatatan(_token!, {'title': _judul.text, 'content': _isi.text});
-        setState(() {
-          _catatan = [baru, ..._catatan];
-          _judul.clear();
-          _isi.clear();
-        });
+  Future<void> _simpan() async {
+    final judul = _judul.text.trim();
+    if (judul.isEmpty) return setState(() => _pesan = 'Judul wajib diisi.');
+    await _jalankan(() async {
+      final c = Catatan(id: _editId ?? '', title: judul, content: _isi.text);
+      if (_editId == null) {
+        await _api.buat(c);
+      } else {
+        await _api.ubah(_editId!, c);
+      }
+      _batalUbah();
+      setState(() => _daftar = [] );
+      await _muatUlang();
+    });
+  }
+
+  Future<void> _hapus(String id) => _jalankan(() async {
+        await _api.hapus(id);
+        await _muatUlang();
       });
+
+  void _pilihUntukUbah(Catatan c) {
+    setState(() {
+      _editId = c.id;
+      _judul.text = c.title;
+      _isi.text = c.content;
+    });
+  }
+
+  void _batalUbah() {
+    setState(() {
+      _editId = null;
+      _judul.clear();
+      _isi.clear();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final token = _token;
     return Scaffold(
       appBar: AppBar(title: const Text('Klien API Catatan')),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          if (token == null) ...[
-            TextField(controller: _email, decoration: const InputDecoration(labelText: 'Email')),
-            TextField(controller: _password, obscureText: true, decoration: const InputDecoration(labelText: 'Kata sandi')),
-            const SizedBox(height: 12),
-            FilledButton(onPressed: _memuat ? null : _masuk, child: const Text('Masuk')),
-          ] else ...[
-            TextField(controller: _judul, maxLength: 100, decoration: const InputDecoration(labelText: 'Judul (wajib)')),
-            TextField(controller: _isi, maxLines: 3, decoration: const InputDecoration(labelText: 'Isi')),
-            const SizedBox(height: 12),
-            FilledButton(onPressed: _memuat ? null : _kirim, child: const Text('Kirim ke server')),
-            const SizedBox(height: 8),
-            OutlinedButton(onPressed: _memuat ? null : _muatUlang, child: const Text('Muat ulang daftar')),
-          ],
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                children: [
+                  TextField(controller: _judul, maxLength: 100, decoration: const InputDecoration(labelText: 'Judul (wajib)')),
+                  TextField(controller: _isi, maxLines: 2, decoration: const InputDecoration(labelText: 'Isi')),
+                  const SizedBox(height: 8),
+                  FilledButton(
+                    onPressed: _memuat ? null : _simpan,
+                    child: Text(_editId == null ? 'Tambah (Create)' : 'Simpan perubahan (Update)'),
+                  ),
+                  if (_editId != null) TextButton(onPressed: _batalUbah, child: const Text('Batal ubah')),
+                ],
+              ),
+            ),
+          ),
+          OutlinedButton(onPressed: _memuat ? null : _muatUlang, child: const Text('Muat ulang (Read)')),
           if (_memuat) const Padding(padding: EdgeInsets.all(12), child: Center(child: CircularProgressIndicator())),
           if (_pesan != null) Padding(padding: const EdgeInsets.only(top: 8), child: Text(_pesan!, style: const TextStyle(color: Colors.red))),
-          for (final c in _catatan)
+          for (final c in _daftar)
             Card(
               child: ListTile(
-                title: Text('${c['title']}'),
-                subtitle: Text('${c['content']}'.isEmpty ? '(tanpa isi)' : '${c['content']}'),
+                title: Text(c.title),
+                subtitle: Text(c.content.isEmpty ? '(tanpa isi)' : c.content),
+                trailing: Wrap(
+                  spacing: 4,
+                  children: [
+                    IconButton(tooltip: 'Ubah', icon: const Icon(Icons.edit), onPressed: () => _pilihUntukUbah(c)),
+                    IconButton(tooltip: 'Hapus', icon: const Icon(Icons.delete_outline), onPressed: () => _hapus(c.id)),
+                  ],
+                ),
               ),
             ),
         ],

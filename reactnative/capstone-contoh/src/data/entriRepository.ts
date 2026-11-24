@@ -11,7 +11,7 @@ type Baris = {
   longitude: number | null;
   updated_at: number;
   sync_status: 'PENDING' | 'SYNCED';
-  server_id: number | null;
+  server_id: string | null;
 };
 
 const dariBaris = (b: Baris): Entri => ({
@@ -67,13 +67,13 @@ export async function entriPending(): Promise<Entri[]> {
   return baris.map(dariBaris);
 }
 
-export async function tandaiSynced(id: number, serverId: number): Promise<void> {
+export async function tandaiSynced(id: number, serverId: string): Promise<void> {
   const db = await getDb();
   await db.runAsync("UPDATE entri SET sync_status = 'SYNCED', server_id = ? WHERE id = ?", [serverId, id]);
 }
 
 /** Memperbarui entri yang sudah dikenal (berdasarkan server_id), atau menyimpan yang baru. */
-export async function simpanDariServer(e: Entri, serverId: number): Promise<boolean> {
+export async function simpanDariServer(e: Entri, serverId: string): Promise<boolean> {
   const db = await getDb();
   const ada = await db.getFirstAsync<{ id: number }>('SELECT id FROM entri WHERE server_id = ?', [serverId]);
   if (ada) {

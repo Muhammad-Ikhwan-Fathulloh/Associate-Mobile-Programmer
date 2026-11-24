@@ -4,8 +4,8 @@ export const KATEGORI = ['Kota', 'Alam', 'Kuliner', 'Budaya'] as const;
 
 export type Entri = {
   id?: number;
-  /** Id di server latihan. Null bila belum pernah dikirim. */
-  serverId: number | null;
+  /** Id di MockAPI (string). Null bila belum pernah dikirim. */
+  serverId: string | null;
   judul: string;
   catatan: string;
   kategori: string;

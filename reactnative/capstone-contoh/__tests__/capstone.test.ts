@@ -3,7 +3,7 @@ import { arahKeTujuan, arahRelatif, formatJarak, jarakMeter, mataAngin } from '.
 import { PendeteksiGuncangan, arahHadap } from '../src/services/sensorMath';
 import { ApiError, periksaUrlAman, requestJson } from '../src/services/httpsService';
 import { buatApiClient, EntriServer } from '../src/services/apiClient';
-import { PenyimpananEntri, ApiSinkron, sinkronkan } from '../src/services/sync';
+import { ApiSinkron, PenyimpananEntri, sinkronkan } from '../src/services/sync';
 import { pesanRamah } from '../src/services/pesanError';
 
 const respons = (status: number, body?: unknown) => ({ status, json: async () => body }) as unknown as Response;
@@ -42,23 +42,23 @@ const entri = (over: Partial<Entri>): Entri => ({
   ...over,
 });
 
-const apiPalsu = (): ApiSinkron & { posted: number; puts: number[]; dariServer: EntriServer[] } => {
+function apiPalsu() {
   const api = {
-    posted: 0,
-    puts: [] as number[],
+    dibuat: 0,
+    diubah: [] as string[],
     dariServer: [] as EntriServer[],
-    buatEntri: async () => {
-      api.posted++;
-      return { id: 77, title: '', content: '', latitude: null, longitude: null, updatedAt: 1 };
+    buat: async (): Promise<EntriServer> => {
+      api.dibuat++;
+      return { id: '77', title: '', content: '', latitude: null, longitude: null };
     },
-    ubahEntri: async (_t: string, id: number) => {
-      api.puts.push(id);
-      return { id, title: '', content: '', latitude: null, longitude: null, updatedAt: 1 };
+    ubah: async (id: string): Promise<EntriServer> => {
+      api.diubah.push(id);
+      return { id, title: '', content: '', latitude: null, longitude: null };
     },
-    daftarEntri: async () => api.dariServer,
+    daftar: async () => api.dariServer,
   };
-  return api;
-};
+  return api as typeof api & ApiSinkron;
+}
 
 describe('jarak dan arah (fungsi murni)', () => {
   it('Bandung ke Jakarta sekitar 120 km (toleransi 5 km)', () => {
@@ -92,48 +92,50 @@ describe('validasi dan keamanan', () => {
     expect(validasiJudul('   ')).not.toBeNull();
     expect(validasiJudul('Ke Bromo')).toBeNull();
   });
-  it('http publik ditolak, http lokal dan https diterima', () => {
+  it('http publik ditolak, https diterima', () => {
     expect(periksaUrlAman('http://contoh.com', true)).not.toBeNull();
-    expect(periksaUrlAman('http://10.0.2.2:3000', true)).toBeNull();
-    expect(periksaUrlAman('https://contoh.com')).toBeNull();
+    expect(periksaUrlAman('https://contoh.mockapi.io/api/v1/notes')).toBeNull();
   });
-  it('status 401 melempar ApiError dengan pesan dari server', async () => {
-    const fetchFn = (async () => respons(401, { error: 'Email atau kata sandi salah.' })) as unknown as typeof fetch;
-    await expect(requestJson('POST', 'http://10.0.2.2:3000/login', { fetchFn, izinkanLokal: true })).rejects.toBeInstanceOf(ApiError);
+  it('status 404 melempar ApiError dengan pesan dari server', async () => {
+    const fetchFn = (async () => respons(404, { error: 'Catatan tidak ditemukan.' })) as unknown as typeof fetch;
+    const galat = await requestJson('GET', 'https://contoh.mockapi.io/api/v1/notes/9', { fetchFn }).catch((e: unknown) => e);
+    expect(galat).toBeInstanceOf(ApiError);
+    expect(pesanRamah(galat)).toBe('Catatan tidak ditemukan.');
   });
-  it('server mati menghasilkan pesan yang ramah', async () => {
+  it('server tidak terjangkau menghasilkan pesan yang ramah', async () => {
     const fetchFn = (async () => {
       throw new TypeError('Network request failed');
     }) as unknown as typeof fetch;
-    const api = buatApiClient('http://10.0.2.2:3000', { fetchFn });
-    const galat = await api.daftarEntri('tok').catch((e: unknown) => e);
+    const api = buatApiClient('https://contoh.mockapi.io/api/v1/notes', { fetchFn });
+    const galat = await api.daftar().catch((e: unknown) => e);
     expect(pesanRamah(galat)).toContain('tidak dapat dijangkau');
   });
 });
 
-describe('sinkronisasi', () => {
-  it('entri baru memakai POST lalu berstatus SYNCED', async () => {
+describe('sinkronisasi ke MockAPI', () => {
+  it('entri baru memakai POST (buat) lalu berstatus SYNCED dengan id string', async () => {
     const { db, data } = penyimpananPalsu([entri({ id: 1 })]);
     const api = apiPalsu();
-    const hasil = await sinkronkan(db, api, 'tok');
-    expect(api.posted).toBe(1);
+    const hasil = await sinkronkan(db, api);
+    expect(api.dibuat).toBe(1);
     expect(data[0].status).toBe('SYNCED');
+    expect(data[0].serverId).toBe('77');
     expect(hasil.terkirim).toBe(1);
   });
-  it('entri yang sudah punya serverId memakai PUT, bukan POST kedua', async () => {
-    const { db } = penyimpananPalsu([entri({ id: 1, serverId: 5 })]);
+  it('entri yang sudah punya serverId memakai PUT (ubah), bukan POST kedua', async () => {
+    const { db } = penyimpananPalsu([entri({ id: 1, serverId: 'abc' })]);
     const api = apiPalsu();
-    await sinkronkan(db, api, 'tok');
-    expect(api.puts).toEqual([5]);
-    expect(api.posted).toBe(0);
+    await sinkronkan(db, api);
+    expect(api.diubah).toEqual(['abc']);
+    expect(api.dibuat).toBe(0);
   });
-  it('entri dari server masuk sebagai SYNCED dan dihitung diterima', async () => {
+  it('entri dari MockAPI masuk sebagai SYNCED', async () => {
     const { db, data } = penyimpananPalsu([]);
     const api = apiPalsu();
-    api.dariServer = [{ id: 3, title: 'Dari server', content: '', latitude: null, longitude: null, updatedAt: 5 }];
-    const hasil = await sinkronkan(db, api, 'tok');
+    api.dariServer = [{ id: '3', title: 'Dari server', content: '', latitude: null, longitude: null }];
+    const hasil = await sinkronkan(db, api);
     expect(hasil.diterima).toBe(1);
-    expect(data[0]).toMatchObject({ serverId: 3, status: 'SYNCED' });
+    expect(data[0]).toMatchObject({ serverId: '3', status: 'SYNCED' });
   });
 });
 

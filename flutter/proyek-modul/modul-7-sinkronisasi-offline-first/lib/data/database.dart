@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-/// Basis data catatan offline. Tabel notes menyimpan status sinkronisasi dan server_id.
+/// Basis data catatan offline. Tabel notes menyimpan status sinkronisasi dan id MockAPI (string).
 class AppDatabase {
   AppDatabase._();
 
@@ -10,7 +10,7 @@ class AppDatabase {
   static Future<Database> get instance async {
     final ada = _db;
     if (ada != null) return ada;
-    final path = join(await getDatabasesPath(), 'catatan_offline.db');
+    final path = join(await getDatabasesPath(), 'catatan_crud.db');
     final db = await openDatabase(
       path,
       version: 1,
@@ -23,7 +23,7 @@ class AppDatabase {
           longitude REAL,
           updated_at INTEGER NOT NULL,
           sync_status TEXT NOT NULL DEFAULT 'PENDING',
-          server_id INTEGER
+          server_id TEXT
         )
       '''),
     );

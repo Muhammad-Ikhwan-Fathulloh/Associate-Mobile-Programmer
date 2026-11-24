@@ -1,38 +1,35 @@
 import { OpsiRequest, requestJson } from './httpsService';
 
+/** Bentuk data dari resource "notes" di MockAPI. `id` berupa string. */
 export type EntriServer = {
-  id: number;
+  id: string;
   title: string;
   content: string;
   latitude: number | null;
   longitude: number | null;
-  updatedAt: number;
+  createdAt?: string;
 };
 
-export type BadanEntri = { title: string; content: string; latitude: number | null; longitude: number | null };
+export type BadanEntri = Pick<EntriServer, 'title' | 'content' | 'latitude' | 'longitude'>;
 
-type OpsiKlien = Pick<OpsiRequest, 'fetchFn' | 'izinkanLokal' | 'batasMs'>;
+type OpsiKlien = Pick<OpsiRequest, 'fetchFn' | 'batasMs'>;
 
-/** Klien API. Token dikirim sebagai argumen, tidak disimpan di sini. */
+/** Klien CRUD untuk resource MockAPI. Hanya HTTPS yang diterima. */
 export function buatApiClient(baseUrl: string, opsi: OpsiKlien = {}) {
-  const alamat = (path: string) => baseUrl.replace(/\/+$/, '') + path;
-  const dasar = { izinkanLokal: true, ...opsi };
+  const alamat = baseUrl.trim().replace(/\/+$/, '');
 
   return {
-    async login(email: string, password: string): Promise<string> {
-      const r = (await requestJson('POST', alamat('/login'), { ...dasar, body: { email, password } })) as {
-        token: string;
-      };
-      return r.token;
+    daftar(): Promise<EntriServer[]> {
+      return requestJson('GET', alamat, opsi) as Promise<EntriServer[]>;
     },
-    async daftarEntri(token: string): Promise<EntriServer[]> {
-      return (await requestJson('GET', alamat('/notes'), { ...dasar, token })) as EntriServer[];
+    buat(badan: BadanEntri): Promise<EntriServer> {
+      return requestJson('POST', alamat, { ...opsi, body: badan }) as Promise<EntriServer>;
     },
-    async buatEntri(token: string, badan: BadanEntri): Promise<EntriServer> {
-      return (await requestJson('POST', alamat('/notes'), { ...dasar, token, body: badan })) as EntriServer;
+    ubah(id: string, badan: BadanEntri): Promise<EntriServer> {
+      return requestJson('PUT', `${alamat}/${encodeURIComponent(id)}`, { ...opsi, body: badan }) as Promise<EntriServer>;
     },
-    async ubahEntri(token: string, id: number, badan: BadanEntri): Promise<EntriServer> {
-      return (await requestJson('PUT', alamat(`/notes/${id}`), { ...dasar, token, body: badan })) as EntriServer;
+    hapus(id: string): Promise<EntriServer | null> {
+      return requestJson('DELETE', `${alamat}/${encodeURIComponent(id)}`, opsi) as Promise<EntriServer | null>;
     },
   };
 }

@@ -8,7 +8,7 @@ import 'database.dart';
 class CatatanRepository implements PenyimpananCatatan {
   Catatan _dariBaris(Map<String, Object?> b) => Catatan(
         id: b['id'] as int,
-        serverId: b['server_id'] as int?,
+        serverId: b['server_id'] as String?,
         title: b['title'] as String,
         content: b['content'] as String,
         latitude: (b['latitude'] as num?)?.toDouble(),
@@ -42,14 +42,14 @@ class CatatanRepository implements PenyimpananCatatan {
   }
 
   @override
-  Future<void> tandaiSynced(int id, int serverId) async {
+  Future<void> tandaiSynced(int id, String serverId) async {
     final db = await AppDatabase.instance;
     await db.update('notes', {'sync_status': 'SYNCED', 'server_id': serverId}, where: 'id = ?', whereArgs: [id]);
   }
 
-  /// Memperbarui catatan yang sudah dikenal (berdasarkan server_id) atau menyimpan yang baru.
+  /// Memperbarui catatan yang sudah dikenal (berdasarkan server_id), atau menyimpan yang baru.
   @override
-  Future<bool> simpanDariServer(Catatan c, int serverId) async {
+  Future<bool> simpanDariServer(Catatan c, String serverId) async {
     final db = await AppDatabase.instance;
     final ada = await db.query('notes', columns: ['id'], where: 'server_id = ?', whereArgs: [serverId]);
     final nilai = {

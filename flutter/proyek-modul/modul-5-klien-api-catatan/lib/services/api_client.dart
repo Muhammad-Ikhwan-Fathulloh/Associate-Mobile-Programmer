@@ -33,7 +33,28 @@ class ApiException implements Exception {
   String toString() => pesan;
 }
 
-/// Klien API catatan. Semua pemanggilan ada di sini, bukan di tampilan.
+/// Bentuk data dari resource "notes" di MockAPI. `id` berupa string.
+class Catatan {
+  const Catatan({required this.id, required this.title, required this.content, this.latitude, this.longitude});
+
+  final String id;
+  final String title;
+  final String content;
+  final double? latitude;
+  final double? longitude;
+
+  factory Catatan.dariJson(Map<String, dynamic> m) => Catatan(
+        id: '${m['id']}',
+        title: '${m['title'] ?? ''}',
+        content: '${m['content'] ?? ''}',
+        latitude: (m['latitude'] as num?)?.toDouble(),
+        longitude: (m['longitude'] as num?)?.toDouble(),
+      );
+
+  Map<String, Object?> keBadan() => {'title': title, 'content': content, 'latitude': latitude, 'longitude': longitude};
+}
+
+/// Klien CRUD untuk satu resource MockAPI. Semua pemanggilan ada di sini, bukan di tampilan.
 class ApiClient {
   ApiClient(this.baseUrl, {http.Client? client, this.batas = const Duration(seconds: 10)})
       : _client = client ?? http.Client();
@@ -42,14 +63,14 @@ class ApiClient {
   final Duration batas;
   final http.Client _client;
 
-  Future<dynamic> _kirim(String metode, String path, {String? token, Object? body}) async {
-    final pesan = periksaUrlApi(baseUrl);
+  String get _alamat => baseUrl.trim().replaceAll(RegExp(r'/+$'), '');
+
+  Future<dynamic> _kirim(String metode, String url, {Object? body}) async {
+    final pesan = periksaUrlApi(url);
     if (pesan != null) throw ArgumentError(pesan);
 
-    final base = baseUrl.trim().replaceAll(RegExp(r'/+$'), '');
-    final req = http.Request(metode, Uri.parse('$base$path'));
+    final req = http.Request(metode, Uri.parse(url));
     req.headers['Accept'] = 'application/json';
-    if (token != null) req.headers['Authorization'] = 'Bearer $token';
     if (body != null) {
       req.headers['Content-Type'] = 'application/json';
       req.body = jsonEncode(body);
@@ -67,19 +88,22 @@ class ApiClient {
     return data;
   }
 
-  Future<String> login(String email, String password) async {
-    final r = await _kirim('POST', '/login', body: {'email': email, 'password': password});
-    return (r as Map)['token'] as String;
+  /// Read: daftar semua catatan.
+  Future<List<Catatan>> daftar() async {
+    final data = await _kirim('GET', _alamat) as List<dynamic>;
+    return [for (final m in data) Catatan.dariJson(m as Map<String, dynamic>)];
   }
 
-  Future<List<dynamic>> daftarCatatan(String token) async =>
-      (await _kirim('GET', '/notes', token: token)) as List<dynamic>;
+  /// Create: buat catatan baru.
+  Future<Catatan> buat(Catatan c) async =>
+      Catatan.dariJson(await _kirim('POST', _alamat, body: c.keBadan()) as Map<String, dynamic>);
 
-  Future<Map<String, dynamic>> buatCatatan(String token, Map<String, Object?> catatan) async =>
-      (await _kirim('POST', '/notes', token: token, body: catatan)) as Map<String, dynamic>;
+  /// Update: ubah catatan yang sudah ada.
+  Future<Catatan> ubah(String id, Catatan c) async =>
+      Catatan.dariJson(await _kirim('PUT', '$_alamat/${Uri.encodeComponent(id)}', body: c.keBadan()) as Map<String, dynamic>);
 
-  /// Status 204 (tanpa isi) dikembalikan sebagai null, tanpa membaca JSON.
-  Future<void> hapusCatatan(String token, int id) async {
-    await _kirim('DELETE', '/notes/$id', token: token);
+  /// Delete: hapus catatan.
+  Future<void> hapus(String id) async {
+    await _kirim('DELETE', '$_alamat/${Uri.encodeComponent(id)}');
   }
 }

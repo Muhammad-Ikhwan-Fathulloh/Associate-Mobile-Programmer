@@ -38,7 +38,7 @@ class AppDatabase {
         longitude REAL,
         updated_at INTEGER NOT NULL,
         sync_status TEXT NOT NULL DEFAULT 'PENDING',
-        server_id INTEGER
+        server_id TEXT
       )
     ''');
   }

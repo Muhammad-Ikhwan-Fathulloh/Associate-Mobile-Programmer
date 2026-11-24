@@ -14,8 +14,8 @@ class Catatan {
 
   final int? id;
 
-  /// Id di server. Null bila catatan belum pernah dikirim.
-  final int? serverId;
+  /// Id di MockAPI (string). Null bila catatan belum pernah dikirim.
+  final String? serverId;
   final String title;
   final String content;
   final double? latitude;
@@ -23,7 +23,7 @@ class Catatan {
   final int updatedAt;
   final StatusSync syncStatus;
 
-  Catatan copyWith({int? id, int? serverId, StatusSync? syncStatus}) => Catatan(
+  Catatan copyWith({int? id, String? serverId, StatusSync? syncStatus}) => Catatan(
         id: id ?? this.id,
         serverId: serverId ?? this.serverId,
         title: title,

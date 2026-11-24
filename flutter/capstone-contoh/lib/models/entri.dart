@@ -18,7 +18,7 @@ class Entri {
   final int? id;
 
   /// Id di server latihan. Null bila belum pernah dikirim.
-  final int? serverId;
+  final String? serverId;
   final String judul;
   final String catatan;
   final String kategori;
@@ -31,7 +31,7 @@ class Entri {
 
   bool get punyaKoordinat => latitude != null && longitude != null;
 
-  Entri copyWith({int? id, int? serverId, StatusSync? status}) => Entri(
+  Entri copyWith({int? id, String? serverId, StatusSync? status}) => Entri(
         id: id ?? this.id,
         serverId: serverId ?? this.serverId,
         judul: judul,

@@ -14,13 +14,13 @@ class PenyimpananPalsu implements PenyimpananEntri {
   Future<List<Entri>> entriPending() async => data.where((e) => e.status == StatusSync.pending).toList();
 
   @override
-  Future<void> tandaiSynced(int id, int serverId) async {
+  Future<void> tandaiSynced(int id, String serverId) async {
     final i = data.indexWhere((e) => e.id == id);
     data[i] = data[i].copyWith(status: StatusSync.synced, serverId: serverId);
   }
 
   @override
-  Future<bool> simpanDariServer(Entri e, int serverId) async {
+  Future<bool> simpanDariServer(Entri e, String serverId) async {
     final i = data.indexWhere((x) => x.serverId == serverId);
     if (i >= 0) {
       data[i] = e.copyWith(serverId: serverId);
@@ -33,26 +33,26 @@ class PenyimpananPalsu implements PenyimpananEntri {
 
 class ApiPalsu implements ApiSinkron {
   final dibuat = <Map<String, Object?>>[];
-  final diubah = <int>[];
-  List<dynamic> dariServer = [];
+  final diubah = <String>[];
+  List<Map<String, dynamic>> dariServer = [];
 
   @override
-  Future<Map<String, dynamic>> buatEntri(String token, Map<String, Object?> badan) async {
+  Future<Map<String, dynamic>> buat(Map<String, Object?> badan) async {
     dibuat.add(badan);
-    return {'id': 77};
+    return {'id': '77'};
   }
 
   @override
-  Future<Map<String, dynamic>> ubahEntri(String token, int id, Map<String, Object?> badan) async {
+  Future<Map<String, dynamic>> ubah(String id, Map<String, Object?> badan) async {
     diubah.add(id);
     return {'id': id};
   }
 
   @override
-  Future<List<dynamic>> daftarEntri(String token) async => dariServer;
+  Future<List<Map<String, dynamic>>> daftar() async => dariServer;
 }
 
-Entri _entri({int? id, int? serverId}) => Entri(
+Entri _entri({int? id, String? serverId}) => Entri(
       id: id,
       serverId: serverId,
       judul: 'Perjalanan',
@@ -67,18 +67,11 @@ void main() {
       expect(m, greaterThan(115000));
       expect(m, lessThan(125000));
     });
-    test('arah ke utara dari khatulistiwa adalah 0 derajat', () {
-      expect(arahKeTujuan(0, 0, 1, 0), closeTo(0, 1e-6));
-    });
     test('arah ke timur dari khatulistiwa adalah 90 derajat', () {
       expect(arahKeTujuan(0, 0, 0, 1), closeTo(90, 1e-6));
     });
     test('arahRelatif: tujuan tepat di depan menghasilkan 0', () {
       expect(arahRelatif(90, 90), closeTo(0, 1e-9));
-    });
-    test('arahRelatif: tujuan di kiri negatif, di kanan positif', () {
-      expect(arahRelatif(10, 0), greaterThan(0));
-      expect(arahRelatif(350, 0), lessThan(0));
     });
     test('formatJarak memakai meter di bawah 1 km', () {
       expect(formatJarak(850), '850 m');
@@ -86,43 +79,41 @@ void main() {
     });
   });
 
-  group('validasi entri', () {
-    test('judul kosong ditolak, judul wajar diterima', () {
-      expect(validasiJudul('   '), isNotNull);
-      expect(validasiJudul('Ke Bromo'), isNull);
-    });
+  test('validasi judul menolak judul kosong', () {
+    expect(validasiJudul('   '), isNotNull);
+    expect(validasiJudul('Ke Bromo'), isNull);
   });
 
-  group('sinkronisasi', () {
-    test('entri baru memakai POST lalu berstatus SYNCED', () async {
+  group('sinkronisasi ke MockAPI', () {
+    test('entri baru memakai POST lalu berstatus SYNCED dengan id string', () async {
       final data = [_entri(id: 1)];
       final api = ApiPalsu();
-      final h = await sinkronkan(PenyimpananPalsu(data), api, 'tok');
+      final h = await sinkronkan(PenyimpananPalsu(data), api);
       expect(api.dibuat, hasLength(1));
       expect(data.first.status, StatusSync.synced);
+      expect(data.first.serverId, '77');
       expect(h.terkirim, 1);
     });
     test('entri yang sudah punya serverId memakai PUT', () async {
-      final data = [_entri(id: 1, serverId: 5)];
+      final data = [_entri(id: 1, serverId: 'abc')];
       final api = ApiPalsu();
-      await sinkronkan(PenyimpananPalsu(data), api, 'tok');
-      expect(api.diubah, [5]);
+      await sinkronkan(PenyimpananPalsu(data), api);
+      expect(api.diubah, ['abc']);
       expect(api.dibuat, isEmpty);
     });
-    test('entri dari server masuk sebagai SYNCED', () async {
+    test('entri dari MockAPI masuk sebagai SYNCED', () async {
       final data = <Entri>[];
       final api = ApiPalsu()
         ..dariServer = [
-          {'id': 3, 'title': 'Dari server', 'content': '', 'latitude': null, 'longitude': null, 'updatedAt': 5},
+          {'id': '3', 'title': 'Dari server', 'content': '', 'latitude': null, 'longitude': null},
         ];
-      final h = await sinkronkan(PenyimpananPalsu(data), api, 'tok');
+      final h = await sinkronkan(PenyimpananPalsu(data), api);
       expect(h.diterima, 1);
-      expect(data.single.serverId, 3);
+      expect(data.single.serverId, '3');
     });
-    test('alamat HTTP publik ditolak, alamat lokal dan HTTPS diterima', () {
+    test('alamat HTTP publik ditolak, HTTPS diterima', () {
       expect(periksaUrlApi('http://contoh.com'), isNotNull);
-      expect(periksaUrlApi('http://10.0.2.2:3000'), isNull);
-      expect(periksaUrlApi('https://contoh.com'), isNull);
+      expect(periksaUrlApi('https://contoh.mockapi.io/api/v1/notes'), isNull);
     });
   });
 

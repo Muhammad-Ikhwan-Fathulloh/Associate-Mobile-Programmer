@@ -4,7 +4,6 @@ import 'config.dart';
 import 'data/catatan_repository.dart';
 import 'models/catatan.dart';
 import 'services/api_client.dart';
-import 'services/secure_storage.dart';
 import 'services/sync_service.dart';
 
 void main() => runApp(const AplikasiSinkron());
@@ -37,17 +36,13 @@ class _HalamanCatatanState extends State<HalamanCatatan> {
   final _isi = TextEditingController();
 
   List<Catatan> _daftar = [];
-  String? _token;
   String? _pesan;
+  bool _sibuk = false;
 
   @override
   void initState() {
     super.initState();
     _muat();
-    // Token dibaca dari penyimpanan aman saat layar dibuka.
-    bacaToken().then((t) {
-      if (mounted) setState(() => _token = t);
-    });
   }
 
   @override
@@ -72,28 +67,16 @@ class _HalamanCatatanState extends State<HalamanCatatan> {
     await _muat();
   }
 
-  Future<void> _masuk() async {
-    try {
-      final t = await _api.login(akunEmail, akunPassword);
-      await simpanToken(t); // disimpan di penyimpanan aman, bukan di SQLite
-      setState(() {
-        _token = t;
-        _pesan = 'Login berhasil. Token disimpan di penyimpanan aman.';
-      });
-    } catch (e) {
-      setState(() => _pesan = 'Login gagal: $e');
-    }
-  }
-
   Future<void> _sinkron() async {
-    final t = _token;
-    if (t == null) return setState(() => _pesan = 'Masuk dahulu.');
+    setState(() => _sibuk = true);
     try {
-      final h = await sinkronkan(_repo, _api, t);
-      setState(() => _pesan = 'Selesai: ${h.toString()}.');
+      final h = await sinkronkan(_repo, _api);
+      setState(() => _pesan = 'Selesai: $h.');
       await _muat();
     } catch (e) {
       setState(() => _pesan = 'Sinkron gagal: $e');
+    } finally {
+      if (mounted) setState(() => _sibuk = false);
     }
   }
 
@@ -107,11 +90,11 @@ class _HalamanCatatanState extends State<HalamanCatatan> {
           TextField(controller: _judul, maxLength: 100, decoration: const InputDecoration(labelText: 'Judul')),
           TextField(controller: _isi, maxLines: 2, decoration: const InputDecoration(labelText: 'Isi')),
           const SizedBox(height: 8),
-          FilledButton(onPressed: _simpan, child: const Text('Simpan offline')),
+          FilledButton(onPressed: _simpan, child: const Text('Simpan offline (Create)')),
           const SizedBox(height: 8),
           OutlinedButton(
-            onPressed: _token == null ? _masuk : _sinkron,
-            child: Text(_token == null ? 'Masuk ke server latihan' : 'Sinkronkan sekarang'),
+            onPressed: _sibuk ? null : _sinkron,
+            child: Text(_sibuk ? 'Menyinkronkan...' : 'Sinkronkan ke MockAPI'),
           ),
           if (_pesan != null) Padding(padding: const EdgeInsets.only(top: 8), child: Text(_pesan!)),
           for (final c in _daftar)
@@ -119,9 +102,7 @@ class _HalamanCatatanState extends State<HalamanCatatan> {
               child: ListTile(
                 title: Text(c.title),
                 subtitle: Text(c.content.isEmpty ? '(tanpa isi)' : c.content),
-                trailing: Chip(
-                  label: Text(c.syncStatus == StatusSync.synced ? 'SYNCED' : 'PENDING'),
-                ),
+                trailing: Chip(label: Text(c.syncStatus == StatusSync.synced ? 'SYNCED' : 'PENDING')),
               ),
             ),
         ],

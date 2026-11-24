@@ -32,7 +32,7 @@ export async function migrasi(db: SQLite.SQLiteDatabase): Promise<void> {
         longitude REAL,
         updated_at INTEGER NOT NULL,
         sync_status TEXT NOT NULL DEFAULT 'PENDING',
-        server_id INTEGER
+        server_id TEXT
       );
       PRAGMA user_version = 1;
     `);

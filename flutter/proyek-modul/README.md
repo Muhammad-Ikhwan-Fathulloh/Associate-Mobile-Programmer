@@ -15,13 +15,7 @@ Setiap modul punya satu proyek Flutter kecil yang berdiri sendiri. Sejajar denga
 | 7 | Sinkronisasi Offline-First | [modul-7-sinkronisasi-offline-first](modul-7-sinkronisasi-offline-first/README.md) | PENDING dan SYNCED, POST atau PUT, token aman |
 | 8 | Paket Bukti Kompetensi | [modul-8-paket-bukti-kompetensi](modul-8-paket-bukti-kompetensi/README.md) | Peta bukti unit yang berkas-berkasnya diperiksa tes |
 
-Modul 5 dan 7 memakai server latihan. Jalankan dulu di terminal lain:
-
-```bash
-cd ../../shared/server
-npm install
-npm start
-```
+Modul 5 dan 7 memakai MockAPI sebagai server CRUD. Ganti `GANTI-ID` di `src/config.ts` (React Native) atau `lib/config.dart` (Flutter) dengan ID project Anda. Panduan MockAPI ada di README tiap modul.
 
 ## Menjalankan satu modul
 
