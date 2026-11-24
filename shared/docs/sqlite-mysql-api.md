@@ -78,3 +78,13 @@ curl -s localhost:3000/notes -H "Authorization: Bearer $TOKEN"
 ## Keamanan
 
 Server latihan memakai HTTP dan data di memori, hanya untuk jaringan lokal. Di produksi: HTTPS, kata sandi di-hash, token berkedaluwarsa, validasi di server, dan basis data tidak dibuka ke internet.
+
+## Layanan pendukung (opsional)
+
+Modul 7 mengajarkan sinkronisasi dengan tangan: antrean `PENDING`, POST dan PUT, dan penanganan kegagalan. Pemahaman itu penting sebelum memakai alat yang mengerjakannya untuk Anda.
+
+- **PowerSync** (https://powersync.com) menyinkronkan SQLite di perangkat dengan basis data server, termasuk PostgreSQL dan MySQL. Aplikasi tetap membaca dan menulis SQLite lokal, sehingga tetap berfungsi offline. Ada SDK untuk Flutter dan React Native.
+- **Firebase Crashlytics** (https://firebase.google.com/products/crashlytics) mencatat crash dan galat fatal dari aplikasi ke konsol Firebase. Kumpulan data ini harus dijelaskan di kebijakan privasi.
+- **Firebase Cloud Messaging** (https://firebase.google.com/products/cloud-messaging) mengirim notifikasi push ke perangkat. Server aplikasi memanggil FCM, bukan ponsel memanggil langsung.
+
+Ketiganya memerlukan proyek Firebase atau akun PowerSync dan berkas konfigurasi. Jangan memasukkan kunci atau berkas konfigurasi rahasia ke repositori.

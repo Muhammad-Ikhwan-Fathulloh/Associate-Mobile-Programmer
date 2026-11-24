@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Jurnal Perjalanan",
+    "slug": "capstone-contoh",
+    "version": "1.0.0",
+    "scheme": "capstonecontoh",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "id.contoh.capstonecontoh",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.capstonecontoh"
+    }
+  }
+}

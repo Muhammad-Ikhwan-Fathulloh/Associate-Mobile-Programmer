@@ -4,7 +4,7 @@ Proyek dasar untuk **Proyek Akhir** pelatihan Associate Mobile Programmer, by [M
 
 > **Status verifikasi:** `flutter pub get`, `flutter analyze` (tanpa isu), dan `flutter test` (20 lulus, 3 dilewati sebagai `TODO(peserta)`) sudah dijalankan dengan Flutter SDK. Contoh catatan dimuat otomatis saat basis data kosong (`ProyekConfig.contohAwal`).
 
-Brief lengkap, matriks fitur, dan rubrik: [shared/docs/proyek/capstone.md](../../shared/docs/proyek/capstone.md).
+Brief lengkap, matriks fitur, dan rubrik: [shared/docs/proyek/capstone.md](../../shared/docs/proyek/capstone.md). Contoh proyek akhir yang sudah jadi: [capstone-contoh](../capstone-contoh/README.md).
 
 ## Langsung jalan (contoh siap pakai)
 

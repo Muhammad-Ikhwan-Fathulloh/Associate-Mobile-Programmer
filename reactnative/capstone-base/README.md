@@ -2,7 +2,7 @@
 
 Proyek dasar untuk **Proyek Akhir** pelatihan Associate Mobile Programmer, by [Muhammad Ikhwan Fathulloh](https://one.nocturnailed.com/). Sudah berjalan, sudah punya tes, dan tinggal Anda ubah menjadi aplikasi milik sendiri.
 
-Brief lengkap, matriks fitur, dan rubrik: [shared/docs/proyek/capstone.md](../../shared/docs/proyek/capstone.md).
+Brief lengkap, matriks fitur, dan rubrik: [shared/docs/proyek/capstone.md](../../shared/docs/proyek/capstone.md). Contoh proyek akhir yang sudah jadi: [capstone-contoh](../capstone-contoh/README.md).
 
 ## Langsung jalan (contoh siap pakai)
 

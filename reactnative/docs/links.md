@@ -19,3 +19,11 @@
 | Jest | https://jestjs.io |
 | Android Studio | https://developer.android.com/studio |
 | Skema BNSP dan LSP | https://bnsp.go.id |
+
+## Layanan Pendukung (Opsional, di Luar Jadwal)
+
+| Keperluan | Paket React Native | Tautan | Catatan |
+|---|---|---|---|
+| Sinkronisasi SQLite di perangkat dengan basis data server | `@powersync/react-native` | https://powersync.com | Alternatif untuk sinkronisasi manual di Modul 7. Periksa paket dan harga di situs resmi. |
+| Pelaporan crash | `@react-native-firebase/crashlytics` | https://firebase.google.com/products/crashlytics | Memerlukan proyek Firebase. Wajib dicantumkan di kebijakan privasi. |
+| Notifikasi push | `@react-native-firebase/messaging` | https://firebase.google.com/products/cloud-messaging | Memerlukan proyek Firebase dan berkas konfigurasi. Jangan commit kunci rahasia. |
