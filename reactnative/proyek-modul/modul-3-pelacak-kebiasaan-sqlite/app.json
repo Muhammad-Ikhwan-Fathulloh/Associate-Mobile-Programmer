@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Pelacak Kebiasaan",
+    "slug": "pelacak-kebiasaan-sqlite",
+    "version": "1.0.0",
+    "scheme": "pelacakkebiasaansqlite",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "id.contoh.pelacakkebiasaansqlite",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.pelacakkebiasaansqlite"
+    }
+  }
+}

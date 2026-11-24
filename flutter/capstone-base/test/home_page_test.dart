@@ -5,6 +5,12 @@ import 'package:capstone_base/pages/home_page.dart';
 
 void main() {
   testWidgets('HomePage menampilkan menu utama', (tester) async {
+    // Layar lebih tinggi agar seluruh menu (ListView) ikut dibangun.
+    tester.view.physicalSize = const Size(800, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     await tester.pumpWidget(const MaterialApp(home: HomePage()));
 
     expect(find.text('Catatan'), findsOneWidget);

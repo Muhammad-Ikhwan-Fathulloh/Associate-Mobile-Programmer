@@ -4,7 +4,9 @@ Proyek dasar untuk **Proyek Akhir** pelatihan Associate Mobile Programmer, by [M
 
 Brief lengkap, matriks fitur, dan rubrik: [shared/docs/proyek/capstone.md](../../shared/docs/proyek/capstone.md).
 
-## Menjalankan
+## Langsung jalan (contoh siap pakai)
+
+Proyek ini sudah berisi contoh yang bisa langsung dijalankan: tiga catatan contoh (dua dengan koordinat GPS, satu tanpa lokasi) dimuat otomatis saat pertama kali dibuka. Matikan dengan `contohAwal: false` di `src/proyek.config.ts`.
 
 ```bash
 npm install
@@ -13,7 +15,9 @@ npm test            # tes
 npm run typecheck   # pemeriksaan tipe
 ```
 
-Untuk fitur API, jalankan server latihan di terminal lain: `cd ../../shared/server && npm install && npm start`.
+Untuk fitur API, jalankan server latihan di terminal lain: `cd ../../shared/server && npm install && npm start`, lalu buka menu "API dan Sinkronisasi" dengan akun `peserta@contoh.id` / `rahasia123`.
+
+Contoh per modul (lebih kecil, satu topik per proyek) ada di [../proyek-modul](../proyek-modul/README.md).
 
 ## Yang sudah ada
 

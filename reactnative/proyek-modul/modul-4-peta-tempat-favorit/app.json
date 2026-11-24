@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Peta Tempat Favorit",
+    "slug": "peta-tempat-favorit",
+    "version": "1.0.0",
+    "scheme": "petatempatfavorit",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "id.contoh.petatempatfavorit",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.petatempatfavorit"
+    }
+  }
+}

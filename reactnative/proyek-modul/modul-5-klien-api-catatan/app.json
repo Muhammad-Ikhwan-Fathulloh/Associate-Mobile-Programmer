@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Klien API Catatan",
+    "slug": "klien-api-catatan",
+    "version": "1.0.0",
+    "scheme": "klienapicatatan",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "id.contoh.klienapicatatan",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.klienapicatatan"
+    }
+  }
+}

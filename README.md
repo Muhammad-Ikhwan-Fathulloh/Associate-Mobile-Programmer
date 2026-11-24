@@ -40,7 +40,8 @@ Hari 3 (tentatif): uji kompetensi BNSP. Skema dan tujuh unit kompetensinya sama 
 Setiap modul punya satu proyek kecil, dan semuanya bermuara pada **proyek akhir** yang menggabungkan seluruh materi.
 
 - [Daftar proyek modul dan proyek akhir](shared/docs/proyek/README.md)
-- Proyek dasar (base) untuk proyek akhir: [React Native](reactnative/capstone-base/README.md) (sudah diuji) dan [Flutter](flutter/capstone-base/README.md) (kode Dart belum dikompilasi).
+- Proyek per modul yang langsung bisa dijalankan (React Native): [reactnative/proyek-modul](reactnative/proyek-modul/README.md)
+- Proyek dasar (base) untuk proyek akhir, sudah berisi contoh yang langsung tampil: [React Native](reactnative/capstone-base/README.md) dan [Flutter](flutter/capstone-base/README.md). Keduanya sudah diuji.
 - Slide: [proyek akhir](reactnative/slides/proyek-akhir.html). Slide proyek modul ada di tiap deck modul React Native.
 
 ## Desain Figma

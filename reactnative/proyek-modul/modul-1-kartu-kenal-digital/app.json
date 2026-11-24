@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Kartu Kenal Digital",
+    "slug": "kartu-kenal-digital",
+    "version": "1.0.0",
+    "scheme": "kartukenaldigital",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "id.contoh.kartukenaldigital",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.kartukenaldigital"
+    }
+  }
+}

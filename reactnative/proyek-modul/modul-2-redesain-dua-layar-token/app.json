@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Redesain Dua Layar",
+    "slug": "redesain-dua-layar-token",
+    "version": "1.0.0",
+    "scheme": "redesaindualayartoken",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "id.contoh.redesaindualayartoken",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.redesaindualayartoken"
+    }
+  }
+}
