@@ -22,6 +22,14 @@ File yang sudah ada (`lib/`, `test/`, `pubspec.yaml`) tidak ditimpa. Periksa den
 
 Jika muncul galat setelah mengubah dependensi, jalankan `flutter clean`, lalu ulangi `flutter pub get` dan `flutter run`.
 
+Jalankan di web (Chrome):
+
+```bash
+flutter run -d chrome
+```
+
+Untuk membuat berkas web statis, jalankan `flutter build web`. Hasilnya ada di `build/web`. Perintah ini memerlukan folder `web/`, yang sudah ada di proyek ini.
+
 Panduan HP dan emulator Android Studio: [menjalankan proyek](../../../shared/docs/menjalankan-proyek.md).
 
 ```bash

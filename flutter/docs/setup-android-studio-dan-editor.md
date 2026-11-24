@@ -5,14 +5,32 @@ Panduan ini menyiapkan emulator Android dari Android Studio, lalu menghubungkann
 ## 1. Pasang Android Studio dan Android SDK
 
 1. Pasang [Android Studio](https://developer.android.com/studio). Saat pertama dibuka, pilih **Standard** di wizard agar Android SDK ikut terpasang.
+
+   ![Welcome to Android Studio](../../images/setup-android-studio/step1.png)
+
 2. Buka **More Actions > SDK Manager**.
+
+   ![Menu More Actions dengan SDK Manager dan Virtual Device Manager](../../images/setup-android-studio/step2.png)
+
 3. Di tab **SDK Platforms**, centang **Android 15 (API 35)** atau **Android 14 (API 34)**.
+
+   ![Tab SDK Platforms dengan Android 15 dan 14 dicentang](../../images/setup-android-studio/step3.png)
+
 4. Di tab **SDK Tools**, pastikan terpasang:
    - Android SDK Build-Tools
    - Android SDK Command-line Tools (latest)
    - Android Emulator
    - Android SDK Platform-Tools
+
+   ![Tab SDK Tools dengan Android Emulator dan Platform-Tools terpasang](../../images/setup-android-studio/step4.png)
+
 5. Klik **Apply**, setujui lisensi, lalu tunggu unduhan selesai.
+
+   ![Pemasangan komponen SDK sedang berjalan](../../images/setup-android-studio/step5.png)
+
+   Setelah muncul tulisan **Done**, klik **Finish**.
+
+   ![Pemasangan komponen SDK selesai](../../images/setup-android-studio/step6.png)
 
 Setelah itu, di terminal jalankan:
 
@@ -77,6 +95,25 @@ flutter analyze
 flutter test
 flutter run
 ```
+
+## 6. Jalankan di web
+
+Flutter bisa menjalankan aplikasi di browser, tanpa emulator. Chrome harus terpasang.
+
+```powershell
+flutter devices
+flutter run -d chrome
+```
+
+Untuk browser lain, pakai server web lokal:
+
+```powershell
+flutter run -d web-server --web-port 8080
+```
+
+Lalu buka `http://localhost:8080` di browser.
+
+Tidak semua proyek mendukung web. Proyek yang memakai SQLite (`sqflite`), GPS, atau sensor tidak bisa berjalan di browser. Cek catatan di README tiap modul.
 
 ## Masalah umum
 
