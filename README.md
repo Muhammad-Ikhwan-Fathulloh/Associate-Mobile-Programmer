@@ -20,6 +20,44 @@ shared/assets/  CSS dan JavaScript slide yang dipakai kedua jalur
 index.html      halaman awal untuk memilih jalur
 ```
 
+## Perbandingan Flutter dan React Native
+
+Kedua jalur memakai modul dan proyek yang sama. Perbedaannya ada di alat dan paket yang dipakai.
+
+| Aspek | Flutter | React Native |
+|---|---|---|
+| Bahasa | Dart | TypeScript |
+| Tampilan | Widget Material 3 (`lib/theme/tema.dart`) | Komponen React Native dan StyleSheet (`src/theme.ts`) |
+| Navigasi | `go_router` | `expo-router` (nama file menjadi alamat) |
+| SQLite | `sqflite` | `expo-sqlite` |
+| GPS dan izin | `geolocator` | `expo-location` |
+| Peta | `flutter_map` (OpenStreetMap, tanpa API key) | Leaflet di `WebView` (OpenStreetMap, tanpa API key) |
+| HTTP dan API | `http` | `fetch` dengan pembungkus `requestJson` |
+| Penyimpanan aman | `flutter_secure_storage` | `expo-secure-store` |
+| Sensor | `sensors_plus` | `expo-sensors` |
+| Jenis jaringan | `connectivity_plus` | `expo-network` |
+| Tes | `flutter test` | Jest dengan `jest-expo` |
+| Pemeriksaan kode | `flutter analyze` | `npm run typecheck` (`tsc --noEmit`) |
+| Menjalankan | `flutter run` di emulator atau perangkat | `npx expo start`, lalu Expo Go atau emulator |
+| Platform folder | Dibuat dengan `flutter create` (satu kali) | Sudah termasuk di Expo (managed workflow) |
+
+**Kapan memilih Flutter:** tim ingin tampilan yang sama persis di Android dan iOS, dan siap menulis Dart.
+
+**Kapan memilih React Native:** tim sudah mengenal TypeScript dan React, atau ingin memakai ekosistem web untuk alat bantu.
+
+Isi materi yang sama ada di [flutter/](flutter/README.md) dan [reactnative/](reactnative/README.md). Pemetaan modul yang sejajar:
+
+| Hari | Modul | Flutter | React Native |
+|---|---|---|---|
+| 1 | 1 | Platform dan bahasa | Platform dan bahasa |
+| 1 | 2 | Figma, Stitch, dan Gaya | Figma, Stitch, dan Gaya |
+| 1 | 3 | Database dan persistensi | SQLite dan persistensi |
+| 1 | 4 | GPS, peta, dan menyimpan lokasi | GPS, peta, dan menyimpan lokasi |
+| 2 | 5 | API dan menghubungkan aplikasi | API dan menghubungkan aplikasi |
+| 2 | 6 | Sensor dan spesifikasi perangkat | Sensor dan spesifikasi perangkat |
+| 2 | 7 | API lanjutan dan sinkronisasi | API lanjutan dan sinkronisasi |
+| 2 | 8 | Latihan dan uji kompetensi | Latihan dan uji kompetensi |
+
 ## Jadwal
 
 | Hari | Waktu | Sesi |

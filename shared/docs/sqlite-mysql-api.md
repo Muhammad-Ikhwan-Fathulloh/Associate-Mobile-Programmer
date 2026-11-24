@@ -14,11 +14,24 @@ Panduan ini berlaku untuk jalur Flutter dan React Native.
 
 ## Mengapa ponsel tidak langsung ke MySQL
 
-- Kata sandi basis data harus ada di aplikasi, dan aplikasi dapat dibongkar.
-- Port MySQL terbuka ke internet, menambah risiko serangan.
-- Tidak ada tempat memeriksa hak akses dan validasi per pengguna.
+MySQL dan PostgreSQL adalah program server yang menunggu koneksi di jaringan. Ponsel bukan tempat server semacam itu berjalan, dan aplikasi tidak boleh langsung menyambung ke sana. Alasannya:
+
+1. **Server basis data tidak berjalan di ponsel.** Untuk tersambung, aplikasi harus tahu alamat, port, dan kredensial server. Ponsel hanya klien.
+2. **Kredensial ikut terbawa ke aplikasi.** Berkas APK atau aplikasi iOS bisa dibongkar. Siapa pun yang memasangnya bisa membaca nama pengguna dan kata sandi database, lalu mengakses atau mengubah semua data.
+3. **Aturan bisnis tidak punya tempat.** Pemeriksaan seperti judul kosong, hak mengubah catatan milik orang lain, dan batas permintaan hanya bisa dijalankan di server. Jika aplikasi menulis langsung ke database, aturan itu ada di kode klien yang bisa dimodifikasi.
+4. **Jaringan seluler tidak stabil.** Koneksi basis data membutuhkan sesi yang panjang. Ponsel sering berpindah jaringan dan kehilangan sinyal. Permintaan HTTPS yang singkat dan bisa diulang lebih cocok.
+5. **Banyak perangkat sekaligus.** Server basis data melayani koneksi dari server aplikasi lewat pool koneksi. Ratusan ribu ponsel yang membuka koneksi langsung akan membebani server dan menghabiskan batas koneksi.
+
+**Mengapa SQLite boleh di ponsel.** SQLite bukan server. Ia pustaka yang menulis data ke satu berkas di dalam aplikasi. Tidak ada port, kredensial, atau jaringan. Hanya aplikasi itu yang bisa membaca berkasnya, dan data tetap ada saat offline.
+
+**Pola yang benar** terdiri dari dua lapis:
+
+- **Di ponsel:** SQLite untuk data lokal dan status `PENDING` atau `SYNCED`.
+- **Di server:** API yang terhubung ke MySQL atau PostgreSQL, dan memeriksa setiap permintaan.
 
 Jalur yang benar: **ponsel, lalu API (HTTPS dan token), lalu MySQL**.
+
+Layanan seperti Firebase atau Supabase memungkinkan aplikasi membaca basis data secara langsung. Layanan itu tetap memakai kunci API dan aturan akses per pengguna di sisi server, jadi lapisan server tetap ada di baliknya.
 
 ## Server latihan
 
