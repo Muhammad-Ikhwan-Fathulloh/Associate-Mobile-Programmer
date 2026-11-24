@@ -4,6 +4,28 @@ Proyek kecil untuk Modul 8 (latihan dan persiapan uji kompetensi). Brief: [share
 
 Proyek ini memakai hasil modul 1 sampai 7 yang ada di folder sebelahnya (`flutter/proyek-modul`). Jalankan tes setelah modul lain sudah ada.
 
+## Sudah punya proyek? Pasang Flutter lalu jalankan
+
+Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.
+
+1. Pastikan Flutter terpasang: `flutter doctor`. Jika belum, ikuti [instalasi Dart dan Flutter](../../../flutter/docs/instalasi-dart-flutter.md).
+2. Masuk ke folder proyek.
+3. Tambahkan folder Android yang belum ada:
+
+```bash
+flutter create . --platforms android
+```
+
+File yang sudah ada (`lib/`, `test/`, `pubspec.yaml`) tidak ditimpa. Periksa dengan `git status` bila ragu.
+
+4. Unduh paket: `flutter pub get`.
+5. Cek perangkat: `flutter devices`. Pakai HP fisik dengan USB debugging, atau emulator yang sudah menyala.
+6. Jalankan: `flutter run`. Bila ada lebih dari satu perangkat, pilih dengan `flutter run -d <id>`.
+
+Jika muncul galat setelah mengubah dependensi, jalankan `flutter clean`, lalu ulangi `flutter pub get` dan `flutter run`.
+
+Panduan HP dan emulator Android Studio: [menjalankan proyek](../../../shared/docs/menjalankan-proyek.md).
+
 ```bash
 flutter create . --project-name modul_8_paket_bukti_kompetensi --platforms android,ios
 flutter pub get
