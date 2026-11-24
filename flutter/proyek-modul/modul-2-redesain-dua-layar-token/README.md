@@ -47,3 +47,6 @@ flutter analyze
 
 - Semua warna dan jarak ada di `lib/theme/tema.dart`. Ubah satu nilai (misalnya `utama`), lalu lihat kedua layar berubah.
 - Tes memastikan tidak ada kode warna mentah di luar berkas tema, dan kontras teks memenuhi 4,5.
+
+Kendala umum saat menjalankan: [catatan error umum](../../docs/catatan-error-umum.md).
+

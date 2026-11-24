@@ -73,3 +73,6 @@ Fitur kreatif: filter kategori di beranda (migrasi kolom `kategori` dan UI).
 - Alamat MockAPI ada di `lib/config.dart`. Ganti `GANTI-ID` sebelum menjalankan sinkronisasi.
 - Panduan HP dan emulator: [shared/docs/menjalankan-proyek.md](../../shared/docs/menjalankan-proyek.md).
 - Tujuan kompas di `lib/pages/kompas_page.dart` masih satu titik tetap. Ganti dengan entri yang dipilih pengguna.
+
+Kendala umum saat menjalankan: [catatan error umum](../docs/catatan-error-umum.md).
+

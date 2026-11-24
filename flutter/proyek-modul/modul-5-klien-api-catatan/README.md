@@ -89,3 +89,6 @@ Panduan lengkap untuk HP fisik dan emulator Android Studio: [shared/docs/menjala
 - Galat ditampilkan dengan pesan yang ramah lewat `lib/services/pesan_error.dart`.
 
 Klien CRUD ada di `lib/services/api_client.dart`. Tes ada di `test/api_client_test.dart`.
+
+Kendala umum saat menjalankan: [catatan error umum](../../docs/catatan-error-umum.md).
+

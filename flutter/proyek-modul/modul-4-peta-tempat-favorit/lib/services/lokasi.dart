@@ -30,7 +30,7 @@ const pesanGagal = {
 };
 
 /// Meminta izin saat tombol ditekan (bukan saat aplikasi dibuka), lalu membaca posisi.
-Future<HasilLokasi> ambilLokasi({Duration batas = const Duration(seconds: 10)}) async {
+Future<HasilLokasi> ambilLokasi({Duration batas = const Duration(seconds: 8)}) async {
   HasilLokasi gagal(Alasan a) => HasilLokasi.gagal(a, pesanGagal[a]);
   try {
     var izin = await Geolocator.checkPermission();
@@ -40,11 +40,17 @@ Future<HasilLokasi> ambilLokasi({Duration batas = const Duration(seconds: 10)}) 
     }
     if (!await Geolocator.isLocationServiceEnabled()) return gagal(Alasan.gps);
 
+    // Akurasi sedang lebih cepat didapat daripada akurasi tinggi, terutama di emulator.
     final posisi = await Geolocator.getCurrentPosition(
-      locationSettings: LocationSettings(accuracy: LocationAccuracy.high, timeLimit: batas),
+      locationSettings: LocationSettings(accuracy: LocationAccuracy.medium, timeLimit: batas),
     );
     return HasilLokasi.berhasil(posisi.latitude, posisi.longitude);
   } on TimeoutException {
+    // Bila GPS belum memberi posisi baru, pakai posisi terakhir yang diketahui perangkat.
+    try {
+      final terakhir = await Geolocator.getLastKnownPosition();
+      if (terakhir != null) return HasilLokasi.berhasil(terakhir.latitude, terakhir.longitude);
+    } catch (_) {}
     return gagal(Alasan.waktu);
   } catch (_) {
     return gagal(Alasan.lain);

@@ -46,3 +46,6 @@ flutter analyze
 - Data profil ada di `lib/profil.dart`.
 - Komponen `Kartu` di `lib/widgets/kartu.dart` dipakai ulang.
 - Fungsi `inisial` diuji di `test/inisial_test.dart`.
+
+Kendala umum saat menjalankan: [catatan error umum](../../docs/catatan-error-umum.md).
+

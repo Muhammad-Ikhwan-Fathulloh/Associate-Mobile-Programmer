@@ -8,6 +8,12 @@ Proyek kecil untuk Modul 4 (GPS, lokasi, dan navigasi). Brief: [shared/docs/proy
 
 ![Demo modul 4 halaman 2](../../../images/flutter/modul4/modul4_halaman2.png)
 
+![Izin lokasi ditolak: aplikasi meminta izin dan menampilkan pesan jika ditolak](../../../images/flutter/modul4/modul4_halaman3.png)
+
+![Lokasi didapat: koordinat tampil di form Tambah Tempat](../../../images/flutter/modul4/modul4_halaman4.png)
+
+![Daftar tempat dengan jarak dan penanda di peta OpenStreetMap](../../../images/flutter/modul4/modul4_halaman5.png)
+
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
 Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.
@@ -54,3 +60,6 @@ flutter analyze
 - Koordinat disimpan di SQLite (`tempat.db`, kolom `REAL`).
 - Izin lokasi diminta saat tombol "Sertakan lokasi saya" atau "Jarak dari saya" ditekan. Izin ditolak, GPS mati, atau waktu habis ditangani: tempat tetap bisa disimpan tanpa koordinat.
 - Jarak memakai Haversine di `lib/services/distance.dart`. Peta memakai OpenStreetMap lewat `flutter_map`, tanpa API key.
+
+Kendala umum saat menjalankan: [catatan error umum](../../docs/catatan-error-umum.md).
+

@@ -40,3 +40,6 @@ flutter analyze
 - Logika guncangan, kompas, dan mata angin ada di `lib/services/sensor_math.dart` dan diuji tanpa perangkat.
 - Akselerometer memberi m/s². Dibagi `gravitasi` agar nilainya dalam g.
 - Langganan sensor dihentikan di `dispose()`.
+
+Kendala umum saat menjalankan: [catatan error umum](../../docs/catatan-error-umum.md).
+

@@ -46,3 +46,6 @@ flutter analyze
 - Data disimpan di SQLite (`kebiasaan.db`). Tutup aplikasi lalu buka lagi: data tetap ada.
 - Migrasi ada di `lib/data/database.dart` (versi 1 dan 2). Kolom `warna` ditambahkan tanpa menghapus data lama.
 - Logika streak murni di `lib/logic/streak.dart` dan diuji di `test/streak_test.dart`.
+
+Kendala umum saat menjalankan: [catatan error umum](../../docs/catatan-error-umum.md).
+

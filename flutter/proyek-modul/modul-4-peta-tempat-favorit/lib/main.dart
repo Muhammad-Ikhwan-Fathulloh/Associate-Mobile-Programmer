@@ -39,6 +39,7 @@ class _HalamanTempatState extends State<HalamanTempat> {
   List<Tempat> _daftar = [];
   HasilLokasi? _posisi;
   String? _pesan;
+  bool _mencari = false;
 
   @override
   void initState() {
@@ -52,8 +53,15 @@ class _HalamanTempatState extends State<HalamanTempat> {
   }
 
   Future<void> _jarakDariSaya() async {
-    final hasil = await ambilLokasi();
+    if (_mencari) return; // tahan tekanan ganda selama posisi dicari
     setState(() {
+      _mencari = true;
+      _pesan = null;
+    });
+    final hasil = await ambilLokasi();
+    if (!mounted) return;
+    setState(() {
+      _mencari = false;
       _posisi = hasil.ok ? hasil : null;
       _pesan = hasil.ok ? null : hasil.pesan;
     });
@@ -85,7 +93,20 @@ class _HalamanTempatState extends State<HalamanTempat> {
               Expanded(child: FilledButton(onPressed: _tambah, child: const Text('Tambah tempat'))),
               const SizedBox(width: 8),
               Expanded(
-                child: OutlinedButton(onPressed: _jarakDariSaya, child: const Text('Jarak dari saya')),
+                child: OutlinedButton(
+                  onPressed: _mencari ? null : _jarakDariSaya,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (_mencari) ...[
+                        const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2)),
+                        const SizedBox(width: 8),
+                      ],
+                      Text(_mencari ? 'Mencari posisi...' : 'Jarak dari saya'),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

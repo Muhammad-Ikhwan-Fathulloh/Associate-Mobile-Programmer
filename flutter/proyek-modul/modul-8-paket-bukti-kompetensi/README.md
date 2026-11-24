@@ -62,3 +62,6 @@ Peta lengkap ada di `lib/bukti.dart`. Tabel bukti:
 1. Tunjukkan layar aplikasi dan jelaskan satu unit.
 2. Tunjukkan satu kasus gagal yang ditangani.
 3. Jalankan `flutter test` dan tunjukkan hasilnya.
+
+Kendala umum saat menjalankan: [catatan error umum](../../docs/catatan-error-umum.md).
+

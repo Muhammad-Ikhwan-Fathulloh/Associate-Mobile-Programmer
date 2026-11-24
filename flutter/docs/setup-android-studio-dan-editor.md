@@ -176,6 +176,8 @@ Lalu buka `http://localhost:8080` di browser.
 
 Tidak semua proyek mendukung web. Proyek yang memakai SQLite (`sqflite`), GPS, atau sensor tidak bisa berjalan di browser. Cek catatan di README tiap modul.
 
+Catatan error lengkap: [catatan error umum](catatan-error-umum.md).
+
 ## Masalah umum
 
 | Gejala | Yang perlu dicek |

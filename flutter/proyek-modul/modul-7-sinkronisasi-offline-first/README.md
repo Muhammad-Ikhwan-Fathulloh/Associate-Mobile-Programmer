@@ -63,3 +63,6 @@ Panduan lengkap untuk HP fisik dan emulator Android Studio: [shared/docs/menjala
 - Satu kegagalan tidak menghentikan catatan lain. Hasilnya dilaporkan: terkirim, diterima, dan gagal.
 
 Logika sinkronisasi ada di `lib/services/sync_service.dart`. Tes memakai penyimpanan dan API tiruan di `test/sync_test.dart`.
+
+Kendala umum saat menjalankan: [catatan error umum](../../docs/catatan-error-umum.md).
+
