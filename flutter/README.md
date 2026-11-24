@@ -18,7 +18,7 @@ Setelah mengikuti pelatihan, peserta mampu:
 
 - Dasar pemrograman (variabel, fungsi, class).
 - Laptop dengan RAM minimal 8 GB.
-- Flutter SDK dan Android Studio atau VS Code terpasang. Jalankan `flutter doctor` untuk memastikan konfigurasi siap. Panduan pemasangan Dart dan Flutter: [docs/instalasi-dart-flutter.md](docs/instalasi-dart-flutter.md).
+- Flutter SDK dan Android Studio atau VS Code terpasang. Jalankan `flutter doctor` untuk memastikan konfigurasi siap. Panduan pemasangan Dart dan Flutter: [docs/instalasi-dart-flutter.md](docs/instalasi-dart-flutter.md). Setup emulator Android Studio dan editor (VS Code atau Antigravity): [docs/setup-android-studio-dan-editor.md](docs/setup-android-studio-dan-editor.md).
 - Emulator Android atau perangkat Android fisik dengan mode pengembang aktif. Perangkat fisik diperlukan untuk menguji sensor dan jaringan seluler.
 
 ## Proyek per Modul
