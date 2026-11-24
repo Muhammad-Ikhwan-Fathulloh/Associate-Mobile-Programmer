@@ -2,6 +2,10 @@
 
 Proyek kecil untuk Modul 6 (mobile sensor dan spesifikasi perangkat). Brief: [shared/docs/proyek/modul-6-penghitung-guncangan-dan-kompas.md](../../../shared/docs/proyek/modul-6-penghitung-guncangan-dan-kompas.md).
 
+## Demo
+
+![Demo modul 6 halaman 1](../../../images/flutter/modul6/modul6_halaman1.png)
+
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
 Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.

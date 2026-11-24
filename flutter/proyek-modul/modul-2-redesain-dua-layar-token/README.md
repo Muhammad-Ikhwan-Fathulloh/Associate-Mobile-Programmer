@@ -2,6 +2,12 @@
 
 Proyek kecil untuk Modul 2 (desain). Brief: [shared/docs/proyek/modul-2-redesain-dua-layar-dengan-token.md](../../../shared/docs/proyek/modul-2-redesain-dua-layar-dengan-token.md).
 
+## Demo
+
+![Demo modul 2 halaman 1](../../../images/flutter/modul2/modul2_halaman1.png)
+
+![Demo modul 2 halaman 2](../../../images/flutter/modul2/modul2_halaman2.png)
+
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
 Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.

@@ -2,6 +2,10 @@
 
 Proyek kecil untuk Modul 3 (database dan persistensi). Brief: [shared/docs/proyek/modul-3-pelacak-kebiasaan-dengan-sqlite.md](../../../shared/docs/proyek/modul-3-pelacak-kebiasaan-dengan-sqlite.md).
 
+## Demo
+
+![Demo modul 3 halaman 1](../../../images/flutter/modul3/modul3_halaman1.png)
+
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
 Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.

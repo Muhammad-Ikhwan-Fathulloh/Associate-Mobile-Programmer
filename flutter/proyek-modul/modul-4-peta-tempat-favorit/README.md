@@ -2,6 +2,12 @@
 
 Proyek kecil untuk Modul 4 (GPS, lokasi, dan navigasi). Brief: [shared/docs/proyek/modul-4-peta-tempat-favorit.md](../../../shared/docs/proyek/modul-4-peta-tempat-favorit.md).
 
+## Demo
+
+![Demo modul 4 halaman 1](../../../images/flutter/modul4/modul4_halaman1.png)
+
+![Demo modul 4 halaman 2](../../../images/flutter/modul4/modul4_halaman2.png)
+
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
 Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.

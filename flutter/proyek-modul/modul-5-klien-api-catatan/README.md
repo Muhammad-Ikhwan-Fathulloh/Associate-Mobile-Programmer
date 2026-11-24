@@ -11,6 +11,28 @@ Latihan ini memakai [MockAPI](https://mockapi.io) untuk CRUD. Tidak perlu server
 3. Salin alamat resource, misalnya `https://64f0a1b2c3d4e5f6a7b8c9d0.mockapi.io/api/v1/notes`.
 4. Ganti `GANTI-ID` di `lib/config.dart` dengan ID project Anda. Tanpa langkah ini aplikasi tidak bisa mengambil data.
 
+## Demo
+
+![Demo modul 5 halaman 1](../../../images/flutter/modul5/modul5_halaman1.png)
+
+![Demo modul 5 halaman 2](../../../images/flutter/modul5/modul5_halaman2.png)
+
+![Demo modul 5 halaman 3](../../../images/flutter/modul5/modul5_halaman3.png)
+
+![Demo MockAPI 1](../../../images/flutter/modul5/modul5_mockapi1.png)
+
+![Demo MockAPI 2](../../../images/flutter/modul5/modul5_mockapi2.png)
+
+![Demo MockAPI 3](../../../images/flutter/modul5/modul5_mockapi3.png)
+
+![Demo MockAPI 4](../../../images/flutter/modul5/modul5_mockapi4.png)
+
+![Demo MockAPI 5](../../../images/flutter/modul5/modul5_mockapi5.png)
+
+![Demo MockAPI 6](../../../images/flutter/modul5/modul5_mockapi6.png)
+
+![Demo MockAPI 7](../../../images/flutter/modul5/modul5_mockapi7.png)
+
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
 Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.

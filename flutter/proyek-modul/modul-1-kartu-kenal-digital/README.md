@@ -2,6 +2,10 @@
 
 Proyek kecil untuk Modul 1 (platform dan bahasa). Brief: [shared/docs/proyek/modul-1-kartu-kenal-digital.md](../../../shared/docs/proyek/modul-1-kartu-kenal-digital.md).
 
+## Demo
+
+![Demo modul 1 halaman 1](../../../images/flutter/modul1/modul1_halaman1.png)
+
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
 Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.

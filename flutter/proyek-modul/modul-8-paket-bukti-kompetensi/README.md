@@ -4,6 +4,10 @@ Proyek kecil untuk Modul 8 (latihan dan persiapan uji kompetensi). Brief: [share
 
 Proyek ini memakai hasil modul 1 sampai 7 yang ada di folder sebelahnya (`flutter/proyek-modul`). Jalankan tes setelah modul lain sudah ada.
 
+## Demo
+
+![Demo modul 8 halaman 1](../../../images/flutter/modul8/modul8_halaman1.png)
+
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
 Pakai langkah ini bila folder proyek sudah ada (berisi `lib/`, `test/`, dan `pubspec.yaml`) dan Anda hanya perlu menyiapkan Flutter di komputer. Tidak perlu membuat proyek dari awal.
