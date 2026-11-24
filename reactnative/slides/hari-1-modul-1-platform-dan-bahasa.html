@@ -12,10 +12,18 @@
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 1 · 09.00 to 10.00 · React Native</p>
-    <h1>Modul 1: Instalasi dan Platform</h1><h2>Tujuan Pembelajaran</h2><ol><li>Memasang Node.js, editor, dan emulator atau Expo Go</li><li>Menjelaskan perbedaan Android dan iOS serta pilihan native atau cross-platform</li><li>Menulis TypeScript dasar</li><li>Membuat dan menjalankan proyek React Native dengan Expo</li></ol>
+    <h1>Modul 1: Instalasi dan Platform</h1><div class="chips"><span class="chip">Hari 1</span><span class="chip">09.00 to 10.00</span><span class="chip">Unit J.612000.001.01</span></div><h2>Tujuan Pembelajaran</h2><ol><li>Memasang Node.js, editor, dan emulator atau Expo Go</li><li>Menjelaskan perbedaan Android dan iOS serta pilihan native atau cross-platform</li><li>Menulis TypeScript dasar</li><li>Membuat dan menjalankan proyek React Native dengan Expo</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
     <aside class="notes">Hari pertama dimulai dari fondasi: semua peserta harus punya lingkungan kerja yang berjalan. Satu jam ini dipakai memasang Node.js, editor, dan emulator atau Expo Go, sambil memahami perbedaan Android dan iOS serta alasan memilih kerangka kerja lintas platform. Peserta yang memilih Flutter mengikuti jalur Flutter, yang memilih React Native mengikuti jalur ini. Target akhir jam ini: satu aplikasi kosong tampil di perangkat atau emulator.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Peta Materi</p>
+    <h2>Alur Hari Ini</h2>
+<ol class="agenda"><li>Menyiapkan environment</li><li>Android dan iOS</li><li>Native atau cross-platform</li><li>Cara kerja React Native</li><li>TypeScript dasar</li><li>Komponen pertama</li><li>Proyek Modul</li><li>Latihan dan Coba</li></ol>
+    </div></div><!--/split-->
   </section>
 
   <section class="slide">
@@ -109,6 +117,17 @@ export function Tombol({ label, onPress, bahaya, testID }: Props) {
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
+    <p class="kicker">Ke Mana Sekarang</p>
+    <h2>Lokasi di Repositori</h2>
+<div class="grid2"><div class="card"><h3>Materi</h3><p>Penjelasan tertulis dan contoh:</p><p><code>reactnative/docs/hari-1/01-platform-dan-bahasa.md</code></p></div><div class="card"><h3>Proyek contoh</h3><p><code>reactnative/proyek-modul/modul-1-kartu-kenal-digital</code></p><ul><li><code>src/profil.ts</code></li><li><code>src/components/Kartu.tsx</code></li><li><code>app/index.tsx</code></li></ul></div></div><pre><code>cd reactnative/proyek-modul/modul-1-kartu-kenal-digital
+npm install
+npx expo start
+npm test</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
     <p class="kicker">Proyek Modul 1 · 30 menit</p>
     <h2>Kartu Kenal Digital</h2>
 <p>Buat aplikasi satu layar yang menampilkan kartu kenal Anda: inisial, nama, peran, dan tiga keahlian. Proyek ini memastikan lingkungan kerja, bahasa, dan komponen dasar berjalan.</p><ul><li>Aplikasi berjalan di emulator atau Expo Go (atau <code>flutter run</code>).</li><li>Data profil disimpan dalam satu objek atau kelas bertipe, bukan teks yang tersebar di tampilan.</li><li>Satu komponen <code>Kartu</code> dipakai ulang minimal dua kali (misalnya profil dan keahlian).</li><li>Fungsi murni <code>inisial(nama)</code> yang mengubah "Ani Lestari" menjadi "AL".</li><li>Tombol yang mengubah satu tampilan (misalnya menampilkan atau menyembunyikan keahlian).</li></ul>
@@ -125,6 +144,14 @@ export function Tombol({ label, onPress, bahaya, testID }: Props) {
     </div></div><!--/split-->
     <p class="ref">Praktik: <a href="../docs/hands-on/hari-1.md">hands-on Hari 1, Step 0 sampai 2</a> · Materi: <a href="../docs/hari-1/01-platform-dan-bahasa.md">docs/hari-1/01-platform-dan-bahasa.md</a></p>
     <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Ringkasan</p>
+    <h2>Setelah Modul Ini Anda Bisa</h2>
+<ul class="checks"><li>Memasang Node.js, editor, dan emulator atau Expo Go</li><li>Menjelaskan perbedaan Android dan iOS serta pilihan native atau cross-platform</li><li>Menulis TypeScript dasar</li><li>Membuat dan menjalankan proyek React Native dengan Expo</li></ul>
+    </div></div><!--/split-->
   </section>
 
 </div>

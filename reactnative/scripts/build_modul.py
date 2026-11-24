@@ -17,6 +17,29 @@ ROOT = Path(__file__).resolve().parent.parent
 APP = ROOT / "app"
 MAKS_BARIS = 13  # slide hanya memuat cuplikan, kode lengkap ada di slide praktik
 
+# Proyek per modul yang bisa langsung dijalankan: reactnative/proyek-modul/<folder>.
+PROYEK_FOLDER = {
+    1: "modul-1-kartu-kenal-digital",
+    2: "modul-2-redesain-dua-layar-token",
+    3: "modul-3-pelacak-kebiasaan-sqlite",
+    4: "modul-4-peta-tempat-favorit",
+    5: "modul-5-klien-api-catatan",
+    6: "modul-6-penghitung-guncangan-kompas",
+    7: "modul-7-sinkronisasi-offline-first",
+    8: "modul-8-paket-bukti-kompetensi",
+}
+# Berkas yang paling penting dibaca di tiap proyek (relatif terhadap folder proyek).
+PROYEK_BERKAS = {
+    1: ["src/profil.ts", "src/components/Kartu.tsx", "app/index.tsx"],
+    2: ["src/theme.ts", "src/kontras.ts", "app/index.tsx"],
+    3: ["src/data/database.ts", "src/data/habitRepository.ts", "src/logic/streak.ts"],
+    4: ["src/services/lokasi.ts", "src/services/tempat.ts", "src/data/tempatRepository.ts"],
+    5: ["src/services/apiClient.ts", "src/services/httpsService.ts", "src/services/pesanError.ts"],
+    6: ["src/services/sensorMath.ts", "app/index.tsx"],
+    7: ["src/services/sync.ts", "src/data/catatanRepository.ts", "src/services/secureStorage.ts"],
+    8: ["src/bukti.ts", "app/index.tsx"],
+}
+
 
 def esc(s):
     return html.escape(s, quote=False)
@@ -105,8 +128,15 @@ def html_modul(m):
     kick = f"Hari {m['hari']} · {m['waktu']}"
     md_ref = f'Materi: <a href="../docs/hari-{m["hari"]}/{m["slug"]}.md">docs/hari-{m["hari"]}/{m["slug"]}.md</a>'
     s = []
+    chips = (
+        '<div class="chips">'
+        f'<span class="chip">Hari {m["hari"]}</span>'
+        f'<span class="chip">{esc(m["waktu"])}</span>'
+        f'<span class="chip">Unit {esc(m["unit"])}</span>'
+        '</div>'
+    )
     hero = (
-        f"<h1>Modul {m['n']}: {esc(m['pendek'])}</h1><h2>Tujuan Pembelajaran</h2>"
+        f"<h1>Modul {m['n']}: {esc(m['pendek'])}</h1>{chips}<h2>Tujuan Pembelajaran</h2>"
         "<ol>" + "".join(f"<li>{inline(t)}</li>" for t in m["tujuan"]) + "</ol>"
     )
     s.append(
@@ -114,6 +144,9 @@ def html_modul(m):
         f'    <p class="kicker">{esc(kick)} · React Native</p>\n    {hero}\n'
         f'    </div></div><!--/split-->\n    <p class="ref">{md_ref}</p>{notes(PEMBUKA[m["n"]])}\n  </section>\n'
     )
+    # Peta materi: pembaca tahu urutan slide dan apa yang akan dipelajari.
+    agenda = "<ol class=\"agenda\">" + "".join(f"<li>{esc(j)}</li>" for j, _, _ in m["konsep"]) + "<li>Proyek Modul</li><li>Latihan dan Coba</li></ol>"
+    s.append(sec("Peta Materi", "Alur Hari Ini", agenda))
     peta = (
         f"<h3>{esc(m['judul'])}</h3><p><strong>Elemen yang dinilai:</strong></p><ol>"
         + "".join(f"<li>{inline(e)}</li>" for e in m["elemen"])
@@ -138,6 +171,20 @@ def html_modul(m):
                 baris = baris[:MAKS_BARIS] + ["// ... selengkapnya di berkas ini"]
             body = f"<p>{inline(isi[1])}</p><p class=\"ref\"><code>{esc(isi[0])}</code></p><pre><code>{esc(chr(10).join(baris))}</code></pre>"
             s.append(sec(KODE_KICK(sim), esc(judul), body, "code", sim=sim, narasi=nar))
+    # Ke mana sekarang: lokasi materi, kode contoh yang bisa dijalankan, dan perintahnya.
+    folder = PROYEK_FOLDER[m["n"]]
+    for b in PROYEK_BERKAS[m["n"]]:
+        assert (ROOT.parent / "reactnative" / "proyek-modul" / folder / b).exists(), f"berkas hilang: {folder}/{b}"
+    berkas = "".join(f"<li><code>{esc(b)}</code></li>" for b in PROYEK_BERKAS[m["n"]])
+    lokasi = (
+        '<div class="grid2">'
+        f'<div class="card"><h3>Materi</h3><p>Penjelasan tertulis dan contoh:</p>'
+        f'<p><code>reactnative/docs/hari-{m["hari"]}/{m["slug"]}.md</code></p></div>'
+        f'<div class="card"><h3>Proyek contoh</h3><p><code>reactnative/proyek-modul/{folder}</code></p>'
+        f'<ul>{berkas}</ul></div></div>'
+        f'<pre><code>cd reactnative/proyek-modul/{esc(folder)}\nnpm install\nnpx expo start\nnpm test</code></pre>'
+    )
+    s.append(sec("Ke Mana Sekarang", "Lokasi di Repositori", lokasi))
     pr = PROYEK[m["n"]]
     pbody = f"<p>{inline(pr['skenario'])}</p><ul>" + "".join(f"<li>{inline(x)}</li>" for x in pr["wajib"]) + "</ul>"
     pref = f'Brief lengkap: <a href="../../shared/docs/proyek/{nama_proyek(m["n"])}">shared/docs/proyek/{nama_proyek(m["n"])}</a>'
@@ -146,6 +193,9 @@ def html_modul(m):
     tugas = "<ol>" + "".join(f"<li>{inline(t)}</li>" for t in m["tugas"]) + "</ol>"
     praktik_ref = f'Praktik: <a href="../docs/hands-on/hari-{m["hari"]}.md">hands-on {m["praktik"]}</a> · ' + md_ref
     s.append(sec("Latihan dan Coba", "Tugas Modul " + str(m["n"]), tugas, "", praktik_ref, narasi=NARASI_UMUM["latihan"]))
+    # Penutup: ringkasan yang bisa dicentang peserta.
+    ringkas = "<ul class=\"checks\">" + "".join(f"<li>{inline(t)}</li>" for t in m["tujuan"]) + "</ul>"
+    s.append(sec("Ringkasan", "Setelah Modul Ini Anda Bisa", ringkas))
     return s
 
 

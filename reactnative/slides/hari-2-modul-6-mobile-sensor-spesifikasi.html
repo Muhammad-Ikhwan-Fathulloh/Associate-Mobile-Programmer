@@ -12,10 +12,18 @@
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 10.00 to 12.00 · React Native</p>
-    <h1>Modul 6: Sensor dan Perangkat</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menyebutkan jenis sensor ponsel dan fungsinya</li><li>Membaca akselerometer dengan expo-sensors</li><li>Membaca informasi perangkat</li><li>Menghentikan langganan sensor dengan benar</li></ol>
+    <h1>Modul 6: Sensor dan Perangkat</h1><div class="chips"><span class="chip">Hari 2</span><span class="chip">10.00 to 12.00</span><span class="chip">Unit J.612000.022.01</span></div><h2>Tujuan Pembelajaran</h2><ol><li>Menyebutkan jenis sensor ponsel dan fungsinya</li><li>Membaca akselerometer dengan expo-sensors</li><li>Membaca informasi perangkat</li><li>Menghentikan langganan sensor dengan benar</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">docs/hari-2/06-mobile-sensor-spesifikasi.md</a></p>
     <aside class="notes">Setelah API, kita beralih ke sensor. Ponsel merasakan percepatan, putaran, dan medan magnet. Peserta membaca akselerometer, giroskop, dan magnetometer, mendeteksi guncangan, lalu membuat kompas sederhana. Satu pelajaran penting: sensor menguras baterai, jadi berhenti membaca saat halaman ditutup. Sampaikan juga bahwa kompas sederhana punya batas akurasi.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Peta Materi</p>
+    <h2>Alur Hari Ini</h2>
+<ol class="agenda"><li>Jenis sensor</li><li>Rantai sensor</li><li>Giroskop dan kompas</li><li>Membaca akselerometer</li><li>Menghitung guncangan dan arah</li><li>Informasi perangkat</li><li>Praktik baik penggunaan sensor</li><li>Proyek Modul</li><li>Latihan dan Coba</li></ol>
+    </div></div><!--/split-->
   </section>
 
   <section class="slide">
@@ -131,6 +139,17 @@ export default function Perangkat() {
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
+    <p class="kicker">Ke Mana Sekarang</p>
+    <h2>Lokasi di Repositori</h2>
+<div class="grid2"><div class="card"><h3>Materi</h3><p>Penjelasan tertulis dan contoh:</p><p><code>reactnative/docs/hari-2/06-mobile-sensor-spesifikasi.md</code></p></div><div class="card"><h3>Proyek contoh</h3><p><code>reactnative/proyek-modul/modul-6-penghitung-guncangan-kompas</code></p><ul><li><code>src/services/sensorMath.ts</code></li><li><code>app/index.tsx</code></li></ul></div></div><pre><code>cd reactnative/proyek-modul/modul-6-penghitung-guncangan-kompas
+npm install
+npx expo start
+npm test</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
     <p class="kicker">Proyek Modul 6 · 60 menit</p>
     <h2>Penghitung Guncangan dan Kompas</h2>
 <p>Buat alat kecil yang membaca sensor: menghitung berapa kali ponsel diguncang, menampilkan arah kompas, dan menampilkan kecepatan putar. Fokus pada fungsi perhitungan yang bisa diuji.</p><ul><li>Akselerometer: deteksi guncangan bila besar vektor melewati ambang, dengan jeda agar satu guncangan tidak dihitung berkali-kali.</li><li>Magnetometer: arah dalam derajat dan mata angin (U, TL, T, TG, S, BD, B, BL).</li><li>Giroskop: tampilkan kecepatan putar tiga sumbu.</li><li>Berhenti membaca sensor saat halaman ditutup.</li><li>Fungsi perhitungan murni dan diuji tanpa perangkat.</li></ul>
@@ -147,6 +166,14 @@ export default function Perangkat() {
     </div></div><!--/split-->
     <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 3 dan 4</a> · Materi: <a href="../docs/hari-2/06-mobile-sensor-spesifikasi.md">docs/hari-2/06-mobile-sensor-spesifikasi.md</a></p>
     <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Ringkasan</p>
+    <h2>Setelah Modul Ini Anda Bisa</h2>
+<ul class="checks"><li>Menyebutkan jenis sensor ponsel dan fungsinya</li><li>Membaca akselerometer dengan expo-sensors</li><li>Membaca informasi perangkat</li><li>Menghentikan langganan sensor dengan benar</li></ul>
+    </div></div><!--/split-->
   </section>
 
 </div>

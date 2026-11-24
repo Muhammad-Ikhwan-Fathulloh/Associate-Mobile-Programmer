@@ -12,10 +12,18 @@
   <section class="slide">
     <!--split--><div class="split"><div class="main">
     <p class="kicker">Hari 2 · 13.00 to 15.00 · React Native</p>
-    <h1>Modul 7: API Lanjutan</h1><h2>Tujuan Pembelajaran</h2><ol><li>Menyelesaikan CRUD lewat API dengan token</li><li>Menyimpan token dengan aman</li><li>Menyinkronkan data lokal dengan server (offline-first)</li><li>Menjelaskan jaringan seluler dan ancaman komunikasi nirkabel</li></ol>
+    <h1>Modul 7: API Lanjutan</h1><div class="chips"><span class="chip">Hari 2</span><span class="chip">13.00 to 15.00</span><span class="chip">Unit J.612000.008.01</span></div><h2>Tujuan Pembelajaran</h2><ol><li>Menyelesaikan CRUD lewat API dengan token</li><li>Menyimpan token dengan aman</li><li>Menyinkronkan data lokal dengan server (offline-first)</li><li>Menjelaskan jaringan seluler dan ancaman komunikasi nirkabel</li></ol>
     </div></div><!--/split-->
     <p class="ref">Materi: <a href="../docs/hari-2/07-api-lanjutan-sinkronisasi.md">docs/hari-2/07-api-lanjutan-sinkronisasi.md</a></p>
     <aside class="notes">Sesi ini menyelesaikan jalur data: dari SQLite ke server dan kembali. Kita melengkapi API dengan login dan token, menyimpan token dengan aman, lalu membangun sinkronisasi offline-first. Sepanjang jalan kita membahas jaringan seluler dan ancaman komunikasi nirkabel, karena sinkronisasi berjalan di atas jaringan yang tidak selalu aman. Pesannya: data lokal dulu, kirim saat bisa, dan amankan jalurnya.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Peta Materi</p>
+    <h2>Alur Hari Ini</h2>
+<ol class="agenda"><li>Alur sinkronisasi</li><li>Kode sinkronisasi</li><li>Token dan penyimpanan aman</li><li>Jaringan seluler secara ringkas</li><li>Handover dan Mobile IP</li><li>Mendeteksi jenis koneksi</li><li>Ancaman komunikasi nirkabel</li><li>HTTPS dan timeout</li><li>Prinsip pengamanan aplikasi</li><li>Proyek Modul</li><li>Latihan dan Coba</li></ol>
+    </div></div><!--/split-->
   </section>
 
   <section class="slide">
@@ -155,6 +163,17 @@ type FetchFn = typeof fetch;
 
   <section class="slide">
     <!--split--><div class="split"><div class="main">
+    <p class="kicker">Ke Mana Sekarang</p>
+    <h2>Lokasi di Repositori</h2>
+<div class="grid2"><div class="card"><h3>Materi</h3><p>Penjelasan tertulis dan contoh:</p><p><code>reactnative/docs/hari-2/07-api-lanjutan-sinkronisasi.md</code></p></div><div class="card"><h3>Proyek contoh</h3><p><code>reactnative/proyek-modul/modul-7-sinkronisasi-offline-first</code></p><ul><li><code>src/services/sync.ts</code></li><li><code>src/data/catatanRepository.ts</code></li><li><code>src/services/secureStorage.ts</code></li></ul></div></div><pre><code>cd reactnative/proyek-modul/modul-7-sinkronisasi-offline-first
+npm install
+npx expo start
+npm test</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
     <p class="kicker">Proyek Modul 7 · 90 menit</p>
     <h2>Sinkronisasi Offline-First</h2>
 <p>Lengkapi aplikasi catatan agar bekerja tanpa internet. Catatan disimpan lokal dengan status PENDING, lalu dikirim ke server saat pengguna menekan Sinkronkan. Token disimpan dengan aman.</p><ul><li>Kolom <code>sync_status</code> (PENDING atau SYNCED) dan <code>server_id</code> pada tabel lokal.</li><li>Fungsi sinkronisasi: kirim PENDING (POST bila baru, PUT bila sudah punya <code>server_id</code>), tandai SYNCED, lalu ambil data baru dari server.</li><li>Satu kegagalan tidak menghentikan catatan lain; hasil dilaporkan (terkirim, diterima, gagal).</li><li>Token login disimpan di penyimpanan aman, bukan SQLite.</li><li>Alamat HTTP publik ditolak. HTTP hanya diizinkan ke alamat lokal untuk pengembangan.</li><li>Minimal 4 tes sinkronisasi dengan basis data tiruan dan API palsu.</li></ul>
@@ -171,6 +190,14 @@ type FetchFn = typeof fetch;
     </div></div><!--/split-->
     <p class="ref">Praktik: <a href="../docs/hands-on/hari-2.md">hands-on Hari 2, Step 5 sampai 7</a> · Materi: <a href="../docs/hari-2/07-api-lanjutan-sinkronisasi.md">docs/hari-2/07-api-lanjutan-sinkronisasi.md</a></p>
     <aside class="notes">Beri peserta waktu mengerjakan tugas ini sendiri sebelum diskusi. Keliling kelas, lihat siapa yang tersangkut, dan minta peserta yang sudah selesai menjelaskan caranya ke teman sebelahnya. Langkah rinci ada di panduan hands-on yang tertaut di bawah slide.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Ringkasan</p>
+    <h2>Setelah Modul Ini Anda Bisa</h2>
+<ul class="checks"><li>Menyelesaikan CRUD lewat API dengan token</li><li>Menyimpan token dengan aman</li><li>Menyinkronkan data lokal dengan server (offline-first)</li><li>Menjelaskan jaringan seluler dan ancaman komunikasi nirkabel</li></ul>
+    </div></div><!--/split-->
   </section>
 
 </div>

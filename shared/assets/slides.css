@@ -514,3 +514,12 @@ ul.check li::before { content: ""; position: absolute; left: 0; top: 0.28em; wid
 body.show-notes .slide.active aside.notes { display: block; position: absolute; left: 4rem; right: 4rem; bottom: 8rem; max-height: 46%; overflow: auto; z-index: 30; padding: 1.4rem 2.2rem; border-radius: 1.4rem; background: #080a22; border: 0.2rem solid rgba(128, 222, 234, 0.55); color: #fff; font-size: 1.85rem; line-height: 1.5; box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.5); }
 body.show-notes .slide.active aside.notes::before { content: "Narasi pengajar"; display: block; font-size: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase; color: #80deea; margin-bottom: 0.6rem; }
 .nav .notesbtn { background: linear-gradient(135deg, #6a1b9a, #ab47bc); }
+
+/* ---- Ringkas: label fakta, peta materi, dan daftar centang ---- */
+.chips { display: flex; flex-wrap: wrap; gap: 0.6em; margin: 0.4em 0 0.8em; }
+.chip { background: #eef0fb; color: #283593; border: 1px solid #c5cae9; border-radius: 999px; padding: 0.25em 0.9em; font-size: 1.7em; font-weight: 600; }
+.agenda li { font-size: 2.2em; margin: 0.35em 0; }
+.agenda li::marker { font-weight: 800; }
+.checks { list-style: none; padding-left: 0; }
+.checks li { position: relative; padding-left: 1.7em; }
+.checks li::before { content: "\2713"; position: absolute; left: 0; color: #2e7d32; font-weight: 800; }
