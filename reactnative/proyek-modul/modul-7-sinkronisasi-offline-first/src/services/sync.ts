@@ -1,37 +1,32 @@
-// Logika sinkronisasi murni: bergantung pada antarmuka, bukan pada SQLite atau jaringan nyata.
+// Sinkronisasi offline-first. Bergantung pada antarmuka agar bisa diuji dengan tiruan.
+import { BadanCatatan, CatatanServer } from './apiClient';
 import { Catatan } from '../models/catatan';
-import { CatatanServer, CatatanBaru } from './apiClient';
 
-/** Bagian penyimpanan lokal yang dibutuhkan sinkronisasi. */
-export type Penyimpanan = {
+export type PenyimpananCatatan = {
   catatanPending: () => Promise<Catatan[]>;
-  tandaiSynced: (id: number, serverId: number) => Promise<void>;
-  simpanDariServer: (c: Catatan) => Promise<void>;
+  tandaiSynced: (id: number, serverId: string) => Promise<void>;
+  simpanDariServer: (c: Catatan, serverId: string) => Promise<boolean>;
 };
 
-/** Bagian klien API yang dibutuhkan sinkronisasi. */
 export type ApiSinkron = {
-  buatCatatan: (token: string, c: CatatanBaru) => Promise<CatatanServer>;
-  ubahCatatan: (token: string, serverId: number, c: CatatanBaru) => Promise<CatatanServer>;
-  daftarCatatan: (token: string) => Promise<CatatanServer[]>;
+  buat: (badan: BadanCatatan) => Promise<CatatanServer>;
+  ubah: (id: string, badan: BadanCatatan) => Promise<CatatanServer>;
+  daftar: () => Promise<CatatanServer[]>;
 };
 
 export type HasilSinkron = { terkirim: number; diterima: number; gagal: number };
 
 /**
- * Offline-first: kirim catatan PENDING (POST bila baru, PUT bila sudah punya serverId),
- * tandai SYNCED, lalu ambil catatan dari server. Kegagalan satu catatan tidak menghentikan yang lain.
+ * PENDING dikirim (POST bila baru, PUT bila punya serverId), lalu ditandai SYNCED,
+ * lalu daftar dari MockAPI diambil. Satu kegagalan tidak menghentikan yang lain.
  */
-export async function sinkronkan(db: Penyimpanan, api: ApiSinkron, token: string): Promise<HasilSinkron> {
+export async function sinkronkan(db: PenyimpananCatatan, api: ApiSinkron): Promise<HasilSinkron> {
   const hasil: HasilSinkron = { terkirim: 0, diterima: 0, gagal: 0 };
 
   for (const c of await db.catatanPending()) {
     try {
-      const kiriman = { title: c.title, content: c.content, latitude: c.latitude, longitude: c.longitude };
-      const di =
-        c.serverId !== null
-          ? await api.ubahCatatan(token, c.serverId, kiriman)
-          : await api.buatCatatan(token, kiriman);
+      const badan: BadanCatatan = { title: c.title, content: c.content, latitude: c.latitude, longitude: c.longitude };
+      const di = c.serverId !== null ? await api.ubah(c.serverId, badan) : await api.buat(badan);
       await db.tandaiSynced(c.id!, di.id);
       hasil.terkirim++;
     } catch {
@@ -39,17 +34,20 @@ export async function sinkronkan(db: Penyimpanan, api: ApiSinkron, token: string
     }
   }
 
-  for (const s of await api.daftarCatatan(token)) {
-    await db.simpanDariServer({
-      serverId: s.id,
-      title: s.title,
-      content: s.content,
-      latitude: s.latitude,
-      longitude: s.longitude,
-      updatedAt: s.updatedAt,
-      syncStatus: 'SYNCED',
-    });
-    hasil.diterima++;
+  for (const s of await api.daftar()) {
+    const baru = await db.simpanDariServer(
+      {
+        serverId: s.id,
+        title: s.title,
+        content: s.content,
+        latitude: s.latitude,
+        longitude: s.longitude,
+        updatedAt: Date.now(),
+        syncStatus: 'SYNCED',
+      },
+      s.id,
+    );
+    if (baru) hasil.diterima++;
   }
   return hasil;
 }

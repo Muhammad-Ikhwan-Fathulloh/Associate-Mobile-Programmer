@@ -10,7 +10,7 @@ type Baris = {
   longitude: number | null;
   updated_at: number;
   sync_status: 'PENDING' | 'SYNCED';
-  server_id: number | null;
+  server_id: string | null;
 };
 
 const dariBaris = (b: Baris): Catatan => ({
@@ -35,20 +35,7 @@ export async function tambahCatatan(title: string, content: string): Promise<voi
   const db = await getDb();
   await db.runAsync(
     "INSERT INTO notes (title, content, updated_at, sync_status) VALUES (?, ?, ?, 'PENDING')",
-    title.trim(),
-    content,
-    Date.now(),
-  );
-}
-
-export async function ubahCatatan(id: number, title: string, content: string): Promise<void> {
-  const db = await getDb();
-  await db.runAsync(
-    "UPDATE notes SET title = ?, content = ?, updated_at = ?, sync_status = 'PENDING' WHERE id = ?",
-    title.trim(),
-    content,
-    Date.now(),
-    id,
+    [title.trim(), content, Date.now()],
   );
 }
 
@@ -58,34 +45,25 @@ export async function catatanPending(): Promise<Catatan[]> {
   return baris.map(dariBaris);
 }
 
-export async function tandaiSynced(id: number, serverId: number): Promise<void> {
+export async function tandaiSynced(id: number, serverId: string): Promise<void> {
   const db = await getDb();
-  await db.runAsync("UPDATE notes SET sync_status = 'SYNCED', server_id = ? WHERE id = ?", serverId, id);
+  await db.runAsync("UPDATE notes SET sync_status = 'SYNCED', server_id = ? WHERE id = ?", [serverId, id]);
 }
 
-/** Memperbarui catatan yang sudah dikenal (berdasarkan server_id) atau menyimpan yang baru. */
-export async function simpanDariServer(c: Catatan): Promise<void> {
+/** Memperbarui catatan yang sudah dikenal (berdasarkan server_id), atau menyimpan yang baru. */
+export async function simpanDariServer(c: Catatan, serverId: string): Promise<boolean> {
   const db = await getDb();
-  const ada = await db.getFirstAsync<{ id: number }>('SELECT id FROM notes WHERE server_id = ?', c.serverId);
+  const ada = await db.getFirstAsync<{ id: number }>('SELECT id FROM notes WHERE server_id = ?', [serverId]);
   if (ada) {
     await db.runAsync(
       "UPDATE notes SET title = ?, content = ?, latitude = ?, longitude = ?, updated_at = ?, sync_status = 'SYNCED' WHERE id = ?",
-      c.title,
-      c.content,
-      c.latitude,
-      c.longitude,
-      c.updatedAt,
-      ada.id,
+      [c.title, c.content, c.latitude, c.longitude, c.updatedAt, ada.id],
     );
-  } else {
-    await db.runAsync(
-      "INSERT INTO notes (title, content, latitude, longitude, updated_at, sync_status, server_id) VALUES (?, ?, ?, ?, ?, 'SYNCED', ?)",
-      c.title,
-      c.content,
-      c.latitude,
-      c.longitude,
-      c.updatedAt,
-      c.serverId,
-    );
+    return false;
   }
+  await db.runAsync(
+    "INSERT INTO notes (title, content, latitude, longitude, updated_at, sync_status, server_id) VALUES (?, ?, ?, ?, ?, 'SYNCED', ?)",
+    [c.title, c.content, c.latitude, c.longitude, c.updatedAt, serverId],
+  );
+  return true;
 }

@@ -64,3 +64,6 @@ Untuk fitur API, jalankan server latihan: `cd ../../shared/server && npm install
 | Tes milik Anda | `test/proyek_config_test.dart` (tes `skip`) |
 
 Aturan fitur kreatif: memakai minimal dua materi, punya penanganan kasus gagal, dan satu tes. Ide ada di `ProyekConfig.ideKreatif`.
+
+
+Panduan menjalankan di HP dan emulator Android Studio: [shared/docs/menjalankan-proyek.md](../../shared/docs/menjalankan-proyek.md).

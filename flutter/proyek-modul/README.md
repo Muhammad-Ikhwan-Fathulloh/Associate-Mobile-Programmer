@@ -37,3 +37,6 @@ flutter analyze
 `flutter create .` hanya sekali agar folder platform dibuat. Kode di `lib/` dan `test/` tidak berubah. Ganti nama proyek sesuai README masing-masing folder.
 
 Untuk proyek akhir, mulai dari [capstone-base](../capstone-base/README.md).
+
+
+Panduan menjalankan di HP dan emulator Android Studio: [shared/docs/menjalankan-proyek.md](../../shared/docs/menjalankan-proyek.md).

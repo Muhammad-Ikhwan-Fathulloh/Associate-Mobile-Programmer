@@ -69,3 +69,6 @@ Lihat daftar `IDE_KREATIF` di `src/proyek.config.ts`. Aturan: fitur harus memaka
 - Emulator Android menjangkau komputer lewat `10.0.2.2`. Ponsel fisik memakai IP komputer di Wi-Fi yang sama.
 - HTTP publik ditolak oleh `periksaUrlAman`. HTTP hanya diizinkan ke alamat lokal untuk pengembangan.
 - Jangan menaruh kunci rahasia di kode atau repositori.
+
+
+Panduan menjalankan di HP dan emulator Android Studio: [shared/docs/menjalankan-proyek.md](../../shared/docs/menjalankan-proyek.md).

@@ -36,3 +36,6 @@ npm run typecheck
 ```
 
 Semua modul sudah diuji dengan `npm run typecheck` dan `npm test`. Tes tidak memerlukan emulator.
+
+
+Panduan menjalankan di HP dan emulator Android Studio: [shared/docs/menjalankan-proyek.md](../../shared/docs/menjalankan-proyek.md).

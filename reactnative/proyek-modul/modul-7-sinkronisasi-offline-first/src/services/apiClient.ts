@@ -1,43 +1,35 @@
 import { OpsiRequest, requestJson } from './httpsService';
 
+/** Bentuk data dari resource "notes" di MockAPI. `id` berupa string. */
 export type CatatanServer = {
-  id: number;
+  id: string;
   title: string;
   content: string;
   latitude: number | null;
   longitude: number | null;
-  updatedAt: number;
+  createdAt?: string;
 };
 
-export type CatatanBaru = {
-  title: string;
-  content: string;
-  latitude: number | null;
-  longitude: number | null;
-};
+export type BadanCatatan = Pick<CatatanServer, 'title' | 'content' | 'latitude' | 'longitude'>;
 
-type OpsiKlien = Pick<OpsiRequest, 'fetchFn' | 'izinkanLokal' | 'batasMs'>;
+type OpsiKlien = Pick<OpsiRequest, 'fetchFn' | 'batasMs'>;
 
-/** Klien API catatan. Token dikirim sebagai argumen, tidak disimpan di sini. */
+/** Klien CRUD untuk resource MockAPI. Hanya HTTPS yang diterima. */
 export function buatApiClient(baseUrl: string, opsi: OpsiKlien = {}) {
-  const alamat = (path: string) => baseUrl.replace(/\/+$/, '') + path;
-  const dasar = { izinkanLokal: true, ...opsi };
+  const alamat = baseUrl.trim().replace(/\/+$/, '');
 
   return {
-    async login(email: string, password: string): Promise<string> {
-      const r = (await requestJson('POST', alamat('/login'), { ...dasar, body: { email, password } })) as {
-        token: string;
-      };
-      return r.token;
+    daftar(): Promise<CatatanServer[]> {
+      return requestJson('GET', alamat, opsi) as Promise<CatatanServer[]>;
     },
-    async daftarCatatan(token: string): Promise<CatatanServer[]> {
-      return (await requestJson('GET', alamat('/notes'), { ...dasar, token })) as CatatanServer[];
+    buat(badan: BadanCatatan): Promise<CatatanServer> {
+      return requestJson('POST', alamat, { ...opsi, body: badan }) as Promise<CatatanServer>;
     },
-    async buatCatatan(token: string, c: CatatanBaru): Promise<CatatanServer> {
-      return (await requestJson('POST', alamat('/notes'), { ...dasar, token, body: c })) as CatatanServer;
+    ubah(id: string, badan: BadanCatatan): Promise<CatatanServer> {
+      return requestJson('PUT', `${alamat}/${encodeURIComponent(id)}`, { ...opsi, body: badan }) as Promise<CatatanServer>;
     },
-    async ubahCatatan(token: string, serverId: number, c: CatatanBaru): Promise<CatatanServer> {
-      return (await requestJson('PUT', alamat(`/notes/${serverId}`), { ...dasar, token, body: c })) as CatatanServer;
+    hapus(id: string): Promise<CatatanServer | null> {
+      return requestJson('DELETE', `${alamat}/${encodeURIComponent(id)}`, opsi) as Promise<CatatanServer | null>;
     },
   };
 }
