@@ -43,17 +43,31 @@ Setujui semua lisensi dengan `y`. Pada hasil `flutter doctor`, baris **Android t
 
 ## 2. Buat emulator (AVD)
 
-1. Buka **More Actions > Virtual Device Manager**.
-2. Klik **Create Virtual Device**, pilih ponsel (misalnya Pixel 7), lalu **Next**.
-3. Pilih image sistem **API 34 atau 35** dengan ABI **x86_64**. Klik **Download** bila belum ada, lalu **Next** dan **Finish**.
-4. Klik ikon **Play** di baris perangkat, dan tunggu layar beranda Android tampil.
+1. Buka **More Actions > Virtual Device Manager**. Daftar masih kosong, klik **Add a new device**.
 
-Emulator bisa dinyalakan dari Android Studio atau dari terminal:
+   ![Device Manager kosong](../../images/setup-emulator/step1.png)
 
-```powershell
-flutter emulators
-flutter emulators --launch <id-emulator>
-```
+2. Pada **Add Device**, pilih **Phone**, lalu pilih **Pixel 7** dan klik **Next**.
+
+   ![Pilih Pixel 7 di Add Device](../../images/setup-emulator/step2.png)
+
+3. Pilih system image **API 35** dengan ABI **x86_64** (Google Play Intel x86_64). Image ini sekitar 1,6 GB. Klik **Download** bila belum ada, lalu **Next** dan **Finish**.
+
+   ![Pilih system image API 35](../../images/setup-emulator/step3.png)
+
+4. Tunggu unduhan selesai. Android Studio mengunduh image ke folder SDK.
+
+   ![Unduhan image sedang berjalan](../../images/setup-emulator/step4.png)
+
+5. Setelah pemasangan selesai, klik **Finish**.
+
+   ![Pemasangan image selesai](../../images/setup-emulator/step5.png)
+
+6. Pixel 7 tampil di daftar dengan tipe **Virtual**. Klik ikon **Play** untuk menyalakan emulator, dan tunggu layar beranda Android tampil.
+
+   ![Pixel 7 siap dipakai](../../images/setup-emulator/step6.png)
+
+Panduan dalam bentuk slide: [slides/setup-emulator.html](../slides/setup-emulator.html).
 
 Pada Windows, virtualisasi harus aktif di BIOS (Intel VT-x atau AMD-V) dan fitur Hypervisor Platform di Windows Features.
 
@@ -96,7 +110,54 @@ flutter test
 flutter run
 ```
 
-## 6. Jalankan di web
+## 6. Hubungkan HP Android (real device)
+
+Pakai HP fisik untuk fitur yang tidak ada di emulator, misalnya sensor (modul 6), GPS yang sebenarnya (modul 4 dan capstone), dan jaringan seluler.
+
+### Lewat kabel USB
+
+1. Di HP, buka **Settings > About phone**, lalu ketuk **Build number** tujuh kali.
+2. Buka **Settings > Developer options**, lalu aktifkan **USB debugging**.
+3. Sambungkan HP ke laptop dengan kabel data. Pilih mode **File transfer** atau **Transfer files** jika HP menanyakannya.
+4. Setujui dialog **Allow USB debugging** di HP. Centang **Always allow from this computer** agar tidak ditanya lagi.
+5. Di terminal, cek bahwa HP terdeteksi:
+
+```powershell
+flutter devices
+```
+
+HP harus tampil dengan nama modelnya. Jika belum muncul, pasang USB driver dari merek HP (misalnya Samsung USB Driver), lalu cabut dan sambungkan ulang kabel.
+
+### Lewat Wi-Fi (Android 11 ke atas)
+
+1. HP dan laptop harus memakai Wi-Fi yang sama.
+2. Di HP, buka **Developer options > Wireless debugging**, lalu aktifkan.
+3. Ketuk **Pair device with pairing code**. Catat alamat IP:port dan kode pairing yang tampil.
+4. Di terminal, pasangkan HP. Ganti `IP:PORT` dan `KODE` sesuai layar HP:
+
+```powershell
+adb pair IP:PORT
+adb connect IP:PORT
+```
+
+5. Cek lagi dengan `flutter devices`. Port untuk `adb connect` berbeda dengan port pairing, jadi pakai port yang tertera di layar **Wireless debugging** utama.
+
+### Jalankan ke HP
+
+Di folder proyek, jalankan:
+
+```powershell
+flutter run
+```
+
+Jika ada lebih dari satu perangkat, pilih dengan `flutter run -d <id>`. ID diambil dari hasil `flutter devices`.
+
+Catatan:
+- HP perlu internet untuk proyek yang memakai MockAPI (modul 5 dan 7, serta capstone-contoh).
+- Izin lokasi dan internet harus diberikan saat aplikasi pertama dijalankan.
+- Jika muncul galat `INSTALL_FAILED_USER_RESTRICTED`, aktifkan **Install via USB** di Developer options.
+
+## 7. Jalankan di web
 
 Flutter bisa menjalankan aplikasi di browser, tanpa emulator. Chrome harus terpasang.
 

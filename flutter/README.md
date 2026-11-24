@@ -74,6 +74,7 @@ Cara menjalankan aplikasi: lihat langkah 1 pada `docs/hands-on/hari-1.md`.
 
 Buka `index.html` atau `slides/index.html` di peramban. Tidak perlu server atau internet.
 
+- Slide setup emulator Android Studio (6 langkah bergambar): [slides/setup-emulator.html](slides/setup-emulator.html).
 - Panah kiri dan kanan atau spasi: pindah slide.
 - Tombol **Simulasi** atau tombol `S`: membuka simulasi interaktif pada slide yang memilikinya (17 simulasi, misalnya Haversine, validasi URL, TLS, dan counter). `Esc` menutup panel.
 - Tombol panah atas dan bawah mengganti tampilan slide (isi, gambar, tata cara). Tombol `F` membuka layar penuh. Ukuran huruf besar dan menyesuaikan layar proyektor.

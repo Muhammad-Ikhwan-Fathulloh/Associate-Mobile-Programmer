@@ -138,6 +138,7 @@ html, body {
 
 .fig { flex: 1; display: flex; flex-direction: column; margin: 0; }
 .fig svg { flex: 1; min-height: 0; width: 100%; height: 100%; }
+.fig img { flex: 1; min-height: 0; width: 100%; height: 100%; object-fit: contain; border-radius: 1rem; }
 .fig figcaption { flex: none; text-align: center; font-size: 1.7rem; font-weight: 600; color: var(--muted); padding-top: 0.6rem; }
 
 .steps { flex: 1; display: flex; flex-direction: column; }
