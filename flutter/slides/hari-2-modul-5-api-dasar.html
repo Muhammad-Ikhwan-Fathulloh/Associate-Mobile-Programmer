@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 5: API dan Menghubungkan Aplikasi Mobile</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="dart">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 2 · 09.00 to 10.00 · Flutter</p>
+    <h1>Modul 5: API dan Menghubungkan Aplikasi</h1>
+    <div class="chips"><span class="chip">Hari 2</span><span class="chip">09.00 to 10.00</span><span class="chip">Unit J.612000.025.01</span></div>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Menjelaskan apa itu API dan cara kerja permintaan dan jawaban.</li>
+      <li>Memakai metode HTTP dan membaca kode status.</li>
+      <li>Menjalankan server latihan dan memanggilnya dari Flutter.</li>
+      <li>Memisahkan klien API dari tampilan.</li>
+      <li>Menangani kegagalan dengan pesan yang ramah.</li>
+    </ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-2/05-api-dasar.md">docs/hari-2/05-api-dasar.md</a> · Sejajar dengan jalur React Native</p>
+  </section>
+
+<!--bnsp-peta-start-->
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.025.01</h2>
+<h3>Mobile Cellular Network</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menjelaskan mobile cellular network</li><li>Mengidentifikasi protokol dan fitur</li><li>Menjelaskan arsitektur GSM</li><li>Menjelaskan mobile phone network</li><li>Menjelaskan proses pada konsep mobile IP</li></ol><p><strong>Bukti pada pelatihan ini:</strong> Tabel generasi, diagram GSM, penjelasan handover dan mobile IP, <code>connectivity_plus</code></p>
+    </div></div><!--/split-->
+  </section>
+<!--bnsp-peta-end-->
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Peta Materi</p>
+    <h2>Alur Hari Ini</h2>
+    <ol class="agenda">
+      <li>Apa itu API</li>
+      <li>Metode dan kode status</li>
+      <li>Server latihan</li>
+      <li>Memanggil API dengan http</li>
+      <li>Klien API</li>
+      <li>Menangani kegagalan</li>
+      <li>Proyek Modul dan Latihan</li>
+    </ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Apa Itu API</h2>
+    <ul>
+      <li>API adalah kontrak: alamat (<code>/notes</code>), metode (<code>GET</code>, <code>POST</code>), dan format data (JSON).</li>
+      <li>Aplikasi mengirim <strong>permintaan</strong>, server mengirim <strong>jawaban</strong> dengan kode status.</li>
+      <li>Tampilan tidak perlu tahu detail jaringan. Tugas itu ada di lapisan klien API.</li>
+    </ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Metode dan Kode Status</h2>
+    <table>
+      <tr><th>Kode</th><th>Arti</th><th>Yang ditampilkan ke pengguna</th></tr>
+      <tr><td>200 / 201</td><td>Berhasil</td><td>Data baru tampil</td></tr>
+      <tr><td>204</td><td>Berhasil tanpa isi</td><td>Tidak ada JSON yang dibaca</td></tr>
+      <tr><td>400</td><td>Data tidak valid</td><td>Pesan dari server</td></tr>
+      <tr><td>401</td><td>Belum login atau token salah</td><td>Pesan dari server</td></tr>
+      <tr><td>500</td><td>Server bermasalah</td><td>Pesan umum, coba lagi</td></tr>
+    </table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik</p>
+    <h2>Server Latihan</h2>
+    <ul>
+      <li>Jalankan <code>npm start</code> di <code>shared/server</code>, lalu server ada di <code>localhost:3000</code>.</li>
+      <li>Akun latihan: <code>peserta@contoh.id</code> dengan kata sandi <code>rahasia123</code>.</li>
+      <li>Emulator Android memanggil komputer lewat <code>10.0.2.2</code>. Ponsel fisik memakai IP komputer.</li>
+    </ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode</p>
+    <h2>Klien API di lib/services</h2>
+    <p>Tampilan hanya memanggil metode seperti <code>login</code> atau <code>daftarCatatan</code>.</p>
+    </div>
+    <div class="extra">
+      <div class="steps"><h3>api_client.dart (ringkasan)</h3>
+<pre><code>class ApiClient {
+  ApiClient(this.baseUrl, {http.Client? client})
+      : _client = client ?? http.Client();
+
+  Future&lt;String&gt; login(String email, String password) async {
+    final r = await _kirim('POST', '/login',
+        body: {'email': email, 'password': password});
+    return (r as Map)['token'] as String;
+  }
+
+  Future&lt;List&lt;dynamic&gt;&gt; daftarCatatan(String token) async =>
+      (await _kirim('GET', '/notes', token: token)) as List&lt;dynamic&gt;;
+}</code></pre></div>
+    </div></div><!--/split-->
+    <p class="ref">Berkas: <code>lib/services/api_client.dart</code> · Materi: <a href="../docs/hari-2/05-api-dasar.md">bagian 5</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Menangani Kegagalan</h2>
+    <ul>
+      <li><code>ApiException</code> membawa kode status dan pesan dari server. Tampilkan pesannya.</li>
+      <li>Status 204 tidak punya isi. Jangan memanggil <code>jsonDecode</code> pada badan kosong.</li>
+      <li>Pasang batas waktu di setiap permintaan agar aplikasi tidak menunggu tanpa akhir.</li>
+      <li>HTTP ke alamat publik ditolak. HTTP hanya untuk alamat lokal saat pengembangan.</li>
+    </ul>
+    </div></div><!--/split-->
+    <p class="ref">Jaringan seluler sebagai latar belakang: <a href="../docs/hari-2/05-mobile-cellular-network.md">Mobile Cellular Network</a></p>
+  </section>
+
+<!--bnsp-start-->
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Arsitektur GSM</h2>
+<table><tr><th>Komponen</th><th>Peran</th></tr><tr><td>MS</td><td>Perangkat dan kartu SIM</td></tr><tr><td>BTS</td><td>Menara radio</td></tr><tr><td>BSC</td><td>Mengatur banyak BTS dan handover</td></tr><tr><td>MSC</td><td>Pusat penyambungan panggilan</td></tr><tr><td>HLR</td><td>Data pelanggan tetap</td></tr><tr><td>VLR</td><td>Data sementara pelanggan tamu</td></tr><tr><td>AuC dan EIR</td><td>Kunci autentikasi dan identitas perangkat</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Mobile IP: Istilah</h2>
+<table><tr><th>Istilah</th><th>Arti</th></tr><tr><td>Mobile Node</td><td>Perangkat yang berpindah jaringan</td></tr><tr><td>Home Address</td><td>Alamat IP tetap di jaringan asal</td></tr><tr><td>Home Agent</td><td>Router jaringan asal</td></tr><tr><td>Foreign Agent</td><td>Router jaringan tamu</td></tr><tr><td>Care-of Address</td><td>Alamat sementara di jaringan tamu</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Mobile IP: Proses</h2>
+<ol><li>Penemuan agen: perangkat tahu sedang di jaringan tamu</li><li>Registrasi care-of address ke Home Agent</li><li>Tunneling: paket ke home address diteruskan ke care-of address</li><li>Pengiriman: paket dibuka dan diterima perangkat</li></ol>
+    </div></div><!--/split-->
+  </section>
+<!--bnsp-end-->
+
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Membaca jenis koneksi aktif</li><li>Memantau perubahan koneksi secara langsung</li><li>Menampilkan peringatan saat offline atau seluler</li></ul><p><strong>Hasil akhir:</strong> Halaman yang berubah otomatis saat Wi-Fi atau data seluler dimatikan. <strong>Waktu:</strong> 30 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>flutter create latihan_jaringan
+cd latihan_jaringan
+flutter pub add connectivity_plus</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Langkah 1 dari 3</p>
+    <h2>Izin Status Jaringan</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>android/app/src/main/AndroidManifest.xml</span></div><ol class="mini"><li>Buka <code>AndroidManifest.xml</code>.</li><li>Tambahkan dua izin sebelum <code>&lt;application&gt;</code>.</li><li>Simpan.</li></ol><pre><code>&lt;uses-permission android:name="android.permission.INTERNET" /&gt;
+&lt;uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /&gt;</code></pre><div class="hasil"><b>Hasil yang benar</b> Aplikasi diizinkan membaca status jaringan.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Langkah 2 dari 3</p>
+    <h2>Cek Koneksi Sekali</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan aplikasi.</li><li>Tekan tombol Periksa.</li></ol><pre><code>import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/material.dart';
+
+String label(List&lt;ConnectivityResult&gt; hasil) {
+  if (hasil.isEmpty || hasil.contains(ConnectivityResult.none)) {
+    return 'Tidak ada koneksi';
+  }
+  if (hasil.contains(ConnectivityResult.wifi)) return 'Wi-Fi';
+  if (hasil.contains(ConnectivityResult.mobile)) return 'Seluler';
+  return 'Lainnya';
+}
+
+void main() =&gt; runApp(const MaterialApp(home: JaringanPage()));
+
+class JaringanPage extends StatefulWidget {
+  const JaringanPage({super.key});
+
+  @override
+  State&lt;JaringanPage&gt; createState() =&gt; _JaringanPageState();
+}
+
+class _JaringanPageState extends State&lt;JaringanPage&gt; {
+  String _teks = 'Tekan Periksa';
+
+  Future&lt;void&gt; _periksa() async {
+    final hasil = await Connectivity().checkConnectivity();
+    setState(() =&gt; _teks = label(hasil));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Jaringan')),
+      body: Center(
+        child: Text(_teks, style: Theme.of(context).textTheme.headlineMedium),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _periksa,
+        label: const Text('Periksa'),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Teks menampilkan Wi-Fi, Seluler, atau Tidak ada koneksi sesuai kondisi saat ditekan.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Langkah 3 dari 3</p>
+    <h2>Pantau Perubahan (Stream)</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/main.dart (ganti kelas _JaringanPageState)</span></div><ol class="mini"><li>Tambahkan <code>import 'dart:async';</code> di baris paling atas.</li><li>Ganti <code>_JaringanPageState</code> dengan kode di bawah.</li><li>Matikan lalu nyalakan Wi-Fi atau mode pesawat, amati teks.</li></ol><pre><code>class _JaringanPageState extends State&lt;JaringanPage&gt; {
+  List&lt;ConnectivityResult&gt; _hasil = [];
+  StreamSubscription&lt;List&lt;ConnectivityResult&gt;&gt;? _langganan;
+
+  @override
+  void initState() {
+    super.initState();
+    Connectivity().checkConnectivity().then((h) {
+      if (mounted) setState(() =&gt; _hasil = h);
+    });
+    _langganan = Connectivity().onConnectivityChanged.listen((h) {
+      setState(() =&gt; _hasil = h);
+    });
+  }
+
+  @override
+  void dispose() {
+    _langganan?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Jaringan')),
+      body: Center(
+        child: Text(
+          label(_hasil),
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Teks berubah sendiri tanpa tombol. <code>dispose</code> membatalkan langganan agar tidak bocor.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tampilkan kartu peringatan bila koneksi seluler: unduhan besar sebaiknya menunggu Wi-Fi.</li><li>Tampilkan kartu informasi bila tidak ada koneksi: data tersimpan tetap dapat dibuka.</li><li>Tambahkan label Ethernet dan VPN pada fungsi <code>label</code>.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Label berubah saat Wi-Fi dimatikan</li><li>Langganan stream dibatalkan di <code>dispose</code></li><li>Kondisi offline ditangani dengan pesan ramah</li><li>Peserta tahu bahwa 2G sampai 5G tidak dapat dibaca lewat paket ini</li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 5 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Label tidak berubah di emulator</td><td>Ubah koneksi lewat Quick Settings emulator, bukan lewat PC.</td></tr><tr><td><code>setState() called after dispose()</code></td><td>Batalkan langganan di <code>dispose</code> dan periksa <code>mounted</code>.</td></tr><tr><td>Hasil berupa daftar, bukan satu nilai</td><td>connectivity_plus versi 6 mengembalikan <code>List&lt;ConnectivityResult&gt;</code>.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan</p>
+    <h2>Latihan Modul 5</h2>
+    <ol>
+      <li>Login dengan kata sandi salah. Pastikan pesan 401 tampil di aplikasi.</li>
+      <li>Buat catatan dengan judul kosong. Pastikan pesan 400 tampil.</li>
+      <li>Matikan server, lalu tekan tombol. Pastikan aplikasi tidak macet.</li>
+    </ol>
+    </div></div><!--/split-->
+    <p class="ref">Proyek: <a href="../../shared/docs/proyek/modul-5-klien-api-catatan.md">Klien API Catatan</a> · Peta BNSP: J.612000.025.01</p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>

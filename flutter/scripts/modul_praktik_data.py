@@ -121,7 +121,7 @@ class _HalamanCounterState extends State<HalamanCounter> {
 
 # ------------------------------------------------------------------ MODUL 2
 M[2] = dict(
-    file="hari-1-modul-2-mobile-interface.html",
+    file="hari-1-modul-2-figma-stitch-dan-gaya.html",
     waktu="45 menit",
     tujuan=["Menerapkan tema Material 3", "Membuat daftar dan berpindah halaman", "Membuat form dengan validasi", "Membuat tata letak responsif"],
     hasil_akhir="Tiga halaman latihan: daftar menu, form validasi, dan grid responsif.",
@@ -575,7 +575,7 @@ class _LokasiPageState extends State<LokasiPage> {
 
 # ------------------------------------------------------------------ MODUL 5
 M[5] = dict(
-    file="hari-2-modul-5-mobile-cellular-network.html",
+    file="hari-2-modul-5-api-dasar.html",
     waktu="30 menit",
     tujuan=["Membaca jenis koneksi aktif", "Memantau perubahan koneksi secara langsung", "Menampilkan peringatan saat offline atau seluler"],
     hasil_akhir="Halaman yang berubah otomatis saat Wi-Fi atau data seluler dimatikan.",
@@ -819,7 +819,7 @@ class InfoPage extends StatelessWidget {
 
 # ------------------------------------------------------------------ MODUL 7
 M[7] = dict(
-    file="hari-2-modul-7-keamanan-komunikasi-mobile.html",
+    file="hari-2-modul-7-api-lanjutan-sinkronisasi.html",
     waktu="45 menit",
     tujuan=["Memvalidasi URL agar hanya HTTPS", "Menyimpan token di secure storage", "Memanggil API publik dengan timeout"],
     hasil_akhir="Halaman keamanan: simpan token dan ambil data dari API lewat HTTPS.",

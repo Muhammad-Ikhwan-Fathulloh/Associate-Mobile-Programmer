@@ -48,7 +48,7 @@ MODUL = {
             ["PWA", "Tanpa toko aplikasi", "Akses perangkat terbatas"]])),
             ("Kriteria Memilih Platform", ol(["Siapa pengguna dan perangkat apa yang dipakai", "Fitur perangkat yang dibutuhkan: kamera, sensor, GPS", "Anggaran, waktu, dan keahlian tim", "Kebutuhan kinerja dan pemeliharaan jangka panjang"]))],
     ),
-    "hari-1-modul-2-mobile-interface.html": dict(
+    "hari-1-modul-2-figma-stitch-dan-gaya.html": dict(
         kode="J.612000.007.01", judul="Merancang Mobile Interface",
         elemen=["Menentukan alat perancangan antarmuka", "Memilih informasi yang ditampilkan per layar", "Membuat aksi dan desain estetis per layar"],
         bukti="Halaman beranda, daftar, form validasi, tema Material 3, grid responsif",
@@ -78,7 +78,7 @@ MODUL = {
             ["Cell-ID", "Menara terdekat", "Kasar, hemat baterai"], ["Gabungan", "Sistem memilih terbaik", "Seimbang"]])),
             ("Komponen Aplikasi Navigasi", ol(["Posisi pengguna (GPS atau sumber lain)", "Tujuan: koordinat atau alamat (geocoding)", "Rute dari layanan routing", "Panduan belok dan pembaruan posisi berkala (`getPositionStream`)", "Privasi: izin seperlunya dan persetujuan pengguna"]))],
     ),
-    "hari-2-modul-5-mobile-cellular-network.html": dict(
+    "hari-2-modul-5-api-dasar.html": dict(
         kode="J.612000.025.01", judul="Mobile Cellular Network",
         elemen=["Menjelaskan mobile cellular network", "Mengidentifikasi protokol dan fitur", "Menjelaskan arsitektur GSM", "Menjelaskan mobile phone network", "Menjelaskan proses pada konsep mobile IP"],
         bukti="Tabel generasi, diagram GSM, penjelasan handover dan mobile IP, `connectivity_plus`",
@@ -98,7 +98,7 @@ MODUL = {
                ("Protokol Sensor", table(["Lingkup", "Protokol"], [["Di dalam perangkat", "I2C, SPI"], ["Nirkabel jarak dekat", "Bluetooth Low Energy"], ["Jaringan sensor", "Zigbee"], ["Ke server", "HTTPS, MQTT"]])),
                ("Keamanan Sensor", table(["Risiko", "Perlindungan"], [["Privasi: mikrofon, kamera, lokasi", "Izin eksplisit dan tujuan jelas"], ["Data dikirim tanpa enkripsi", "HTTPS atau TLS"], ["Dibaca di latar belakang", "Pakai seperlunya, batalkan langganan"], ["Data palsu", "Validasi di server"]]))],
     ),
-    "hari-2-modul-7-keamanan-komunikasi-mobile.html": dict(
+    "hari-2-modul-7-api-lanjutan-sinkronisasi.html": dict(
         kode="J.612000.008.01", judul="Dasar-Dasar Mobile Communication Security",
         elemen=["Menjelaskan dasar keamanan komunikasi mobile", "Menjelaskan kerentanan wireless", "Menjelaskan tipe serangan pada lingkungan mobile", "Menjelaskan teknik perlindungan pada sistem mobile"],
         bukti="`https_service.dart`, `secure_storage_service.dart`, penjelasan serangan dan perlindungan",

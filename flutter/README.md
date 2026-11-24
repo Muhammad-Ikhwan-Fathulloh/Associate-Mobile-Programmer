@@ -30,7 +30,7 @@ Agenda terbaru ditambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giros
 | Waktu | Sesi | Materi |
 |---|---|---|
 | 09.00 to 10.00 | Instalasi platform, emulator, environment | [Modul 1](docs/hari-1/01-platform-dan-bahasa.md), [instalasi Dart dan Flutter](docs/instalasi-dart-flutter.md) |
-| 10.00 to 12.00 | Figma, Stitch, gaya, implementasi dengan AI | [Panduan desain](../shared/docs/design-figma-stitch.md), [Modul 2](docs/hari-1/02-mobile-interface.md), [tambahan](docs/hands-on/tambahan-agenda-baru.md) |
+| 10.00 to 12.00 | Figma, Stitch, gaya, implementasi dengan AI | [Panduan desain](../shared/docs/design-figma-stitch.md), [Modul 2](docs/hari-1/02-figma-stitch-dan-gaya.md), [Mobile Interface](docs/hari-1/02-mobile-interface.md) |
 | 12.00 to 13.00 | Istirahat | |
 | 13.00 to 15.00 | SQLite dan MySQL | [Modul 3](docs/hari-1/03-database-persistence.md), [SQLite, MySQL, API](../shared/docs/sqlite-mysql-api.md) |
 | 15.00 to 17.00 | GPS dan simpan ke SQLite | [Modul 4](docs/hari-1/04-lokasi-gps-navigasi.md) |
@@ -39,10 +39,10 @@ Agenda terbaru ditambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giros
 
 | Waktu | Sesi | Materi |
 |---|---|---|
-| 09.00 to 10.00 | API dan konek ke aplikasi | [SQLite, MySQL, API](../shared/docs/sqlite-mysql-api.md), [tambahan](docs/hands-on/tambahan-agenda-baru.md) |
-| 10.00 to 12.00 | Sensor | [Modul 6](docs/hari-2/06-mobile-sensor-spesifikasi.md), [tambahan (giroskop)](docs/hands-on/tambahan-agenda-baru.md) |
+| 09.00 to 10.00 | API dan konek ke aplikasi mobile | [Modul 5](docs/hari-2/05-api-dasar.md), [SQLite, MySQL, API](../shared/docs/sqlite-mysql-api.md), [tambahan](docs/hands-on/tambahan-agenda-baru.md) |
+| 10.00 to 12.00 | Sensor akselerometer, giroskop, dan lainnya | [Modul 6](docs/hari-2/06-mobile-sensor-spesifikasi.md), [tambahan (giroskop)](docs/hands-on/tambahan-agenda-baru.md) |
 | 12.00 to 13.00 | Istirahat | |
-| 13.00 to 15.00 | Lanjutan API dan sinkronisasi | [tambahan](docs/hands-on/tambahan-agenda-baru.md), [Modul 5 (jaringan seluler)](docs/hari-2/05-mobile-cellular-network.md), [Modul 7 (keamanan)](docs/hari-2/07-keamanan-komunikasi-mobile.md) |
+| 13.00 to 15.00 | Lanjutan API dan konek apps ke API | [Modul 7](docs/hari-2/07-api-lanjutan-sinkronisasi.md), [tambahan](docs/hands-on/tambahan-agenda-baru.md), [jaringan seluler](docs/hari-2/05-mobile-cellular-network.md), [keamanan](docs/hari-2/07-keamanan-komunikasi-mobile.md) |
 | 15.00 to 17.00 | Latihan dan persiapan uji | [Modul 8](docs/hari-2/08-latihan-uji-kompetensi.md) |
 
 Jadwal mengikuti silabus resmi penyelenggara.
@@ -95,6 +95,7 @@ associate-mobile-programmer-flutter/
 │   │   └── hari-2.md
 │   ├── hari-1/
 │   │   ├── 01-platform-dan-bahasa.md
+│   │   ├── 02-figma-stitch-dan-gaya.md
 │   │   ├── 02-mobile-interface.md
 │   │   ├── 03-database-persistence.md
 │   │   └── 04-lokasi-gps-navigasi.md

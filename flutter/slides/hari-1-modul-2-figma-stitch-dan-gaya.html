@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modul 2: Desain dengan Figma dan Stitch, Gaya, dan Implementasi dengan AI</title>
+  <link rel="stylesheet" href="../../shared/assets/slides.css">
+</head>
+<body data-lang="dart">
+<div class="deck">
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Hari 1 · 10.00 to 12.00 · Flutter</p>
+    <h1>Modul 2: Figma, Stitch, dan Gaya</h1>
+    <div class="chips"><span class="chip">Hari 1</span><span class="chip">10.00 to 12.00</span><span class="chip">Unit J.612000.007.01</span></div>
+    <h2>Tujuan Pembelajaran</h2>
+    <ol>
+      <li>Merancang layar di Figma dengan Auto Layout dan variable.</li>
+      <li>Memakai Google Stitch untuk membuat rancangan awal dari prompt.</li>
+      <li>Membandingkan beberapa gaya desain.</li>
+      <li>Mengubah token desain menjadi <code>lib/theme/tema.dart</code>.</li>
+      <li>Meminta AI menerapkan gaya ke aplikasi dan meninjau hasilnya.</li>
+    </ol>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-1/02-figma-stitch-dan-gaya.md">docs/hari-1/02-figma-stitch-dan-gaya.md</a> · Sejajar dengan jalur React Native</p>
+  </section>
+
+<!--bnsp-peta-start-->
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Sertifikasi BNSP</p>
+    <h2>Peta Kompetensi: J.612000.007.01</h2>
+<h3>Merancang Mobile Interface</h3><p><strong>Elemen yang dinilai:</strong></p><ol><li>Menentukan alat perancangan antarmuka</li><li>Memilih informasi yang ditampilkan per layar</li><li>Membuat aksi dan desain estetis per layar</li></ol><p><strong>Bukti pada pelatihan ini:</strong> Halaman beranda, daftar, form validasi, tema Material 3, grid responsif</p>
+    </div></div><!--/split-->
+  </section>
+<!--bnsp-peta-end-->
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Peta Materi</p>
+    <h2>Alur Hari Ini</h2>
+    <ol class="agenda">
+      <li>Alur dari ide ke aplikasi</li>
+      <li>Google Stitch</li>
+      <li>Figma untuk pengembang</li>
+      <li>Beberapa gaya desain</li>
+      <li>Token menjadi tema.dart</li>
+      <li>Token diterapkan di widget</li>
+      <li>Prompt AI untuk menerapkan gaya</li>
+      <li>Proyek Modul dan Latihan</li>
+    </ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Alur dari Ide ke Aplikasi</h2>
+    <ul>
+      <li>Mulai dari kebutuhan pengguna dan daftar layar, bukan dari warna.</li>
+      <li><strong>Google Stitch</strong> membuat rancangan awal dari prompt.</li>
+      <li><strong>Figma</strong> merapikan rancangan dengan Auto Layout dan variable.</li>
+      <li>Variable menjadi <strong>token</strong> di <code>tema.dart</code>.</li>
+      <li>AI menerapkan gaya, manusia meninjau hasilnya.</li>
+    </ul>
+    </div></div><!--/split-->
+    <p class="ref">Berkas contoh: https://www.figma.com/design/grYqOsULGfzYsDrtIjmjRL</p>
+    <aside class="notes">Gambarkan jalurnya di papan tulis: kebutuhan, prompt di Stitch, rapikan di Figma, variable menjadi token, token menjadi tema.dart, AI menerapkan, manusia meninjau.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Google Stitch</h2>
+    <ul>
+      <li>Alat dari Google Labs: teks atau gambar menjadi rancangan antarmuka.</li>
+      <li>Perbaiki rancangan dengan chat, lalu ekspor ke Figma sebagai layer yang bisa diedit.</li>
+      <li>Hasil Stitch adalah <strong>titik awal</strong>. Rapikan struktur dan token sebelum menjadi kode.</li>
+      <li>Fitur dan menu Stitch cepat berubah. Cek tampilan terbaru sebelum sesi.</li>
+    </ul>
+    </div></div><!--/split-->
+    <aside class="notes">Tunjukkan Stitch secara langsung bila ada akses. Tulis prompt yang menyebut layar, isi, dan gaya, lalu perbaiki lewat chat.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Figma untuk Pengembang</h2>
+    <table>
+      <tr><th>Fitur</th><th>Fungsi</th><th>Padanan di Flutter</th></tr>
+      <tr><td>Auto Layout</td><td>Isi menyesuaikan ukuran dan jarak</td><td><code>Row</code>, <code>Column</code>, <code>Padding</code></td></tr>
+      <tr><td>Component</td><td>Elemen yang dipakai ulang</td><td>Widget sendiri, mis. <code>Kartu</code></td></tr>
+      <tr><td>Variable</td><td>Warna, spasi, radius, font</td><td><code>Tema</code> di <code>tema.dart</code></td></tr>
+      <tr><td>Dev Mode</td><td>Nilai untuk pengembang</td><td>Nilai di <code>Tema</code> dan <code>TextStyle</code></td></tr>
+      <tr><td>Prototype</td><td>Berpindah antar layar</td><td>Navigasi <code>go_router</code></td></tr>
+    </table>
+    </div></div><!--/split-->
+    <aside class="notes">Hubungkan setiap fitur Figma dengan padanannya di kode. Auto Layout sama dengan Row dan Column, variable sama dengan Tema.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Konsep</p>
+    <h2>Beberapa Gaya Desain</h2>
+    <table>
+      <tr><th>Gaya</th><th>Ciri</th><th>Cocok untuk</th></tr>
+      <tr><td>Material 3</td><td>Warna dari seed, tombol terisi, ikon jelas</td><td>Aplikasi Android umum</td></tr>
+      <tr><td>iOS (HIG)</td><td>Sudut membulat, ruang kosong, teks tipis</td><td>Nuansa iOS</td></tr>
+      <tr><td>Minimal</td><td>Sedikit warna, banyak spasi</td><td>Alat kerja dan catatan</td></tr>
+      <tr><td>Gelap</td><td>Latar gelap, kontras dijaga</td><td>Pemakaian malam</td></tr>
+    </table>
+    </div></div><!--/split-->
+    <aside class="notes">Tanyakan gaya mana yang cocok untuk aplikasi catatan dan mengapa. Tidak ada jawaban tunggal.</aside>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode</p>
+    <h2>Token Menjadi tema.dart</h2>
+    <p>Setiap variable Figma punya padanan di sini. Mengubah satu nilai mengubah seluruh aplikasi.</p>
+    </div>
+    <div class="extra">
+      <div class="steps"><h3>lib/theme/tema.dart (ringkasan)</h3>
+<pre><code>class Tema {
+  Tema._();
+
+  // Warna
+  static const utama = Color(0xFF1565C0);
+  static const latar = Color(0xFFF5F7FB);
+  static const teks = Color(0xFF1B1F27);
+
+  // Spasi dan radius
+  static const spasiLg = 16.0;
+  static const radiusMd = 12.0;
+
+  /// Target sentuh minimal sekitar 48 dp.
+  static const tinggiTombol = 48.0;
+}</code></pre></div>
+    </div></div><!--/split-->
+    <p class="ref">Berkas: <code>lib/theme/tema.dart</code> · Materi: <a href="../docs/hari-1/02-figma-stitch-dan-gaya.md">bagian 5</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Kode</p>
+    <h2>Token Diterapkan di Widget</h2>
+    <p>Widget membaca nilai dari <code>Tema</code>. Tidak ada angka warna mentah di layar.</p>
+    </div>
+    <div class="extra">
+      <div class="steps"><h3>Contoh kartu</h3>
+<pre><code>Card(
+  color: Tema.kartu,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(Tema.radiusMd),
+    side: const BorderSide(color: Tema.garis),
+  ),
+  child: Padding(
+    padding: const EdgeInsets.all(Tema.spasiLg),
+    child: Text('Catatan'),
+  ),
+);</code></pre></div>
+    </div></div><!--/split-->
+    <p class="ref">Materi: <a href="../docs/hari-1/02-figma-stitch-dan-gaya.md">docs/hari-1/02-figma-stitch-dan-gaya.md</a> · Layar: <a href="../docs/hari-1/02-mobile-interface.md">Mobile Interface</a></p>
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Prompt AI</p>
+    <h2>Prompt untuk Menerapkan Gaya</h2>
+    <ul>
+      <li><strong>Konteks:</strong> Flutter, Dart, dan berkas <code>lib/theme/tema.dart</code>.</li>
+      <li><strong>Tujuan:</strong> gaya apa, layar mana, dan batasannya (jangan ubah logika).</li>
+      <li><strong>Bukti desain:</strong> tangkapan layar Figma atau nilai variable.</li>
+      <li>Setelah AI mengubah kode: jalankan <code>flutter analyze</code> dan <code>flutter test</code>.</li>
+      <li>Jangan menempelkan rahasia (token, kata sandi) ke alat AI.</li>
+    </ul>
+    </div></div><!--/split-->
+  </section>
+
+<!--bnsp-start-->
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Langkah Merancang Antarmuka</h2>
+<ol><li>Kebutuhan pengguna dan tugas utama</li><li>Daftar layar dan isi tiap layar</li><li>Wireframe (kertas atau alat desain seperti Figma)</li><li>Prototipe yang dapat diklik</li><li>Implementasi widget Flutter</li><li>Uji kegunaan dan perbaikan</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Materi Sesuai Elemen SKKNI</p>
+    <h2>Prinsip Desain Mobile</h2>
+<table><tr><th>Prinsip</th><th>Penerapan</th></tr><tr><td>Satu tujuan utama per layar</td><td>Aksi utama tampil menonjol</td></tr><tr><td>Target sentuh besar</td><td>Tombol mudah diketuk</td></tr><tr><td>Konsisten</td><td>Tema, ikon, istilah sama</td></tr><tr><td>Umpan balik</td><td>Indikator memuat, SnackBar, pesan error</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--bnsp-end-->
+
+<!--praktik-start-->
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2</p>
+    <h2>Praktik Step by Step: Tujuan dan Persiapan</h2>
+<ul><li>Menerapkan tema Material 3</li><li>Membuat daftar dan berpindah halaman</li><li>Membuat form dengan validasi</li><li>Membuat tata letak responsif</li></ul><p><strong>Hasil akhir:</strong> Tiga halaman latihan: daftar menu, form validasi, dan grid responsif. <strong>Waktu:</strong> 45 menit.</p><div class="filebar"><b>PERSIAPAN</b><span>Terminal</span></div><pre><code>Pakai proyek `latihan` dari Modul 1.
+Setiap langkah mengganti isi lib/main.dart.</code></pre>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Langkah 1 dari 3</p>
+    <h2>Tema, Daftar, dan Navigasi</h2>
+<div class="filebar"><b>LANGKAH 1</b><span>lib/main.dart</span></div><ol class="mini"><li>Ganti seluruh isi <code>lib/main.dart</code>.</li><li>Jalankan aplikasi.</li><li>Ketuk salah satu menu untuk membuka halaman detail.</li></ol><pre><code>import 'package:flutter/material.dart';
+
+void main() =&gt; runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Latihan UI',
+      theme: ThemeData(colorSchemeSeed: Colors.teal, useMaterial3: true),
+      home: const DaftarPage(),
+    );
+  }
+}
+
+class DaftarPage extends StatelessWidget {
+  const DaftarPage({super.key});
+
+  static const _menu = ['Catatan', 'Lokasi', 'Jaringan', 'Sensor'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Beranda')),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: _menu.length,
+        itemBuilder: (context, i) =&gt; Card(
+          child: ListTile(
+            leading: const Icon(Icons.apps),
+            title: Text(_menu[i]),
+            trailing: const Icon(Icons.chevron_right),
+            onTap: () =&gt; Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) =&gt; DetailPage(judul: _menu[i])),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DetailPage extends StatelessWidget {
+  const DetailPage({super.key, required this.judul});
+  final String judul;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(judul)),
+      body: Center(child: Text('Halaman $judul')),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Daftar empat menu. Mengetuk menu membuka halaman, tombol kembali berfungsi.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Langkah 2 dari 3</p>
+    <h2>Form dengan Validasi</h2>
+<div class="filebar"><b>LANGKAH 2</b><span>lib/main.dart (tambahkan kelas di bagian bawah)</span></div><ol class="mini"><li>Tempel kelas <code>FormPage</code> di akhir file.</li><li>Ubah <code>home: const DaftarPage()</code> menjadi <code>home: const FormPage()</code>.</li><li>Coba simpan dengan judul kosong, lalu dengan judul valid.</li></ol><pre><code>class FormPage extends StatefulWidget {
+  const FormPage({super.key});
+
+  @override
+  State&lt;FormPage&gt; createState() =&gt; _FormPageState();
+}
+
+class _FormPageState extends State&lt;FormPage&gt; {
+  final _kunci = GlobalKey&lt;FormState&gt;();
+  final _judul = TextEditingController();
+
+  @override
+  void dispose() {
+    _judul.dispose();
+    super.dispose();
+  }
+
+  void _simpan() {
+    if (!_kunci.currentState!.validate()) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Tersimpan: ${_judul.text.trim()}')),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Form Catatan')),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Form(
+          key: _kunci,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _judul,
+                decoration: const InputDecoration(
+                  labelText: 'Judul',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) =&gt; (v == null || v.trim().length &lt; 3)
+                    ? 'Judul minimal 3 karakter'
+                    : null,
+              ),
+              const SizedBox(height: 16),
+              FilledButton(onPressed: _simpan, child: const Text('Simpan')),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Judul kurang dari 3 karakter menampilkan pesan merah. Judul valid menampilkan SnackBar.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Langkah 3 dari 3</p>
+    <h2>Tata Letak Responsif</h2>
+<div class="filebar"><b>LANGKAH 3</b><span>lib/main.dart (tambahkan kelas di bagian bawah)</span></div><ol class="mini"><li>Tempel kelas <code>ResponsivePage</code> di akhir file.</li><li>Ubah <code>home</code> menjadi <code>const ResponsivePage()</code>.</li><li>Putar emulator ke landscape atau ubah ukuran jendela.</li></ol><pre><code>class ResponsivePage extends StatelessWidget {
+  const ResponsivePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Responsif')),
+      body: LayoutBuilder(
+        builder: (context, box) {
+          final kolom = box.maxWidth &gt;= 600 ? 3 : 1;
+          return GridView.count(
+            crossAxisCount: kolom,
+            childAspectRatio: 3,
+            padding: const EdgeInsets.all(16),
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            children: List.generate(
+              6,
+              (i) =&gt; Card(child: Center(child: Text('Item ${i + 1}'))),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}</code></pre><div class="hasil"><b>Hasil yang benar</b> Layar sempit menampilkan 1 kolom. Layar lebar dari 600 dp menampilkan 3 kolom.</div>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak try">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Coba Sendiri</p>
+    <h2>Coba Sendiri</h2>
+<p>Kerjakan tanpa melihat jawaban. Tanyakan bila macet lebih dari 5 menit.</p><ol><li>Tambahkan validasi kolom isi catatan (tidak boleh kosong) pada form.</li><li>Ubah ambang responsif menjadi 480 dan amati perbedaannya.</li><li>Ganti <code>Colors.teal</code> dengan warna lain dan lihat seluruh palet berubah.</li></ol>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Cek Hasil</p>
+    <h2>Kriteria Selesai</h2>
+<ul class="check"><li>Navigasi maju dan kembali berfungsi</li><li>Form menolak masukan kurang dari 3 karakter</li><li>Grid berubah jumlah kolom saat layar diputar</li><li>Controller dilepas di <code>dispose</code></li></ul>
+    </div></div><!--/split-->
+  </section>
+
+  <section class="slide prak">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Praktik Modul 2 · Bantuan</p>
+    <h2>Jika Terjadi Error</h2>
+<table><tr><th>Gejala</th><th>Solusi</th></tr><tr><td>Teks meluber (garis kuning hitam)</td><td>Bungkus widget dengan <code>Expanded</code> atau <code>SingleChildScrollView</code>.</td></tr><tr><td><code>Navigator operation requested with a context that does not include a Navigator</code></td><td>Pastikan <code>MaterialApp</code> berada di atas widget yang memanggil <code>Navigator</code>.</td></tr><tr><td><code>setState() called after dispose()</code></td><td>Periksa <code>mounted</code> sebelum <code>setState</code> setelah proses asynchronous.</td></tr></table>
+    </div></div><!--/split-->
+  </section>
+<!--praktik-end-->
+
+  <section class="slide">
+    <!--split--><div class="split"><div class="main">
+    <p class="kicker">Latihan</p>
+    <h2>Latihan Modul 2</h2>
+    <ol>
+      <li>Buka berkas Figma contoh, ubah <code>warna/utama</code>, lalu samakan nilainya di <code>Tema.utama</code>.</li>
+      <li>Buat rancangan layar Catatan di Stitch, ekspor ke Figma, dan rapikan dengan Auto Layout.</li>
+      <li>Minta AI mengubah gaya aplikasi menjadi gelap memakai prompt berkonteks, lalu tinjau perbedaannya.</li>
+    </ol>
+    </div></div><!--/split-->
+    <p class="ref">Proyek: <a href="../../shared/docs/proyek/modul-2-redesain-dua-layar-dengan-token.md">Redesain Dua Layar dengan Token</a> · Peta BNSP: J.612000.007.01</p>
+  </section>
+
+</div>
+<div class="progress" id="progress"></div>
+<div class="nav">
+  <a class="home" href="index.html">Indeks</a>
+  <button id="prev">Sebelumnya</button>
+  <span class="counter" id="counter"></span>
+  <button id="next">Berikutnya</button>
+</div>
+<script src="../../shared/assets/highlight.js"></script>
+<script src="../../shared/assets/sim.js"></script>
+<script src="../../shared/assets/slides.js"></script>
+</body>
+</html>
