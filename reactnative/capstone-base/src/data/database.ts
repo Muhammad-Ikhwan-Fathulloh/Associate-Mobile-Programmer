@@ -1,4 +1,5 @@
 import * as SQLite from 'expo-sqlite';
+import { proyek } from '../proyek.config';
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -25,8 +26,28 @@ export function getDb(): Promise<SQLite.SQLiteDatabase> {
       //   const v = (await db.getFirstAsync<{ user_version: number }>('PRAGMA user_version'))!.user_version;
       //   if (v < 1) { await db.execAsync("ALTER TABLE notes ADD COLUMN kategori TEXT"); await db.execAsync('PRAGMA user_version = 1'); }
       //   Perbarui juga model (src/models/note.ts), repository, dan form.
+      await isiContohJikaKosong(db);
       return db;
     })();
   }
   return dbPromise;
+}
+
+/** Contoh catatan agar aplikasi langsung berisi data. Dimatikan dengan `contohAwal: false`. */
+const CONTOH_CATATAN = [
+  { title: 'Kopi Pagi', content: 'Kafe dekat stasiun. Contoh catatan dengan koordinat GPS.', latitude: -6.9147, longitude: 107.6098 },
+  { title: 'Perpustakaan Kota', content: 'Contoh catatan kedua untuk mencoba pencarian dan jarak.', latitude: -6.9023, longitude: 107.6186 },
+  { title: 'Ide Tanpa Lokasi', content: 'Contoh catatan tanpa GPS. Statusnya PENDING sampai Anda sinkronkan.', latitude: null, longitude: null },
+];
+
+async function isiContohJikaKosong(db: SQLite.SQLiteDatabase): Promise<void> {
+  if (!proyek.contohAwal) return;
+  const hitung = await db.getFirstAsync<{ n: number }>('SELECT COUNT(*) AS n FROM notes');
+  if ((hitung?.n ?? 0) > 0) return;
+  for (const c of CONTOH_CATATAN) {
+    await db.runAsync(
+      'INSERT INTO notes (title, content, latitude, longitude, updated_at, sync_status) VALUES (?, ?, ?, ?, ?, ?)',
+      [c.title, c.content, c.latitude, c.longitude, Date.now(), 'PENDING'],
+    );
+  }
 }

@@ -2,9 +2,13 @@
 
 Proyek dasar untuk **Proyek Akhir** pelatihan Associate Mobile Programmer, by [Muhammad Ikhwan Fathulloh](https://one.nocturnailed.com/).
 
-> **Status verifikasi:** kode Dart di folder ini **belum dikompilasi dan belum dijalankan** (belum ada Flutter SDK di lingkungan penyusun). Jalankan `flutter analyze` dan `flutter test` lebih dulu dan laporkan masalah ke instruktur. Versi React Native di `reactnative/capstone-base` sudah diuji (tsc, jest, expo export).
+> **Status verifikasi:** `flutter pub get`, `flutter analyze` (tanpa isu), dan `flutter test` (20 lulus, 3 dilewati sebagai `TODO(peserta)`) sudah dijalankan dengan Flutter SDK. Contoh catatan dimuat otomatis saat basis data kosong (`ProyekConfig.contohAwal`).
 
 Brief lengkap, matriks fitur, dan rubrik: [shared/docs/proyek/capstone.md](../../shared/docs/proyek/capstone.md).
+
+## Langsung jalan (contoh siap pakai)
+
+Tiga catatan contoh (dua dengan koordinat, satu tanpa lokasi) dimuat otomatis saat pertama kali dibuka. Matikan dengan `contohAwal = false` di `lib/proyek_config.dart`.
 
 ## Menjalankan
 

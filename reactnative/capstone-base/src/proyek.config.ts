@@ -7,6 +7,8 @@ export type Konfigurasi = {
   namaEntri: string;
   warnaUtama: string;
   urlServer: string;
+  /** Isi contoh catatan saat basis data masih kosong, agar aplikasi langsung terlihat hidup. Ubah ke false setelah Anda siap. */
+  contohAwal: boolean;
   fitur: Record<'lokasi' | 'sinkron' | 'sensor' | 'jaringan' | 'perangkat' | 'keamanan' | 'kreatif', boolean>;
 };
 
@@ -21,6 +23,7 @@ export const proyek: Konfigurasi = {
   warnaUtama: '#1565c0',
   /** Alamat server. Emulator Android: 10.0.2.2. Ponsel fisik: IP komputer. */
   urlServer: 'http://10.0.2.2:3000',
+  contohAwal: true,
   /** Matikan fitur yang tidak Anda pakai agar menu bersih. */
   fitur: {
     lokasi: true,

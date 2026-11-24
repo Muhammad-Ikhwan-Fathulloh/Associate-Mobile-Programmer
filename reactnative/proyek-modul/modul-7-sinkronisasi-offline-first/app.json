@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Sinkronisasi Offline",
+    "slug": "sinkronisasi-offline-first",
+    "version": "1.0.0",
+    "scheme": "sinkronisasiofflinefirst",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "id.contoh.sinkronisasiofflinefirst",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.sinkronisasiofflinefirst"
+    }
+  }
+}

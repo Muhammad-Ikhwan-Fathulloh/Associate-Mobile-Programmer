@@ -20,6 +20,10 @@ class ProyekConfig {
   /// Alamat server. Emulator Android: 10.0.2.2. Ponsel fisik: IP komputer.
   static const urlServer = 'http://10.0.2.2:3000';
 
+  /// Isi contoh catatan saat basis data masih kosong, agar aplikasi langsung terlihat hidup.
+  /// Ubah ke false setelah Anda siap.
+  static const contohAwal = true;
+
   /// Matikan fitur yang tidak dipakai agar menu bersih.
   static const fiturLokasi = true;
   static const fiturSinkron = true;

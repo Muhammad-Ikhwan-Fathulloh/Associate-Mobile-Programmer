@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Penghitung Guncangan",
+    "slug": "penghitung-guncangan-kompas",
+    "version": "1.0.0",
+    "scheme": "penghitungguncangankompas",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-router"
+    ],
+    "android": {
+      "package": "id.contoh.penghitungguncangankompas",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "ios": {
+      "bundleIdentifier": "id.contoh.penghitungguncangankompas"
+    }
+  }
+}
