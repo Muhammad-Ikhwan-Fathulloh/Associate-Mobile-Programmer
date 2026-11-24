@@ -21,6 +21,10 @@ Setelah mengikuti pelatihan, peserta mampu:
 - Flutter SDK dan Android Studio atau VS Code terpasang. Jalankan `flutter doctor` untuk memastikan konfigurasi siap. Panduan pemasangan Dart dan Flutter: [docs/instalasi-dart-flutter.md](docs/instalasi-dart-flutter.md).
 - Emulator Android atau perangkat Android fisik dengan mode pengembang aktif. Perangkat fisik diperlukan untuk menguji sensor dan jaringan seluler.
 
+## Proyek per Modul
+
+Setiap modul punya proyek Flutter kecil yang bisa dijalankan sendiri. Indeksnya ada di [proyek-modul](proyek-modul/README.md).
+
 ## Jadwal
 
 Agenda terbaru ditambah topik Figma dan Stitch, SQLite dan MySQL, API, dan giroskop. Materi tambahannya ada di [docs/hands-on/tambahan-agenda-baru.md](docs/hands-on/tambahan-agenda-baru.md) (kode Dart belum dikompilasi) dan panduan bersama di [shared/docs](../shared/docs/design-figma-stitch.md).

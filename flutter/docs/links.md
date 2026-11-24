@@ -61,3 +61,11 @@ Semua tautan berikut gratis dan tidak memerlukan API key, kecuali yang ditandai.
 | Material 3 (pedoman desain) | https://m3.material.io |
 | Dokumentasi izin lokasi Android | https://developer.android.com/training/location/permissions |
 | Dokumentasi izin lokasi iOS (Core Location) | https://developer.apple.com/documentation/corelocation |
+
+## Layanan Pendukung (Opsional, di Luar Jadwal)
+
+| Keperluan | Paket Flutter | Tautan | Catatan |
+|---|---|---|---|
+| Sinkronisasi SQLite di perangkat dengan basis data server | `powersync` | https://powersync.com | Alternatif untuk sinkronisasi manual di Modul 7. Periksa paket dan harga di situs resmi. |
+| Pelaporan crash | `firebase_crashlytics` | https://firebase.google.com/products/crashlytics | Memerlukan proyek Firebase. Wajib dicantumkan di kebijakan privasi. |
+| Notifikasi push | `firebase_messaging` | https://firebase.google.com/products/cloud-messaging | Memerlukan proyek Firebase dan berkas konfigurasi. Jangan commit kunci rahasia. |
