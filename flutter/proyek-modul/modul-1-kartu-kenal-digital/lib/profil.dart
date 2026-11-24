@@ -8,12 +8,12 @@ class Profil {
 }
 
 const profilSaya = Profil(
-  nama: 'Ani Lestari',
+  nama: 'Muhammad Ikhwan Fathulloh',
   peran: 'Peserta Associate Mobile Programmer',
   keahlian: ['Flutter', 'Dart', 'Material 3'],
 );
 
-/// Mengubah "Ani Lestari" menjadi "AL". Nama kosong menghasilkan teks kosong.
+/// Mengubah "Muhammad Ikhwan Fathulloh" menjadi "MI". Nama kosong menghasilkan teks kosong.
 String inisial(String nama) {
   final kata = nama.trim().split(RegExp(r'\s+')).where((k) => k.isNotEmpty).take(2);
   return kata.map((k) => k[0].toUpperCase()).join();
