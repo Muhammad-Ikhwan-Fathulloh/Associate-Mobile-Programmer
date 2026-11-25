@@ -83,7 +83,7 @@ Server latihan memakai HTTP dan data di memori, hanya untuk jaringan lokal. Di p
 
 Modul 7 mengajarkan sinkronisasi dengan tangan: antrean `PENDING`, POST dan PUT, dan penanganan kegagalan. Pemahaman itu penting sebelum memakai alat yang mengerjakannya untuk Anda.
 
-- **PowerSync** (https://powersync.com) menyinkronkan SQLite di perangkat dengan basis data server, termasuk PostgreSQL dan MySQL. Aplikasi tetap membaca dan menulis SQLite lokal, sehingga tetap berfungsi offline. Ada SDK untuk Flutter dan React Native.
+- **PowerSync** (https://powersync.com) menyinkronkan SQLite di perangkat dengan basis data server, termasuk PostgreSQL dan MySQL (MySQL masih beta). Aplikasi tetap membaca dan menulis SQLite lokal, sehingga tetap berfungsi offline. Ada SDK untuk Flutter dan React Native. Materi lengkapnya ada di [PowerSync: sinkronisasi SQLite dengan basis data server](powersync.md).
 - **Firebase Crashlytics** (https://firebase.google.com/products/crashlytics) mencatat crash dan galat fatal dari aplikasi ke konsol Firebase. Kumpulan data ini harus dijelaskan di kebijakan privasi.
 - **Firebase Cloud Messaging** (https://firebase.google.com/products/cloud-messaging) mengirim notifikasi push ke perangkat. Server aplikasi memanggil FCM, bukan ponsel memanggil langsung.
 

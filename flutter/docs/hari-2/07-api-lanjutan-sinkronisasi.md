@@ -6,7 +6,7 @@
 
 by [Muhammad Ikhwan Fathulloh](https://one.nocturnailed.com/)
 
-Modul ini sejajar dengan jalur React Native (`reactnative/docs/hari-2/07-api-lanjutan-sinkronisasi.md`). Bacaan pendukung: [Keamanan Komunikasi Mobile](07-keamanan-komunikasi-mobile.md) dan [Mobile Cellular Network](05-mobile-cellular-network.md).
+Modul ini sejajar dengan jalur React Native (`reactnative/docs/hari-2/07-api-lanjutan-sinkronisasi.md`). Bacaan pendukung: [Keamanan Komunikasi Mobile](07-keamanan-komunikasi-mobile.md), [Mobile Cellular Network](05-mobile-cellular-network.md), dan [PowerSync: sinkronisasi SQLite dengan basis data server](../../../shared/docs/powersync.md).
 
 ## Pengantar
 
