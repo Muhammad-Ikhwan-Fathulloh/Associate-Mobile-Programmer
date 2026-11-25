@@ -25,6 +25,32 @@ adb devices
 
 HP atau emulator harus tampil dengan status `device`. Jika status `unauthorized`, cabut dan sambungkan ulang kabel, lalu setujui dialog di HP.
 
+Pada proyek Flutter, cek juga dengan `flutter devices`. HP harus tampil dengan nama modelnya. Jika belum muncul, pasang USB driver dari merek HP (misalnya Samsung USB Driver), lalu cabut dan sambungkan ulang kabel.
+
+### Lewat Wi-Fi (Android 11 ke atas)
+
+Tanpa kabel, HP dan laptop harus memakai Wi-Fi yang sama.
+
+1. Di HP, buka **Developer options > Wireless debugging**, lalu aktifkan.
+2. Ketuk **Pair device with pairing code**. Catat alamat `IP:PORT` pairing dan kode enam digit yang tampil.
+3. Di terminal, pasangkan HP. Ganti `IP:PORT` dan `KODE` sesuai layar HP:
+
+```powershell
+adb pair IP:PORT
+```
+
+Masukkan kode pairing saat diminta.
+
+4. Sambungkan dengan alamat `IP:PORT` yang tertera di layar **Wireless debugging** utama. Port ini berbeda dengan port pairing:
+
+```powershell
+adb connect IP:PORT
+```
+
+5. Cek dengan `adb devices` atau `flutter devices`.
+
+Panduan lengkap dengan gambar ada di [setup Android Studio dan editor](../../flutter/docs/setup-android-studio-dan-editor.md#6-hubungkan-hp-android-real-device).
+
 ## 3. Jalankan proyek React Native (Expo)
 
 Di folder proyek, jalankan:
@@ -72,6 +98,10 @@ Perintah ini tidak mengubah berkas di `lib/` dan `test/`.
 | Gejala | Yang perlu dicek |
 |---|---|
 | HP tidak muncul di `adb devices` | Ganti kabel data, aktifkan USB debugging, setujui dialog di HP |
+| Status `unauthorized` di `adb devices` | Cabut kabel, sambungkan lagi, lalu setujui **Allow USB debugging** di HP |
+| HP tidak muncul di `flutter devices` padahal `adb devices` sudah menampilkannya | Jalankan `flutter doctor`, lalu tutup dan buka lagi terminal |
+| `adb connect` gagal lewat Wi-Fi | HP dan laptop harus satu Wi-Fi, gunakan port dari layar **Wireless debugging** utama (bukan port pairing) |
+| `INSTALL_FAILED_USER_RESTRICTED` | Aktifkan **Install via USB** di Developer options |
 | Emulator lambat atau tidak menyala | Aktifkan virtualisasi di BIOS, pakai image x86_64, tutup aplikasi berat |
 | QR Expo tidak bisa dipindai | HP dan laptop harus satu Wi-Fi, atau tekan `s` untuk mode tunnel |
 | `flutter devices` kosong | Jalankan `flutter doctor`, lalu pastikan emulator sudah menyala |
