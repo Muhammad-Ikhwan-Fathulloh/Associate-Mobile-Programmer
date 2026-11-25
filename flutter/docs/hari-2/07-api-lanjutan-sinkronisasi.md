@@ -83,7 +83,7 @@ Paket `connectivity_plus` memberi tahu aplikasi saat jenis koneksi berubah: Wi-F
 
 Tangkapan layar hasil menjalankan proyek modul 7 (sama dengan README proyek dan slide).
 
-![Contoh hasil modul 7 1](../../../images/flutter/modul7/modul7_halaman1.png)
+![Contoh hasil modul 7 1](../../images/flutter/modul7/modul7_halaman1.png)
 
 ## Latihan
 

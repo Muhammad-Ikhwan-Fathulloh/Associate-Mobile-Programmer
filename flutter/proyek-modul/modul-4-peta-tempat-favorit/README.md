@@ -4,15 +4,15 @@ Proyek kecil untuk Modul 4 (GPS, lokasi, dan navigasi). Brief: [shared/docs/proy
 
 ## Demo
 
-![Demo modul 4 halaman 1](../../../images/flutter/modul4/modul4_halaman1.png)
+![Demo modul 4 halaman 1](../../images/flutter/modul4/modul4_halaman1.png)
 
-![Demo modul 4 halaman 2](../../../images/flutter/modul4/modul4_halaman2.png)
+![Demo modul 4 halaman 2](../../images/flutter/modul4/modul4_halaman2.png)
 
-![Izin lokasi ditolak: aplikasi meminta izin dan menampilkan pesan jika ditolak](../../../images/flutter/modul4/modul4_halaman3.png)
+![Izin lokasi ditolak: aplikasi meminta izin dan menampilkan pesan jika ditolak](../../images/flutter/modul4/modul4_halaman3.png)
 
-![Lokasi didapat: koordinat tampil di form Tambah Tempat](../../../images/flutter/modul4/modul4_halaman4.png)
+![Lokasi didapat: koordinat tampil di form Tambah Tempat](../../images/flutter/modul4/modul4_halaman4.png)
 
-![Daftar tempat dengan jarak dan penanda di peta OpenStreetMap](../../../images/flutter/modul4/modul4_halaman5.png)
+![Daftar tempat dengan jarak dan penanda di peta OpenStreetMap](../../images/flutter/modul4/modul4_halaman5.png)
 
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 

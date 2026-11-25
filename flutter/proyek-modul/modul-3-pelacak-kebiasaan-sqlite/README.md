@@ -4,13 +4,13 @@ Proyek kecil untuk Modul 3 (database dan persistensi). Brief: [shared/docs/proye
 
 ## Demo
 
-![Demo modul 3 halaman 1](../../../images/flutter/modul3/modul3_halaman1.png)
+![Demo modul 3 halaman 1](../../images/flutter/modul3/modul3_halaman1.png)
 
-![Demo modul 3 halaman 2: daftar kebiasaan dengan streak](../../../images/flutter/modul3/modul3_halaman2.png)
+![Demo modul 3 halaman 2: daftar kebiasaan dengan streak](../../images/flutter/modul3/modul3_halaman2.png)
 
-![Demo modul 3 halaman 3: menyalakan emulator dengan flutter emulators --launch](../../../images/flutter/modul3/modul3_halaman3.png)
+![Demo modul 3 halaman 3: menyalakan emulator dengan flutter emulators --launch](../../images/flutter/modul3/modul3_halaman3.png)
 
-![Demo modul 3 halaman 4: flutter run di Antigravity](../../../images/flutter/modul3/modul3_halaman4.png)
+![Demo modul 3 halaman 4: flutter run di Antigravity](../../images/flutter/modul3/modul3_halaman4.png)
 
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 

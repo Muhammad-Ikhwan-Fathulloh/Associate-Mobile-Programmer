@@ -12,7 +12,7 @@ Latihan ini memakai [MockAPI](https://mockapi.io) sebagai server. Tidak ada logi
 
 ## Demo
 
-![Demo modul 7 halaman 1](../../../images/flutter/modul7/modul7_halaman1.png)
+![Demo modul 7 halaman 1](../../images/flutter/modul7/modul7_halaman1.png)
 
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 

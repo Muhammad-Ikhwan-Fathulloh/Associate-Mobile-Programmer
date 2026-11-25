@@ -4,7 +4,7 @@ Proyek kecil untuk Modul 1 (platform dan bahasa). Brief: [shared/docs/proyek/mod
 
 ## Demo
 
-![Demo modul 1 halaman 1](../../../images/flutter/modul1/modul1_halaman1.png)
+![Demo modul 1 halaman 1](../../images/flutter/modul1/modul1_halaman1.png)
 
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 

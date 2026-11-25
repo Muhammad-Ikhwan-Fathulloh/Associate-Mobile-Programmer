@@ -4,7 +4,7 @@ Proyek kecil untuk Modul 6 (mobile sensor dan spesifikasi perangkat). Brief: [sh
 
 ## Demo
 
-![Demo modul 6 halaman 1](../../../images/flutter/modul6/modul6_halaman1.png)
+![Demo modul 6 halaman 1](../../images/flutter/modul6/modul6_halaman1.png)
 
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 

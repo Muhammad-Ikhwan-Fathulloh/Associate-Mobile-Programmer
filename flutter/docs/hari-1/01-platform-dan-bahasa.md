@@ -187,7 +187,7 @@ class AplikasiPertama extends StatelessWidget {
 
 Tangkapan layar hasil menjalankan proyek modul 1 (sama dengan README proyek dan slide).
 
-![Contoh hasil modul 1 1](../../../images/flutter/modul1/modul1_halaman1.png)
+![Contoh hasil modul 1 1](../../images/flutter/modul1/modul1_halaman1.png)
 
 ## Latihan
 

@@ -102,25 +102,25 @@ Kelas ini menerima `http.Client` dari luar. Itu memungkinkan pengujian dengan `M
 
 Tangkapan layar hasil menjalankan proyek modul 5 (sama dengan README proyek dan slide).
 
-![Contoh hasil modul 5 1](../../../images/flutter/modul5/modul5_halaman1.png)
+![Contoh hasil modul 5 1](../../images/flutter/modul5/modul5_halaman1.png)
 
-![Contoh hasil modul 5 2](../../../images/flutter/modul5/modul5_halaman2.png)
+![Contoh hasil modul 5 2](../../images/flutter/modul5/modul5_halaman2.png)
 
-![Contoh hasil modul 5 3](../../../images/flutter/modul5/modul5_halaman3.png)
+![Contoh hasil modul 5 3](../../images/flutter/modul5/modul5_halaman3.png)
 
-![Contoh hasil modul 5 4](../../../images/flutter/modul5/modul5_mockapi1.png)
+![Contoh hasil modul 5 4](../../images/flutter/modul5/modul5_mockapi1.png)
 
-![Contoh hasil modul 5 5](../../../images/flutter/modul5/modul5_mockapi2.png)
+![Contoh hasil modul 5 5](../../images/flutter/modul5/modul5_mockapi2.png)
 
-![Contoh hasil modul 5 6](../../../images/flutter/modul5/modul5_mockapi3.png)
+![Contoh hasil modul 5 6](../../images/flutter/modul5/modul5_mockapi3.png)
 
-![Contoh hasil modul 5 7](../../../images/flutter/modul5/modul5_mockapi4.png)
+![Contoh hasil modul 5 7](../../images/flutter/modul5/modul5_mockapi4.png)
 
-![Contoh hasil modul 5 8](../../../images/flutter/modul5/modul5_mockapi5.png)
+![Contoh hasil modul 5 8](../../images/flutter/modul5/modul5_mockapi5.png)
 
-![Contoh hasil modul 5 9](../../../images/flutter/modul5/modul5_mockapi6.png)
+![Contoh hasil modul 5 9](../../images/flutter/modul5/modul5_mockapi6.png)
 
-![Contoh hasil modul 5 10](../../../images/flutter/modul5/modul5_mockapi7.png)
+![Contoh hasil modul 5 10](../../images/flutter/modul5/modul5_mockapi7.png)
 
 ## Latihan
 

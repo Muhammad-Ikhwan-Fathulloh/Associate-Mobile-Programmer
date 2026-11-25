@@ -301,13 +301,13 @@ Future<List<Note>> getPendingSync() async {
 
 Tangkapan layar hasil menjalankan proyek modul 3 (sama dengan README proyek dan slide).
 
-![Contoh hasil modul 3 1](../../../images/flutter/modul3/modul3_halaman1.png)
+![Contoh hasil modul 3 1](../../images/flutter/modul3/modul3_halaman1.png)
 
-![Contoh hasil modul 3 2](../../../images/flutter/modul3/modul3_halaman2.png)
+![Contoh hasil modul 3 2](../../images/flutter/modul3/modul3_halaman2.png)
 
-![Contoh hasil modul 3 3](../../../images/flutter/modul3/modul3_halaman3.png)
+![Contoh hasil modul 3 3](../../images/flutter/modul3/modul3_halaman3.png)
 
-![Contoh hasil modul 3 4](../../../images/flutter/modul3/modul3_halaman4.png)
+![Contoh hasil modul 3 4](../../images/flutter/modul3/modul3_halaman4.png)
 
 ## Latihan
 

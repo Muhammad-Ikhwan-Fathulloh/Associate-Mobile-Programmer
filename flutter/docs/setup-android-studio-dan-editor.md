@@ -6,15 +6,15 @@ Panduan ini menyiapkan emulator Android dari Android Studio, lalu menghubungkann
 
 1. Pasang [Android Studio](https://developer.android.com/studio). Saat pertama dibuka, pilih **Standard** di wizard agar Android SDK ikut terpasang.
 
-   ![Welcome to Android Studio](../../images/setup-android-studio/step1.png)
+   ![Welcome to Android Studio](../images/setup-android-studio/step1.png)
 
 2. Buka **More Actions > SDK Manager**.
 
-   ![Menu More Actions dengan SDK Manager dan Virtual Device Manager](../../images/setup-android-studio/step2.png)
+   ![Menu More Actions dengan SDK Manager dan Virtual Device Manager](../images/setup-android-studio/step2.png)
 
 3. Di tab **SDK Platforms**, centang **Android 15 (API 35)** atau **Android 14 (API 34)**.
 
-   ![Tab SDK Platforms dengan Android 15 dan 14 dicentang](../../images/setup-android-studio/step3.png)
+   ![Tab SDK Platforms dengan Android 15 dan 14 dicentang](../images/setup-android-studio/step3.png)
 
 4. Di tab **SDK Tools**, pastikan terpasang:
    - Android SDK Build-Tools
@@ -22,15 +22,15 @@ Panduan ini menyiapkan emulator Android dari Android Studio, lalu menghubungkann
    - Android Emulator
    - Android SDK Platform-Tools
 
-   ![Tab SDK Tools dengan Android Emulator dan Platform-Tools terpasang](../../images/setup-android-studio/step4.png)
+   ![Tab SDK Tools dengan Android Emulator dan Platform-Tools terpasang](../images/setup-android-studio/step4.png)
 
 5. Klik **Apply**, setujui lisensi, lalu tunggu unduhan selesai.
 
-   ![Pemasangan komponen SDK sedang berjalan](../../images/setup-android-studio/step5.png)
+   ![Pemasangan komponen SDK sedang berjalan](../images/setup-android-studio/step5.png)
 
    Setelah muncul tulisan **Done**, klik **Finish**.
 
-   ![Pemasangan komponen SDK selesai](../../images/setup-android-studio/step6.png)
+   ![Pemasangan komponen SDK selesai](../images/setup-android-studio/step6.png)
 
 Setelah itu, di terminal jalankan:
 
@@ -45,27 +45,27 @@ Setujui semua lisensi dengan `y`. Pada hasil `flutter doctor`, baris **Android t
 
 1. Buka **More Actions > Virtual Device Manager**. Daftar masih kosong, klik **Add a new device**.
 
-   ![Device Manager kosong](../../images/setup-emulator/step1.png)
+   ![Device Manager kosong](../images/setup-emulator/step1.png)
 
 2. Pada **Add Device**, pilih **Phone**, lalu pilih **Pixel 7** dan klik **Next**.
 
-   ![Pilih Pixel 7 di Add Device](../../images/setup-emulator/step2.png)
+   ![Pilih Pixel 7 di Add Device](../images/setup-emulator/step2.png)
 
 3. Pilih system image **API 35** dengan ABI **x86_64** (Google Play Intel x86_64). Image ini sekitar 1,6 GB. Klik **Download** bila belum ada, lalu **Next** dan **Finish**.
 
-   ![Pilih system image API 35](../../images/setup-emulator/step3.png)
+   ![Pilih system image API 35](../images/setup-emulator/step3.png)
 
 4. Tunggu unduhan selesai. Android Studio mengunduh image ke folder SDK.
 
-   ![Unduhan image sedang berjalan](../../images/setup-emulator/step4.png)
+   ![Unduhan image sedang berjalan](../images/setup-emulator/step4.png)
 
 5. Setelah pemasangan selesai, klik **Finish**.
 
-   ![Pemasangan image selesai](../../images/setup-emulator/step5.png)
+   ![Pemasangan image selesai](../images/setup-emulator/step5.png)
 
 6. Pixel 7 tampil di daftar dengan tipe **Virtual**. Klik ikon **Play** untuk menyalakan emulator, dan tunggu layar beranda Android tampil.
 
-   ![Pixel 7 siap dipakai](../../images/setup-emulator/step6.png)
+   ![Pixel 7 siap dipakai](../images/setup-emulator/step6.png)
 
 Panduan dalam bentuk slide: [slides/setup-emulator.html](../slides/setup-emulator.html).
 

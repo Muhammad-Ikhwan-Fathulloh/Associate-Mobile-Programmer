@@ -258,15 +258,15 @@ Praktik terbaik:
 
 Tangkapan layar hasil menjalankan proyek modul 4 (sama dengan README proyek dan slide).
 
-![Contoh hasil modul 4 1](../../../images/flutter/modul4/modul4_halaman1.png)
+![Contoh hasil modul 4 1](../../images/flutter/modul4/modul4_halaman1.png)
 
-![Contoh hasil modul 4 2](../../../images/flutter/modul4/modul4_halaman2.png)
+![Contoh hasil modul 4 2](../../images/flutter/modul4/modul4_halaman2.png)
 
-![Contoh hasil modul 4 3](../../../images/flutter/modul4/modul4_halaman3.png)
+![Contoh hasil modul 4 3](../../images/flutter/modul4/modul4_halaman3.png)
 
-![Contoh hasil modul 4 4](../../../images/flutter/modul4/modul4_halaman4.png)
+![Contoh hasil modul 4 4](../../images/flutter/modul4/modul4_halaman4.png)
 
-![Contoh hasil modul 4 5](../../../images/flutter/modul4/modul4_halaman5.png)
+![Contoh hasil modul 4 5](../../images/flutter/modul4/modul4_halaman5.png)
 
 ## Latihan
 

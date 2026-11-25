@@ -13,25 +13,25 @@ Latihan ini memakai [MockAPI](https://mockapi.io) untuk CRUD. Tidak perlu server
 
 ## Demo
 
-![Demo modul 5 halaman 1](../../../images/flutter/modul5/modul5_halaman1.png)
+![Demo modul 5 halaman 1](../../images/flutter/modul5/modul5_halaman1.png)
 
-![Demo modul 5 halaman 2](../../../images/flutter/modul5/modul5_halaman2.png)
+![Demo modul 5 halaman 2](../../images/flutter/modul5/modul5_halaman2.png)
 
-![Demo modul 5 halaman 3](../../../images/flutter/modul5/modul5_halaman3.png)
+![Demo modul 5 halaman 3](../../images/flutter/modul5/modul5_halaman3.png)
 
-![Demo MockAPI 1](../../../images/flutter/modul5/modul5_mockapi1.png)
+![Demo MockAPI 1](../../images/flutter/modul5/modul5_mockapi1.png)
 
-![Demo MockAPI 2](../../../images/flutter/modul5/modul5_mockapi2.png)
+![Demo MockAPI 2](../../images/flutter/modul5/modul5_mockapi2.png)
 
-![Demo MockAPI 3](../../../images/flutter/modul5/modul5_mockapi3.png)
+![Demo MockAPI 3](../../images/flutter/modul5/modul5_mockapi3.png)
 
-![Demo MockAPI 4](../../../images/flutter/modul5/modul5_mockapi4.png)
+![Demo MockAPI 4](../../images/flutter/modul5/modul5_mockapi4.png)
 
-![Demo MockAPI 5](../../../images/flutter/modul5/modul5_mockapi5.png)
+![Demo MockAPI 5](../../images/flutter/modul5/modul5_mockapi5.png)
 
-![Demo MockAPI 6](../../../images/flutter/modul5/modul5_mockapi6.png)
+![Demo MockAPI 6](../../images/flutter/modul5/modul5_mockapi6.png)
 
-![Demo MockAPI 7](../../../images/flutter/modul5/modul5_mockapi7.png)
+![Demo MockAPI 7](../../images/flutter/modul5/modul5_mockapi7.png)
 
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 

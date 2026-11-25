@@ -114,9 +114,9 @@ Card(
 
 Tangkapan layar hasil menjalankan proyek modul 2 (sama dengan README proyek dan slide).
 
-![Contoh hasil modul 2 1](../../../images/flutter/modul2/modul2_halaman1.png)
+![Contoh hasil modul 2 1](../../images/flutter/modul2/modul2_halaman1.png)
 
-![Contoh hasil modul 2 2](../../../images/flutter/modul2/modul2_halaman2.png)
+![Contoh hasil modul 2 2](../../images/flutter/modul2/modul2_halaman2.png)
 
 ## Latihan
 

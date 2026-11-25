@@ -6,7 +6,7 @@ Proyek ini memakai hasil modul 1 sampai 7 yang ada di folder sebelahnya (`flutte
 
 ## Demo
 
-![Demo modul 8 halaman 1](../../../images/flutter/modul8/modul8_halaman1.png)
+![Demo modul 8 halaman 1](../../images/flutter/modul8/modul8_halaman1.png)
 
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 

@@ -4,9 +4,9 @@ Proyek kecil untuk Modul 2 (desain). Brief: [shared/docs/proyek/modul-2-redesain
 
 ## Demo
 
-![Demo modul 2 halaman 1](../../../images/flutter/modul2/modul2_halaman1.png)
+![Demo modul 2 halaman 1](../../images/flutter/modul2/modul2_halaman1.png)
 
-![Demo modul 2 halaman 2](../../../images/flutter/modul2/modul2_halaman2.png)
+![Demo modul 2 halaman 2](../../images/flutter/modul2/modul2_halaman2.png)
 
 ## Sudah punya proyek? Pasang Flutter lalu jalankan
 
