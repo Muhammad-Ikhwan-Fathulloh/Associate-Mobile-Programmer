@@ -62,7 +62,98 @@ Di pelatihan ini, basis data server yang diajarkan adalah MySQL (lihat [SQLite, 
 
 Keputusan tetap ada di tangan Anda: aturan akses data, validasi di backend, dan bentuk API tulis.
 
-## 5. Garis besar pemasangan
+## 5. Menyiapkan layanan: self-host atau Cloud
+
+Sebelum aplikasi bisa tersinkron, PowerSync Service harus berjalan dan terhubung ke basis data server Anda. Ada dua pilihan.
+
+| | Self-host | Cloud |
+|---|---|---|
+| Siapa yang menjalankan layanan | Anda, di server atau Docker sendiri | PowerSync, lewat Dashboard |
+| Cara konfigurasi | Berkas `service.yaml` atau variabel lingkungan | Dashboard atau CLI |
+| Penyimpanan bucket | Postgres atau MongoDB terpisah | Diatur oleh layanan |
+| Dashboard | Tidak tersedia | Tersedia |
+| Cocok untuk | Belajar dan kontrol penuh atas infrastruktur | Mulai cepat tanpa mengurus server |
+
+### 5a. Prasyarat basis data server
+
+Langkah ini sama untuk kedua pilihan. Nilai di bawah adalah contoh untuk PostgreSQL; ganti dengan kata sandi Anda sendiri dan jangan menyimpannya di repositori.
+
+1. Pastikan PostgreSQL versi 11 atau lebih baru, dengan `wal_level = logical`. Perubahan ini butuh restart server.
+2. Buat peran untuk PowerSync dan berikan akses baca:
+
+```sql
+CREATE ROLE powersync_role WITH REPLICATION BYPASSRLS LOGIN PASSWORD 'GANTI_KATA_SANDI';
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO powersync_role;
+```
+
+3. Buat publikasi bernama persis `powersync`:
+
+```sql
+CREATE PUBLICATION powersync FOR ALL TABLES;
+```
+
+Untuk MySQL (beta), dibutuhkan `log_bin=ON`, `binlog_format=ROW`, dan GTID aktif. Untuk MongoDB, dibutuhkan versi 7.0 atau lebih baru dan replica set. Periksa daftar lengkapnya di dokumentasi sumber basis data.
+
+### 5b. Cara Cloud
+
+1. Daftar di [dashboard.powersync.com](https://dashboard.powersync.com) dan buat project. Instance Development dan Production dibuat otomatis.
+2. Di **Database Connection**, pilih jenis basis data, isi host, port, nama basis data, pengguna, kata sandi, dan mode SSL. Klik **Test Connection**, lalu **Save Connection**. Penerapan biasanya memakan beberapa menit.
+3. Di **Sync Streams**, tulis aturan YAML, lalu klik **Deploy**.
+4. Untuk uji coba, aktifkan **Development tokens** di **Client Auth**. Gunakan **Sync Test** di Dashboard untuk memasukkan ID pengguna dan mencoba koneksi.
+
+Alternatif lewat CLI: `npm install -g powersync`, lalu `powersync login`, `powersync init cloud`, `powersync link cloud --create --project-id=<id>`, dan `powersync deploy`. Pilih wilayah saat membuat instance. Wilayah tidak bisa diubah setelah dibuat.
+
+Jika memakai daftar IP di firewall, cek alamat untuk wilayah Anda di halaman **security and IP filtering** dokumentasi. Jangan mengandalkan daftar IP saja. TLS selalu aktif di Cloud.
+
+### 5c. Cara self-host
+
+1. Jalankan image `journeyapps/powersync-service:latest` dari Docker Hub. Dashboard tidak tersedia, jadi konfigurasi dilakukan lewat berkas.
+2. Siapkan penyimpanan bucket di Postgres atau MongoDB yang terpisah dari basis data sumber. Buat pengguna khusus untuk penyimpanan.
+3. Tulis `service.yaml` dengan bagian utama berikut. Ini ringkasan, bukan berkas final:
+
+```yaml
+port: 8080
+replication:
+  connections:
+    - type: postgresql
+      uri: postgresql://powersync_role:GANTI_KATA_SANDI@host-db:5432/postgres
+      sslmode: disable   # gunakan verify-full di produksi
+storage:
+  type: postgresql
+  uri: postgresql://powersync_storage_user:GANTI_KATA_SANDI@host-storage:5432/powersync_storage
+sync_config:
+  path: sync-config.yaml
+client_auth:
+  jwks_uri: https://GANTI_ALAMAT_JWKS/.well-known/jwks.json
+  audience: [powersync]
+api:
+  tokens:
+    - GANTI_TOKEN_ADMIN
+```
+
+4. Tulis `sync-config.yaml` dengan aturan Sync Streams (`config: edition: 3` dan daftar `streams`).
+5. Jalankan layanan. Cara paling sederhana adalah Docker:
+
+```bash
+docker run -d --name powersync -p 8080:8080 \
+  -e POWERSYNC_CONFIG_B64="$(base64 -i ./service.yaml)" \
+  journeyapps/powersync-service:latest
+```
+
+Perintah `test-connection` memeriksa koneksi ke basis data sumber.
+
+6. Periksa status dengan Diagnostics API. Pastikan `api.tokens` sudah diisi dan layanan sudah dimulai ulang:
+
+```bash
+curl -X POST http://localhost:8080/api/admin/v1/diagnostics \
+  -H "Authorization: Bearer GANTI_TOKEN_ADMIN"
+```
+
+Alternatif CLI: `npm install -g powersync`, `powersync init self-hosted`, `powersync docker configure`, `powersync docker start`, dan `powersync status`.
+
+Catatan: contoh Docker Compose ada di repositori `self-host-demo` milik PowerSync. Isinya belum saya periksa, jadi baca dulu sebelum memakainya.
+
+## 6. Garis besar pemasangan SDK
 
 Langkah-langkah ini sama untuk Flutter dan React Native:
 
@@ -78,7 +169,7 @@ Paket yang dipakai:
 
 Nama API dan langkah detail bisa berubah antarversi. Ikuti dokumentasi SDK yang sesuai versi yang Anda pasang.
 
-## 6. Hal yang perlu diperhatikan
+## 7. Hal yang perlu diperhatikan
 
 - **Kredensial**: token dan konfigurasi layanan adalah rahasia. Jangan memasukkannya ke repositori.
 - **Keamanan**: aturan Sync Streams harus membatasi data per pengguna. Aturan yang longgar membocorkan data pengguna lain.
@@ -86,7 +177,7 @@ Nama API dan langkah detail bisa berubah antarversi. Ikuti dokumentasi SDK yang 
 - **Biaya**: layanan cloud punya paket gratis dan berbayar. Harga tidak dicantumkan di materi ini karena berubah. Lihat halaman harga resmi.
 - **Ketergantungan**: menggunakan PowerSync berarti menambah layanan dan SDK pihak ketiga. Pertimbangkan dulu apakah sinkronisasi manual sudah cukup untuk kebutuhan aplikasi.
 
-## 7. Latihan (tanpa menjalankan PowerSync)
+## 8. Latihan (tanpa menjalankan PowerSync)
 
 1. Gambarkan alur satu catatan baru dari layar aplikasi sampai masuk ke basis data server, lalu tandai bagian mana yang ditangani SDK dan bagian mana yang Anda tulis.
 2. Dari sinkronisasi manual di modul 7, sebutkan dua kasus yang paling sulit ditangani sendiri. Jelaskan bagaimana konsep antrean dan konektor PowerSync membantu keduanya.
@@ -97,3 +188,4 @@ Nama API dan langkah detail bisa berubah antarversi. Ikuti dokumentasi SDK yang 
 - [SQLite, MySQL, dan API](sqlite-mysql-api.md): gambaran umum dan layanan pendukung lain.
 - [Menjalankan proyek](menjalankan-proyek.md): cara menjalankan proyek di HP dan emulator.
 - Modul 7 Flutter: [API lanjutan dan sinkronisasi](../../flutter/docs/hari-2/07-api-lanjutan-sinkronisasi.md).
+- Proyek PowerSync Cloud dengan Supabase: [flutter/proyek-modul/modul-7-powersync-cloud](../../flutter/proyek-modul/modul-7-powersync-cloud/README.md). Proyek modul 7 yang asli tidak berubah.
