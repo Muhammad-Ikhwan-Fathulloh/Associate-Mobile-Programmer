@@ -10,27 +10,15 @@ Langkah ini dikerjakan sendiri, karena membutuhkan akun dan kunci milik Anda:
 
 1. **Akun Supabase** (paket gratis, lihat batasan di dashboard). Buat project baru dan catat **Project URL** dan **publishable key** (atau anon key) dari **Project Settings > API**. Jangan pernah memakai service_role key di aplikasi.
 2. **Anonymous sign-in**: di dashboard Supabase, aktifkan **Anonymous sign-ins** pada pengaturan autentikasi. Aplikasi masuk secara anonim, jadi tidak ada form login.
-3. **Tabel dan aturan akses**: buka **SQL Editor** di Supabase, lalu jalankan:
+3. **Buat tabel dan aturan akses**: buka **SQL Editor** di Supabase, buat query baru, tempel seluruh isi [supabase/schema.sql](supabase/schema.sql), lalu klik **Run**. Berkas ini membuat tabel `notes`, mengaktifkan RLS, menambahkan empat aturan akses per pemilik, dan membuat publication `powersync`.
+
+Setelah itu, cek di **Table Editor** bahwa tabel `notes` sudah ada. PowerSync membaca tabel dari publication. Jika dashboard PowerSync masih menampilkan **No tables detected**, refresh halaman atau buat ulang koneksi. Jika publication `powersync` sudah ada sebelumnya dan belum memuat `notes`, jalankan di SQL Editor:
 
 ```sql
-create table public.notes (
-  id uuid primary key default gen_random_uuid(),
-  user_id uuid not null default auth.uid(),
-  title text not null default '',
-  content text not null default ''
-);
-
-alter table public.notes enable row level security;
-
-create policy "pemilik bisa baca" on public.notes for select using (auth.uid() = user_id);
-create policy "pemilik bisa tambah" on public.notes for insert with check (auth.uid() = user_id);
-create policy "pemilik bisa ubah" on public.notes for update using (auth.uid() = user_id);
-create policy "pemilik bisa hapus" on public.notes for delete using (auth.uid() = user_id);
-
-create publication powersync for all tables;
+alter publication powersync add table public.notes;
 ```
 
-Jika publication `powersync` sudah ada, lewati baris terakhir. Aturan `auth.uid()` membuat setiap pengguna anonim hanya melihat catatannya sendiri.
+Aturan `auth.uid()` membuat setiap pengguna anonim hanya melihat catatannya sendiri.
 
 4. **PowerSync Cloud**: daftar di [dashboard PowerSync](https://dashboard.powersync.com), buat instance, lalu di **Database Connection** masukkan detail basis data Supabase Anda. Ikuti panduan koneksi Supabase di dokumentasi PowerSync, karena host dan pengguna diambil dari halaman Connect di Supabase.
 5. **Client Auth**: atur PowerSync agar memverifikasi token dari Supabase. Ikuti bagian Supabase di dokumentasi PowerSync, lalu periksa alamat JWKS dan audience yang disarankan di sana.
